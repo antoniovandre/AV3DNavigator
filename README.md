@@ -22,7 +22,7 @@ Há como exemplo o arquivo de espaço "Casa.txt" anexo.
 
 O repositório oficial de espaços é o de link:
 
-"https://github.com/antoniovandre/AV3DNavigator/tree/main/Espa%C3%A7os".
+"https://github.com/antoniovandre/AV3DNavigator/tree/main/Spaces".
 
 O repositório de plugins geradores de espaços considerados de maior utilidade é o de link:
 
