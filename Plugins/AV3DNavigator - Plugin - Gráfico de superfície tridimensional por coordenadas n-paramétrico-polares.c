@@ -5,7 +5,7 @@ AV3DNavigator: "https://github.com/antoniovandre/AV3DNavigator".
 
 Arquivo gerador de um espaço do AV3DNavigator superfície tridimensional por coordenadas paramétrico-polares.
 
-Argumentos: 1: primeiramente a string título e, após barra vertical "|", strings separadas por barra vertical "|" com campos separados por ponto e vírgula ";", composta da função em "VARIAVELDESUBSTITUICAO3" e "VARIAVELDESUBSTITUICAO4" para "θ", função em "VARIAVELDESUBSTITUICAO3" e "VARIAVELDESUBSTITUICAO4" para "φ", função em "VARIAVELDESUBSTITUICAO3" e "VARIAVELDESUBSTITUICAO4" para "ρ", o menor valor atribuído a "VARIAVELDESUBSTITUICAO3", o maior valor atribuído a "VARIAVELDESUBSTITUICAO3", o menor valor atribuído a "VARIAVELDESUBSTITUICAO4", o maior valor atribuído a "V", e a cor RGB com os menores para vermelho, verde e azul separados por vírgula ",". 2: "grid" apenas para grid ou "fill" para polígonos preenchidos. 3: a resolução.
+Argumentos: 1: primeiramente a string título e, após barra vertical "|", strings separadas por barra vertical "|" com campos separados por ponto e vírgula ";", tríades compostas das funções em "VARIAVELDESUBSTITUICAO3" e "VARIAVELDESUBSTITUICAO4" para "θ", funções em "VARIAVELDESUBSTITUICAO3" e "VARIAVELDESUBSTITUICAO4" para "φ" e funções em "VARIAVELDESUBSTITUICAO3" e "VARIAVELDESUBSTITUICAO4" para "ρ" separadas por vírgula ",", o menor valor atribuído a "VARIAVELDESUBSTITUICAO3", o maior valor atribuído a "VARIAVELDESUBSTITUICAO3", o menor valor atribuído a "VARIAVELDESUBSTITUICAO4", o maior valor atribuído a "V", e a cor RGB com os menores para vermelho, verde e azul separados por vírgula ",". 2: "grid" apenas para grid ou "fill" para polígonos preenchidos. 3: a resolução.
 
 Última atualização: 04-04-2025. Sem considerar alterações em variáveis globais.
 */
@@ -51,6 +51,7 @@ int main (int argc, char * argv[])
 	int o;
 	int p;
 	int q;
+	int r;
 	char c;
 	int flag = NUMEROZERO;
 	char mainstring [MAXTAMANHOCAMPO];
@@ -58,9 +59,9 @@ int main (int argc, char * argv[])
 	char resstring [MAXTAMANHOCAMPO];
 	char titulo [MAXTAMANHOCAMPO];
 	char item [MAXITENS] [MAXTAMANHOCAMPO];
-	char funcaoteta [MAXITENS] [MAXTAMANHOCAMPO];
-	char funcaophi [MAXITENS] [MAXTAMANHOCAMPO];
-	char funcaorho [MAXITENS] [MAXTAMANHOCAMPO];
+	char funcaoteta [MAXITENS] [MAXITENS] [MAXTAMANHOCAMPO];
+	char funcaophi [MAXITENS] [MAXITENS] [MAXTAMANHOCAMPO];
+	char funcaorho [MAXITENS] [MAXITENS] [MAXTAMANHOCAMPO];
 	char funcaox [MAXITENS] [MAXTAMANHOCAMPO];
 	char funcaoy [MAXITENS] [MAXTAMANHOCAMPO];
 	char funcaoz [MAXITENS] [MAXTAMANHOCAMPO];
@@ -94,13 +95,18 @@ int main (int argc, char * argv[])
 
 	for (i = NUMEROZERO; i < MAXTAMANHOCAMPO; i++) {mainstring[i] = '\0'; fillstring[i] = '\0'; resstring[i] = '\0'; mensagemerro[i] = '\0';}
 
-	strcpy(mensagemerro, "Erro.\n\nArgumentos: 1: primeiramente a string título e, após barra vertical \"|\", strings separadas por barra vertical \"|\" com campos separados por ponto e vírgula \";\", composta da função em \"VARIAVELDESUBSTITUICAO3\" e \"VARIAVELDESUBSTITUICAO4\" para \"θ\", função em \"VARIAVELDESUBSTITUICAO3\" e \"VARIAVELDESUBSTITUICAO4\" para \"φ\", função em \"VARIAVELDESUBSTITUICAO3\" e \"VARIAVELDESUBSTITUICAO4\" para \"ρ\", o menor valor atribuído a \"VARIAVELDESUBSTITUICAO3\", o maior valor atribuído a \"VARIAVELDESUBSTITUICAO3\", o menor valor atribuído a \"VARIAVELDESUBSTITUICAO4\", o maior valor atribuído a \"VARIAVELDESUBSTITUICAO4\", e a cor RGB com os menores para vermelho, verde e azul separados por vírgula \",\". 2: \"grid\" apenas para grid ou \"fill\" para polígonos preenchidos. 3: a resolução.\n");
+	strcpy(mensagemerro, "Erro.\n\nArgumentos: 1: primeiramente a string título e, após barra vertical \"|\", strings separadas por barra vertical \"|\" com campos separados por ponto e vírgula \";\", tríades compostas das funções em \"VARIAVELDESUBSTITUICAO3\" e \"VARIAVELDESUBSTITUICAO4\" para \"θ\", funções em \"VARIAVELDESUBSTITUICAO3\" e \"VARIAVELDESUBSTITUICAO4\" para \"φ\" e funções em \"VARIAVELDESUBSTITUICAO3\" e \"VARIAVELDESUBSTITUICAO4\" para \"ρ\" separadas por vírgula \",\", o menor valor atribuído a \"VARIAVELDESUBSTITUICAO3\", o maior valor atribuído a \"VARIAVELDESUBSTITUICAO3\", o menor valor atribuído a \"VARIAVELDESUBSTITUICAO4\", o maior valor atribuído a \"VARIAVELDESUBSTITUICAO4\", e a cor RGB com os menores para vermelho, verde e azul separados por vírgula \",\". 2: \"grid\" apenas para grid ou \"fill\" para polígonos preenchidos. 3: a resolução.\n");
 
 	if (argc != 4) {printf(mensagemerro); return NUMEROUM;}
 
 	for (i = NUMEROZERO; i < MAXITENS; i++)
 		for (j = NUMEROZERO; j < MAXTAMANHOCAMPO; j++)
-			{item[i][j] = '\0'; funcaoteta[i][j] = '\0'; funcaophi[i][j] = '\0'; funcaorho[i][j] = '\0'; funcaox[i][j] = '\0'; funcaoy[i][j] = '\0'; funcaoz[i][j] = '\0'; menoru[i][j] = '\0'; maioru[i][j] = '\0'; menorv[i][j] = '\0'; maiorv[i][j] = '\0'; rgb[i][j] = '\0'; rgbs[i][j] = '\0';}
+			{item[i][j] = '\0'; funcaox[i][j] = '\0'; funcaoy[i][j] = '\0'; funcaoz[i][j] = '\0'; menoru[i][j] = '\0'; maioru[i][j] = '\0'; menorv[i][j] = '\0'; maiorv[i][j] = '\0'; rgb[i][j] = '\0'; rgbs[i][j] = '\0';}
+
+	for (i = NUMEROZERO; i < MAXITENS; i++)
+		for (j = NUMEROZERO; j < MAXITENS; j++)
+			for (k = NUMEROZERO; k < MAXTAMANHOCAMPO; k++)
+				{funcaoteta[i][j][k] = '\0'; funcaophi[i][j][k] = '\0'; funcaorho[i][j][k] = '\0';}
 
 	j = NUMEROZERO;
 
@@ -157,41 +163,47 @@ int main (int argc, char * argv[])
 
 		if (c == '\0') flag = NUMEROUM;
 
-		j = NUMEROZERO;
+		shift = NUMEROZERO;
+		r = NUMEROZERO;
 
 		do
 			{
-			c = item[argi][j];
-			if ((c != ';') && (c != '\0')) {funcaoteta[argi][j++] = c;} else break;
-			} while (VERDADE);
+			j = NUMEROZERO;
 
-		funcaoteta[argi][j] = '\0';
+			do
+				{
+				c = item[argi][shift++];
+				if ((c != ',') && (c != '\0')) {funcaoteta[argi][r][j++] = c;} else break;
+				} while (VERDADE);
 
-		k = NUMEROZERO;
+			funcaoteta[argi][r][j] = '\0';
+
+			k = NUMEROZERO;
+
+			do
+				{
+				c = item[argi][shift++];
+				if ((c != ',') && (c != '\0')) {funcaophi[argi][r][k++] = c;} else break;
+				} while (VERDADE);
+
+			funcaophi[argi][r][k] = '\0';
+
+			l = NUMEROZERO;
+
+			do
+				{
+				c = item[argi][shift++];
+				if ((c != ';') && (c != ',') && (c != '\0')) {funcaorho[argi][r][l++] = c;} else break;
+				} while (VERDADE);
+
+			funcaorho[argi][r++][l] = '\0';
+			} while ((c != ';') && (c != '\0'));
+
+		m = NUMEROZERO; shift -= 2;
 
 		do
 			{
-			c = item[argi][k + j + NUMEROUM];
-			if ((c != ';') && (c != '\0')) {funcaophi[argi][k++] = c;} else break;
-			} while (VERDADE);
-
-		funcaophi[argi][k] = '\0';
-
-		l = NUMEROZERO;
-
-		do
-			{
-			c = item[argi][j + k + l + 2];
-			if ((c != ';') && (c != '\0')) {funcaorho[argi][l++] = c;} else break;
-			} while (VERDADE);
-
-		funcaorho[argi][l] = '\0';
-
-		m = NUMEROZERO;
-
-		do
-			{
-			c = item[argi][j + k + l + m + 3];
+			c = item[argi][shift + m + 2];
 			if ((c != ';') && (c != '\0')) {menoru[argi][m++] = c;} else break;
 			} while (VERDADE);
 
@@ -208,7 +220,7 @@ int main (int argc, char * argv[])
 
 		do
 			{
-			c = item[argi][j + k + l + m + n + 4];
+			c = item[argi][shift + m + n + 3];
 			if ((c != ';') && (c != '\0')) {maioru[argi][n++] = c;} else break;
 			} while (VERDADE);
 
@@ -227,7 +239,7 @@ int main (int argc, char * argv[])
 
 		do
 			{
-			c = item[argi][j + k + l + m + n + o + 5];
+			c = item[argi][shift + m + n + o + 4];
 			if ((c != ';') && (c != '\0')) {menorv[argi][o++] = c;} else break;
 			} while (VERDADE);
 
@@ -244,7 +256,7 @@ int main (int argc, char * argv[])
 
 		do
 			{
-			c = item[argi][j + k + l + m + n + o + p + 6];
+			c = item[argi][shift + m + n + o + p + 5];
 			if ((c != ';') && (c != '\0')) {maiorv[argi][p++] = c;} else break;
 			} while (VERDADE);
 
@@ -263,7 +275,7 @@ int main (int argc, char * argv[])
 
 		do
 			{
-			c = item[argi][j + k + l + m + n + o + p + q + 7];
+			c = item[argi][shift + m + n + o + p + q + 6];
 			if (c != '\0') {rgb[argi][q++] = c;} else break;
 			} while (VERDADE);
 
@@ -336,61 +348,66 @@ int main (int argc, char * argv[])
 		if (++argi > MAXITENS) {printf(mensagemerro); return NUMEROUM;}
 		} while (flag == NUMEROZERO);
 
-	for (i = NUMEROZERO; i < argi; i++)
+	for (i = NUMEROZERO; i < argi; i++) for (j = NUMEROZERO; j < r; j++)
 		{
 		shift = NUMEROZERO;
 		tc = TOKENINICIOEVAL; strncat(funcaox[i], & tc, NUMEROUM);
 
-		do strncat(funcaox[i], & funcaorho[i][shift], NUMEROUM); while (funcaorho[i][++shift] != '\0');
+		do strncat(funcaox[i], & funcaorho[i][j][shift], NUMEROUM); while (funcaorho[i][j][++shift] != '\0');
 
 		tc = TOKENFIMEVAL; strncat(funcaox[i], & tc, NUMEROUM);
 
 		strcat(funcaox[i], "cos");
 		tc = TOKENINICIOEVAL; strncat(funcaox[i], & tc, NUMEROUM);
-		strcat(funcaox[i], funcaoteta[i]);
+		strcat(funcaox[i], funcaoteta[i][j]);
 		tc = TOKENFIMEVAL; strncat(funcaox[i], & tc, NUMEROUM);
-		tc = TOKENINICIOEVAL; strncat(funcaox[i], & tc, NUMEROUM);
+
 		strcat(funcaox[i], "cos");
 		tc = TOKENINICIOEVAL; strncat(funcaox[i], & tc, NUMEROUM);
-		strcat(funcaox[i], funcaophi[i]);
+		strcat(funcaox[i], funcaophi[i][j]);
 		tc = TOKENFIMEVAL; strncat(funcaox[i], & tc, NUMEROUM);
-		tc = TOKENFIMEVAL; strncat(funcaox[i], & tc, NUMEROUM);
+
+		if (j < r - NUMEROUM) {tc = '+'; strncat(funcaox[i], & tc, NUMEROUM);}
 		}
 
-	for (i = NUMEROZERO; i < argi; i++)
+	for (i = NUMEROZERO; i < argi; i++) for (j = NUMEROZERO; j < r; j++)
 		{
 		shift = NUMEROZERO;
 		tc = TOKENINICIOEVAL; strncat(funcaoy[i], & tc, NUMEROUM);
 
-		do strncat(funcaoy[i], & funcaorho[i][shift], NUMEROUM); while (funcaorho[i][++shift] != '\0');
+		do strncat(funcaoy[i], & funcaorho[i][j][shift], NUMEROUM); while (funcaorho[i][j][++shift] != '\0');
 
+		tc = TOKENFIMEVAL; strncat(funcaoy[i], & tc, NUMEROUM);
+
+		strcat(funcaoy[i], "cos");
+		tc = TOKENINICIOEVAL; strncat(funcaoy[i], & tc, NUMEROUM);
+		strcat(funcaoy[i], funcaoteta[i][j]);
 		tc = TOKENFIMEVAL; strncat(funcaoy[i], & tc, NUMEROUM);
 
 		strcat(funcaoy[i], "sen");
 		tc = TOKENINICIOEVAL; strncat(funcaoy[i], & tc, NUMEROUM);
-		strcat(funcaoy[i], funcaoteta[i]);
+		strcat(funcaoy[i], funcaophi[i][j]);
 		tc = TOKENFIMEVAL; strncat(funcaoy[i], & tc, NUMEROUM);
-		tc = TOKENINICIOEVAL; strncat(funcaoy[i], & tc, NUMEROUM);
-		strcat(funcaoy[i], "cos");
-		tc = TOKENINICIOEVAL; strncat(funcaoy[i], & tc, NUMEROUM);
-		strcat(funcaoy[i], funcaophi[i]);
-		tc = TOKENFIMEVAL; strncat(funcaoy[i], & tc, NUMEROUM);
-		tc = TOKENFIMEVAL; strncat(funcaoy[i], & tc, NUMEROUM);
+
+		if (j < r - NUMEROUM) {tc = '+'; strncat(funcaoy[i], & tc, NUMEROUM);}
 		}
 
-	for (i = NUMEROZERO; i < argi; i++)
+	for (i = NUMEROZERO; i < argi; i++) for (j = NUMEROZERO; j < r; j++)
 		{
 		shift = NUMEROZERO;
 		tc = TOKENINICIOEVAL; strncat(funcaoz[i], & tc, NUMEROUM);
 
-		do strncat(funcaoz[i], & funcaorho[i][shift], NUMEROUM); while (funcaorho[i][++shift] != '\0');
+		do strncat(funcaoz[i], & funcaorho[i][j][shift], NUMEROUM); while (funcaorho[i][j][++shift] != '\0');
 
 		tc = TOKENFIMEVAL; strncat(funcaoz[i], & tc, NUMEROUM);
 
 		strcat(funcaoz[i], "sen");
 		tc = TOKENINICIOEVAL; strncat(funcaoz[i], & tc, NUMEROUM);
-		strcat(funcaoz[i], funcaophi[i]);
+		strcat(funcaoz[i], funcaophi[i][j]);
 		tc = TOKENFIMEVAL; strncat(funcaoz[i], & tc, NUMEROUM);
+
+
+		if (j < r - NUMEROUM) {tc = '+'; strncat(funcaoz[i], & tc, NUMEROUM);}
 		}
 
 	if (! strcmp(fillstring, "grid"))
@@ -2290,5 +2307,14 @@ int main (int argc, char * argv[])
 	printf("@%s|_____|", titulo); fflush(stdout);
 
 	for (i = NUMEROZERO; i < argi; i++)
-		printf("θ = %s, φ = %s, ρ = %s;%s|", funcaoteta[i], funcaophi[i], funcaorho[i], rgb[i]);
+		{
+		for (j = NUMEROZERO; j < r; j++)
+			{
+			printf("θ_%d = %s, φ_%d = %s, ρ_%d = %s", j, funcaoteta[i][j], j, funcaophi[i][j], j, funcaorho[i][j]);
+
+			if (j < r - NUMEROUM) printf(",");
+			}
+
+		printf(";%s|", rgb[i]);
+		}
 	}
