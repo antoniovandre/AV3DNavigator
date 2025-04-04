@@ -11,7 +11,7 @@
  * 
  * Licença de uso: Creative Commons Attribution ShareAlike License V3.0.
  * 
- * Última atualização: 03-04-2025. Não considerando alterações em variáveis globais.
+ * Última atualização: 04-04-2025. Não considerando alterações em variáveis globais.
  */
 
 import java.lang.IllegalThreadStateException;
@@ -117,7 +117,6 @@ public class AV3DNavigator extends JComponent
 	public static int TamanhoEspacoInvalidoY = 80; // Default: 80.
 	public static int TamanhoRenderingX = 200; // Default: 200.
 	public static int TamanhoRenderingY = 80; // Default: 80.
-	public static int MinTamanhoPlanoX = 400; // Default: 400.
 	public static String AV3DNavigatorIconFilePath = "AV3DNavigator - Logo - 200p.png";
 	public double FatorAnguloVisao = 1; // Default: 1.
 
@@ -196,7 +195,9 @@ public class AV3DNavigator extends JComponent
 	public int CorrecaoY = 0;
 	public int CorrecaoXF = 15;
 	public int CorrecaoYF = 0;
-	public int MinTamanhoPlanoYMaisLabels = TamanhoPlanoY + TamanhoEspacoLabelStatus + TamanhoEspacoLabelURL;
+	public int MinTamanhoPlanoX = TamanhoPlanoX;
+	public int MinTamanhoPlanoY = TamanhoPlanoY;
+	public int MinTamanhoPlanoYMaisLabels = MinTamanhoPlanoY + TamanhoEspacoLabelStatus + TamanhoEspacoLabelURL;
 	public double RaioRot = 0;
 	public double RaioTeta = 0;
 	public double RaioPhi = 0;
@@ -1499,6 +1500,7 @@ public class AV3DNavigator extends JComponent
 		FrameEspaco.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 		FrameEspaco.setPreferredSize(new Dimension(TamanhoPlanoX, TamanhoPlanoY + TamanhoEspacoLabelStatus + TamanhoEspacoLabelURL));
 		FrameEspaco.setSize(new Dimension(TamanhoPlanoX, TamanhoPlanoY + TamanhoEspacoLabelStatus + TamanhoEspacoLabelURL));
+		FrameEspaco.setMinimumSize(new Dimension(MinTamanhoPlanoX, MinTamanhoPlanoYMaisLabels));
 		AV3DNavigator Comp = new AV3DNavigator();
 		Comp.setPreferredSize(new Dimension(TamanhoPlanoX, TamanhoPlanoY));
 		Comp.setSize(new Dimension(TamanhoPlanoX, TamanhoPlanoY));
@@ -1536,6 +1538,7 @@ public class AV3DNavigator extends JComponent
 
 		FrameRendering.setPreferredSize(new Dimension(TamanhoRenderingX + 2 * RadiusRenderingCircle + 4, TamanhoRenderingY));
 		FrameRendering.setSize(new Dimension(TamanhoRenderingX + 2 * RadiusRenderingCircle + 4, TamanhoRenderingY));
+		FrameRendering.setResizable(false);
 		AV3DNavigator CompRendering = new AV3DNavigator();
 		CompRendering.setPreferredSize(new Dimension(2 * RadiusRenderingCircle + 4, TamanhoRenderingY));
 		CompRendering.setSize(new Dimension(2 * RadiusRenderingCircle + 4, TamanhoRenderingY));
@@ -1732,6 +1735,7 @@ public class AV3DNavigator extends JComponent
 
 							FrameRendering.setPreferredSize(new Dimension(TamanhoRenderingX + 2 * RadiusRenderingCircle + 4, TamanhoRenderingY));
 							FrameRendering.setSize(new Dimension(TamanhoRenderingX + 2 * RadiusRenderingCircle + 4, TamanhoRenderingY));
+							FrameRendering.setResizable(false);
 							CompRendering.setPreferredSize(new Dimension(2 * RadiusRenderingCircle + 4, TamanhoRenderingY));
 							CompRendering.setSize(new Dimension(2 * RadiusRenderingCircle + 4, TamanhoRenderingY));
 							FrameRendering.getContentPane().add(CompRendering, BorderLayout.LINE_START);
@@ -1780,12 +1784,14 @@ public class AV3DNavigator extends JComponent
 								{
 								FrameHelp.setPreferredSize(new Dimension(Integer.parseInt(LinhaArr[0]), Integer.parseInt(LinhaArr[1])));
 								FrameHelp.setSize(new Dimension(Integer.parseInt(LinhaArr[0]), Integer.parseInt(LinhaArr[1])));
+								FrameHelp.setResizable(false);
 								LabelHelp = new GradientLabel(LinhaArr[2], new Color(CorJanelaR, CorJanelaG, CorJanelaB), new Color(CorJanelaGradienteR, CorJanelaGradienteG, CorJanelaGradienteB), new Color(CorFonteJanelaR, CorFonteJanelaG, CorFonteJanelaB), 2);
 								}
 							} catch (IOException e)
 								{
 								FrameHelp.setPreferredSize(new Dimension(TamanhoJanelaHelpX, TamanhoJanelaHelpY));
 								FrameHelp.setSize(new Dimension(800, 910));
+								FrameHelp.setMinimumSize(new Dimension(800, 910));
 								LabelHelp = new GradientLabel("<html><table><tr><td>F2 para selecionar e abrir arquivo de espaço.<br><br>\"A\" para incrementar x, \"Z\" para decrementar. Shift + \"A\" para incrementar xCamera, Shift + \"Z\" para decrementar.<br>\"S\" para incrementar y, \"X\" para decrementar. Shift + \"S\" para incrementar yCamera, Shift + \"X\" para decrementar.<br>\"D\" para incrementar z, \"C\" para decrementar. Shift + \"D\" para incrementar zCamera, Shift + \"C\" para decrementar.<br>\"F\" para incrementar Teta. \"V\" para decrementar. \"G\" para incrementar Phi. \"B\" para decrementar.<br>Shift + \"F\" para rotação lateral esquerda. Shift + \"V\" para direita.<br>Shift + \"B\" para rotação vertical para baixo. Shift + \"G\" para cima.<br>\"H\" para incrementar a rotação da tela. \"N\" para decrementar. Shift + \"H\" para zerar rotação.<br>\"J\" para rotação horizontal positiva. \"M\" para negativa.<br>Shift + \"J\" para rotação vertical positiva. Shift + \"M\" para negativa.<br>\"K\" para rotação total horizontal positiva. \",\" para negativa.<br>Shift + \"K\" para rotação total vertical positiva. Shift + \",\" para negativa.<br>Ctrl + \"K\" para resetar rotação total.<br>\"L\" para incrementar o raio de rotação horizontal. \".\" para decrementar.<br>Shift + \"L\" para incrementar o raio de rotação vertical. Shift + \".\" para decrementar.<br>\"[\" para incrementar o raio de rotação total. \"]\" para decrementar.<br>\"W\" para aumentar a distância da tela. \"Q\" para reduzir.<br>\"E\" para reduzir o fator redutor do ângulo de visão. \"R\" para aumentar.<br>\"T\" para shift negativo na cor vermelha padrão da linha. \"Y\" para shift positivo.<br>Shift + \"T\" para shift negativo na cor verde padrão da linha. Shift + \"Y\" para shift positivo.<br>Ctrl + \"T\" para shift negativo na cor azul padrão da linha. Ctrl + \"Y\" para shift positivo.<br>\"U\" para shift negativo na cor vermelha padrão de fundo. \"I\" para shift positivo.<br>Shift + \"U\" para shift negativo na cor verde padrão de fundo. Shift + \"I\" para shift positivo.<br>Ctrl + \"U\" para shift negativo na cor azul padrão de fundo. Ctrl + \"I\" para shift positivo.<br>\"O\" para shift negativo na cor vermelha padrão dos polígonos preenchidos. \"P\" para shift positivo.<br>Shift + \"O\" para shift negativo na cor verde padrão dos polígonos preenchidos. Shift + \"P\" para shift positivo.<br>Ctrl + \"O\" para shift negativo na cor azul padrão dos polígonos preenchidos. Ctrl + \"P\" para shift positivo.<br>INSERT para shift negativo na cor vermelha padrão das legendas. HOME para shift positivo.<br>Shift + INSERT para shift negativo na cor verde padrão das legendas. Shift + HOME para shift positivo.<br>Ctrl + INSERT para shift negativo na cor azul padrão das legendas. Ctrl + HOME para shift positivo.<br>DELETE para shift negativo no tamanho padrão das legendas. END para shift positivo.<br>\"-\" para shift negativo no offset das legendas. \"=\" para shift positivo.<br>Numpad \"1\" para shift negativo na resolução dos triângulos. Numpad \"2\" para shift positivo.<br>PAGE DOWN para shift negativo no sleep time. PAGE UP para shift positivo.<\td><td></td><td>Numpad \"0\" para toggle alta precisão Apfloat (com custo computacional).<br>F4 para toggle preenchimento dos polígonos com linhas ou fillPolygon.<br><br>Ctrl + ENTER para shift positivo em câmeras predefinidas, Ctrl + Shift + ENTER para negativo.<br>Numpad \"4\" para salvar uma câmera predefinida. Shift + Numpad \"4\" para restaurar as câmeras predefinidas originais.<br><br>Numpad \"3\" para incremento no parâmetro de movimentação da câmera. Shift + Numpad \"3\" para decremento.<br>Ctrl + Numpad \"3\" para incremento no step de variação do parâmetro de movimentação da câmera. Ctrl + Shift + Numpad \"3\" para decremento.<br><br>Teclas de \"0\" a \"9\" para incrementar o parâmetro correspondente. Shift + tecla para decrementar.<br>Ctrl + tecla para incrementar o step do parâmetro. Ctrl + Shift + tecla para decrementar.<br><br>ENTER para ler os arquivos de parâmetros.<br><br>Shift + ENTER para ativar / desativar os parâmetros de tempo.<br><br>Setas para strafe. Shift + setas para strafe com rotação de tela.<br>Mouse pode ser utilizado para movimentar desde que \"Rot\" seja zero.<br><br>Barra de espaços para resetar as variáveis.<br>Shift + barra de espaços para toggle visualizar a câmera. Ctrl + Shift + barra de espaços para toggle CameraViewFollow.<br><br>F10 para toggle stretch. F11 para setar aspect ratio 1. F12 para screenshot.<br>F3 para ocultar e mostrar os labels.<br>BACKSPACE para ativar / desativar labels animados.<br><br>ESC para sair.</td></tr></table></html>", new Color(CorJanelaR, CorJanelaG, CorJanelaB), new Color(CorJanelaGradienteR, CorJanelaGradienteG, CorJanelaGradienteB), new Color(CorFonteJanelaR, CorFonteJanelaG, CorFonteJanelaB), 2);
 								}
 
@@ -3325,107 +3331,6 @@ public class AV3DNavigator extends JComponent
 
 		while(Sair == 0)
 			{
-			int FlagRedimensionarOver = 0;
-
-			int widthFrameEspaco = FrameEspaco.getWidth();
-			int heightFrameEspaco = FrameEspaco.getHeight();
-
-			if (widthFrameEspaco < MinTamanhoPlanoX)
-				{
-				widthFrameEspaco = MinTamanhoPlanoX;
-				FrameEspaco.setPreferredSize(new Dimension(widthFrameEspaco, heightFrameEspaco));
-				FrameEspaco.setSize(new Dimension(widthFrameEspaco, heightFrameEspaco));
-				FlagRedimensionarOver = 1;
-				}
-
-			if (heightFrameEspaco < MinTamanhoPlanoYMaisLabels)
-				{
-				heightFrameEspaco = MinTamanhoPlanoYMaisLabels;
-				FrameEspaco.setPreferredSize(new Dimension(widthFrameEspaco, heightFrameEspaco));
-				FrameEspaco.setSize(new Dimension(widthFrameEspaco, heightFrameEspaco));
-				FlagRedimensionarOver = 1;
-				}
-
-			if (FlagRedimensionarOver == 0)
-				if ((widthFrameEspaco != TamanhoPlanoX) || ((FlagMostrarLabel == 1) && (heightFrameEspaco != TamanhoPlanoY + TamanhoEspacoLabelStatus + TamanhoEspacoLabelURL)) || ((FlagMostrarLabel == 0) && (heightFrameEspaco != TamanhoPlanoY + TamanhoEspacoLabelURL)))
-					{
-					TamanhoPlanoX = widthFrameEspaco;
-
-					if (FlagMostrarLabel == 1)
-						{
-						TamanhoPlanoY = heightFrameEspaco - TamanhoEspacoLabelStatus - TamanhoEspacoLabelURL;
-
-						FrameEspaco.setPreferredSize(new Dimension(TamanhoPlanoX, TamanhoPlanoY + TamanhoEspacoLabelStatus + TamanhoEspacoLabelURL));
-						FrameEspaco.setSize(new Dimension(TamanhoPlanoX, TamanhoPlanoY + TamanhoEspacoLabelStatus + TamanhoEspacoLabelURL));
-						}
-					else
-						{
-						TamanhoPlanoY = heightFrameEspaco - TamanhoEspacoLabelURL;
-
-						FrameEspaco.setPreferredSize(new Dimension(TamanhoPlanoX, TamanhoPlanoY + TamanhoEspacoLabelURL));
-						FrameEspaco.setSize(new Dimension(TamanhoPlanoX, TamanhoPlanoY + TamanhoEspacoLabelURL));
-						}
-
-					Comp.setPreferredSize(new Dimension(TamanhoPlanoX, TamanhoPlanoY));
-					Comp.setSize(new Dimension(TamanhoPlanoX, TamanhoPlanoY));
-					FrameEspaco.revalidate(); FrameEspaco.repaint(); FrameEspaco.pack();
-
-					/* Reinicialização opcional das variáveis de localização.
-
-					x = 0;
-					y = 0;
-					z = 0;
-					Teta = 0;
-					Phi = 0;
-					Rot = 0;
-					TamanhoFonteLegendas = 12;
-					RotacaoTeta = Teta + Math.PI;
-					RotacaoPhi = Phi + Math.PI;
-					RaioRot = 0;
-					RaioTeta = 0;
-					RaioPhi = 0;
-					xt = x;
-					yt = y;
-					zt = z;
-					Tetat = Teta;
-					Phit = Phi;
-					Rott = Rot;
-					FlagMouseY = 1;
-					FatorAnguloVisao = 1;
-					DistanciaTela = 2;
-					Parametro0 = 0;
-					Parametro0Step = 1;
-					Parametro1 = 0;
-					Parametro1Step = 1;
-					Parametro2 = 0;
-					Parametro2Step = 1;
-					Parametro3 = 0;
-					Parametro3Step = 1;
-					Parametro4 = 0;
-					Parametro4Step = 1;
-					Parametro5 = 0;
-					Parametro5Step = 1;
-					Parametro6 = 0;
-					Parametro6Step = 1;
-					Parametro7 = 0;
-					Parametro7Step = 1;
-					Parametro8 = 0;
-					Parametro8Step = 1;
-					Parametro9 = 0;
-					Parametro9Step = 1;
-					CameraMovePar = 0;
-					CameraMoveParStep = 1;
-					StretchFlag = 1;
-					SleepTime = 7;
-					FlagTime = 0;
-					FlagCoordRotOnce = 0;
-
-					ContadorFrames = FramesDeslocamento;
-*/
-
-					FlagAlteracaoStatus = 1;
-					}
-
 			Point reference = FrameEspaco.getLocationOnScreen();
 			MouseX = MouseInfo.getPointerInfo().getLocation().x - reference.x;
 			MouseY = MouseInfo.getPointerInfo().getLocation().y - reference.y;
