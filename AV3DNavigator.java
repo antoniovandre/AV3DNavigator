@@ -1997,6 +1997,7 @@ public class AV3DNavigator extends JComponent
 
 							FrameEspaco.setPreferredSize(new Dimension(TamanhoPlanoX, TamanhoPlanoY + TamanhoEspacoLabelStatus + TamanhoEspacoLabelURL));
 							FrameEspaco.setSize(new Dimension(TamanhoPlanoX, TamanhoPlanoY + TamanhoEspacoLabelStatus + TamanhoEspacoLabelURL));
+							FrameEspaco.setMinimumSize(new Dimension(MinTamanhoPlanoX, MinTamanhoPlanoYMaisLabels));
 
 							FlagMostrarLabel = 1;
 							}
@@ -2014,6 +2015,7 @@ public class AV3DNavigator extends JComponent
 
 							FrameEspaco.setPreferredSize(new Dimension(TamanhoPlanoX, TamanhoPlanoY + TamanhoEspacoLabelURL));
 							FrameEspaco.setSize(new Dimension(TamanhoPlanoX, TamanhoPlanoY + TamanhoEspacoLabelURL));
+							FrameEspaco.setMinimumSize(new Dimension(MinTamanhoPlanoX, MinTamanhoPlanoY + TamanhoEspacoLabelURL));
 
 							FlagMostrarLabel = 0;
 							}
