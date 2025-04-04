@@ -5,9 +5,9 @@ AV3DNavigator: "https://github.com/antoniovandre/AV3DNavigator".
 
 Arquivo gerador de um espaço do AV3DNavigator superfície tridimensional por coordenadas paramétricas. Versão Java.
 
-Argumentos: 1: primeiramente a string título e, após barra vertical "|", strings separadas por barra vertical "|" com campos separados por ponto e vírgula ";", composta da função em "U" e "V" para "x", função em "U" e "V" para "y", função em "U" e "V" para "z", o menor valor atribuído a "U", o maior valor atribuído a "U", o menor valor atribuído a "V", o maior valor atribuído a "V", e a cor RGB com os menores para vermelho, verde e azul separados por vírgula ",". 2: "grid" apenas para grid ou "fill" para polígonos preenchidos. 3: a resolução.
+Argumentos: 1: primeiramente a string título e, após barra vertical "|", strings separadas por barra vertical "|" com campos separados por ponto e vírgula ";", composta da função em "U" e "V" para "x", função em "U" e "V" para "y", função em "U" e "V" para "z", o menor valor atribuído a "U", o maior valor atribuído a "U", o menor valor atribuído a "V", o maior valor atribuído a "V", e a cor RGB com os menores para vermelho, verde e azul separados por vírgula ",". 2: "grid" apenas para grid ou "fill" para polígonos preenchidos. 3: a resolução. Consulte o manual do mXparser para conhecer as funções matemáticas disponíveis.
 
-Última atualização: 07-03-2025. Sem considerar alterações em variáveis globais.
+Última atualização: 04-04-2025. Sem considerar alterações em variáveis globais.
 */
 
 import org.mariuszgromada.math.mxparser.*;
@@ -43,8 +43,12 @@ public class AV3DNgstcp
 		double[] maioresu = new double[MAXITENS];
 		double[] menoresv = new double[MAXITENS];
 		double[] maioresv = new double[MAXITENS];
-		String mensagemerro = new String("Erro.\n\nArgumentos: 1: primeiramente a string título e, após barra vertical \"|\", strings separadas por barra vertical \"|\" com campos separados por ponto e vírgula \";\", composta da função em \"U\" e \"V\" para \"x\", função em \"U\" e \"V\" para \"y\", função em \"U\" e \"V\" para \"z\", o menor valor atribuído a \"U\", o maior valor atribuído a \"U\", o menor valor atribuído a \"V\", o maior valor atribuído a \"V\", e a cor RGB com os menores para vermelho, verde e azul separados por vírgula \",\". 2: \"grid\" apenas para grid ou \"fill\" para polígonos preenchidos. 3: a resolução.\n");
+		String mensagemerro = new String("Erro.\n\nArgumentos: 1: primeiramente a string título e, após barra vertical \"|\", strings separadas por barra vertical \"|\" com campos separados por ponto e vírgula \";\", composta da função em \"U\" e \"V\" para \"x\", função em \"U\" e \"V\" para \"y\", função em \"U\" e \"V\" para \"z\", o menor valor atribuído a \"U\", o maior valor atribuído a \"U\", o menor valor atribuído a \"V\", o maior valor atribuído a \"V\", e a cor RGB com os menores para vermelho, verde e azul separados por vírgula \",\". 2: \"grid\" apenas para grid ou \"fill\" para polígonos preenchidos. 3: a resolução. Consulte o manual do mXparser para conhecer as funções matemáticas disponíveis.\n");
 		int resolucao;
+
+		// Licenciamento do mXparser.
+
+		boolean isCallSuccessful = License.iConfirmNonCommercialUse("Antonio Vandré Pedrosa Furtunato Gomes");
 
 		if (args.length != 3) {System.out.println(mensagemerro); return;}
 
@@ -72,15 +76,15 @@ public class AV3DNgstcp
 			funcaoy[argi] = item[argi].split(";")[1];
 			funcaoz[argi] = item[argi].split(";")[2];
 
-			try {menoresu[argi] = Double.parseDouble(item[argi].split(";")[3]);} catch (Exception e) {System.out.println(mensagemerro); return;}
+			try {menoresu[argi] = Double.parseDouble(String.valueOf(new Expression(item[argi].split(";")[3]).calculate()));} catch (Exception e) {System.out.println(mensagemerro); return;}
 
-			try {maioresu[argi] = Double.parseDouble(item[argi].split(";")[4]);} catch (Exception e) {System.out.println(mensagemerro); return;}
+			try {maioresu[argi] = Double.parseDouble(String.valueOf(new Expression(item[argi].split(";")[4]).calculate()));} catch (Exception e) {System.out.println(mensagemerro); return;}
 
 			if (menoresu[argi] >= maioresu[argi]) {System.out.println(mensagemerro); return;}
 
-			try {menoresv[argi] = Double.parseDouble(item[argi].split(";")[5]);} catch (Exception e) {System.out.println(mensagemerro); return;}
+			try {menoresv[argi] = Double.parseDouble(String.valueOf(new Expression(item[argi].split(";")[5]).calculate()));} catch (Exception e) {System.out.println(mensagemerro); return;}
 
-			try {maioresv[argi] = Double.parseDouble(item[argi].split(";")[6]);} catch (Exception e) {System.out.println(mensagemerro); return;}
+			try {maioresv[argi] = Double.parseDouble(String.valueOf(new Expression(item[argi].split(";")[6]).calculate()));} catch (Exception e) {System.out.println(mensagemerro); return;}
 
 			if (menoresv[argi] >= maioresv[argi]) {System.out.println(mensagemerro); return;}
 
@@ -105,8 +109,6 @@ public class AV3DNgstcp
 				}
 			if (argi > MAXITENS) {System.out.println(mensagemerro); return;}
 			}
-
-		boolean isCallSuccessful = License.iConfirmNonCommercialUse("Av3DNavigator: \"https://github.com/antoniovandre/AV3DNavigator\".");
 
 		if (fillstring.equals("grid"))
 			{

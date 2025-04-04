@@ -5,9 +5,9 @@ AV3DNavigator: "https://github.com/antoniovandre/AV3DNavigator".
 
 Arquivo gerador de um espaço do AV3DNavigator gráfico de uma curva tridimensional por coordenadas paramétricas. Versão Java.
 
-Argumentos: 1: primeiramente a string título e, após barra vertical "|", strings separadas por barra vertical "|" com campos separados por ponto e vírgula ";", composta da função em "T" para "x", função em "T" para "y", função em "T" para "z", o menor valor atribuído a "T", o maior valor atribuído a "T", e a cor RGB com os menores para vermelho, verde e azul separados por vírgula ",". 2: a resolução.
+Argumentos: 1: primeiramente a string título e, após barra vertical "|", strings separadas por barra vertical "|" com campos separados por ponto e vírgula ";", composta da função em "T" para "x", função em "T" para "y", função em "T" para "z", o menor valor atribuído a "T", o maior valor atribuído a "T", e a cor RGB com os menores para vermelho, verde e azul separados por vírgula ",". 2: a resolução. Consulte o manual do mXparser para conhecer as funções matemáticas disponíveis.
 
-Última atualização: 23-06-2024. Sem considerar alterações em variáveis globais.
+Última atualização: 04-04-2025. Sem considerar alterações em variáveis globais.
 */
 
 import org.mariuszgromada.math.mxparser.*;
@@ -37,8 +37,12 @@ public class AV3DNgctcp
 		String verifstr;
 		double[] menores = new double[MAXITENS];
 		double[] maiores = new double[MAXITENS];
-		String mensagemerro = new String("Erro.\n\nArgumentos: 1: primeiramente a string título e, após barra vertical \"|\", strings separadas por barra vertical \"|\" com campos separados por ponto e vírgula \";\", composta da função em \"T\" para \"x\", função em \"T\" para \"y\", função em \"T\" para \"z\", o menor valor atribuído a \"T\", o maior valor atribuído a \"T\", e a cor RGB com os menores para vermelho, verde e azul separados por vírgula \",\". 2: a resolução.\n");
+		String mensagemerro = new String("Erro.\n\nArgumentos: 1: primeiramente a string título e, após barra vertical \"|\", strings separadas por barra vertical \"|\" com campos separados por ponto e vírgula \";\", composta da função em \"T\" para \"x\", função em \"T\" para \"y\", função em \"T\" para \"z\", o menor valor atribuído a \"T\", o maior valor atribuído a \"T\", e a cor RGB com os menores para vermelho, verde e azul separados por vírgula \",\". 2: a resolução. Consulte o manual do mXparser para conhecer as funções matemáticas disponíveis.\n");
 		int resolucao;
+
+		// Licenciamento do mXparser.
+
+		boolean isCallSuccessful = License.iConfirmNonCommercialUse("Antonio Vandré Pedrosa Furtunato Gomes");
 
 		if (args.length != 2) {System.out.println(mensagemerro); return;}
 
@@ -62,9 +66,9 @@ public class AV3DNgctcp
 			funcaoy[argi] = item[argi].split(";")[1];
 			funcaoz[argi] = item[argi].split(";")[2];
 
-			try {menores[argi] = Double.parseDouble(item[argi].split(";")[3]);} catch (Exception e) {System.out.println(mensagemerro); return;}
+			try {menores[argi] = Double.parseDouble(String.valueOf(new Expression(item[argi].split(";")[3]).calculate()));} catch (Exception e) {System.out.println(mensagemerro); return;}
 
-			try {maiores[argi] = Double.parseDouble(item[argi].split(";")[4]);} catch (Exception e) {System.out.println(mensagemerro); return;}
+			try {maiores[argi] = Double.parseDouble(String.valueOf(new Expression(item[argi].split(";")[4]).calculate()));} catch (Exception e) {System.out.println(mensagemerro); return;}
 
 			if (menores[argi] >= maiores[argi]) {System.out.println(mensagemerro); return;}
 
@@ -83,8 +87,6 @@ public class AV3DNgctcp
 
 			if (argi > MAXITENS) {System.out.println(mensagemerro); return;}
 			}
-
-		boolean isCallSuccessful = License.iConfirmNonCommercialUse("Av3DNavigator: \"https://github.com/antoniovandre/AV3DNavigator\".");
 
 		for (i = 0; i < argi; i++)
 			for (j = 0; j < resolucao; j++)

@@ -5,9 +5,9 @@ AV3DNavigator: "https://github.com/antoniovandre/AV3DNavigator".
 
 Arquivo gerador de um espaço do AV3DNavigator gráfico de função. Versão Java.
 
-Argumentos: 1: primeiramente a string título e, após barra vertical "|", strings separadas por barra vertical "|" com campos separados por ponto e vírgula ";", composta da função em "Y", o menor valor atribuído a "Y", o maior valor atribuído a "Y", os pontos de exclusões no intervalo separados por vírgula, e a cor RGB com os menores para vermelho, verde e azul separados por vírgula ",". 2: a resolução.
+Argumentos: 1: primeiramente a string título e, após barra vertical "|", strings separadas por barra vertical "|" com campos separados por ponto e vírgula ";", composta da função em "Y", o menor valor atribuído a "Y", o maior valor atribuído a "Y", os pontos de exclusões no intervalo separados por vírgula, e a cor RGB com os menores para vermelho, verde e azul separados por vírgula ",". 2: a resolução. Consulte o manual do mXparser para conhecer as funções matemáticas disponíveis.
 
-Última atualização: 31-10-2023. Sem considerar alterações em variáveis globais.
+Última atualização: 04-04-2025. Sem considerar alterações em variáveis globais.
 */
 
 
@@ -41,18 +41,18 @@ public class AV3DNgf
 		double[] maiores = new double[MAXITENS];
 		double[][] exclusoes = new double[MAXITENS][MAXITENS];
 		double margemexclusao = 0.1;
-		String mensagemerro = new String("Erro.\n\nArgumentos: 1: primeiramente a string título e, após barra vertical \"|\", strings separadas por barra vertical \"|\" com campos separados por ponto e vírgula \";\", composta da função em \"y\", o menor valor atribuído a \"y\", o maior valor atribuído a \"y\", os pontos de exclusões no intervalo separados por vírgula, e a cor RGB com os menores para vermelho, verde e azul separados por vírgula \",\". 2: a resolução.\n");
+		String mensagemerro = new String("Erro.\n\nArgumentos: 1: primeiramente a string título e, após barra vertical \"|\", strings separadas por barra vertical \"|\" com campos separados por ponto e vírgula \";\", composta da função em \"Y\", o menor valor atribuído a \"Y\", o maior valor atribuído a \"Y\", os pontos de exclusões no intervalo separados por vírgula, e a cor RGB com os menores para vermelho, verde e azul separados por vírgula \",\". 2: a resolução. Consulte o manual do mXparser para conhecer as funções matemáticas disponíveis.\n");
 		int resolucao;
+
+		// Licenciamento do mXparser.
+
+		boolean isCallSuccessful = License.iConfirmNonCommercialUse("Antonio Vandré Pedrosa Furtunato Gomes");
 
 		if (args.length != 2) {System.out.println(mensagemerro); return;}
 
 		mainstring = args[0];
 
 		resstring = args[1];
-
-		try {resolucao = Integer.parseInt(resstring);} catch (Exception e) {System.out.println(mensagemerro); return;}
-
-		if (resolucao == 0) {System.out.println(mensagemerro); return;}
 
 		try {resolucao = Integer.parseInt(resstring);} catch (Exception e) {System.out.println(mensagemerro); return;}
 
@@ -68,20 +68,25 @@ public class AV3DNgf
 			{
 			funcao[argi] = item[argi].split(";")[0];
 
-			try {menores[argi] = Double.parseDouble(item[argi].split(";")[1]);} catch (Exception e) {System.out.println(mensagemerro); return;}
+			try {menores[argi] = Double.parseDouble(String.valueOf(new Expression(item[argi].split(";")[1]).calculate()));} catch (Exception e) {System.out.println(mensagemerro); return;}
 
-			try {maiores[argi] = Double.parseDouble(item[argi].split(";")[2]);} catch (Exception e) {System.out.println(mensagemerro); return;}
+			try {maiores[argi] = Double.parseDouble(String.valueOf(new Expression(item[argi].split(";")[2]).calculate()));} catch (Exception e) {System.out.println(mensagemerro); return;}
 
 			if (menores[argi] >= maiores[argi]) {System.out.println(mensagemerro); return;}
 
-			exclusaoarr[argi] = item[argi].split(";")[3].split(",");
-
-			for (i = 0; i < exclusaoarr[argi].length; i++)
+			if (! (item[argi].split(";")[3].equals("")))
 				{
-				try {exclusoes[argi][i] = Double.parseDouble(exclusaoarr[argi][i]);} catch (Exception e) {System.out.println(mensagemerro); return;}
+				exclusaoarr[argi] = item[argi].split(";")[3].split(",");
 
-				if ((exclusoes[argi][i] < menores[argi]) || (exclusoes[argi][i] > maiores[argi])) {System.out.println(mensagemerro); return;}
+				for (i = 0; i < exclusaoarr[argi].length; i++)
+					{
+					try {exclusoes[argi][i] = Double.parseDouble(String.valueOf(new Expression(exclusaoarr[argi][i]).calculate()));} catch (Exception e) {System.out.println(mensagemerro); return;}
+
+					if ((exclusoes[argi][i] < menores[argi]) || (exclusoes[argi][i] > maiores[argi])) {System.out.println(mensagemerro); return;}
+					}
 				}
+			else
+				exclusaoarr[argi] = null;
 
 			rgb[argi] = item[argi].split(";")[4];
 
@@ -98,9 +103,6 @@ public class AV3DNgf
 
 			if (argi > MAXITENS) {System.out.println(mensagemerro); return;}
 			}
-
-		boolean isCallSuccessful = License.iConfirmNonCommercialUse("Av3DNavigator: \"https://github.com/antoniovandre/AV3DNavigator\".");
-
 
 		for (i = 0; i < argi; i++)
 			for (j = 0; j < resolucao - 1; j++)
@@ -149,6 +151,6 @@ public class AV3DNgf
 		System.out.print(titulo + "|_____|");
 
 		for (i = 0; i < argi - 1; i++)
-			System.out.print("x = 0, z = " + funcao[i] + ";" + rgb[i] + "|");
+			System.out.print("X = 0, Z = " + funcao[i] + ";" + rgb[i] + "|");
 		}
 	}
