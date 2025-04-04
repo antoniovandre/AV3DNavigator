@@ -3,9 +3,9 @@ Proprietário: Antonio Vandré Pedrosa Furtunato Gomes
 
 AV3DNavigator: "https://github.com/antoniovandre/AV3DNavigator".
 
-Arquivo gerador de um espaço do AV3DNavigator gráfico de curva tridimensional em coordenadas n-paramétrico-polares.
+Arquivo gerador de um espaço do AV3DNavigator gráfico de curva tridimensional em coordenadas paramétrico-polares.
 
-Argumentos: 1: primeiramente a string título e, após barra vertical "|", strings separadas por barra vertical "|" com campos separados por ponto e vírgula ";", composta das tríades de funções θ em "U", funções φ em "U" e funções ρ em "U" separadas por vírgula ",", o menor valor atribuído a "U", o maior valor atribuído a "U", os pontos de exclusões no intervalo separados por vírgula, e a cor RGB com os menores para vermelho, verde e azul separados por vírgula ",". 2: a resolução.
+Argumentos: 1: primeiramente a string título e, após barra vertical "|", strings separadas por barra vertical "|" com campos separados por ponto e vírgula ";", função θ em "U", função φ em "U", função ρ em "U", o menor valor atribuído a "U", o maior valor atribuído a "U", os pontos de exclusões no intervalo separados por vírgula, e a cor RGB com os menores para vermelho, verde e azul separados por vírgula ",". 2: a resolução.
 
 Última atualização: 04-04-2025. Sem considerar alterações em variáveis globais.
 */
@@ -36,16 +36,15 @@ int main (int argc, char * argv[])
 	int q;
 	int r;
 	int s;
-	int t;
 	char c;
 	int flag = NUMEROZERO;
 	char mainstring [MAXTAMANHOCAMPO];
 	char resstring [MAXTAMANHOCAMPO];
 	char titulo [MAXTAMANHOCAMPO];
 	char item [MAXITENS] [MAXTAMANHOCAMPO];
-	char funcaoteta [MAXITENS] [MAXITENS] [MAXTAMANHOCAMPO];
-	char funcaophi [MAXITENS] [MAXITENS] [MAXTAMANHOCAMPO];
-	char funcaorho [MAXITENS] [MAXITENS] [MAXTAMANHOCAMPO];
+	char funcaoteta [MAXITENS] [MAXTAMANHOCAMPO];
+	char funcaophi [MAXITENS] [MAXTAMANHOCAMPO];
+	char funcaorho [MAXITENS] [MAXTAMANHOCAMPO];
 	char funcaox [MAXITENS] [MAXTAMANHOCAMPO];
 	char funcaoy [MAXITENS] [MAXTAMANHOCAMPO];
 	char funcaoz [MAXITENS] [MAXTAMANHOCAMPO];
@@ -62,7 +61,7 @@ int main (int argc, char * argv[])
 	char * err;
 	char tc;
 	char * output;
-	char * mensagemerro = "Erro.\n\nArgumentos: 1: primeiramente a string título e, após barra vertical \"|\", strings separadas por barra vertical \"|\" com campos separados por ponto e vírgula \";\", composta dos pares de funções θ em \"U\", funções φ em \"U\" e funções ρ em \"U\" separadas por vírgula \",\", o menor valor atribuído a \"U\", o maior valor atribuído a \"U\", os pontos de exclusões no intervalo separados por vírgula, e a cor RGB com os menores para vermelho, verde e azul separados por vírgula \",\". 2: a resolução.\n";
+	char * mensagemerro = "Erro.\n\nArgumentos: 1: primeiramente a string título e, após barra vertical \"|\", strings separadas por barra vertical \"|\" com campos separados por ponto e vírgula \";\", função θ em \"U\", função φ em \"U\", função ρ em \"U\", o menor valor atribuído a \"U\", o maior valor atribuído a \"U\", os pontos de exclusões no intervalo separados por vírgula, e a cor RGB com os menores para vermelho, verde e azul separados por vírgula \",\". 2: a resolução.\n";
 	char * temp;
 
 	int precisao = antoniovandre_precisao_real ();
@@ -72,9 +71,8 @@ int main (int argc, char * argv[])
 	for (i = NUMEROZERO; i < MAXTAMANHOCAMPO; i++) {mainstring[i] = '\0'; resstring[i] = '\0';}
 
 	for (i = NUMEROZERO; i < MAXITENS; i++)
-		for (j = NUMEROZERO; j < MAXITENS; j++)
-			for (k = NUMEROZERO; k < MAXTAMANHOCAMPO; k++)
-				{funcaoteta[i][j][k] = '\0'; funcaophi[i][j][k] = '\0'; funcaorho[i][j][k] = '\0';}
+		for (j = NUMEROZERO; j < MAXTAMANHOCAMPO; j++)
+			{funcaoteta[i][j] = '\0'; funcaophi[i][j] = '\0'; funcaorho[i][j] = '\0';}
 
 	for (i = NUMEROZERO; i < MAXITENS; i++)
 		for (j = NUMEROZERO; j < MAXTAMANHOCAMPO; j++)
@@ -124,47 +122,41 @@ int main (int argc, char * argv[])
 
 		if (c == '\0') flag = NUMEROUM;
 
-		t = NUMEROZERO;
-		shift = NUMEROZERO;
+		j = NUMEROZERO;
 
 		do
 			{
-			j = NUMEROZERO;
+			c = item[argi][j];
+			if ((c != ';') && (c != '\0')) {funcaoteta[argi][j++] = c;} else break;
+			} while (VERDADE);
 
-			do
-				{
-				c = item[argi][shift++];
-				if ((c != ',') && (c != '\0')) {funcaoteta[argi][t][j++] = c;} else break;
-				} while (VERDADE);
+		funcaoteta[argi][j] = '\0';
 
-			funcaoteta[argi][t][j] = '\0';
-
-			k = NUMEROZERO;
-
-			do
-				{
-				c = item[argi][shift++];
-				if ((c != ',') && (c != '\0')) {funcaophi[argi][t][k++] = c;} else break;
-				} while (VERDADE);
-
-			funcaophi[argi][t][k] = '\0';
-
-			l = NUMEROZERO;
-
-			do
-				{
-				c = item[argi][shift++];
-				if ((c != ',') && (c != ';') && (c != '\0')) {funcaorho[argi][t][l++] = c;} else break;
-				} while (VERDADE);
-
-			funcaorho[argi][t++][l] = '\0';
-			} while ((c != ';') && (c != '\0'));
-
-		m = NUMEROZERO; shift -= 2;
+		k = NUMEROZERO;
 
 		do
 			{
-			c = item[argi][shift + m + 2];
+			c = item[argi][j + k + 1];
+			if ((c != ';') && (c != '\0')) {funcaophi[argi][k++] = c;} else break;
+			} while (VERDADE);
+
+		funcaophi[argi][k] = '\0';
+
+		l = NUMEROZERO;
+
+		do
+			{
+			c = item[argi][j + k + l + 2];
+			if ((c != ';') && (c != '\0')) {funcaorho[argi][l++] = c;} else break;
+			} while (VERDADE);
+
+		funcaorho[argi][l] = '\0';
+
+		m = NUMEROZERO;
+
+		do
+			{
+			c = item[argi][j + k + l + m + 3];
 			if ((c != ';') && (c != '\0')) {menor[argi][m++] = c;} else break;
 			} while (VERDADE);
 
@@ -181,7 +173,7 @@ int main (int argc, char * argv[])
 
 		do
 			{
-			c = item[argi][shift + m + n + 3];
+			c = item[argi][j + k + l + m + n + 4];
 			if ((c != ';') && (c != '\0')) {maior[argi][n++] = c;} else break;
 			} while (VERDADE);
 
@@ -200,7 +192,7 @@ int main (int argc, char * argv[])
 
 		do
 			{
-			c = item[argi][shift + m + n + o + 4];
+			c = item[argi][j + k + l + m + n + o + 5];
 			if ((c != ';') && (c != '\0')) {exclusao[argi][o++] = c;} else break;
 			} while (VERDADE);
 
@@ -237,7 +229,7 @@ int main (int argc, char * argv[])
 
 		do
 			{
-			c = item[argi][shift + m + n + r + s + 5];
+			c = item[argi][j + k + l + m + n + r + s + 6];
 			if (c != '\0') {rgb[argi][s++] = c;} else break;
 			} while (VERDADE);
 
@@ -264,66 +256,53 @@ int main (int argc, char * argv[])
 		if (++argi > MAXITENS) {printf(mensagemerro); return NUMEROUM;}
 		} while (flag == NUMEROZERO);
 
-	for (i = NUMEROZERO; i < argi; i++) for (j = NUMEROZERO; j < t; j++)
+	for (i = NUMEROZERO; i < argi; i++)
 		{
 		shift = NUMEROZERO;
 		tc = TOKENINICIOEVAL; strncat(funcaox[i], & tc, NUMEROUM);
 
-		do strncat(funcaox[i], & funcaorho[i][j][shift], NUMEROUM); while (funcaorho[i][j][++shift] != '\0');
+		do strncat(funcaox[i], & funcaorho[i][shift], NUMEROUM); while (funcaorho[i][++shift] != '\0');
 
 		tc = TOKENFIMEVAL; strncat(funcaox[i], & tc, NUMEROUM);
 
 		strcat(funcaox[i], "cos");
 		tc = TOKENINICIOEVAL; strncat(funcaox[i], & tc, NUMEROUM);
-		strcat(funcaox[i], funcaoteta[i][j]);
+		strcat(funcaox[i], funcaoteta[i]);
 		tc = TOKENFIMEVAL; strncat(funcaox[i], & tc, NUMEROUM);
 
 		strcat(funcaox[i], "cos");
 		tc = TOKENINICIOEVAL; strncat(funcaox[i], & tc, NUMEROUM);
-		strcat(funcaox[i], funcaophi[i][j]);
+		strcat(funcaox[i], funcaophi[i]);
 		tc = TOKENFIMEVAL; strncat(funcaox[i], & tc, NUMEROUM);
 
-		if (j < t - NUMEROUM) {tc = '+'; strncat(funcaox[i], & tc, NUMEROUM);}
-		}
-
-	for (i = NUMEROZERO; i < argi; i++) for (j = NUMEROZERO; j < t; j++)
-		{
 		shift = NUMEROZERO;
 		tc = TOKENINICIOEVAL; strncat(funcaoy[i], & tc, NUMEROUM);
 
-		do strncat(funcaoy[i], & funcaorho[i][j][shift], NUMEROUM); while (funcaorho[i][j][++shift] != '\0');
+		do strncat(funcaoy[i], & funcaorho[i][shift], NUMEROUM); while (funcaorho[i][++shift] != '\0');
 
 		tc = TOKENFIMEVAL; strncat(funcaoy[i], & tc, NUMEROUM);
 
 		strcat(funcaoy[i], "cos");
 		tc = TOKENINICIOEVAL; strncat(funcaoy[i], & tc, NUMEROUM);
-		strcat(funcaoy[i], funcaoteta[i][j]);
+		strcat(funcaoy[i], funcaoteta[i]);
 		tc = TOKENFIMEVAL; strncat(funcaoy[i], & tc, NUMEROUM);
 
 		strcat(funcaoy[i], "sen");
 		tc = TOKENINICIOEVAL; strncat(funcaoy[i], & tc, NUMEROUM);
-		strcat(funcaoy[i], funcaophi[i][j]);
+		strcat(funcaoy[i], funcaophi[i]);
 		tc = TOKENFIMEVAL; strncat(funcaoy[i], & tc, NUMEROUM);
 
-		if (j < t - NUMEROUM) {tc = '+'; strncat(funcaoy[i], & tc, NUMEROUM);}
-		}
-
-	for (i = NUMEROZERO; i < argi; i++) for (j = NUMEROZERO; j < t; j++)
-		{
 		shift = NUMEROZERO;
 		tc = TOKENINICIOEVAL; strncat(funcaoz[i], & tc, NUMEROUM);
 
-		do strncat(funcaoz[i], & funcaorho[i][j][shift], NUMEROUM); while (funcaorho[i][j][++shift] != '\0');
+		do strncat(funcaoz[i], & funcaorho[i][shift], NUMEROUM); while (funcaorho[i][++shift] != '\0');
 
 		tc = TOKENFIMEVAL; strncat(funcaoz[i], & tc, NUMEROUM);
 
 		strcat(funcaoz[i], "sen");
 		tc = TOKENINICIOEVAL; strncat(funcaoz[i], & tc, NUMEROUM);
-		strcat(funcaoz[i], funcaophi[i][j]);
+		strcat(funcaoz[i], funcaophi[i]);
 		tc = TOKENFIMEVAL; strncat(funcaoz[i], & tc, NUMEROUM);
-
-
-		if (j < t - NUMEROUM) {tc = '+'; strncat(funcaoz[i], & tc, NUMEROUM);}
 		}
 
 	for (i = NUMEROZERO; i < argi; i++)
@@ -671,14 +650,7 @@ int main (int argc, char * argv[])
 	printf("%s|_____|x = 0, ", titulo);
 
 	for (i = NUMEROZERO; i < argi; i++)
-		{
-		for (j = NUMEROZERO; j < t; j++)
-			{
-			printf("θ_%d = %s, φ_%d = %s, ρ_%d = %s", j, funcaoteta[i][j], j, funcaophi[i][j], j, funcaorho[i][j]);
+		printf("θ = %s, φ = %s, ρ = %s", funcaoteta[i], funcaophi[i], funcaorho[i]);
 
-			if (j < s - NUMEROUM) printf(",");
-			}
-
-		printf(";%s|", rgb[i]);
-		}
+	printf(";%s|", rgb[i]);
 	}
