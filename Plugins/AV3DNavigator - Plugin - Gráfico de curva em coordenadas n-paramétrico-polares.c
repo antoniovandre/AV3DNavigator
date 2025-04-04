@@ -5,9 +5,9 @@ AV3DNavigator: "https://github.com/antoniovandre/AV3DNavigator".
 
 Arquivo gerador de um espaço do AV3DNavigator gráfico de curva em coordenadas n-paramétrico-polares.
 
-Argumentos: 1: primeiramente a string título e, após barra vertical "|", strings separadas por barra vertical "|" com campos separados por ponto e vírgula ";", composta dos pares de funções θ em "U" e funções ρ em "U" separadas por vírgula ",", o menor valor atribuído a "U", o maior valor atribuído a "U", os pontos de exclusões no intervalo separados por vírgula, e a cor RGB com os menores para vermelho, verde e azul separados por vírgula ",". 2: a resolução.
+Argumentos: 1: primeiramente a string título e, após barra vertical "|", strings separadas por barra vertical "|" com campos separados por ponto e vírgula ";", composta dos pares de funções θ em "VARIAVELDESUBSTITUICAO3" e funções ρ em "VARIAVELDESUBSTITUICAO3" separadas por vírgula ",", o menor valor atribuído a "VARIAVELDESUBSTITUICAO3", o maior valor atribuído a "VARIAVELDESUBSTITUICAO3", os pontos de exclusões no intervalo separados por vírgula, e a cor RGB com os menores para vermelho, verde e azul separados por vírgula ",". 2: a resolução.
 
-Última atualização: 06-08-2024. Sem considerar alterações em variáveis globais.
+Última atualização: 04-04-2025. Sem considerar alterações em variáveis globais.
 */
 
 #include "antoniovandre_eval/antoniovandre.c"
@@ -59,10 +59,36 @@ int main (int argc, char * argv[])
 	char * err;
 	char tc;
 	char * output;
-	char * mensagemerro = "Erro.\n\nArgumentos: 1: primeiramente a string título e, após barra vertical \"|\", strings separadas por barra vertical \"|\" com campos separados por ponto e vírgula \";\", composta dos pares de funções θ em \"U\" e funções ρ em \"U\" separadas por vírgula \",\", o menor valor atribuído a \"U\", o maior valor atribuído a \"U\", os pontos de exclusões no intervalo separados por vírgula, e a cor RGB com os menores para vermelho, verde e azul separados por vírgula \",\". 2: a resolução.\n";
+	char mensagemerro [MAXTAMANHOCAMPO];
+	char tempstr [MAXTAMANHOCAMPO];
 	char * temp;
 
 	int precisao = antoniovandre_precisao_real ();
+
+	char variavel = (char) ((int) strtold (antoniovandre_eval("system variaveldesubstituicao3", precisao), & err));
+
+	for (i = NUMEROZERO; i < MAXTAMANHOCAMPO; i++) mensagemerro[i] = '\0';
+
+	strcpy(mensagemerro, "Erro.\n\nArgumentos: 1: primeiramente a string título e, após barra vertical \"|\", strings separadas por barra vertical \"|\" com campos separados por ponto e vírgula \";\", composta dos pares de funções θ em \"VARIAVELDESUBSTITUICAO3\" e funções ρ em \"VARIAVELDESUBSTITUICAO3\" separadas por vírgula \",\", o menor valor atribuído a \"VARIAVELDESUBSTITUICAO3\", o maior valor atribuído a \"VARIAVELDESUBSTITUICAO3\", os pontos de exclusões no intervalo separados por vírgula, e a cor RGB com os menores para vermelho, verde e azul separados por vírgula \",\". 2: a resolução.\n");
+
+	for (i = NUMEROZERO; i < MAXTAMANHOCAMPO; i++) tempstr[i] = '\0';
+
+	for (i = NUMEROZERO; i < strlen(mensagemerro); i++)
+		{
+		temp = antoniovandre_substring(mensagemerro, i, i + 22);
+
+		if (! (strcmp(temp, "VARIAVELDESUBSTITUICAO3")))
+			{
+			strncat(tempstr, & variavel, NUMEROUM);
+			i += 22;
+			}
+		else
+			strncat(tempstr, & mensagemerro[i], NUMEROUM);
+
+		free(temp);
+		}
+
+	strcpy(mensagemerro, tempstr);
 
 	if (argc != 3) {printf(mensagemerro); return NUMEROUM;}
 
@@ -319,7 +345,7 @@ int main (int argc, char * argv[])
 					{
 					c = funcaox[i][shift++];
 
-					if (c != 'U')
+					if (c != variavel)
 						{tempstr[k++] = c;}
 					else
 						{
@@ -373,7 +399,7 @@ int main (int argc, char * argv[])
 					{
 					c = funcaoy[i][shift++];
 
-					if (c != 'U')
+					if (c != variavel)
 						{tempstr[k++] = c;}
 					else
 						{
@@ -427,7 +453,7 @@ int main (int argc, char * argv[])
 					{
 					c = funcaox[i][shift++];
 
-					if (c != 'U')
+					if (c != variavel)
 						{tempstr[k++] = c;}
 					else
 						{
@@ -482,7 +508,7 @@ int main (int argc, char * argv[])
 					{
 					c = funcaoy[i][shift++];
 
-					if (c != 'U')
+					if (c != variavel)
 						{tempstr[k++] = c;}
 					else
 						{
