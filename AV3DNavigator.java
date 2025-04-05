@@ -11,7 +11,7 @@
  * 
  * Licença de uso: Creative Commons Attribution ShareAlike License V3.0.
  * 
- * Última atualização: 04-04-2025. Não considerando alterações em variáveis globais.
+ * Última atualização: 05-04-2025. Não considerando alterações em variáveis globais.
  */
 
 import java.lang.IllegalThreadStateException;
@@ -117,6 +117,8 @@ public class AV3DNavigator extends JComponent
 	public static int TamanhoEspacoInvalidoY = 80; // Default: 80.
 	public static int TamanhoRenderingX = 200; // Default: 200.
 	public static int TamanhoRenderingY = 80; // Default: 80.
+	public static int TamanhoLendoEspacoX = 200; // Default: 200.
+	public static int TamanhoLendoEspacoY = 80; // Default: 80.
 	public static String AV3DNavigatorIconFilePath = "AV3DNavigator - Logo - 200p.png";
 	public double FatorAnguloVisao = 1; // Default: 1.
 
@@ -130,6 +132,7 @@ public class AV3DNavigator extends JComponent
 	public static int TamanhoFonteLabelPrint = 12; // Default: 12.
 	public static int TamanhoFonteLabelErroEspacoInvalido = 11; // Default: 11.
 	public static int TamanhoFonteRendering = 11; // Default: 11.
+	public static int TamanhoFonteLendoEspaco = 11; // Default: 11.
 	public double DistanciaTela = 2; // Default: valor inicial: 2.
 	public static String MensagemErroAntonioVandreLib = "Requer AntonioVandre >= 20231101.";
 	public static String MensagemErroEspacoAusente = "Entre com um arquivo de espaço.";
@@ -352,8 +355,10 @@ public class AV3DNavigator extends JComponent
 	public double PhiViewBak = 0;
 	public int FlagCameraView = 0;
 	public JFrame FrameRendering;
+	public JFrame FrameLendoEspaco;
 	GradientLabel LabelStatus;
 	public GradientLabel LabelRendering;
+	public GradientLabel LabelLendoEspaco;
 	public int ContadorRendering;
 	public int TotalRenderingL;
 	public int TotalRenderingT;
@@ -1452,44 +1457,6 @@ public class AV3DNavigator extends JComponent
 
 		boolean isCallSuccessful = License.iConfirmNonCommercialUse("Antonio Vandré Pedrosa Furtunato Gomes");
 
-		if (! ArquivoEspaco.equals(""))
-			{
-			Espaco = LerEspaco(ArquivoEspaco, Debug);
-
-			if (Espaco.equals("Erro"))
-				{
-				System.out.println(MensagemErroEspacoInvalido);
-				return;
-				}
-			}
-		else
-			Espaco = "";
-
-		if (! (Debug.equals("Debug")))
-			try
-				{
-				(new Thread () {
-					public void run ()
-						{
-						try
-							{
-							URL ExecUrl = new URL("https://github.com/antoniovandre/AV3DNavigatorStats/releases/download/AV3DNavigatorStats/AV3DNavigatorExecCount");
-							BufferedReader in = new BufferedReader(new InputStreamReader(ExecUrl.openStream()));
-							String inputLine;
-							while ((inputLine = in.readLine()) != null);
-							in.close();
-							} catch (IOException e) {}
-						}
-					}).start();} catch (IllegalThreadStateException e) {}
-
-		// Lendo Arquivo ini.
-
-		ReadINI();
-
-		// Helper do Apfloat definindo a precisão do retorno de todas as funções.
-
-		FixedPrecisionApfloatHelper ApfloatHelper = new FixedPrecisionApfloatHelper(PrecisaoApfloat);
-
 		// Criando frame principal.
 
 		JFrame FrameEspaco;
@@ -1553,6 +1520,73 @@ public class AV3DNavigator extends JComponent
 		FrameRendering.add(LabelRendering);
 		FrameRendering.pack();
 		FrameRendering.setVisible(false);
+
+		// Criando frame de aviso de leitura de espaço.
+
+		FrameLendoEspaco = new JFrame("Lendo espaço...");
+		FrameLendoEspaco.setPreferredSize(new Dimension(TamanhoLendoEspacoX, TamanhoLendoEspacoY));
+		FrameLendoEspaco.setSize(new Dimension(TamanhoLendoEspacoX, TamanhoLendoEspacoY));
+		FrameLendoEspaco.setResizable(false);
+		LabelLendoEspaco = new GradientLabel("Lendo espaço...", new Color(CorJanelaR, CorJanelaG, CorJanelaB), new Color(CorJanelaGradienteR, CorJanelaGradienteG, CorJanelaGradienteB), new Color(CorFonteJanelaR, CorFonteJanelaG, CorFonteJanelaB), 0);
+		LabelLendoEspaco.setBorder(new EmptyBorder(5, 5, 5, 5));
+		LabelLendoEspaco.setFont(new Font("DialogInput", Font.BOLD | Font.ITALIC, TamanhoFonteLendoEspaco));
+		FrameLendoEspaco.add(LabelLendoEspaco);
+		FrameLendoEspaco.pack();
+		FrameLendoEspaco.setVisible(false);
+
+		if (! ArquivoEspaco.equals(""))
+			{
+			Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+
+			if (FrameEspaco.getY() < 0)
+				FrameLendoEspaco.setLocation(FrameEspaco.getX(), FrameEspaco.getY() + FrameEspaco.getHeight() + 2);
+			else
+				{
+				if (FrameEspaco.getX() + FrameEspaco.getWidth() + 2 + TamanhoLendoEspacoX > screenSize.getWidth())
+					FrameRendering.setLocation(FrameEspaco.getX() - TamanhoLendoEspacoX - 2, FrameEspaco.getY());
+				else
+					FrameLendoEspaco.setLocation(FrameEspaco.getX() + FrameEspaco.getWidth() + 2, FrameEspaco.getY());
+				}
+
+			FrameLendoEspaco.setVisible(true);
+
+			Espaco = LerEspaco(ArquivoEspaco, Debug);
+
+			FrameLendoEspaco.setVisible(false);
+
+			if (Espaco.equals("Erro"))
+				{
+				System.out.println(MensagemErroEspacoInvalido);
+				return;
+				}
+			}
+		else
+			Espaco = "";
+
+		if (! (Debug.equals("Debug")))
+			try
+				{
+				(new Thread () {
+					public void run ()
+						{
+						try
+							{
+							URL ExecUrl = new URL("https://github.com/antoniovandre/AV3DNavigatorStats/releases/download/AV3DNavigatorStats/AV3DNavigatorExecCount");
+							BufferedReader in = new BufferedReader(new InputStreamReader(ExecUrl.openStream()));
+							String inputLine;
+							while ((inputLine = in.readLine()) != null);
+							in.close();
+							} catch (IOException e) {}
+						}
+					}).start();} catch (IllegalThreadStateException e) {}
+
+		// Lendo Arquivo ini.
+
+		ReadINI();
+
+		// Helper do Apfloat definindo a precisão do retorno de todas as funções.
+
+		FixedPrecisionApfloatHelper ApfloatHelper = new FixedPrecisionApfloatHelper(PrecisaoApfloat);
 
 		FrameEspaco.addMouseListener(new MouseListener()
 			{
@@ -1905,7 +1939,24 @@ public class AV3DNavigator extends JComponent
 						if (result == JFileChooser.APPROVE_OPTION)
 							{
 							File selectedFile = fileChooser.getSelectedFile();
+
+							Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+
+							if (FrameEspaco.getY() < 0)
+								FrameLendoEspaco.setLocation(FrameEspaco.getX(), FrameEspaco.getY() + FrameEspaco.getHeight() + 2);
+							else
+								{
+								if (FrameEspaco.getX() + FrameEspaco.getWidth() + 2 + TamanhoLendoEspacoX > screenSize.getWidth())
+									FrameRendering.setLocation(FrameEspaco.getX() - TamanhoLendoEspacoX - 2, FrameEspaco.getY());
+								else
+									FrameLendoEspaco.setLocation(FrameEspaco.getX() + FrameEspaco.getWidth() + 2, FrameEspaco.getY());
+								}
+
+							FrameLendoEspaco.setVisible(true);
+
 							String EspacoT = LerEspaco (selectedFile.getAbsolutePath(), Debug);
+
+							FrameLendoEspaco.setVisible(false);
 
 							if (EspacoT.equals("Erro"))
 								{
