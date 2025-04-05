@@ -1639,8 +1639,7 @@ public class AV3DNavigator extends JComponent
 
 					if (keyCode == KeyEvent.VK_ESCAPE)
 						{Sair = 1; NoRedrawFlag = 1;}
-
-					if (keyCode == KeyEvent.VK_SPACE)
+					else if (keyCode == KeyEvent.VK_SPACE)
 						{
 						if (ke.isShiftDown())
 							{
@@ -1781,8 +1780,7 @@ public class AV3DNavigator extends JComponent
 							FrameRendering.setVisible(false);
 							}
 						}
-
-					if (keyCode == KeyEvent.VK_F1) if (FlagHelp == 0)
+					else if (keyCode == KeyEvent.VK_F1) {if (FlagHelp == 0)
 						{
 						if (! (Debug.equals("Debug"))) try
 							{
@@ -1855,9 +1853,8 @@ public class AV3DNavigator extends JComponent
 								});
 
 						NoRedrawFlag = 1;
-						}
-
-					if (keyCode == KeyEvent.VK_F12)
+						}}
+					else if (keyCode == KeyEvent.VK_F12)
 						{
 						DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd-MM-yyyy HH-mm-ss");
 						LocalDateTime now = LocalDateTime.now();
@@ -1930,8 +1927,7 @@ public class AV3DNavigator extends JComponent
 
 						NoRedrawFlag = 1;
 						}
-
-					if (keyCode == KeyEvent.VK_F2)
+					else if (keyCode == KeyEvent.VK_F2)
 						{
 						JFileChooser fileChooser = new JFileChooser();
 						fileChooser.setCurrentDirectory(new File(System.getProperty("user.dir")));
@@ -1994,11 +1990,9 @@ public class AV3DNavigator extends JComponent
 							}
 						else if (result == JFileChooser.CANCEL_OPTION) NoRedrawFlag = 1;
 						}
-
-					if (keyCode == KeyEvent.VK_F10)
+					else if (keyCode == KeyEvent.VK_F10)
 						{if (StretchFlag == 0) StretchFlag = 1; else StretchFlag = 0;}
-
-					if (keyCode == KeyEvent.VK_F11)
+					else if (keyCode == KeyEvent.VK_F11)
 						{
 						if (StretchFlag == 1)
 							{
@@ -2018,8 +2012,7 @@ public class AV3DNavigator extends JComponent
 							FrameEspaco.revalidate(); FrameEspaco.repaint(); FrameEspaco.pack();
 							}
 						}
-
-					if (keyCode == KeyEvent.VK_F3)
+					else if (keyCode == KeyEvent.VK_F3)
 						{
 						if (FlagMostrarLabel == 0)
 							{
@@ -2076,23 +2069,16 @@ public class AV3DNavigator extends JComponent
 
 						NoRedrawFlag = 1;
 						}
-
-					if (keyCode == KeyEvent.VK_END) {TamanhoFonteLegendas++;}
-
-					if (keyCode == KeyEvent.VK_DELETE)
+					else if (keyCode == KeyEvent.VK_END) {TamanhoFonteLegendas++;}
+					else if (keyCode == KeyEvent.VK_DELETE)
 						{if (TamanhoFonteLegendas > 1) TamanhoFonteLegendas--;}
-
-					if (keyCode == KeyEvent.VK_EQUALS) {ShiftVerticalLegendas++;}
-
-					if (keyCode == KeyEvent.VK_MINUS)
+					else if (keyCode == KeyEvent.VK_EQUALS) {ShiftVerticalLegendas++;}
+					else if (keyCode == KeyEvent.VK_MINUS)
 						{if (ShiftVerticalLegendas > 20) ShiftVerticalLegendas--;}
-
-					if (keyCode == KeyEvent.VK_NUMPAD2) {if (ResolucaoTriangulos < AntonioVandre.MaximoValorInteiro) ResolucaoTriangulos++;}
-
-					if (keyCode == KeyEvent.VK_NUMPAD1)
+					else if (keyCode == KeyEvent.VK_NUMPAD2) {if (ResolucaoTriangulos < AntonioVandre.MaximoValorInteiro) ResolucaoTriangulos++;}
+					else if (keyCode == KeyEvent.VK_NUMPAD1)
 						{if (ResolucaoTriangulos > 2) ResolucaoTriangulos--;}
-
-					if (keyCode == KeyEvent.VK_NUMPAD3)
+					else if (keyCode == KeyEvent.VK_NUMPAD3)
 						{
 						if (ke.isControlDown())
 							{
@@ -2151,8 +2137,7 @@ public class AV3DNavigator extends JComponent
 								} catch (IOException e) {}
 							}
 						}
-
-					if (keyCode == KeyEvent.VK_NUMPAD4)
+					else if (keyCode == KeyEvent.VK_NUMPAD4)
 						{
 						File file = new File("AV3DNCamIds.txt");
 
@@ -2193,61 +2178,52 @@ public class AV3DNavigator extends JComponent
 
 						NoRedrawFlag = 1;
 						}
-
-					if (keyCode == KeyEvent.VK_PAGE_UP) {if (SleepTime < AntonioVandre.MaximoValorInteiro) SleepTime++; NoRedrawFlag = 1;}
-
-					if (keyCode == KeyEvent.VK_PAGE_DOWN)
+					else if (keyCode == KeyEvent.VK_PAGE_UP) {if (SleepTime < AntonioVandre.MaximoValorInteiro) SleepTime++; NoRedrawFlag = 1;}
+					else if (keyCode == KeyEvent.VK_PAGE_DOWN)
 						{if (SleepTime > 1) SleepTime--; NoRedrawFlag = 1;}
-
-					if (keyCode == KeyEvent.VK_A)
+					else if (keyCode == KeyEvent.VK_A)
 						{
 						if (ke.isShiftDown())
 							{if (! (Math.abs(xCamera + DeslocamentoLinear) >= AntonioVandre.MaximoValorReal)) {xCamera += DeslocamentoLinear; ContadorFrames = 0;} else VariavelLimiteAtingido();}
 						else
 							{FlagMouseY = 1; FlagCoordRot = 0; FlagCoordRotHor = 0; FlagCoordRotVert = 0; CameraId = -1; if (! (Math.abs(x + DeslocamentoLinear) >= AntonioVandre.MaximoValorReal)) {x += DeslocamentoLinear; ContadorFrames = 0;} else VariavelLimiteAtingido();}
 						}
-
-					if (keyCode == KeyEvent.VK_Z)
+					else if (keyCode == KeyEvent.VK_Z)
 						{
 						if (ke.isShiftDown())
 							{if (! (Math.abs(xCamera - DeslocamentoLinear) >= AntonioVandre.MaximoValorReal)) {xCamera -= DeslocamentoLinear; ContadorFrames = 0;} else VariavelLimiteAtingido();}
 						else
 							{FlagMouseY = 1; FlagCoordRot = 0; FlagCoordRotHor = 0; FlagCoordRotVert = 0; CameraId = -1; if (! (Math.abs(x - DeslocamentoLinear) >= AntonioVandre.MaximoValorReal)) {x -= DeslocamentoLinear; ContadorFrames = 0;} else VariavelLimiteAtingido();}
 						}
-
-					if (keyCode == KeyEvent.VK_S)
+					else if (keyCode == KeyEvent.VK_S)
 						{
 						if (ke.isShiftDown())
 							{if (! (Math.abs(yCamera + DeslocamentoLinear) >= AntonioVandre.MaximoValorReal)) {yCamera += DeslocamentoLinear; ContadorFrames = 0;} else VariavelLimiteAtingido();}
 						else
 							{FlagMouseY = 1; FlagCoordRot = 0; FlagCoordRotHor = 0; FlagCoordRotVert = 0; CameraId = -1; if (! (Math.abs(y - DeslocamentoLinear) >= AntonioVandre.MaximoValorReal)) {y -= DeslocamentoLinear; ContadorFrames = 0;} else VariavelLimiteAtingido();}
 						}
-
-					if (keyCode == KeyEvent.VK_X)
+					else if (keyCode == KeyEvent.VK_X)
 						{
 						if (ke.isShiftDown())
 							{if (! (Math.abs(yCamera - DeslocamentoLinear) >= AntonioVandre.MaximoValorReal)) {yCamera -= DeslocamentoLinear; ContadorFrames = 0;} else VariavelLimiteAtingido();}
 						else
 							{FlagMouseY = 1; FlagCoordRot = 0; FlagCoordRotHor = 0; FlagCoordRotVert = 0; CameraId = -1; if (! (Math.abs(y + DeslocamentoLinear) >= AntonioVandre.MaximoValorReal)) {y += DeslocamentoLinear; ContadorFrames = 0;} else VariavelLimiteAtingido();}
 						}
-
-					if (keyCode == KeyEvent.VK_D)
+					else if (keyCode == KeyEvent.VK_D)
 						{
 						if (ke.isShiftDown())
 							{if (! (Math.abs(zCamera + DeslocamentoLinear) >= AntonioVandre.MaximoValorReal)) {zCamera += DeslocamentoLinear; ContadorFrames = 0;} else VariavelLimiteAtingido();}
 						else
 							{FlagMouseY = 1; FlagCoordRot = 0; FlagCoordRotHor = 0; FlagCoordRotVert = 0; CameraId = -1; if (! (Math.abs(z - DeslocamentoLinear) >= AntonioVandre.MaximoValorReal)) {z -= DeslocamentoLinear; ContadorFrames = 0;} else VariavelLimiteAtingido();}
 						}
-
-					if (keyCode == KeyEvent.VK_C)
+					else if (keyCode == KeyEvent.VK_C)
 						{
 						if (ke.isShiftDown())
 							{if (! (Math.abs(zCamera - DeslocamentoLinear) >= AntonioVandre.MaximoValorReal)) {zCamera -= DeslocamentoLinear; ContadorFrames = 0;} else VariavelLimiteAtingido();}
 						else
 							{FlagMouseY = 1; FlagCoordRot = 0; FlagCoordRotHor = 0; FlagCoordRotVert = 0; CameraId = -1; if (! (Math.abs(z + DeslocamentoLinear) >= AntonioVandre.MaximoValorReal)) {z += DeslocamentoLinear; ContadorFrames = 0;} else VariavelLimiteAtingido();}
 						}
-
-					if (keyCode == KeyEvent.VK_F)
+					else if (keyCode == KeyEvent.VK_F)
 						{
 						FlagMouseY = 1; FlagCoordRot = 0; FlagCoordRotHor = 0; FlagCoordRotVert = 0; CameraId = -1;
 
@@ -2263,8 +2239,7 @@ public class AV3DNavigator extends JComponent
 							if (Math.abs(Teta) < TetaMax - DeslocamentoAngular) {if (! (Math.abs(Teta + DeslocamentoAngular) >= AntonioVandre.MaximoValorReal)) {Teta += DeslocamentoAngular; ContadorFrames = 0;} else VariavelLimiteAtingido();} else {Teta -= Math.signum(Teta) * DeslocamentoAngular; ContadorFrames = FramesDeslocamento; Tetat = Teta; FlagTetaInferior = 1;}
 							}
 						}
-
-					if (keyCode == KeyEvent.VK_V)
+					else if (keyCode == KeyEvent.VK_V)
 						{
 						FlagMouseY = 1; FlagCoordRot = 0; FlagCoordRotHor = 0; FlagCoordRotVert = 0; CameraId = -1;
 
@@ -2280,8 +2255,7 @@ public class AV3DNavigator extends JComponent
 							if (Math.abs(Teta) < TetaMax - DeslocamentoAngular) {if (! (Math.abs(Teta - DeslocamentoAngular) >= AntonioVandre.MaximoValorReal)) {Teta -= DeslocamentoAngular; ContadorFrames = 0;} else VariavelLimiteAtingido();} else {Teta -= Math.signum(Teta) * DeslocamentoAngular; ContadorFrames = FramesDeslocamento; Tetat = Teta; FlagTetaInferior = 1;}
 							}
 						}
-
-					if (keyCode == KeyEvent.VK_B) if (FlagCoordRotOnce == 0)
+					else if (keyCode == KeyEvent.VK_B) {if (FlagCoordRotOnce == 0)
 						{
 						FlagMouseY = 1; FlagCoordRot = 0; FlagCoordRotHor = 0; FlagCoordRotVert = 0; CameraId = -1;
 
@@ -2293,9 +2267,8 @@ public class AV3DNavigator extends JComponent
 							{
 							if (Math.abs(Phi) < PhiMax - DeslocamentoAngular) {if (! (Math.abs(Phi - DeslocamentoAngular) >= AntonioVandre.MaximoValorReal)) {Phi -= DeslocamentoAngular; ContadorFrames = 0;} else {Phi -= Math.signum(Phi) * DeslocamentoAngular; ContadorFrames = FramesDeslocamento; Phit = Phi; FlagPhiSuperior = 1;}} else {Teta -= Math.signum(Teta) * DeslocamentoAngular; ContadorFrames = FramesDeslocamento; Tetat = Teta; FlagTetaInferior = 1;}
 							}
-						}
-
-					if (keyCode == KeyEvent.VK_G) if (FlagCoordRotOnce == 0)
+						}}
+					else if (keyCode == KeyEvent.VK_G) {if (FlagCoordRotOnce == 0)
 						{
 						FlagMouseY = 1; FlagCoordRot = 0; FlagCoordRotHor = 0; FlagCoordRotVert = 0; CameraId = -1;
 
@@ -2307,15 +2280,12 @@ public class AV3DNavigator extends JComponent
 							{
 							if (Math.abs(Phi) < PhiMax - DeslocamentoAngular) {if (! (Math.abs(Phi - DeslocamentoAngular) >= AntonioVandre.MaximoValorReal)) {Phi += DeslocamentoAngular; ContadorFrames = 0;}  else VariavelLimiteAtingido();} else {Phi -= Math.signum(Phi) * DeslocamentoAngular; ContadorFrames = FramesDeslocamento; Phit = Phi; FlagPhiSuperior = 1;}
 							}
-						}
-
-					if (keyCode == KeyEvent.VK_H)
+						}}
+					else if (keyCode == KeyEvent.VK_H)
 						if (ke.isShiftDown()) {Rot = 0; Rott = Rot; ContadorFrames = FramesDeslocamento;} else {FlagCoordRot = 0; FlagCoordRotHor = 0; FlagCoordRotVert = 0; CameraId = -1; if (! (Math.abs(Rot + DeslocamentoAngular) >= AntonioVandre.MaximoValorReal)) {Rot += DeslocamentoAngular; ContadorFrames = 0;} else VariavelLimiteAtingido();}
-
-					if (keyCode == KeyEvent.VK_N)
+					else if (keyCode == KeyEvent.VK_N)
 						{FlagCoordRot = 0; FlagCoordRotHor = 0; FlagCoordRotVert = 0; CameraId = -1; if (! (Math.abs(Rot - DeslocamentoAngular) >= AntonioVandre.MaximoValorReal)) {Rot -= DeslocamentoAngular; ContadorFrames = 0;} else VariavelLimiteAtingido();}
-
-					if (keyCode == KeyEvent.VK_J)
+					else if (keyCode == KeyEvent.VK_J)
 						{
 						if (ke.isShiftDown())
 							{
@@ -2334,8 +2304,7 @@ public class AV3DNavigator extends JComponent
 							if (Math.abs(Teta) < TetaMax - DeslocamentoAngular) {if (! (Math.abs(Teta + DeslocamentoAngular) >= AntonioVandre.MaximoValorReal)) {Teta += DeslocamentoAngular; x = xRotacaoTeta + RaioTeta * Math.cos(RotacaoTeta) * Math.cos(Phi); y = yRotacaoTeta - RaioTeta * Math.sin(RotacaoTeta) * Math.cos(Phi); ContadorFrames = 0;} else VariavelLimiteAtingido();} else {Teta -= Math.signum(Teta) * DeslocamentoAngular; ContadorFrames = FramesDeslocamento; Tetat = Teta; FlagTetaInferior = 1;}
 							}
 						}
-
-					if (keyCode == KeyEvent.VK_M)
+					else if (keyCode == KeyEvent.VK_M)
 						{
 						if (ke.isShiftDown())
 							{
@@ -2354,8 +2323,7 @@ public class AV3DNavigator extends JComponent
 							if (Math.abs(Teta) < TetaMax - DeslocamentoAngular) {if (! (Math.abs(Teta - DeslocamentoAngular) >= AntonioVandre.MaximoValorReal)) {Teta -= DeslocamentoAngular; x = xRotacaoTeta + RaioTeta * Math.cos(RotacaoTeta) * Math.cos(Phi); y = yRotacaoTeta - RaioTeta * Math.sin(RotacaoTeta) * Math.cos(Phi); ContadorFrames = 0;} else VariavelLimiteAtingido();} else {Teta -= Math.signum(Teta) * DeslocamentoAngular; ContadorFrames = FramesDeslocamento; Tetat = Teta; FlagTetaInferior = 1;}
 							}
 						}
-
-					if (keyCode == KeyEvent.VK_K)
+					else if (keyCode == KeyEvent.VK_K)
 						{
 						if (ke.isControlDown())
 							{RaioRot = 0; FlagCoordRot = 0; FlagCoordRotOnce = 0;}
@@ -2376,8 +2344,7 @@ public class AV3DNavigator extends JComponent
 							if (Math.abs(Teta) < TetaMax - DeslocamentoAngular) {if (Math.abs(Phi) < PhiMax - DeslocamentoAngular) {if ((! (Math.abs(Teta + DeslocamentoAngular * Math.cos(Rot0Rotacao)) >= AntonioVandre.MaximoValorReal)) || (! (Math.abs(Phi - DeslocamentoAngular * Math.sin(Rot0Rotacao) * Math.cos(Phi0Rotacao)) >= AntonioVandre.MaximoValorReal)) || (! (Math.abs(Rot + DeslocamentoAngular * Math.cos(Rot0Rotacao) * Math.sin(Phi0Rotacao)) >= AntonioVandre.MaximoValorReal))) {Teta += DeslocamentoAngular * Math.cos(Rot0Rotacao); Phi -= DeslocamentoAngular * Math.sin(Rot0Rotacao) * Math.cos(Phi0Rotacao); Rot += DeslocamentoAngular * Math.cos(Rot0Rotacao) * Math.sin(Phi0Rotacao); x = xRotacao + RaioRot * Math.cos(Phi + Math.PI) * Math.cos(Teta); y = yRotacao - RaioRot * Math.cos(Phi + Math.PI) * Math.sin(Teta); z = zRotacao - RaioRot * Math.sin(Phi + Math.PI); ContadorFrames = 0;} else VariavelLimiteAtingido();} else {Phi -= Math.signum(Phi) * DeslocamentoAngular; ContadorFrames = FramesDeslocamento; Phit = Phi; FlagPhiInferior = 1;}} else {Teta -= Math.signum(Teta) * DeslocamentoAngular; ContadorFrames = FramesDeslocamento; Tetat = Teta; FlagTetaInferior = 1;}
 							}
 						}
-
-					if (keyCode == KeyEvent.VK_COMMA)
+					else if (keyCode == KeyEvent.VK_COMMA)
 						{
 						if (ke.isShiftDown())
 							{
@@ -2396,8 +2363,7 @@ public class AV3DNavigator extends JComponent
 							if (Math.abs(Teta) < TetaMax - DeslocamentoAngular) {if (Math.abs(Phi) < PhiMax - DeslocamentoAngular) {if ((! (Math.abs(Teta - DeslocamentoAngular * Math.cos(Rot0Rotacao)) >= AntonioVandre.MaximoValorReal)) || (! (Math.abs(Phi + DeslocamentoAngular * Math.sin(Rot0Rotacao) * Math.cos(Phi0Rotacao)) >= AntonioVandre.MaximoValorReal)) || (! (Math.abs(Rot - DeslocamentoAngular * Math.cos(Rot0Rotacao) * Math.sin(Phi0Rotacao)) >= AntonioVandre.MaximoValorReal))) {Teta -= DeslocamentoAngular * Math.cos(Rot0Rotacao); Phi += DeslocamentoAngular * Math.sin(Rot0Rotacao) * Math.cos(Phi0Rotacao); Rot -= DeslocamentoAngular * Math.cos(Rot0Rotacao) * Math.sin(Phi0Rotacao); x = xRotacao + RaioRot * Math.cos(Phi + Math.PI) * Math.cos(Teta); y = yRotacao - RaioRot * Math.cos(Phi + Math.PI) * Math.sin(Teta); z = zRotacao - RaioRot * Math.sin(Phi + Math.PI); ContadorFrames = 0;} else VariavelLimiteAtingido();} else {Phi -= Math.signum(Phi) * DeslocamentoAngular; ContadorFrames = FramesDeslocamento; Phit = Phi; FlagPhiInferior = 1;}} else {Teta -= Math.signum(Teta) * DeslocamentoAngular; ContadorFrames = FramesDeslocamento; Tetat = Teta; FlagTetaInferior = 1;}
 							}
 						}
-
-					if (keyCode == KeyEvent.VK_L)
+					else if (keyCode == KeyEvent.VK_L)
 						{
 						if (ke.isShiftDown())
 							{FlagCoordRot = 0; FlagCoordRotHor = 0; FlagCoordRotVert = 0; CameraId = -1; if (! (Math.abs(RaioPhi + DeslocamentoLinear) >= AntonioVandre.MaximoValorReal)) {RaioPhi += DeslocamentoLinear;} else VariavelLimiteAtingido();}
@@ -2406,8 +2372,7 @@ public class AV3DNavigator extends JComponent
 
 						NoRedrawFlag = 1;
 						}
-
-					if (keyCode == KeyEvent.VK_PERIOD)
+					else if (keyCode == KeyEvent.VK_PERIOD)
 						{
 						if (ke.isShiftDown())
 							{FlagCoordRot = 0; FlagCoordRotHor = 0; FlagCoordRotVert = 0; CameraId = -1; if (! (Math.abs(RaioPhi - DeslocamentoLinear) >= AntonioVandre.MaximoValorReal)) {RaioPhi -= DeslocamentoLinear;} else VariavelLimiteAtingido();}
@@ -2416,26 +2381,19 @@ public class AV3DNavigator extends JComponent
 
 						NoRedrawFlag = 1;
 						}
-
-					if (keyCode == KeyEvent.VK_OPEN_BRACKET)
+					else if (keyCode == KeyEvent.VK_OPEN_BRACKET)
 						{FlagCoordRot = 0; FlagCoordRotHor = 0; FlagCoordRotVert = 0; CameraId = -1; if (! (Math.abs(RaioRot + DeslocamentoLinear) >= AntonioVandre.MaximoValorReal)) {RaioRot += DeslocamentoLinear; NoRedrawFlag = 1;} else VariavelLimiteAtingido();}
-
-					if (keyCode == KeyEvent.VK_CLOSE_BRACKET)
+					else if (keyCode == KeyEvent.VK_CLOSE_BRACKET)
 						{FlagCoordRot = 0; FlagCoordRotHor = 0; FlagCoordRotVert = 0; CameraId = -1; if (! (Math.abs(RaioRot - DeslocamentoLinear) >= AntonioVandre.MaximoValorReal)) {RaioRot -= DeslocamentoLinear; NoRedrawFlag = 1;} else VariavelLimiteAtingido();}
-
-					if (keyCode == KeyEvent.VK_Q)
+					else if (keyCode == KeyEvent.VK_Q)
 						{FlagCoordRot = 0; FlagCoordRotHor = 0; FlagCoordRotVert = 0; CameraId = -1; if (DistanciaTela >= 1) DistanciaTela -= 1;}
-
-					if (keyCode == KeyEvent.VK_W)
+					else if (keyCode == KeyEvent.VK_W)
 						{FlagCoordRot = 0; FlagCoordRotHor = 0; FlagCoordRotVert = 0; CameraId = -1; if (! (DistanciaTela + 1 >= AntonioVandre.MaximoValorReal)) DistanciaTela += 1; else VariavelLimiteAtingido();}
-
-					if (keyCode == KeyEvent.VK_E)
+					else if (keyCode == KeyEvent.VK_E)
 						{FlagCoordRot = 0; FlagCoordRotHor = 0; FlagCoordRotVert = 0; CameraId = -1; if (FatorAnguloVisao > 1) FatorAnguloVisao -= 1;}
-
-					if (keyCode == KeyEvent.VK_R)
+					else if (keyCode == KeyEvent.VK_R)
 						{FlagCoordRot = 0; FlagCoordRotHor = 0; FlagCoordRotVert = 0; CameraId = -1; if (! (FatorAnguloVisao + 1 >= AntonioVandre.MaximoValorReal)) FatorAnguloVisao += 1; else VariavelLimiteAtingido();}
-
-					if (keyCode == KeyEvent.VK_T)
+					else if (keyCode == KeyEvent.VK_T)
 						{
 						if (ke.isShiftDown())
 							{
@@ -2450,8 +2408,7 @@ public class AV3DNavigator extends JComponent
 							if (CorLinhaRed > 0) CorLinhaRed -= 1;
 							}
 						}
-
-					if (keyCode == KeyEvent.VK_Y)
+					else if (keyCode == KeyEvent.VK_Y)
 						{
 						if (ke.isShiftDown())
 							{
@@ -2466,8 +2423,7 @@ public class AV3DNavigator extends JComponent
 							if (CorLinhaRed < 255) CorLinhaRed += 1;
 							}
 						}
-
-					if (keyCode == KeyEvent.VK_U)
+					else if (keyCode == KeyEvent.VK_U)
 						{
 						if (ke.isShiftDown())
 							{
@@ -2482,8 +2438,7 @@ public class AV3DNavigator extends JComponent
 							if (CorBackgroundRed > 0) CorBackgroundRed -= 1;
 							}
 						}
-
-					if (keyCode == KeyEvent.VK_I)
+					else if (keyCode == KeyEvent.VK_I)
 						{
 						if (ke.isShiftDown())
 							{
@@ -2498,8 +2453,7 @@ public class AV3DNavigator extends JComponent
 							if (CorBackgroundRed < 255) CorBackgroundRed += 1;
 							}
 						}
-
-					if (keyCode == KeyEvent.VK_O)
+					else if (keyCode == KeyEvent.VK_O)
 						{
 						if (ke.isShiftDown())
 							{
@@ -2514,8 +2468,7 @@ public class AV3DNavigator extends JComponent
 							if (CorTrianguloShapeRed > 0) CorTrianguloShapeRed -= 1;
 							}
 						}
-
-					if (keyCode == KeyEvent.VK_P)
+					else if (keyCode == KeyEvent.VK_P)
 						{
 						if (ke.isShiftDown())
 							{
@@ -2530,8 +2483,7 @@ public class AV3DNavigator extends JComponent
 							if (CorTrianguloShapeRed < 255) CorTrianguloShapeRed += 1;
 							}
 						}
-
-					if (keyCode == KeyEvent.VK_INSERT)
+					else if (keyCode == KeyEvent.VK_INSERT)
 						{
 						if (ke.isShiftDown())
 							{
@@ -2546,8 +2498,7 @@ public class AV3DNavigator extends JComponent
 							if (CorLegendaRed > 0) CorLegendaRed -= 1;
 							}
 						}
-
-					if (keyCode == KeyEvent.VK_HOME)
+					else if (keyCode == KeyEvent.VK_HOME)
 						{
 						if (ke.isShiftDown())
 							{
@@ -2562,8 +2513,7 @@ public class AV3DNavigator extends JComponent
 							if (CorLegendaRed < 255) CorLegendaRed += 1;
 							}
 						}
-
-					if (keyCode == KeyEvent.VK_NUMPAD0)
+					else if (keyCode == KeyEvent.VK_NUMPAD0)
 						{
 						if (ApfloatFlag == 0)
 							{
@@ -2590,11 +2540,9 @@ public class AV3DNavigator extends JComponent
 
 						TriangulosString = "";
 						}
-
-					if (keyCode == KeyEvent.VK_F4)
+					else if (keyCode == KeyEvent.VK_F4)
 						if (TrianguloPoligono == 0) TrianguloPoligono = 1; else TrianguloPoligono = 0;
-
-					if (keyCode == KeyEvent.VK_UP)
+					else if (keyCode == KeyEvent.VK_UP)
 						{
 						FlagMouseY = 1; FlagCoordRot = 0; FlagCoordRotHor = 0; FlagCoordRotVert = 0; CameraId = -1;
 
@@ -2623,8 +2571,7 @@ public class AV3DNavigator extends JComponent
 
 						ContadorFrames = 0;
 						}
-
-					if (keyCode == KeyEvent.VK_DOWN)
+					else if (keyCode == KeyEvent.VK_DOWN)
 						{
 						FlagMouseY = 1; FlagCoordRot = 0; FlagCoordRotHor = 0; FlagCoordRotVert = 0; CameraId = -1;
 
@@ -2653,8 +2600,7 @@ public class AV3DNavigator extends JComponent
 
 						ContadorFrames = 0;
 						}
-
-					if (keyCode == KeyEvent.VK_LEFT)
+					else if (keyCode == KeyEvent.VK_LEFT)
 						{
 						FlagMouseY = 1; FlagCoordRot = 0; FlagCoordRotHor = 0; FlagCoordRotVert = 0; CameraId = -1;
 
@@ -2682,8 +2628,7 @@ public class AV3DNavigator extends JComponent
 
 						ContadorFrames = 0;
 						}
-
-					if (keyCode == KeyEvent.VK_RIGHT)
+					else if (keyCode == KeyEvent.VK_RIGHT)
 						{
 						FlagMouseY = 1; FlagCoordRot = 0; FlagCoordRotHor = 0; FlagCoordRotVert = 0; CameraId = -1;
 
@@ -2711,8 +2656,7 @@ public class AV3DNavigator extends JComponent
 
 						ContadorFrames = 0;
 						}
-
-					if (keyCode == KeyEvent.VK_0)
+					else if (keyCode == KeyEvent.VK_0)
 						{
 						if ((ke.isControlDown()) && (ke.isShiftDown()))
 							{
@@ -2743,8 +2687,7 @@ public class AV3DNavigator extends JComponent
 								Parametro0 += Parametro0Step;
 							}
 						}
-
-					if (keyCode == KeyEvent.VK_1)
+					else if (keyCode == KeyEvent.VK_1)
 						{
 						if ((ke.isControlDown()) && (ke.isShiftDown()))
 							{
@@ -2775,8 +2718,7 @@ public class AV3DNavigator extends JComponent
 								Parametro1 += Parametro1Step;
 							}
 						}
-
-					if (keyCode == KeyEvent.VK_2)
+					else if (keyCode == KeyEvent.VK_2)
 						{
 						if ((ke.isControlDown()) && (ke.isShiftDown()))
 							{
@@ -2807,8 +2749,7 @@ public class AV3DNavigator extends JComponent
 								Parametro2 += Parametro2Step;
 							}
 						}
-
-					if (keyCode == KeyEvent.VK_3)
+					else if (keyCode == KeyEvent.VK_3)
 						{
 						if ((ke.isControlDown()) && (ke.isShiftDown()))
 							{
@@ -2839,8 +2780,7 @@ public class AV3DNavigator extends JComponent
 								Parametro3 += Parametro3Step;
 							}
 						}
-
-					if (keyCode == KeyEvent.VK_4)
+					else if (keyCode == KeyEvent.VK_4)
 						{
 						if ((ke.isControlDown()) && (ke.isShiftDown()))
 							{
@@ -2871,8 +2811,7 @@ public class AV3DNavigator extends JComponent
 								Parametro4 += Parametro4Step;
 							}
 						}
-
-					if (keyCode == KeyEvent.VK_5)
+					else if (keyCode == KeyEvent.VK_5)
 						{
 						if ((ke.isControlDown()) && (ke.isShiftDown()))
 							{
@@ -2903,8 +2842,7 @@ public class AV3DNavigator extends JComponent
 								Parametro5 += Parametro5Step;
 							}
 						}
-
-					if (keyCode == KeyEvent.VK_6)
+					else if (keyCode == KeyEvent.VK_6)
 						{
 						if ((ke.isControlDown()) && (ke.isShiftDown()))
 							{
@@ -2935,8 +2873,7 @@ public class AV3DNavigator extends JComponent
 								Parametro6 += Parametro6Step;
 							}
 						}
-
-					if (keyCode == KeyEvent.VK_7)
+					else if (keyCode == KeyEvent.VK_7)
 						{
 						if ((ke.isControlDown()) && (ke.isShiftDown()))
 							{
@@ -2967,8 +2904,7 @@ public class AV3DNavigator extends JComponent
 								Parametro7 += Parametro7Step;
 							}
 						}
-
-					if (keyCode == KeyEvent.VK_8)
+					else if (keyCode == KeyEvent.VK_8)
 						{
 						if ((ke.isControlDown()) && (ke.isShiftDown()))
 							{
@@ -2999,8 +2935,7 @@ public class AV3DNavigator extends JComponent
 								Parametro8 += Parametro8Step;
 							}
 						}
-
-					if (keyCode == KeyEvent.VK_9)
+					else if (keyCode == KeyEvent.VK_9)
 						{
 						if ((ke.isControlDown()) && (ke.isShiftDown()))
 							{
@@ -3031,11 +2966,9 @@ public class AV3DNavigator extends JComponent
 								Parametro9 += Parametro9Step;
 							}
 						}
-
-					if (keyCode == KeyEvent.VK_BACK_SPACE)
+					else if (keyCode == KeyEvent.VK_BACK_SPACE)
 						{if (LabelAnimado == 0) LabelAnimado = 1; else LabelAnimado = 0; NoRedrawFlag = 1;}
-
-					if (keyCode == KeyEvent.VK_ENTER)
+					else if (keyCode == KeyEvent.VK_ENTER)
 						{
 						if (ke.isControlDown())
 							{
@@ -3368,7 +3301,7 @@ public class AV3DNavigator extends JComponent
 									} while (true);
 								} catch (IOException e) {ParametroFile9 = 0;}
 							}
-						}
+						} else NoRedrawFlag = 1;
 
 					FlagAlteracaoStatus = 1;
 					}
@@ -3708,6 +3641,8 @@ public class AV3DNavigator extends JComponent
 				{Teta = TetaViewBak; Phi = PhiViewBak;}
 
 			x = xCamera; y = -yCamera; z = -zCamera; Rot = RotCamera; xt = x; yt = y; zt = z; Tetat = Teta; Phit = Phi; Rott = Rot;
+
+			ContadorRendering -= 4;
 
 			FlagCameraView = 1;
 			}
