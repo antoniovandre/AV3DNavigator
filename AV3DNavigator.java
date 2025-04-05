@@ -200,6 +200,8 @@ public class AV3DNavigator extends JComponent
 	public int CorrecaoYF = 0;
 	public int MinTamanhoPlanoX = TamanhoPlanoX;
 	public int MinTamanhoPlanoY = TamanhoPlanoY;
+	public int FrameEspacoXBak;
+	public int FrameEspacoYBak;
 	public int MinTamanhoPlanoYMaisLabels = MinTamanhoPlanoY + TamanhoEspacoLabelStatus + TamanhoEspacoLabelURL;
 	public double RaioRot = 0;
 	public double RaioTeta = 0;
@@ -1497,7 +1499,7 @@ public class AV3DNavigator extends JComponent
 		GridBagConstraintsLabelStatusLabelURL.weightx = TamanhoPlanoX;
 		GridBagConstraintsLabelStatusLabelURL.weighty = TamanhoEspacoLabelURL;
 		LabelStatusLabelURLPanel.add(LabelURL, GridBagConstraintsLabelStatusLabelURL);
-		FrameEspaco.getContentPane().add(LabelStatusLabelURLPanel);
+		FrameEspaco.getContentPane().add(LabelStatusLabelURLPanel, BorderLayout.SOUTH);
 
 		// Criando frame de progresso de renderização.
 
@@ -1755,7 +1757,7 @@ public class AV3DNavigator extends JComponent
 							GridBagConstraintsLabelStatusLabelURL.weightx = TamanhoPlanoX;
 							GridBagConstraintsLabelStatusLabelURL.weighty = TamanhoEspacoLabelURL;
 							LabelStatusLabelURLPanel.add(LabelURL, GridBagConstraintsLabelStatusLabelURL);
-							FrameEspaco.getContentPane().add(LabelStatusLabelURLPanel);
+							FrameEspaco.getContentPane().add(LabelStatusLabelURLPanel, BorderLayout.SOUTH);
 
 							// Atualizando frame rendering.
 
@@ -3603,6 +3605,22 @@ public class AV3DNavigator extends JComponent
 				else ContadorTime++;
 				}
 
+			if (FrameEspacoXBak != FrameEspaco.getWidth())
+				{
+				FrameEspacoXBak = FrameEspaco.getWidth();
+				TamanhoPlanoX = FrameEspacoXBak;
+
+				FlagAlteracaoStatus = 1;
+				}
+
+			if (FrameEspacoYBak != FrameEspaco.getWidth())
+				{
+				FrameEspacoYBak = FrameEspaco.getHeight();
+				TamanhoPlanoY = FrameEspacoYBak - TamanhoEspacoLabelStatus - TamanhoEspacoLabelURL;
+
+				FlagAlteracaoStatus = 1;
+				}
+						
 			try {Thread.sleep(SleepTime);} catch(InterruptedException e) {}
 			}
 
