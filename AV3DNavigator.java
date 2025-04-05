@@ -2345,7 +2345,7 @@ public class AV3DNavigator extends JComponent
 
 							if (! (Math.abs(Rotacao + DeslocamentoAngular) >= AntonioVandre.MaximoValorReal)) Rotacao += DeslocamentoAngular; else VariavelLimiteAtingido();
 
-							if (Math.abs(Teta) < TetaMax - DeslocamentoAngular) {if (Math.abs(Phi) < PhiMax - DeslocamentoAngular) {if ((! (Math.abs(Teta + DeslocamentoAngular * Math.cos(Rot0Rotacao)) >= AntonioVandre.MaximoValorReal)) || (! (Math.abs(Phi - DeslocamentoAngular * Math.sin(Rot0Rotacao) * Math.cos(Phi0Rotacao)) >= AntonioVandre.MaximoValorReal)) || (! (Math.abs(Rot + DeslocamentoAngular * Math.cos(Rot0Rotacao) * Math.sin(Phi0Rotacao)) >= AntonioVandre.MaximoValorReal))) {Teta += DeslocamentoAngular * Math.cos(Rot0Rotacao); Phi -= DeslocamentoAngular * Math.sin(Rot0Rotacao) * Math.cos(Phi0Rotacao); Rot += DeslocamentoAngular * Math.cos(Rot0Rotacao) * Math.sin(Phi0Rotacao); x = xRotacao + RaioRot * Math.cos(Phi + Math.PI) * Math.cos(Teta); y = yRotacao - RaioRot * Math.cos(Phi + Math.PI) * Math.sin(Teta); z = zRotacao - RaioRot * Math.sin(Phi + Math.PI); ContadorFrames = 0;} else VariavelLimiteAtingido();} else {Phi -= Math.signum(Phi) * DeslocamentoAngular; ContadorFrames = FramesDeslocamento; Phit = Phi; FlagPhiInferior = 1;}} else {Teta -= Math.signum(Teta) * DeslocamentoAngular; ContadorFrames = FramesDeslocamento; Tetat = Teta; FlagTetaInferior = 1;}
+							if (Math.abs(Teta) < TetaMax - DeslocamentoAngular) {if (Math.abs(Phi) < PhiMax - DeslocamentoAngular) {if ((! (Math.abs(Teta + DeslocamentoAngular * Math.cos(Rot)) >= AntonioVandre.MaximoValorReal)) || (! (Math.abs(Phi - DeslocamentoAngular * Math.sin(Rot) * Math.cos(Phi)) >= AntonioVandre.MaximoValorReal)) || (! (Math.abs(Rot + DeslocamentoAngular * Math.cos(Rot) * Math.sin(Phi)) >= AntonioVandre.MaximoValorReal))) {Teta += DeslocamentoAngular * Math.cos(Rot); Phi -= DeslocamentoAngular * Math.sin(Rot) * Math.cos(Phi); Rot += DeslocamentoAngular * Math.cos(Rot) * Math.sin(Phi); x = xRotacao + RaioRot * Math.cos(Phi + Math.PI) * Math.cos(Teta); y = yRotacao - RaioRot * Math.cos(Phi + Math.PI) * Math.sin(Teta); z = zRotacao - RaioRot * Math.sin(Phi + Math.PI); ContadorFrames = 0;} else VariavelLimiteAtingido();} else {Phi -= Math.signum(Phi) * DeslocamentoAngular; ContadorFrames = FramesDeslocamento; Phit = Phi; FlagPhiInferior = 1;}} else {Teta -= Math.signum(Teta) * DeslocamentoAngular; ContadorFrames = FramesDeslocamento; Tetat = Teta; FlagTetaInferior = 1;}
 							}
 						}
 					else if (keyCode == KeyEvent.VK_COMMA)
@@ -2364,7 +2364,7 @@ public class AV3DNavigator extends JComponent
 
 							if (! (Math.abs(Rotacao - DeslocamentoAngular) >= AntonioVandre.MaximoValorReal)) Rotacao -= DeslocamentoAngular; else VariavelLimiteAtingido();
 
-							if (Math.abs(Teta) < TetaMax - DeslocamentoAngular) {if (Math.abs(Phi) < PhiMax - DeslocamentoAngular) {if ((! (Math.abs(Teta - DeslocamentoAngular * Math.cos(Rot0Rotacao)) >= AntonioVandre.MaximoValorReal)) || (! (Math.abs(Phi + DeslocamentoAngular * Math.sin(Rot0Rotacao) * Math.cos(Phi0Rotacao)) >= AntonioVandre.MaximoValorReal)) || (! (Math.abs(Rot - DeslocamentoAngular * Math.cos(Rot0Rotacao) * Math.sin(Phi0Rotacao)) >= AntonioVandre.MaximoValorReal))) {Teta -= DeslocamentoAngular * Math.cos(Rot0Rotacao); Phi += DeslocamentoAngular * Math.sin(Rot0Rotacao) * Math.cos(Phi0Rotacao); Rot -= DeslocamentoAngular * Math.cos(Rot0Rotacao) * Math.sin(Phi0Rotacao); x = xRotacao + RaioRot * Math.cos(Phi + Math.PI) * Math.cos(Teta); y = yRotacao - RaioRot * Math.cos(Phi + Math.PI) * Math.sin(Teta); z = zRotacao - RaioRot * Math.sin(Phi + Math.PI); ContadorFrames = 0;} else VariavelLimiteAtingido();} else {Phi -= Math.signum(Phi) * DeslocamentoAngular; ContadorFrames = FramesDeslocamento; Phit = Phi; FlagPhiInferior = 1;}} else {Teta -= Math.signum(Teta) * DeslocamentoAngular; ContadorFrames = FramesDeslocamento; Tetat = Teta; FlagTetaInferior = 1;}
+							if (Math.abs(Teta) < TetaMax - DeslocamentoAngular) {if (Math.abs(Phi) < PhiMax - DeslocamentoAngular) {if ((! (Math.abs(Teta - DeslocamentoAngular * Math.cos(Rot)) >= AntonioVandre.MaximoValorReal)) || (! (Math.abs(Phi + DeslocamentoAngular * Math.sin(Rot) * Math.cos(Phi)) >= AntonioVandre.MaximoValorReal)) || (! (Math.abs(Rot - DeslocamentoAngular * Math.cos(Rot) * Math.sin(Phi)) >= AntonioVandre.MaximoValorReal))) {Teta -= DeslocamentoAngular * Math.cos(Rot); Phi += DeslocamentoAngular * Math.sin(Rot) * Math.cos(Phi); Rot -= DeslocamentoAngular * Math.cos(Rot) * Math.sin(Phi); x = xRotacao + RaioRot * Math.cos(Phi + Math.PI) * Math.cos(Teta); y = yRotacao - RaioRot * Math.cos(Phi + Math.PI) * Math.sin(Teta); z = zRotacao - RaioRot * Math.sin(Phi + Math.PI); ContadorFrames = 0;} else VariavelLimiteAtingido();} else {Phi -= Math.signum(Phi) * DeslocamentoAngular; ContadorFrames = FramesDeslocamento; Phit = Phi; FlagPhiInferior = 1;}} else {Teta -= Math.signum(Teta) * DeslocamentoAngular; ContadorFrames = FramesDeslocamento; Tetat = Teta; FlagTetaInferior = 1;}
 							}
 						}
 					else if (keyCode == KeyEvent.VK_L)
@@ -3485,6 +3485,22 @@ public class AV3DNavigator extends JComponent
 					}
 				}
 
+			if (FrameEspacoXBak != FrameEspaco.getWidth())
+				{
+				FrameEspacoXBak = FrameEspaco.getWidth();
+				TamanhoPlanoX = FrameEspacoXBak;
+
+				FlagAlteracaoStatus = 1;
+				}
+
+			if (FrameEspacoYBak != FrameEspaco.getHeight())
+				{
+				FrameEspacoYBak = FrameEspaco.getHeight();
+				TamanhoPlanoY = FrameEspacoYBak - TamanhoEspacoLabelStatus - TamanhoEspacoLabelURL;
+
+				FlagAlteracaoStatus = 1;
+				}
+
 			if (FlagAlteracaoStatus == 1)
 				{
 				StringCores = "";
@@ -3605,22 +3621,6 @@ public class AV3DNavigator extends JComponent
 				else ContadorTime++;
 				}
 
-			if (FrameEspacoXBak != FrameEspaco.getWidth())
-				{
-				FrameEspacoXBak = FrameEspaco.getWidth();
-				TamanhoPlanoX = FrameEspacoXBak;
-
-				FlagAlteracaoStatus = 1;
-				}
-
-			if (FrameEspacoYBak != FrameEspaco.getWidth())
-				{
-				FrameEspacoYBak = FrameEspaco.getHeight();
-				TamanhoPlanoY = FrameEspacoYBak - TamanhoEspacoLabelStatus - TamanhoEspacoLabelURL;
-
-				FlagAlteracaoStatus = 1;
-				}
-						
 			try {Thread.sleep(SleepTime);} catch(InterruptedException e) {}
 			}
 
