@@ -345,6 +345,8 @@ public class AV3DNavigator extends JComponent
 	public String CamPersCont;
 	public int CameraView = 0;
 	public int CameraViewFollow = 1;
+	public int TotalLinhasSeta = 0;
+	public String Seta;
 	public double xBak;
 	public double yBak;
 	public double zBak;
@@ -3521,6 +3523,18 @@ public class AV3DNavigator extends JComponent
 
 				FrameEspaco.getContentPane().setBackground(CorBackground);
 
+				if (NoRedrawFlag == 0)
+					{
+					if (CameraView == 1)
+						{
+						Seta = "|" + String.valueOf(x) + "," + String.valueOf(-y) + "," + String.valueOf(-z) + ";" + String.valueOf(x + TamanhoSetaCamera / 2 * Math.cos(Teta) * Math.cos(Phi)) + "," + String.valueOf(-y + TamanhoSetaCamera / 2 * Math.sin(Teta) * Math.cos(Phi)) + "," + String.valueOf(-z + TamanhoSetaCamera / 2 * Math.sin(Phi)) + "c255,0,0|" + String.valueOf(x + TamanhoSetaCamera / 2 * Math.cos(Teta) * Math.cos(Phi)) + "," + String.valueOf(-y + TamanhoSetaCamera / 2 * Math.sin(Teta) * Math.cos(Phi)) + "," + String.valueOf(-z + TamanhoSetaCamera / 2 * Math.sin(Phi)) + ";" + String.valueOf(x + TamanhoSetaCamera * Math.cos(Teta) * Math.cos(Phi)) + "," + String.valueOf(-y + TamanhoSetaCamera * Math.sin(Teta) * Math.cos(Phi)) + "," + String.valueOf(-z + TamanhoSetaCamera * Math.sin(Phi)) + "c0,255,0|" + String.valueOf(x + TamanhoSetaCamera / 2 * Math.cos(Teta + Math.PI / 4 * Math.cos(-Rot)) * Math.cos(Phi + Math.PI / 4 * Math.sin(-Rot))) + "," + String.valueOf(-y + TamanhoSetaCamera / 2 * Math.sin(Teta + Math.PI / 4 * Math.cos(-Rot)) * Math.cos(Phi + Math.PI / 4 * Math.sin(-Rot))) + "," + String.valueOf(-z + TamanhoSetaCamera / 2 * Math.sin(Phi + Math.PI / 4 * Math.sin(-Rot))) + ";" + String.valueOf(x + TamanhoSetaCamera * Math.cos(Teta) * Math.cos(Phi)) + "," + String.valueOf(-y + TamanhoSetaCamera * Math.sin(Teta) * Math.cos(Phi)) + "," + String.valueOf(-z + TamanhoSetaCamera * Math.sin(Phi)) + "c0,255,0|" + String.valueOf(x + TamanhoSetaCamera / 2 * Math.cos(Teta - Math.PI / 4 * Math.cos(-Rot)) * Math.cos(Phi - Math.PI / 4 * Math.sin(-Rot))) + "," + String.valueOf(-y + TamanhoSetaCamera / 2 * Math.sin(Teta - Math.PI / 4 * Math.cos(-Rot)) * Math.cos(Phi - Math.PI / 4 * Math.sin(-Rot))) + "," + String.valueOf(-z + TamanhoSetaCamera / 2 * Math.sin(Phi - Math.PI / 4 * Math.sin(-Rot))) + ";" + String.valueOf(x + TamanhoSetaCamera * Math.cos(Teta) * Math.cos(Phi)) + "," + String.valueOf(-y + TamanhoSetaCamera * Math.sin(Teta) * Math.cos(Phi)) + "," + String.valueOf(-z + TamanhoSetaCamera * Math.sin(Phi)) + "c0,255,0";
+
+						TotalLinhasSeta = Seta.split("\\|").length - 1;
+						}
+					else
+						TotalLinhasSeta = 0;
+					}
+
 				if (NoRedrawFlag == 0) if (TotalRenderingL + TotalRenderingT > TotalRenderingInit)
 					try
 						{
@@ -3547,7 +3561,7 @@ public class AV3DNavigator extends JComponent
 
 								do
 									{
-									LabelRendering.setText("Renderizando... " + String.valueOf((int) (100 * ContadorRendering / (TotalRenderingL + TotalRenderingT - 2))) + " %");
+									LabelRendering.setText("Renderizando... " + String.valueOf((int) (100 * ContadorRendering / (TotalRenderingL + TotalRenderingT + TotalLinhasSeta - 2))) + " %");
 
 									if (ContadorRendering % RenderingStep == 0)
 										{
@@ -3625,7 +3639,7 @@ public class AV3DNavigator extends JComponent
 
 		if (CameraView == 1)
 			{
-			EspacoStr2[0] = EspacoLinhasBak + "|" + String.valueOf(x) + "," + String.valueOf(-y) + "," + String.valueOf(-z) + ";" + String.valueOf(x + TamanhoSetaCamera / 2 * Math.cos(Teta) * Math.cos(Phi)) + "," + String.valueOf(-y + TamanhoSetaCamera / 2 * Math.sin(Teta) * Math.cos(Phi)) + "," + String.valueOf(-z + TamanhoSetaCamera / 2 * Math.sin(Phi)) + "c255,0,0|" + String.valueOf(x + TamanhoSetaCamera / 2 * Math.cos(Teta) * Math.cos(Phi)) + "," + String.valueOf(-y + TamanhoSetaCamera / 2 * Math.sin(Teta) * Math.cos(Phi)) + "," + String.valueOf(-z + TamanhoSetaCamera / 2 * Math.sin(Phi)) + ";" + String.valueOf(x + TamanhoSetaCamera * Math.cos(Teta) * Math.cos(Phi)) + "," + String.valueOf(-y + TamanhoSetaCamera * Math.sin(Teta) * Math.cos(Phi)) + "," + String.valueOf(-z + TamanhoSetaCamera * Math.sin(Phi)) + "c0,255,0|" + String.valueOf(x + TamanhoSetaCamera / 2 * Math.cos(Teta + Math.PI / 4 * Math.cos(-Rot)) * Math.cos(Phi + Math.PI / 4 * Math.sin(-Rot))) + "," + String.valueOf(-y + TamanhoSetaCamera / 2 * Math.sin(Teta + Math.PI / 4 * Math.cos(-Rot)) * Math.cos(Phi + Math.PI / 4 * Math.sin(-Rot))) + "," + String.valueOf(-z + TamanhoSetaCamera / 2 * Math.sin(Phi + Math.PI / 4 * Math.sin(-Rot))) + ";" + String.valueOf(x + TamanhoSetaCamera * Math.cos(Teta) * Math.cos(Phi)) + "," + String.valueOf(-y + TamanhoSetaCamera * Math.sin(Teta) * Math.cos(Phi)) + "," + String.valueOf(-z + TamanhoSetaCamera * Math.sin(Phi)) + "c0,255,0|" + String.valueOf(x + TamanhoSetaCamera / 2 * Math.cos(Teta - Math.PI / 4 * Math.cos(-Rot)) * Math.cos(Phi - Math.PI / 4 * Math.sin(-Rot))) + "," + String.valueOf(-y + TamanhoSetaCamera / 2 * Math.sin(Teta - Math.PI / 4 * Math.cos(-Rot)) * Math.cos(Phi - Math.PI / 4 * Math.sin(-Rot))) + "," + String.valueOf(-z + TamanhoSetaCamera / 2 * Math.sin(Phi - Math.PI / 4 * Math.sin(-Rot))) + ";" + String.valueOf(x + TamanhoSetaCamera * Math.cos(Teta) * Math.cos(Phi)) + "," + String.valueOf(-y + TamanhoSetaCamera * Math.sin(Teta) * Math.cos(Phi)) + "," + String.valueOf(-z + TamanhoSetaCamera * Math.sin(Phi)) + "c0,255,0";
+			EspacoStr2[0] = EspacoLinhasBak + Seta;
 
 			xBak = x; yBak = y; zBak = z; TetaBak = Teta; PhiBak = Phi; RotBak = Rot;
 
@@ -3641,8 +3655,6 @@ public class AV3DNavigator extends JComponent
 				{Teta = TetaViewBak; Phi = PhiViewBak;}
 
 			x = xCamera; y = -yCamera; z = -zCamera; Rot = RotCamera; xt = x; yt = y; zt = z; Tetat = Teta; Phit = Phi; Rott = Rot;
-
-			ContadorRendering -= 4;
 
 			FlagCameraView = 1;
 			}
