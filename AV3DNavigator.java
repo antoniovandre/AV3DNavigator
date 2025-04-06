@@ -1470,8 +1470,8 @@ public class AV3DNavigator extends JComponent
 		FrameEspaco.setIconImage(new ImageIcon(getClass().getResource(AV3DNavigatorIconFilePath)).getImage());
 		FrameEspaco.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 		FrameEspaco.setPreferredSize(new Dimension(TamanhoPlanoX, TamanhoPlanoY + TamanhoEspacoLabelStatus + TamanhoEspacoLabelURL));
-		FrameEspaco.setSize(new Dimension(TamanhoPlanoX, TamanhoPlanoY + TamanhoEspacoLabelStatus + TamanhoEspacoLabelURL));
 		FrameEspaco.setMinimumSize(new Dimension(MinTamanhoPlanoX, MinTamanhoPlanoYMaisLabels));
+		FrameEspaco.setSize(new Dimension(TamanhoPlanoX, TamanhoPlanoY + TamanhoEspacoLabelStatus + TamanhoEspacoLabelURL));
 		AV3DNavigator Comp = new AV3DNavigator();
 		Comp.setPreferredSize(new Dimension(TamanhoPlanoX, TamanhoPlanoY));
 		Comp.setSize(new Dimension(TamanhoPlanoX, TamanhoPlanoY));
@@ -2020,6 +2020,9 @@ public class AV3DNavigator extends JComponent
 						{
 						if (FlagMostrarLabel == 0)
 							{
+							Comp.setPreferredSize(new Dimension(TamanhoPlanoX, TamanhoPlanoY));
+							Comp.setSize(new Dimension(TamanhoPlanoX, TamanhoPlanoY));
+
 							FrameEspaco.getContentPane().remove(LabelURL);
 							LabelStatusLabelURLPanel = new JPanel(new GridBagLayout());
 							GridBagConstraints GridBagConstraintsLabelStatusLabelURL = new GridBagConstraints();
@@ -2035,21 +2038,22 @@ public class AV3DNavigator extends JComponent
 							GridBagConstraintsLabelStatusLabelURL.weightx = TamanhoPlanoX;
 							GridBagConstraintsLabelStatusLabelURL.weighty = TamanhoEspacoLabelURL;
 							LabelStatusLabelURLPanel.add(LabelURL, GridBagConstraintsLabelStatusLabelURL);
-							FrameEspaco.getContentPane().add(LabelStatusLabelURLPanel);
+							FrameEspaco.getContentPane().add(LabelStatusLabelURLPanel, BorderLayout.SOUTH);
 							LabelStatusLabelURLPanel.setVisible(true);
 							LabelStatusLabelURLPanel.revalidate();
 							LabelStatusLabelURLPanel.repaint();
 
-							MinTamanhoPlanoYMaisLabels = TamanhoPlanoY + TamanhoEspacoLabelStatus + TamanhoEspacoLabelURL;
-
 							FrameEspaco.setPreferredSize(new Dimension(TamanhoPlanoX, TamanhoPlanoY + TamanhoEspacoLabelStatus + TamanhoEspacoLabelURL));
-							FrameEspaco.setSize(new Dimension(TamanhoPlanoX, TamanhoPlanoY + TamanhoEspacoLabelStatus + TamanhoEspacoLabelURL));
 							FrameEspaco.setMinimumSize(new Dimension(MinTamanhoPlanoX, MinTamanhoPlanoYMaisLabels));
+							FrameEspaco.setSize(new Dimension(TamanhoPlanoX, TamanhoPlanoY + TamanhoEspacoLabelStatus + TamanhoEspacoLabelURL));
 
 							FlagMostrarLabel = 1;
 							}
 						else
 							{
+							Comp.setPreferredSize(new Dimension(TamanhoPlanoX, TamanhoPlanoY));
+							Comp.setSize(new Dimension(TamanhoPlanoX, TamanhoPlanoY));
+
 							LabelStatusLabelURLPanel.removeAll();
 							FrameEspaco.getContentPane().remove(LabelStatusLabelURLPanel);
 							FrameEspaco.getContentPane().add(LabelURL, BorderLayout.PAGE_END);
@@ -2058,11 +2062,9 @@ public class AV3DNavigator extends JComponent
 							LabelStatusLabelURLPanel.revalidate();
 							LabelStatusLabelURLPanel.repaint();
 
-							MinTamanhoPlanoYMaisLabels = TamanhoPlanoY + TamanhoEspacoLabelURL;
-
 							FrameEspaco.setPreferredSize(new Dimension(TamanhoPlanoX, TamanhoPlanoY + TamanhoEspacoLabelURL));
-							FrameEspaco.setSize(new Dimension(TamanhoPlanoX, TamanhoPlanoY + TamanhoEspacoLabelURL));
 							FrameEspaco.setMinimumSize(new Dimension(MinTamanhoPlanoX, MinTamanhoPlanoY + TamanhoEspacoLabelURL));
+							FrameEspaco.setSize(new Dimension(TamanhoPlanoX, TamanhoPlanoY + TamanhoEspacoLabelURL));
 
 							FlagMostrarLabel = 0;
 							}
@@ -3490,14 +3492,26 @@ public class AV3DNavigator extends JComponent
 				FrameEspacoXBak = FrameEspaco.getWidth();
 				TamanhoPlanoX = FrameEspacoXBak;
 
+				Comp.setPreferredSize(new Dimension(TamanhoPlanoX, TamanhoPlanoY));
+				Comp.setSize(new Dimension(TamanhoPlanoX, TamanhoPlanoY));
+
+				NoRedrawFlag = 0;
 				FlagAlteracaoStatus = 1;
 				}
 
 			if (FrameEspacoYBak != FrameEspaco.getHeight())
 				{
 				FrameEspacoYBak = FrameEspaco.getHeight();
-				TamanhoPlanoY = FrameEspacoYBak - TamanhoEspacoLabelStatus - TamanhoEspacoLabelURL;
 
+				if (FlagMostrarLabel == 1)
+					TamanhoPlanoY = FrameEspacoYBak - TamanhoEspacoLabelStatus - TamanhoEspacoLabelURL;
+				else
+					TamanhoPlanoY = FrameEspacoYBak  - TamanhoEspacoLabelURL;
+
+				Comp.setPreferredSize(new Dimension(TamanhoPlanoX, TamanhoPlanoY));
+				Comp.setSize(new Dimension(TamanhoPlanoX, TamanhoPlanoY));
+
+				NoRedrawFlag = 0;
 				FlagAlteracaoStatus = 1;
 				}
 
