@@ -11,7 +11,7 @@
  * 
  * Licença de uso: Creative Commons Attribution ShareAlike License V3.0.
  * 
- * Última atualização: 07-04-2025. Não considerando alterações em variáveis globais.
+ * Última atualização: 08-04-2025. Não considerando alterações em variáveis globais.
  */
 
 import java.lang.IllegalThreadStateException;
@@ -366,6 +366,7 @@ public class AV3DNavigator extends JComponent
 	public int ContadorRendering;
 	public int TotalRenderingL;
 	public int TotalRenderingT;
+	public File file;
 
 	public int NoRedrawFlag = 0;
 
@@ -1641,1645 +1642,1774 @@ public class AV3DNavigator extends JComponent
 					{
 					int keyCode = ke.getKeyCode();
 
-					if (keyCode == KeyEvent.VK_ESCAPE)
-						{Sair = 1; NoRedrawFlag = 1;}
-					else if (keyCode == KeyEvent.VK_SPACE)
+					switch (keyCode)
 						{
-						if (ke.isShiftDown())
-							{
-							if (ke.isControlDown())
-								{if (CameraViewFollow == 0) CameraViewFollow = 1; else CameraViewFollow = 0;}
-							else
-								{if (CameraView == 0) CameraView = 1; else CameraView = 0;}
-							}
-						else
-							{
-							FlagCoordRot = 0; FlagCoordRotHor = 0; FlagCoordRotVert = 0; CameraId = -1;
+						case KeyEvent.VK_ESCAPE:
+							Sair = 1; NoRedrawFlag = 1;
 
-							x = 0;
-							y = 0;
-							z = 0;
-							Teta = 0;
-							Phi = 0;
-							Rot = 0;
-							TamanhoFonteLegendas = 12;
-							ShiftVerticalLegendas = 25;
-							RotacaoTeta = Teta + Math.PI;
-							RotacaoPhi = Phi + Math.PI;
-							RaioRot = 0;
-							RaioTeta = 0;
-							RaioPhi = 0;
-							xt = x;
-							yt = y;
-							zt = z;
-							Tetat = Teta;
-							Phit = Phi;
-							Rott = Rot;
-							FlagMouseY = 1;
-							FatorAnguloVisao = 1;
-							DistanciaTela = 2;
-							CorLinhaRed = 255;
-							CorLinhaGreen = 255;
-							CorLinhaBlue = 255;
-							CorBackgroundRed = 0;
-							CorBackgroundGreen = 0;
-							CorBackgroundBlue = 0;
-							CorTrianguloShapeRed = 0;
-							CorTrianguloShapeGreen = 0;
-							CorTrianguloShapeBlue = 255;
-							CorLegendaRed = 255;
-							CorLegendaGreen = 255;
-							CorLegendaBlue = 255;
-							Parametro0 = 0;
-							Parametro0Step = 1;
-							Parametro1 = 0;
-							Parametro1Step = 1;
-							Parametro2 = 0;
-							Parametro2Step = 1;
-							Parametro3 = 0;
-							Parametro3Step = 1;
-							Parametro4 = 0;
-							Parametro4Step = 1;
-							Parametro5 = 0;
-							Parametro5Step = 1;
-							Parametro6 = 0;
-							Parametro6Step = 1;
-							Parametro7 = 0;
-							Parametro7Step = 1;
-							Parametro8 = 0;
-							Parametro8Step = 1;
-							Parametro9 = 0;
-							Parametro9Step = 1;
-							CameraMovePar = 0;
-							CameraMoveParStep = 1;
-							StretchFlag = 1;
-							SleepTime = 7;
-							FlagTime = 0;
-							FlagCoordRotOnce = 0;
-							CameraView = 0;
-							CameraViewFollow = 1;
-							xCamera = xCameraInit;
-							yCamera = yCameraInit;
-							zCamera = zCameraInit;
-							RotCamera = 0;
-							xBak = 0;
-							yBak = 0;
-							zBak = 0;
-							TetaBak = 0;
-							PhiBak = 0;
-							RotBak = 0;
-							TetaViewBak = 0;
-							PhiViewBak = 0;
+							break;
 
-							ReadINI();
-
-							// Atualizando frame principal.
-
-							LabelStatus = new GradientLabel("", new Color(CorJanelaR, CorJanelaG, CorJanelaB), new Color(CorJanelaGradienteR, CorJanelaGradienteG, CorJanelaGradienteB), new Color(CorFonteJanelaR, CorFonteJanelaG, CorFonteJanelaB), 1);
-							LabelStatus.setBorder(new EmptyBorder(5, 5, 5, 5));
-							LabelStatus.setFont(new Font("DialogInput", Font.BOLD | Font.ITALIC, TamanhoFonteLabelStatus));
-							GradientLabel LabelURL = new GradientLabel("<html>" + URL + "</html>", Color.WHITE, Color.BLACK, Color.BLUE, 0);
-							LabelURL.setBorder(new EmptyBorder(5, 5, 5, 5));
-							LabelURL.setFont(new Font("Monospaced", Font.BOLD | Font.ITALIC, TamanhoFonteLabelURL));
-							LabelStatus.setPreferredSize(new Dimension(TamanhoPlanoX, TamanhoEspacoLabelStatus));
-							LabelStatus.setSize(new Dimension(TamanhoPlanoX, TamanhoEspacoLabelStatus));
-							LabelStatusLabelURLPanel = new JPanel(new GridBagLayout());
-							GridBagConstraints GridBagConstraintsLabelStatusLabelURL = new GridBagConstraints();
-							GridBagConstraintsLabelStatusLabelURL.gridx = 0;
-							GridBagConstraintsLabelStatusLabelURL.gridy = 0;
-							GridBagConstraintsLabelStatusLabelURL.fill = GridBagConstraints.BOTH;
-							GridBagConstraintsLabelStatusLabelURL.weightx = TamanhoPlanoX;
-							GridBagConstraintsLabelStatusLabelURL.weighty = TamanhoEspacoLabelStatus;
-							LabelStatusLabelURLPanel.add(LabelStatus, GridBagConstraintsLabelStatusLabelURL);
-							GridBagConstraintsLabelStatusLabelURL.gridx = 0;
-							GridBagConstraintsLabelStatusLabelURL.gridy = 1;
-							GridBagConstraintsLabelStatusLabelURL.fill = GridBagConstraints.BOTH;
-							GridBagConstraintsLabelStatusLabelURL.weightx = TamanhoPlanoX;
-							GridBagConstraintsLabelStatusLabelURL.weighty = TamanhoEspacoLabelURL;
-							LabelStatusLabelURLPanel.add(LabelURL, GridBagConstraintsLabelStatusLabelURL);
-							FrameEspaco.getContentPane().add(LabelStatusLabelURLPanel, BorderLayout.SOUTH);
-
-							// Atualizando frame rendering.
-
-							CompRendering.CorJanelaR = CorJanelaR;
-							CompRendering.CorJanelaG = CorJanelaG;
-							CompRendering.CorJanelaB = CorJanelaB;
-
-							FrameRendering.dispose();
-							FrameRendering = new JFrame("Renderizando...");
-
-							TamanhoRenderingY = Math.max(TamanhoRenderingY, 2 * RadiusRenderingCircle + 4 + FrameRendering.getInsets().top);
-
-							FrameRendering.setPreferredSize(new Dimension(TamanhoRenderingX + 2 * RadiusRenderingCircle + 4, TamanhoRenderingY));
-							FrameRendering.setSize(new Dimension(TamanhoRenderingX + 2 * RadiusRenderingCircle + 4, TamanhoRenderingY));
-							FrameRendering.setResizable(false);
-							CompRendering.setPreferredSize(new Dimension(2 * RadiusRenderingCircle + 4, TamanhoRenderingY));
-							CompRendering.setSize(new Dimension(2 * RadiusRenderingCircle + 4, TamanhoRenderingY));
-							FrameRendering.getContentPane().add(CompRendering, BorderLayout.LINE_START);
-							LabelRendering = new GradientLabel("Renderizando... 0 %", new Color(CorJanelaR, CorJanelaG, CorJanelaB), new Color(CorJanelaGradienteR, CorJanelaGradienteG, CorJanelaGradienteB), new Color(CorFonteJanelaR, CorFonteJanelaG, CorFonteJanelaB), 0);
-							LabelRendering.setBorder(new EmptyBorder(5, 5, 5, 5));
-							LabelRendering.setFont(new Font("DialogInput", Font.BOLD | Font.ITALIC, TamanhoFonteRendering));
-							FrameRendering.add(LabelRendering);
-							FrameRendering.pack();
-							FrameRendering.setVisible(false);
-							}
-						}
-					else if (keyCode == KeyEvent.VK_F1) {if (FlagHelp == 0)
-						{
-						if (! (Debug.equals("Debug"))) try
-							{
-							(new Thread () {
-								public void run ()
-									{
-									try
-										{
-										URL ExecUrl = new URL("https://github.com/antoniovandre/AV3DNavigatorStats/releases/download/AV3DNavigatorStats/AV3DNavigatorHelpCount");
-										BufferedReader in = new BufferedReader(new InputStreamReader(ExecUrl.openStream()));
-										String inputLine;
-										while ((inputLine = in.readLine()) != null);
-										in.close();
-										} catch (IOException e) {}
-									}
-							}).start();} catch (IllegalThreadStateException e) {}
-
-						File file = new File("AV3DNHelp.txt");
-
-						JFrame FrameHelp = new JFrame("AV3DNavigator - Ajuda");
-
-						try
-							{
-							BufferedReader br = new BufferedReader(new FileReader(file));
-
-							String Linha;
-
-							do {Linha = br.readLine();} while (((Linha.replaceAll(" ", "").equals(""))) || (Linha.replaceAll(" ", "").charAt(0) == '#'));
-							
-							String [] LinhaArr = Linha.split("DIVISOR");
-
-							if (LinhaArr.length == 3) if ((AntonioVandre.NumeroNaturalPositivo(LinhaArr[0])) && (AntonioVandre.NumeroNaturalPositivo(LinhaArr[0])))
+						case KeyEvent.VK_SPACE:
+							if (ke.isShiftDown())
 								{
-								FrameHelp.setPreferredSize(new Dimension(Integer.parseInt(LinhaArr[0]), Integer.parseInt(LinhaArr[1])));
-								FrameHelp.setSize(new Dimension(Integer.parseInt(LinhaArr[0]), Integer.parseInt(LinhaArr[1])));
-								LabelHelp = new GradientLabel(LinhaArr[2], new Color(CorJanelaR, CorJanelaG, CorJanelaB), new Color(CorJanelaGradienteR, CorJanelaGradienteG, CorJanelaGradienteB), new Color(CorFonteJanelaR, CorFonteJanelaG, CorFonteJanelaB), 2);
-								}
-							} catch (IOException e)
-								{
-								FrameHelp.setPreferredSize(new Dimension(TamanhoJanelaHelpX, TamanhoJanelaHelpY));
-								FrameHelp.setSize(new Dimension(800, 910));
-								LabelHelp = new GradientLabel("<html><table><tr><td>F2 para selecionar e abrir arquivo de espaço.<br><br>\"A\" para incrementar x, \"Z\" para decrementar. Shift + \"A\" para incrementar xCamera, Shift + \"Z\" para decrementar.<br>\"S\" para incrementar y, \"X\" para decrementar. Shift + \"S\" para incrementar yCamera, Shift + \"X\" para decrementar.<br>\"D\" para incrementar z, \"C\" para decrementar. Shift + \"D\" para incrementar zCamera, Shift + \"C\" para decrementar.<br>\"F\" para incrementar Teta. \"V\" para decrementar. \"G\" para incrementar Phi. \"B\" para decrementar.<br>Shift + \"F\" para rotação lateral esquerda. Shift + \"V\" para direita.<br>Shift + \"B\" para rotação vertical para baixo. Shift + \"G\" para cima.<br>\"H\" para incrementar a rotação da tela. \"N\" para decrementar. Shift + \"H\" para zerar rotação.<br>\"J\" para rotação horizontal positiva. \"M\" para negativa.<br>Shift + \"J\" para rotação vertical positiva. Shift + \"M\" para negativa.<br>\"K\" para rotação total horizontal positiva. \",\" para negativa.<br>Shift + \"K\" para rotação total vertical positiva. Shift + \",\" para negativa.<br>Ctrl + \"K\" para resetar rotação total.<br>\"L\" para incrementar o raio de rotação horizontal. \".\" para decrementar.<br>Shift + \"L\" para incrementar o raio de rotação vertical. Shift + \".\" para decrementar.<br>\"[\" para incrementar o raio de rotação total. \"]\" para decrementar.<br>\"W\" para aumentar a distância da tela. \"Q\" para reduzir.<br>\"E\" para reduzir o fator redutor do ângulo de visão. \"R\" para aumentar.<br>\"T\" para shift negativo na cor vermelha padrão da linha. \"Y\" para shift positivo.<br>Shift + \"T\" para shift negativo na cor verde padrão da linha. Shift + \"Y\" para shift positivo.<br>Ctrl + \"T\" para shift negativo na cor azul padrão da linha. Ctrl + \"Y\" para shift positivo.<br>\"U\" para shift negativo na cor vermelha padrão de fundo. \"I\" para shift positivo.<br>Shift + \"U\" para shift negativo na cor verde padrão de fundo. Shift + \"I\" para shift positivo.<br>Ctrl + \"U\" para shift negativo na cor azul padrão de fundo. Ctrl + \"I\" para shift positivo.<br>\"O\" para shift negativo na cor vermelha padrão dos polígonos preenchidos. \"P\" para shift positivo.<br>Shift + \"O\" para shift negativo na cor verde padrão dos polígonos preenchidos. Shift + \"P\" para shift positivo.<br>Ctrl + \"O\" para shift negativo na cor azul padrão dos polígonos preenchidos. Ctrl + \"P\" para shift positivo.<br>INSERT para shift negativo na cor vermelha padrão das legendas. HOME para shift positivo.<br>Shift + INSERT para shift negativo na cor verde padrão das legendas. Shift + HOME para shift positivo.<br>Ctrl + INSERT para shift negativo na cor azul padrão das legendas. Ctrl + HOME para shift positivo.<br>DELETE para shift negativo no tamanho padrão das legendas. END para shift positivo.<br>\"-\" para shift negativo no offset das legendas. \"=\" para shift positivo.<br>Numpad \"1\" para shift negativo na resolução dos triângulos. Numpad \"2\" para shift positivo.<br>PAGE DOWN para shift negativo no sleep time. PAGE UP para shift positivo.<\td><td></td><td>Numpad \"0\" para toggle alta precisão Apfloat (com custo computacional).<br>F4 para toggle preenchimento dos polígonos com linhas ou fillPolygon.<br><br>Ctrl + ENTER para shift positivo em câmeras predefinidas, Ctrl + Shift + ENTER para negativo.<br>Numpad \"4\" para salvar uma câmera predefinida. Shift + Numpad \"4\" para restaurar as câmeras predefinidas originais.<br><br>Numpad \"3\" para incremento no parâmetro de movimentação da câmera. Shift + Numpad \"3\" para decremento.<br>Ctrl + Numpad \"3\" para incremento no step de variação do parâmetro de movimentação da câmera. Ctrl + Shift + Numpad \"3\" para decremento.<br><br>Teclas de \"0\" a \"9\" para incrementar o parâmetro correspondente. Shift + tecla para decrementar.<br>Ctrl + tecla para incrementar o step do parâmetro. Ctrl + Shift + tecla para decrementar.<br><br>ENTER para ler os arquivos de parâmetros.<br><br>Shift + ENTER para ativar / desativar os parâmetros de tempo.<br><br>Setas para strafe. Shift + UP e Shift + DOWN para strafes verticais.<br>Mouse pode ser utilizado para movimentar desde que \"Rot\" seja zero.<br><br>Barra de espaços para resetar as variáveis.<br>Shift + barra de espaços para toggle visualizar a câmera. Ctrl + Shift + barra de espaços para toggle CameraViewFollow.<br><br>F10 para toggle stretch. F11 para setar aspect ratio 1. F12 para screenshot.<br>F3 para ocultar e mostrar os labels.<br>BACKSPACE para ativar / desativar labels animados.<br><br>ESC para sair.</td></tr></table></html>", new Color(CorJanelaR, CorJanelaG, CorJanelaB), new Color(CorJanelaGradienteR, CorJanelaGradienteG, CorJanelaGradienteB), new Color(CorFonteJanelaR, CorFonteJanelaG, CorFonteJanelaB), 2);
-								}
-
-							FrameHelp.setResizable(false);
-							LabelHelp.setBorder(new EmptyBorder(5, 5, 5, 5));
-							LabelHelp.setFont(new Font("DialogInput", Font.BOLD | Font.ITALIC, TamanhoFonteLabelHelp));
-							FrameHelp.add(LabelHelp);
-							FrameHelp.pack();
-							FrameHelp.setVisible(true);
-
-							FlagHelp = 1;
-
-							FrameHelp.addKeyListener(new KeyListener()
-								{
-								public void keyPressed(KeyEvent keHelp)
-									{
-									int keyCodeHelp = keHelp.getKeyCode();
-									if (keyCodeHelp == KeyEvent.VK_ESCAPE) {FrameHelp.dispose(); FlagHelp = 0;}
-									}
-
-								public void keyReleased(KeyEvent keHelp){}
-								public void keyTyped(KeyEvent keHelp){}
-								});
-
-							FrameHelp.addWindowListener(new WindowAdapter()
-								{
-								public void windowClosing(WindowEvent e)
-									{FlagHelp = 0;}
-								});
-
-						NoRedrawFlag = 1;
-						}}
-					else if (keyCode == KeyEvent.VK_F12)
-						{
-						DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd-MM-yyyy HH-mm-ss");
-						LocalDateTime now = LocalDateTime.now();
-						BufferedImage ImagemFrame = new BufferedImage(TamanhoPlanoX, TamanhoPlanoY + FrameEspaco.getInsets().top, BufferedImage.TYPE_INT_RGB);
-						Graphics2D g2d = ImagemFrame.createGraphics();
-						FrameEspaco.print(g2d);
-
-						g2d.setFont(new Font("SansSerif", Font.ITALIC, TamanhoFonteLabelPrint));
-
-						if (FlagPrintInit == 0)
-							{
-							Random geradorPrint = new Random();
-
-							String [] CoresMatrix = StringCores.split(";");
-							int FlagCores = 0;
-							long TentativasCores = 0;
-
-							labelDo: do
-								{
-								int iPrintR = geradorPrint.nextInt(256);
-								int iPrintG = geradorPrint.nextInt(256);
-								int iPrintB = geradorPrint.nextInt(256);
-
-								labelFor: for (i = 0; i < CoresMatrix.length; i++)
-									{
-									String [] RGB = CoresMatrix[i].split(",");
-
-									if ((iPrintR == Integer.parseInt(RGB[0])) && (iPrintG == Integer.parseInt(RGB[1])) && (iPrintB == Integer.parseInt(RGB[2])))
-										{
-										TentativasCores++;
-										FlagCores = 1;
-										continue labelDo;
-										}
-									else
-										{
-										g2d.setColor(new Color(iPrintR, iPrintG, iPrintB));
-										FlagCores = 0;
-										break labelFor;
-										}
-									}
-								} while ((FlagCores == 1) && (TentativasCores < MaxTentativasCores));
-
-							if (TentativasCores == MaxTentativasCores)
-								g2d.setColor(Color.WHITE);
-							}
-						else
-							g2d.setColor(new Color(PrintR, PrintG, PrintB));
-
-						if (FlagMostrarLabel == 1)
-							g2d.drawString(URL, 5 + FrameEspaco.getInsets().left, TamanhoPlanoY + FrameEspaco.getInsets().top - 5);
-						else
-							{
-							String[] AtribuicaoStringArrP = AtribuicaoString.split("\\|");
-
-							if (AtribuicaoStringArrP.length == 2)
-								{
-								if (AntonioVandre.NumeroNaturalPositivo(AtribuicaoStringArrP[0].replaceAll(" ", "")))
-									{
-									String[] AtribuicaoStringArr = AtribuicaoStringArrP[1].split(";");
-
-									for (i = 0; i < AtribuicaoStringArr.length; i++)
-										g2d.drawString(AtribuicaoStringArr[i], TamanhoPlanoX - FrameEspaco.getInsets().right - Integer.parseInt(AtribuicaoStringArrP[0].replaceAll(" ", "")), TamanhoPlanoY + FrameEspaco.getInsets().top - 5 - ((AtribuicaoStringArr.length - 1) * 20) + i * 20);
-									}
-								}
-							}
-
-						g2d.dispose();
-						BufferedImage ImagemFramePrint = ImagemFrame.getSubimage(FrameEspaco.getInsets().left, FrameEspaco.getInsets().top, TamanhoPlanoX - FrameEspaco.getInsets().left - FrameEspaco.getInsets().right, TamanhoPlanoY);
-						try {ImageIO.write(ImagemFramePrint, "png", new File("AV3DNavigator - Screenshot - " + dtf.format(now) + ".png"));} catch(IOException e) {}
-
-						NoRedrawFlag = 1;
-						}
-					else if (keyCode == KeyEvent.VK_F2)
-						{
-						JFileChooser fileChooser = new JFileChooser();
-						fileChooser.setCurrentDirectory(new File(System.getProperty("user.dir")));
-						int result = fileChooser.showOpenDialog(FrameEspaco);
-						if (result == JFileChooser.APPROVE_OPTION)
-							{
-							File selectedFile = fileChooser.getSelectedFile();
-
-							Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-
-							if (FrameEspaco.getY() < 0)
-								FrameLendoEspaco.setLocation(FrameEspaco.getX(), FrameEspaco.getY() + FrameEspaco.getHeight() + 2);
-							else
-								{
-								if (FrameEspaco.getX() + FrameEspaco.getWidth() + 2 + TamanhoLendoEspacoX > screenSize.getWidth())
-									FrameRendering.setLocation(FrameEspaco.getX() - TamanhoLendoEspacoX - 2, FrameEspaco.getY());
+								if (ke.isControlDown())
+									{if (CameraViewFollow == 0) CameraViewFollow = 1; else CameraViewFollow = 0;}
 								else
-									FrameLendoEspaco.setLocation(FrameEspaco.getX() + FrameEspaco.getWidth() + 2, FrameEspaco.getY());
+									{if (CameraView == 0) CameraView = 1; else CameraView = 0;}
+								}
+							else
+								{
+								FlagCoordRot = 0; FlagCoordRotHor = 0; FlagCoordRotVert = 0; CameraId = -1;
+
+								x = 0;
+								y = 0;
+								z = 0;
+								Teta = 0;
+								Phi = 0;
+								Rot = 0;
+								TamanhoFonteLegendas = 12;
+								ShiftVerticalLegendas = 25;
+								RotacaoTeta = Teta + Math.PI;
+								RotacaoPhi = Phi + Math.PI;
+								RaioRot = 0;
+								RaioTeta = 0;
+								RaioPhi = 0;
+								xt = x;
+								yt = y;
+								zt = z;
+								Tetat = Teta;
+								Phit = Phi;
+								Rott = Rot;
+								FlagMouseY = 1;
+								FatorAnguloVisao = 1;
+								DistanciaTela = 2;
+								CorLinhaRed = 255;
+								CorLinhaGreen = 255;
+								CorLinhaBlue = 255;
+								CorBackgroundRed = 0;
+								CorBackgroundGreen = 0;
+								CorBackgroundBlue = 0;
+								CorTrianguloShapeRed = 0;
+								CorTrianguloShapeGreen = 0;
+								CorTrianguloShapeBlue = 255;
+								CorLegendaRed = 255;
+								CorLegendaGreen = 255;
+								CorLegendaBlue = 255;
+								Parametro0 = 0;
+								Parametro0Step = 1;
+								Parametro1 = 0;
+								Parametro1Step = 1;
+								Parametro2 = 0;
+								Parametro2Step = 1;
+								Parametro3 = 0;
+								Parametro3Step = 1;
+								Parametro4 = 0;
+								Parametro4Step = 1;
+								Parametro5 = 0;
+								Parametro5Step = 1;
+								Parametro6 = 0;
+								Parametro6Step = 1;
+								Parametro7 = 0;
+								Parametro7Step = 1;
+								Parametro8 = 0;
+								Parametro8Step = 1;
+								Parametro9 = 0;
+								Parametro9Step = 1;
+								CameraMovePar = 0;
+								CameraMoveParStep = 1;
+								StretchFlag = 1;
+								SleepTime = 7;
+								FlagTime = 0;
+								FlagCoordRotOnce = 0;
+								CameraView = 0;
+								CameraViewFollow = 1;
+								xCamera = xCameraInit;
+								yCamera = yCameraInit;
+								zCamera = zCameraInit;
+								RotCamera = 0;
+								xBak = 0;
+								yBak = 0;
+								zBak = 0;
+								TetaBak = 0;
+								PhiBak = 0;
+								RotBak = 0;
+								TetaViewBak = 0;
+								PhiViewBak = 0;
+
+								ReadINI();
+
+								// Atualizando frame principal.
+
+								LabelStatus = new GradientLabel("", new Color(CorJanelaR, CorJanelaG, CorJanelaB), new Color(CorJanelaGradienteR, CorJanelaGradienteG, CorJanelaGradienteB), new Color(CorFonteJanelaR, CorFonteJanelaG, CorFonteJanelaB), 1);
+								LabelStatus.setBorder(new EmptyBorder(5, 5, 5, 5));
+								LabelStatus.setFont(new Font("DialogInput", Font.BOLD | Font.ITALIC, TamanhoFonteLabelStatus));
+								GradientLabel LabelURL = new GradientLabel("<html>" + URL + "</html>", Color.WHITE, Color.BLACK, Color.BLUE, 0);
+								LabelURL.setBorder(new EmptyBorder(5, 5, 5, 5));
+								LabelURL.setFont(new Font("Monospaced", Font.BOLD | Font.ITALIC, TamanhoFonteLabelURL));
+								LabelStatus.setPreferredSize(new Dimension(TamanhoPlanoX, TamanhoEspacoLabelStatus));
+								LabelStatus.setSize(new Dimension(TamanhoPlanoX, TamanhoEspacoLabelStatus));
+								LabelStatusLabelURLPanel = new JPanel(new GridBagLayout());
+								GridBagConstraints GridBagConstraintsLabelStatusLabelURL = new GridBagConstraints();
+								GridBagConstraintsLabelStatusLabelURL.gridx = 0;
+								GridBagConstraintsLabelStatusLabelURL.gridy = 0;
+								GridBagConstraintsLabelStatusLabelURL.fill = GridBagConstraints.BOTH;
+								GridBagConstraintsLabelStatusLabelURL.weightx = TamanhoPlanoX;
+								GridBagConstraintsLabelStatusLabelURL.weighty = TamanhoEspacoLabelStatus;
+								LabelStatusLabelURLPanel.add(LabelStatus, GridBagConstraintsLabelStatusLabelURL);
+								GridBagConstraintsLabelStatusLabelURL.gridx = 0;
+								GridBagConstraintsLabelStatusLabelURL.gridy = 1;
+								GridBagConstraintsLabelStatusLabelURL.fill = GridBagConstraints.BOTH;
+								GridBagConstraintsLabelStatusLabelURL.weightx = TamanhoPlanoX;
+								GridBagConstraintsLabelStatusLabelURL.weighty = TamanhoEspacoLabelURL;
+								LabelStatusLabelURLPanel.add(LabelURL, GridBagConstraintsLabelStatusLabelURL);
+								FrameEspaco.getContentPane().add(LabelStatusLabelURLPanel, BorderLayout.SOUTH);
+
+								// Atualizando frame rendering.
+
+								CompRendering.CorJanelaR = CorJanelaR;
+								CompRendering.CorJanelaG = CorJanelaG;
+								CompRendering.CorJanelaB = CorJanelaB;
+
+								FrameRendering.dispose();
+								FrameRendering = new JFrame("Renderizando...");
+
+								TamanhoRenderingY = Math.max(TamanhoRenderingY, 2 * RadiusRenderingCircle + 4 + FrameRendering.getInsets().top);
+
+								FrameRendering.setPreferredSize(new Dimension(TamanhoRenderingX + 2 * RadiusRenderingCircle + 4, TamanhoRenderingY));
+								FrameRendering.setSize(new Dimension(TamanhoRenderingX + 2 * RadiusRenderingCircle + 4, TamanhoRenderingY));
+								FrameRendering.setResizable(false);
+								CompRendering.setPreferredSize(new Dimension(2 * RadiusRenderingCircle + 4, TamanhoRenderingY));
+								CompRendering.setSize(new Dimension(2 * RadiusRenderingCircle + 4, TamanhoRenderingY));
+								FrameRendering.getContentPane().add(CompRendering, BorderLayout.LINE_START);
+								LabelRendering = new GradientLabel("Renderizando... 0 %", new Color(CorJanelaR, CorJanelaG, CorJanelaB), new Color(CorJanelaGradienteR, CorJanelaGradienteG, CorJanelaGradienteB), new Color(CorFonteJanelaR, CorFonteJanelaG, CorFonteJanelaB), 0);
+								LabelRendering.setBorder(new EmptyBorder(5, 5, 5, 5));
+								LabelRendering.setFont(new Font("DialogInput", Font.BOLD | Font.ITALIC, TamanhoFonteRendering));
+								FrameRendering.add(LabelRendering);
+								FrameRendering.pack();
+								FrameRendering.setVisible(false);
 								}
 
-							FrameLendoEspaco.setVisible(true);
+							break;
 
-							String EspacoT = LerEspaco (selectedFile.getAbsolutePath(), Debug);
-
-							FrameLendoEspaco.setVisible(false);
-
-							if (EspacoT.equals("Erro"))
+						case KeyEvent.VK_F1:
+							if (FlagHelp == 0)
 								{
-								JFrame FrameErroEspacoInvalido = new JFrame("AV3DNavigator - Espaço inválido");
-								FrameErroEspacoInvalido.setPreferredSize(new Dimension(TamanhoEspacoInvalidoX, TamanhoEspacoInvalidoY));
-								FrameErroEspacoInvalido.setSize(new Dimension(TamanhoEspacoInvalidoX, TamanhoEspacoInvalidoY));
-								GradientLabel LabelErroEspacoInvalido = new GradientLabel(MensagemErroEspacoInvalido, new Color(CorJanelaR, CorJanelaG, CorJanelaB), new Color(CorJanelaGradienteR, CorJanelaGradienteG, CorJanelaGradienteB), new Color(CorFonteJanelaR, CorFonteJanelaG, CorFonteJanelaB), 0);
-								LabelErroEspacoInvalido.setBorder(new EmptyBorder(5, 5, 5, 5));
-								LabelErroEspacoInvalido.setFont(new Font("DialogInput", Font.BOLD | Font.ITALIC, TamanhoFonteLabelErroEspacoInvalido));
-								FrameErroEspacoInvalido.add(LabelErroEspacoInvalido);
-								FrameErroEspacoInvalido.pack();
-								FrameErroEspacoInvalido.setVisible(true);
-
-								FrameErroEspacoInvalido.addKeyListener(new KeyListener()
+								if (! (Debug.equals("Debug"))) try
 									{
-									public void keyPressed(KeyEvent keErroEspacoInvalido)
-										{
-										int keyCodeHelp = keErroEspacoInvalido.getKeyCode();
+									(new Thread () {
+										public void run ()
+											{
+											try
+												{
+												URL ExecUrl = new URL("https://github.com/antoniovandre/AV3DNavigatorStats/releases/download/AV3DNavigatorStats/AV3DNavigatorHelpCount");
+												BufferedReader in = new BufferedReader(new InputStreamReader(ExecUrl.openStream()));
+												String inputLine;
+												while ((inputLine = in.readLine()) != null);
+												in.close();
+												} catch (IOException e) {}
+											}
+									}).start();} catch (IllegalThreadStateException e) {}
 
-										if (keyCodeHelp == KeyEvent.VK_ESCAPE)
-											FrameErroEspacoInvalido.dispose();
+								File file = new File("AV3DNHelp.txt");
+
+								JFrame FrameHelp = new JFrame("AV3DNavigator - Ajuda");
+
+								try
+									{
+									BufferedReader br = new BufferedReader(new FileReader(file));
+
+									String Linha;
+
+									do {Linha = br.readLine();} while (((Linha.replaceAll(" ", "").equals(""))) || (Linha.replaceAll(" ", "").charAt(0) == '#'));
+									
+									String [] LinhaArr = Linha.split("DIVISOR");
+
+									if (LinhaArr.length == 3) if ((AntonioVandre.NumeroNaturalPositivo(LinhaArr[0])) && (AntonioVandre.NumeroNaturalPositivo(LinhaArr[0])))
+										{
+										FrameHelp.setPreferredSize(new Dimension(Integer.parseInt(LinhaArr[0]), Integer.parseInt(LinhaArr[1])));
+										FrameHelp.setSize(new Dimension(Integer.parseInt(LinhaArr[0]), Integer.parseInt(LinhaArr[1])));
+										LabelHelp = new GradientLabel(LinhaArr[2], new Color(CorJanelaR, CorJanelaG, CorJanelaB), new Color(CorJanelaGradienteR, CorJanelaGradienteG, CorJanelaGradienteB), new Color(CorFonteJanelaR, CorFonteJanelaG, CorFonteJanelaB), 2);
+										}
+									} catch (IOException e)
+										{
+										FrameHelp.setPreferredSize(new Dimension(TamanhoJanelaHelpX, TamanhoJanelaHelpY));
+										FrameHelp.setSize(new Dimension(800, 910));
+										LabelHelp = new GradientLabel("<html><table><tr><td>F2 para selecionar e abrir arquivo de espaço.<br><br>\"A\" para incrementar x, \"Z\" para decrementar. Shift + \"A\" para incrementar xCamera, Shift + \"Z\" para decrementar.<br>\"S\" para incrementar y, \"X\" para decrementar. Shift + \"S\" para incrementar yCamera, Shift + \"X\" para decrementar.<br>\"D\" para incrementar z, \"C\" para decrementar. Shift + \"D\" para incrementar zCamera, Shift + \"C\" para decrementar.<br>\"F\" para incrementar Teta. \"V\" para decrementar. \"G\" para incrementar Phi. \"B\" para decrementar.<br>Shift + \"F\" para rotação lateral esquerda. Shift + \"V\" para direita.<br>Shift + \"B\" para rotação vertical para baixo. Shift + \"G\" para cima.<br>\"H\" para incrementar a rotação da tela. \"N\" para decrementar. Shift + \"H\" para zerar rotação.<br>\"J\" para rotação horizontal positiva. \"M\" para negativa.<br>Shift + \"J\" para rotação vertical positiva. Shift + \"M\" para negativa.<br>\"K\" para rotação total horizontal positiva. \",\" para negativa.<br>Shift + \"K\" para rotação total vertical positiva. Shift + \",\" para negativa.<br>Ctrl + \"K\" para resetar rotação total.<br>\"L\" para incrementar o raio de rotação horizontal. \".\" para decrementar.<br>Shift + \"L\" para incrementar o raio de rotação vertical. Shift + \".\" para decrementar.<br>\"[\" para incrementar o raio de rotação total. \"]\" para decrementar.<br>\"W\" para aumentar a distância da tela. \"Q\" para reduzir.<br>\"E\" para reduzir o fator redutor do ângulo de visão. \"R\" para aumentar.<br>\"T\" para shift negativo na cor vermelha padrão da linha. \"Y\" para shift positivo.<br>Shift + \"T\" para shift negativo na cor verde padrão da linha. Shift + \"Y\" para shift positivo.<br>Ctrl + \"T\" para shift negativo na cor azul padrão da linha. Ctrl + \"Y\" para shift positivo.<br>\"U\" para shift negativo na cor vermelha padrão de fundo. \"I\" para shift positivo.<br>Shift + \"U\" para shift negativo na cor verde padrão de fundo. Shift + \"I\" para shift positivo.<br>Ctrl + \"U\" para shift negativo na cor azul padrão de fundo. Ctrl + \"I\" para shift positivo.<br>\"O\" para shift negativo na cor vermelha padrão dos polígonos preenchidos. \"P\" para shift positivo.<br>Shift + \"O\" para shift negativo na cor verde padrão dos polígonos preenchidos. Shift + \"P\" para shift positivo.<br>Ctrl + \"O\" para shift negativo na cor azul padrão dos polígonos preenchidos. Ctrl + \"P\" para shift positivo.<br>INSERT para shift negativo na cor vermelha padrão das legendas. HOME para shift positivo.<br>Shift + INSERT para shift negativo na cor verde padrão das legendas. Shift + HOME para shift positivo.<br>Ctrl + INSERT para shift negativo na cor azul padrão das legendas. Ctrl + HOME para shift positivo.<br>DELETE para shift negativo no tamanho padrão das legendas. END para shift positivo.<br>\"-\" para shift negativo no offset das legendas. \"=\" para shift positivo.<br>Numpad \"1\" para shift negativo na resolução dos triângulos. Numpad \"2\" para shift positivo.<br>PAGE DOWN para shift negativo no sleep time. PAGE UP para shift positivo.<\td><td></td><td>Numpad \"0\" para toggle alta precisão Apfloat (com custo computacional).<br>F4 para toggle preenchimento dos polígonos com linhas ou fillPolygon.<br><br>Ctrl + ENTER para shift positivo em câmeras predefinidas, Ctrl + Shift + ENTER para negativo.<br>Numpad \"4\" para salvar uma câmera predefinida. Shift + Numpad \"4\" para restaurar as câmeras predefinidas originais.<br><br>Numpad \"3\" para incremento no parâmetro de movimentação da câmera. Shift + Numpad \"3\" para decremento.<br>Ctrl + Numpad \"3\" para incremento no step de variação do parâmetro de movimentação da câmera. Ctrl + Shift + Numpad \"3\" para decremento.<br><br>Teclas de \"0\" a \"9\" para incrementar o parâmetro correspondente. Shift + tecla para decrementar.<br>Ctrl + tecla para incrementar o step do parâmetro. Ctrl + Shift + tecla para decrementar.<br><br>ENTER para ler os arquivos de parâmetros.<br><br>Shift + ENTER para ativar / desativar os parâmetros de tempo.<br><br>Setas para strafe. Shift + UP e Shift + DOWN para strafes verticais.<br>Mouse pode ser utilizado para movimentar desde que \"Rot\" seja zero.<br><br>Barra de espaços para resetar as variáveis.<br>Shift + barra de espaços para toggle visualizar a câmera. Ctrl + Shift + barra de espaços para toggle CameraViewFollow.<br><br>F10 para toggle stretch. F11 para setar aspect ratio 1. F12 para screenshot.<br>F3 para ocultar e mostrar os labels.<br>BACKSPACE para ativar / desativar labels animados.<br><br>ESC para sair.</td></tr></table></html>", new Color(CorJanelaR, CorJanelaG, CorJanelaB), new Color(CorJanelaGradienteR, CorJanelaGradienteG, CorJanelaGradienteB), new Color(CorFonteJanelaR, CorFonteJanelaG, CorFonteJanelaB), 2);
 										}
 
-									public void keyReleased(KeyEvent keErroEspacoInvalido){}
-									public void keyTyped(KeyEvent keErroEspacoInvalido){}
-									});
+									FrameHelp.setResizable(false);
+									LabelHelp.setBorder(new EmptyBorder(5, 5, 5, 5));
+									LabelHelp.setFont(new Font("DialogInput", Font.BOLD | Font.ITALIC, TamanhoFonteLabelHelp));
+									FrameHelp.add(LabelHelp);
+									FrameHelp.pack();
+									FrameHelp.setVisible(true);
 
-								Espaco = "";
+									FlagHelp = 1;
+
+									FrameHelp.addKeyListener(new KeyListener()
+										{
+										public void keyPressed(KeyEvent keHelp)
+											{
+											int keyCodeHelp = keHelp.getKeyCode();
+											if (keyCodeHelp == KeyEvent.VK_ESCAPE) {FrameHelp.dispose(); FlagHelp = 0;}
+											}
+
+										public void keyReleased(KeyEvent keHelp){}
+										public void keyTyped(KeyEvent keHelp){}
+										});
+
+									FrameHelp.addWindowListener(new WindowAdapter()
+										{
+										public void windowClosing(WindowEvent e)
+											{FlagHelp = 0;}
+										});
 								}
 
-							if (EspacoT.equals(Espaco))
-								NoRedrawFlag = 1;
+							NoRedrawFlag = 1;
+
+							break;
+							
+						case KeyEvent.VK_F12:
+							DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd-MM-yyyy HH-mm-ss");
+							LocalDateTime now = LocalDateTime.now();
+							BufferedImage ImagemFrame = new BufferedImage(TamanhoPlanoX, TamanhoPlanoY + FrameEspaco.getInsets().top, BufferedImage.TYPE_INT_RGB);
+							Graphics2D g2d = ImagemFrame.createGraphics();
+							FrameEspaco.print(g2d);
+
+							g2d.setFont(new Font("SansSerif", Font.ITALIC, TamanhoFonteLabelPrint));
+
+							if (FlagPrintInit == 0)
+								{
+								Random geradorPrint = new Random();
+
+								String [] CoresMatrix = StringCores.split(";");
+								int FlagCores = 0;
+								long TentativasCores = 0;
+
+								labelDo: do
+									{
+									int iPrintR = geradorPrint.nextInt(256);
+									int iPrintG = geradorPrint.nextInt(256);
+									int iPrintB = geradorPrint.nextInt(256);
+
+									labelFor: for (i = 0; i < CoresMatrix.length; i++)
+										{
+										String [] RGB = CoresMatrix[i].split(",");
+
+										if ((iPrintR == Integer.parseInt(RGB[0])) && (iPrintG == Integer.parseInt(RGB[1])) && (iPrintB == Integer.parseInt(RGB[2])))
+											{
+											TentativasCores++;
+											FlagCores = 1;
+											continue labelDo;
+											}
+										else
+											{
+											g2d.setColor(new Color(iPrintR, iPrintG, iPrintB));
+											FlagCores = 0;
+											break labelFor;
+											}
+										}
+									} while ((FlagCores == 1) && (TentativasCores < MaxTentativasCores));
+
+								if (TentativasCores == MaxTentativasCores)
+									g2d.setColor(Color.WHITE);
+								}
 							else
-								Espaco = EspacoT;
-							}
-						else if (result == JFileChooser.CANCEL_OPTION) NoRedrawFlag = 1;
-						}
-					else if (keyCode == KeyEvent.VK_F10)
-						{if (StretchFlag == 0) StretchFlag = 1; else StretchFlag = 0;}
-					else if (keyCode == KeyEvent.VK_F11)
-						{
-						if (StretchFlag == 1)
-							{
-							int Tamanho = Math.min(TamanhoPlanoX, TamanhoPlanoY);
+								g2d.setColor(new Color(PrintR, PrintG, PrintB));
 
 							if (FlagMostrarLabel == 1)
+								g2d.drawString(URL, 5 + FrameEspaco.getInsets().left, TamanhoPlanoY + FrameEspaco.getInsets().top - 5);
+							else
 								{
-								FrameEspaco.setPreferredSize(new Dimension(Tamanho, Tamanho + TamanhoEspacoLabelStatus + TamanhoEspacoLabelURL));
-								FrameEspaco.setSize(new Dimension(Tamanho, Tamanho + TamanhoEspacoLabelStatus + TamanhoEspacoLabelURL));
+								String[] AtribuicaoStringArrP = AtribuicaoString.split("\\|");
+
+								if (AtribuicaoStringArrP.length == 2)
+									{
+									if (AntonioVandre.NumeroNaturalPositivo(AtribuicaoStringArrP[0].replaceAll(" ", "")))
+										{
+										String[] AtribuicaoStringArr = AtribuicaoStringArrP[1].split(";");
+
+										for (i = 0; i < AtribuicaoStringArr.length; i++)
+											g2d.drawString(AtribuicaoStringArr[i], TamanhoPlanoX - FrameEspaco.getInsets().right - Integer.parseInt(AtribuicaoStringArrP[0].replaceAll(" ", "")), TamanhoPlanoY + FrameEspaco.getInsets().top - 5 - ((AtribuicaoStringArr.length - 1) * 20) + i * 20);
+										}
+									}
+								}
+
+							g2d.dispose();
+							BufferedImage ImagemFramePrint = ImagemFrame.getSubimage(FrameEspaco.getInsets().left, FrameEspaco.getInsets().top, TamanhoPlanoX - FrameEspaco.getInsets().left - FrameEspaco.getInsets().right, TamanhoPlanoY);
+							try {ImageIO.write(ImagemFramePrint, "png", new File("AV3DNavigator - Screenshot - " + dtf.format(now) + ".png"));} catch(IOException e) {}
+
+							NoRedrawFlag = 1;
+
+							break;
+
+						case KeyEvent.VK_F2:
+							JFileChooser fileChooser = new JFileChooser();
+							fileChooser.setCurrentDirectory(new File(System.getProperty("user.dir")));
+							int result = fileChooser.showOpenDialog(FrameEspaco);
+							if (result == JFileChooser.APPROVE_OPTION)
+								{
+								File selectedFile = fileChooser.getSelectedFile();
+
+								Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+
+								if (FrameEspaco.getY() < 0)
+									FrameLendoEspaco.setLocation(FrameEspaco.getX(), FrameEspaco.getY() + FrameEspaco.getHeight() + 2);
+								else
+									{
+									if (FrameEspaco.getX() + FrameEspaco.getWidth() + 2 + TamanhoLendoEspacoX > screenSize.getWidth())
+										FrameRendering.setLocation(FrameEspaco.getX() - TamanhoLendoEspacoX - 2, FrameEspaco.getY());
+									else
+										FrameLendoEspaco.setLocation(FrameEspaco.getX() + FrameEspaco.getWidth() + 2, FrameEspaco.getY());
+									}
+
+								FrameLendoEspaco.setVisible(true);
+
+								String EspacoT = LerEspaco (selectedFile.getAbsolutePath(), Debug);
+
+								FrameLendoEspaco.setVisible(false);
+
+								if (EspacoT.equals("Erro"))
+									{
+									JFrame FrameErroEspacoInvalido = new JFrame("AV3DNavigator - Espaço inválido");
+									FrameErroEspacoInvalido.setPreferredSize(new Dimension(TamanhoEspacoInvalidoX, TamanhoEspacoInvalidoY));
+									FrameErroEspacoInvalido.setSize(new Dimension(TamanhoEspacoInvalidoX, TamanhoEspacoInvalidoY));
+									GradientLabel LabelErroEspacoInvalido = new GradientLabel(MensagemErroEspacoInvalido, new Color(CorJanelaR, CorJanelaG, CorJanelaB), new Color(CorJanelaGradienteR, CorJanelaGradienteG, CorJanelaGradienteB), new Color(CorFonteJanelaR, CorFonteJanelaG, CorFonteJanelaB), 0);
+									LabelErroEspacoInvalido.setBorder(new EmptyBorder(5, 5, 5, 5));
+									LabelErroEspacoInvalido.setFont(new Font("DialogInput", Font.BOLD | Font.ITALIC, TamanhoFonteLabelErroEspacoInvalido));
+									FrameErroEspacoInvalido.add(LabelErroEspacoInvalido);
+									FrameErroEspacoInvalido.pack();
+									FrameErroEspacoInvalido.setVisible(true);
+
+									FrameErroEspacoInvalido.addKeyListener(new KeyListener()
+										{
+										public void keyPressed(KeyEvent keErroEspacoInvalido)
+											{
+											int keyCodeHelp = keErroEspacoInvalido.getKeyCode();
+
+											if (keyCodeHelp == KeyEvent.VK_ESCAPE)
+												FrameErroEspacoInvalido.dispose();
+											}
+
+										public void keyReleased(KeyEvent keErroEspacoInvalido){}
+										public void keyTyped(KeyEvent keErroEspacoInvalido){}
+										});
+
+									Espaco = "";
+									}
+
+								if (EspacoT.equals(Espaco))
+									NoRedrawFlag = 1;
+								else
+									Espaco = EspacoT;
+								}
+							else if (result == JFileChooser.CANCEL_OPTION) NoRedrawFlag = 1;
+
+							break;
+
+						case KeyEvent.VK_F10:
+							if (StretchFlag == 0) StretchFlag = 1; else StretchFlag = 0;
+
+							break;
+
+						case KeyEvent.VK_F11:
+							if (StretchFlag == 1)
+								{
+								int Tamanho = Math.min(TamanhoPlanoX, TamanhoPlanoY);
+
+								if (FlagMostrarLabel == 1)
+									{
+									FrameEspaco.setPreferredSize(new Dimension(Tamanho, Tamanho + TamanhoEspacoLabelStatus + TamanhoEspacoLabelURL));
+									FrameEspaco.setSize(new Dimension(Tamanho, Tamanho + TamanhoEspacoLabelStatus + TamanhoEspacoLabelURL));
+									}
+								else
+									{
+									FrameEspaco.setPreferredSize(new Dimension(Tamanho, Tamanho + TamanhoEspacoLabelURL));
+									FrameEspaco.setSize(new Dimension(Tamanho, Tamanho + TamanhoEspacoLabelURL));
+									}
+
+								FrameEspaco.revalidate(); FrameEspaco.repaint(); FrameEspaco.pack();
+								}
+
+							break;
+
+						case KeyEvent.VK_F3:
+							if (FlagMostrarLabel == 0)
+								{
+								Comp.setPreferredSize(new Dimension(TamanhoPlanoX, TamanhoPlanoY));
+								Comp.setSize(new Dimension(TamanhoPlanoX, TamanhoPlanoY));
+
+								FrameEspaco.getContentPane().remove(LabelURL);
+								LabelStatusLabelURLPanel = new JPanel(new GridBagLayout());
+								GridBagConstraints GridBagConstraintsLabelStatusLabelURL = new GridBagConstraints();
+								GridBagConstraintsLabelStatusLabelURL.gridx = 0;
+								GridBagConstraintsLabelStatusLabelURL.gridy = 0;
+								GridBagConstraintsLabelStatusLabelURL.fill = GridBagConstraints.BOTH;
+								GridBagConstraintsLabelStatusLabelURL.weightx = TamanhoPlanoX;
+								GridBagConstraintsLabelStatusLabelURL.weighty = TamanhoEspacoLabelStatus;
+								LabelStatusLabelURLPanel.add(LabelStatus, GridBagConstraintsLabelStatusLabelURL);
+								GridBagConstraintsLabelStatusLabelURL.gridx = 0;
+								GridBagConstraintsLabelStatusLabelURL.gridy = 1;
+								GridBagConstraintsLabelStatusLabelURL.fill = GridBagConstraints.BOTH;
+								GridBagConstraintsLabelStatusLabelURL.weightx = TamanhoPlanoX;
+								GridBagConstraintsLabelStatusLabelURL.weighty = TamanhoEspacoLabelURL;
+								LabelStatusLabelURLPanel.add(LabelURL, GridBagConstraintsLabelStatusLabelURL);
+								FrameEspaco.getContentPane().add(LabelStatusLabelURLPanel, BorderLayout.SOUTH);
+								LabelStatusLabelURLPanel.setVisible(true);
+								LabelStatusLabelURLPanel.revalidate();
+								LabelStatusLabelURLPanel.repaint();
+
+								FrameEspaco.setPreferredSize(new Dimension(TamanhoPlanoX, TamanhoPlanoY + TamanhoEspacoLabelStatus + TamanhoEspacoLabelURL));
+								FrameEspaco.setMinimumSize(new Dimension(MinTamanhoPlanoX, MinTamanhoPlanoYMaisLabels));
+								FrameEspaco.setSize(new Dimension(TamanhoPlanoX, TamanhoPlanoY + TamanhoEspacoLabelStatus + TamanhoEspacoLabelURL));
+
+								FlagMostrarLabel = 1;
 								}
 							else
 								{
-								FrameEspaco.setPreferredSize(new Dimension(Tamanho, Tamanho + TamanhoEspacoLabelURL));
-								FrameEspaco.setSize(new Dimension(Tamanho, Tamanho + TamanhoEspacoLabelURL));
+								Comp.setPreferredSize(new Dimension(TamanhoPlanoX, TamanhoPlanoY));
+								Comp.setSize(new Dimension(TamanhoPlanoX, TamanhoPlanoY));
+
+								LabelStatusLabelURLPanel.removeAll();
+								FrameEspaco.getContentPane().remove(LabelStatusLabelURLPanel);
+								FrameEspaco.getContentPane().add(LabelURL, BorderLayout.PAGE_END);
+								LabelURL.setVisible(true);
+								LabelStatusLabelURLPanel.setVisible(false);
+								LabelStatusLabelURLPanel.revalidate();
+								LabelStatusLabelURLPanel.repaint();
+
+								FrameEspaco.setPreferredSize(new Dimension(TamanhoPlanoX, TamanhoPlanoY + TamanhoEspacoLabelURL));
+								FrameEspaco.setMinimumSize(new Dimension(MinTamanhoPlanoX, MinTamanhoPlanoY + TamanhoEspacoLabelURL));
+								FrameEspaco.setSize(new Dimension(TamanhoPlanoX, TamanhoPlanoY + TamanhoEspacoLabelURL));
+
+								FlagMostrarLabel = 0;
 								}
 
 							FrameEspaco.revalidate(); FrameEspaco.repaint(); FrameEspaco.pack();
-							}
-						}
-					else if (keyCode == KeyEvent.VK_F3)
-						{
-						if (FlagMostrarLabel == 0)
-							{
-							Comp.setPreferredSize(new Dimension(TamanhoPlanoX, TamanhoPlanoY));
-							Comp.setSize(new Dimension(TamanhoPlanoX, TamanhoPlanoY));
 
-							FrameEspaco.getContentPane().remove(LabelURL);
-							LabelStatusLabelURLPanel = new JPanel(new GridBagLayout());
-							GridBagConstraints GridBagConstraintsLabelStatusLabelURL = new GridBagConstraints();
-							GridBagConstraintsLabelStatusLabelURL.gridx = 0;
-							GridBagConstraintsLabelStatusLabelURL.gridy = 0;
-							GridBagConstraintsLabelStatusLabelURL.fill = GridBagConstraints.BOTH;
-							GridBagConstraintsLabelStatusLabelURL.weightx = TamanhoPlanoX;
-							GridBagConstraintsLabelStatusLabelURL.weighty = TamanhoEspacoLabelStatus;
-							LabelStatusLabelURLPanel.add(LabelStatus, GridBagConstraintsLabelStatusLabelURL);
-							GridBagConstraintsLabelStatusLabelURL.gridx = 0;
-							GridBagConstraintsLabelStatusLabelURL.gridy = 1;
-							GridBagConstraintsLabelStatusLabelURL.fill = GridBagConstraints.BOTH;
-							GridBagConstraintsLabelStatusLabelURL.weightx = TamanhoPlanoX;
-							GridBagConstraintsLabelStatusLabelURL.weighty = TamanhoEspacoLabelURL;
-							LabelStatusLabelURLPanel.add(LabelURL, GridBagConstraintsLabelStatusLabelURL);
-							FrameEspaco.getContentPane().add(LabelStatusLabelURLPanel, BorderLayout.SOUTH);
-							LabelStatusLabelURLPanel.setVisible(true);
-							LabelStatusLabelURLPanel.revalidate();
-							LabelStatusLabelURLPanel.repaint();
-
-							FrameEspaco.setPreferredSize(new Dimension(TamanhoPlanoX, TamanhoPlanoY + TamanhoEspacoLabelStatus + TamanhoEspacoLabelURL));
-							FrameEspaco.setMinimumSize(new Dimension(MinTamanhoPlanoX, MinTamanhoPlanoYMaisLabels));
-							FrameEspaco.setSize(new Dimension(TamanhoPlanoX, TamanhoPlanoY + TamanhoEspacoLabelStatus + TamanhoEspacoLabelURL));
-
-							FlagMostrarLabel = 1;
-							}
-						else
-							{
-							Comp.setPreferredSize(new Dimension(TamanhoPlanoX, TamanhoPlanoY));
-							Comp.setSize(new Dimension(TamanhoPlanoX, TamanhoPlanoY));
-
-							LabelStatusLabelURLPanel.removeAll();
-							FrameEspaco.getContentPane().remove(LabelStatusLabelURLPanel);
-							FrameEspaco.getContentPane().add(LabelURL, BorderLayout.PAGE_END);
-							LabelURL.setVisible(true);
-							LabelStatusLabelURLPanel.setVisible(false);
-							LabelStatusLabelURLPanel.revalidate();
-							LabelStatusLabelURLPanel.repaint();
-
-							FrameEspaco.setPreferredSize(new Dimension(TamanhoPlanoX, TamanhoPlanoY + TamanhoEspacoLabelURL));
-							FrameEspaco.setMinimumSize(new Dimension(MinTamanhoPlanoX, MinTamanhoPlanoY + TamanhoEspacoLabelURL));
-							FrameEspaco.setSize(new Dimension(TamanhoPlanoX, TamanhoPlanoY + TamanhoEspacoLabelURL));
-
-							FlagMostrarLabel = 0;
-							}
-
-						FrameEspaco.revalidate(); FrameEspaco.repaint(); FrameEspaco.pack();
-
-						try {Thread.sleep(50);} catch(InterruptedException e) {}
-
-						NoRedrawFlag = 1;
-						}
-					else if (keyCode == KeyEvent.VK_END) {TamanhoFonteLegendas++;}
-					else if (keyCode == KeyEvent.VK_DELETE)
-						{if (TamanhoFonteLegendas > 1) TamanhoFonteLegendas--;}
-					else if (keyCode == KeyEvent.VK_EQUALS) {ShiftVerticalLegendas++;}
-					else if (keyCode == KeyEvent.VK_MINUS)
-						{if (ShiftVerticalLegendas > 20) ShiftVerticalLegendas--;}
-					else if (keyCode == KeyEvent.VK_NUMPAD2) {if (ResolucaoTriangulos < AntonioVandre.MaximoValorInteiro) ResolucaoTriangulos++;}
-					else if (keyCode == KeyEvent.VK_NUMPAD1)
-						{if (ResolucaoTriangulos > 2) ResolucaoTriangulos--;}
-					else if (keyCode == KeyEvent.VK_NUMPAD3)
-						{
-						if (ke.isControlDown())
-							{
-							if (ke.isShiftDown())
-								{if (Math.abs(CameraMoveParStep - 0.1) < AntonioVandre.MaximoValorReal) CameraMoveParStep -= 0.1;}
-							else
-								{if (Math.abs(CameraMoveParStep + 0.1) < AntonioVandre.MaximoValorReal) CameraMoveParStep += 0.1;}
+							try {Thread.sleep(50);} catch(InterruptedException e) {}
 
 							NoRedrawFlag = 1;
-							}
-						else
-							{
-							File file = new File("AV3DNCamMove.txt");
 
-							if (ke.isShiftDown())
-								{if (Math.abs(CameraMovePar - CameraMoveParStep) < AntonioVandre.MaximoValorReal) CameraMovePar -= CameraMoveParStep;}
-							else
-								{if (Math.abs(CameraMovePar + CameraMoveParStep) < AntonioVandre.MaximoValorReal) CameraMovePar += CameraMoveParStep;}
+							break;
 
-							try
+						case KeyEvent.VK_END:
+							TamanhoFonteLegendas++;
+
+							break;
+
+						case KeyEvent.VK_DELETE:
+							if (TamanhoFonteLegendas > 1) TamanhoFonteLegendas--;
+
+							break;
+
+						case KeyEvent.VK_EQUALS:
+							ShiftVerticalLegendas++;
+
+							break;
+
+						case KeyEvent.VK_MINUS:
+							if (ShiftVerticalLegendas > 20) ShiftVerticalLegendas--;
+
+							break;
+
+						case KeyEvent.VK_NUMPAD2:
+							if (ResolucaoTriangulos < AntonioVandre.MaximoValorInteiro) ResolucaoTriangulos++;
+
+							break;
+
+						case KeyEvent.VK_NUMPAD1:
+							if (ResolucaoTriangulos > 2) ResolucaoTriangulos--;
+
+							break;
+
+						case KeyEvent.VK_NUMPAD3:
+							if (ke.isControlDown())
 								{
-								BufferedReader br = new BufferedReader(new FileReader(file));
+								if (ke.isShiftDown())
+									{if (Math.abs(CameraMoveParStep - 0.1) < AntonioVandre.MaximoValorReal) CameraMoveParStep -= 0.1;}
+								else
+									{if (Math.abs(CameraMoveParStep + 0.1) < AntonioVandre.MaximoValorReal) CameraMoveParStep += 0.1;}
 
-								String Linha;
+								NoRedrawFlag = 1;
+								}
+							else
+								{
+								File file = new File("AV3DNCamMove.txt");
 
-								do {Linha = br.readLine();} while (((Linha.replaceAll(" ", "").equals(""))) || (Linha.replaceAll(" ", "").charAt(0) == '#'));
-								
-								String [] LinhaArr = Linha.split("DIVISOR");
+								if (ke.isShiftDown())
+									{if (Math.abs(CameraMovePar - CameraMoveParStep) < AntonioVandre.MaximoValorReal) CameraMovePar -= CameraMoveParStep;}
+								else
+									{if (Math.abs(CameraMovePar + CameraMoveParStep) < AntonioVandre.MaximoValorReal) CameraMovePar += CameraMoveParStep;}
 
-								if (LinhaArr.length == 6)
+								try
 									{
-									double xcam = (new Expression(LinhaArr[0].replaceAll("AV3DCamPar", "(" + String.valueOf(CameraMovePar) + ")").replaceAll(" ", ""))).calculate();
+									BufferedReader br = new BufferedReader(new FileReader(file));
 
-									double ycam = (new Expression("(" + LinhaArr[1].replaceAll("AV3DCamPar", "(" + String.valueOf(CameraMovePar) + ")").replaceAll(" ", "") + ") * (-1)")).calculate();
+									String Linha;
 
-									double zcam = (new Expression("(" + LinhaArr[2].replaceAll("AV3DCamPar", "(" + String.valueOf(CameraMovePar) + ")").replaceAll(" ", "") + ") * (-1)")).calculate();
+									do {Linha = br.readLine();} while (((Linha.replaceAll(" ", "").equals(""))) || (Linha.replaceAll(" ", "").charAt(0) == '#'));
+									
+									String [] LinhaArr = Linha.split("DIVISOR");
 
-									double Tetacam = (new Expression(LinhaArr[3].replaceAll("AV3DCamPar", "(" + String.valueOf(CameraMovePar) + ")").replaceAll(" ", ""))).calculate();
-
-									double Phicam = (new Expression(LinhaArr[4].replaceAll("AV3DCamPar", "(" + String.valueOf(CameraMovePar) + ")").replaceAll(" ", ""))).calculate();
-
-									double Rotcam = (new Expression(LinhaArr[5].replaceAll("AV3DCamPar", "(" + String.valueOf(CameraMovePar) + ")").replaceAll(" ", ""))).calculate();
-
-									if ((AntonioVandre.NumeroReal(String.valueOf(xcam))) && (AntonioVandre.NumeroReal(String.valueOf(ycam))) && (AntonioVandre.NumeroReal(String.valueOf(zcam))) && (AntonioVandre.NumeroReal(String.valueOf(Tetacam))) && (AntonioVandre.NumeroReal(String.valueOf(Phicam))) && (AntonioVandre.NumeroReal(String.valueOf(Rotcam))))
-											{
-											x = xcam;
-											y = ycam;
-											z = zcam;
-											Teta = Tetacam;
-											Phi = Phicam;
-											Rot = Rotcam;
-
-											xt = x; yt = y; zt = z; Tetat = Teta; Phit = Phi; Rott = Rot; ContadorFrames = FramesDeslocamento;
-											}
-									}
-								} catch (IOException e) {}
-							}
-						}
-					else if (keyCode == KeyEvent.VK_NUMPAD4)
-						{
-						File file = new File("AV3DNCamIds.txt");
-
-						String LinhasCam = "";
-
-						try
-							{
-							BufferedReader br = new BufferedReader(new FileReader(file));
-
-							String Linha;
-
-							do
-								{
-								Linha = br.readLine();
-
-								if (Linha != null)
-									LinhasCam = LinhasCam + Linha + "\n"; 
-								} while (Linha != null);
-							} catch (IOException e) {}
-
-						if (CamPersOnce == 0)
-							{
-							CamPersCont = LinhasCam;
-							CamPersOnce = 1;
-							}
-
-						try
-							{
-							BufferedWriter writer = new BufferedWriter(new FileWriter(file));
-
-							if (ke.isShiftDown())
-								writer.write(CamPersCont);
-							else
-								writer.write(LinhasCam + String.valueOf(x) + ", " + String.valueOf(-y) + ", " + String.valueOf(-z) + ", " + String.valueOf(Teta) + ", " + String.valueOf(Phi) + ", " + String.valueOf(Rot) + "\n");
-
-							writer.close();
-							} catch (IOException e) {}
-
-						NoRedrawFlag = 1;
-						}
-					else if (keyCode == KeyEvent.VK_PAGE_UP) {if (SleepTime < AntonioVandre.MaximoValorInteiro) SleepTime++; NoRedrawFlag = 1;}
-					else if (keyCode == KeyEvent.VK_PAGE_DOWN)
-						{if (SleepTime > 1) SleepTime--; NoRedrawFlag = 1;}
-					else if (keyCode == KeyEvent.VK_A)
-						{
-						if (ke.isShiftDown())
-							{if (! (Math.abs(xCamera + DeslocamentoLinear) >= AntonioVandre.MaximoValorReal)) {xCamera += DeslocamentoLinear; ContadorFrames = 0;} else VariavelLimiteAtingido();}
-						else
-							{FlagMouseY = 1; FlagCoordRot = 0; FlagCoordRotHor = 0; FlagCoordRotVert = 0; CameraId = -1; if (! (Math.abs(x + DeslocamentoLinear) >= AntonioVandre.MaximoValorReal)) {x += DeslocamentoLinear; ContadorFrames = 0;} else VariavelLimiteAtingido();}
-						}
-					else if (keyCode == KeyEvent.VK_Z)
-						{
-						if (ke.isShiftDown())
-							{if (! (Math.abs(xCamera - DeslocamentoLinear) >= AntonioVandre.MaximoValorReal)) {xCamera -= DeslocamentoLinear; ContadorFrames = 0;} else VariavelLimiteAtingido();}
-						else
-							{FlagMouseY = 1; FlagCoordRot = 0; FlagCoordRotHor = 0; FlagCoordRotVert = 0; CameraId = -1; if (! (Math.abs(x - DeslocamentoLinear) >= AntonioVandre.MaximoValorReal)) {x -= DeslocamentoLinear; ContadorFrames = 0;} else VariavelLimiteAtingido();}
-						}
-					else if (keyCode == KeyEvent.VK_S)
-						{
-						if (ke.isShiftDown())
-							{if (! (Math.abs(yCamera + DeslocamentoLinear) >= AntonioVandre.MaximoValorReal)) {yCamera += DeslocamentoLinear; ContadorFrames = 0;} else VariavelLimiteAtingido();}
-						else
-							{FlagMouseY = 1; FlagCoordRot = 0; FlagCoordRotHor = 0; FlagCoordRotVert = 0; CameraId = -1; if (! (Math.abs(y - DeslocamentoLinear) >= AntonioVandre.MaximoValorReal)) {y -= DeslocamentoLinear; ContadorFrames = 0;} else VariavelLimiteAtingido();}
-						}
-					else if (keyCode == KeyEvent.VK_X)
-						{
-						if (ke.isShiftDown())
-							{if (! (Math.abs(yCamera - DeslocamentoLinear) >= AntonioVandre.MaximoValorReal)) {yCamera -= DeslocamentoLinear; ContadorFrames = 0;} else VariavelLimiteAtingido();}
-						else
-							{FlagMouseY = 1; FlagCoordRot = 0; FlagCoordRotHor = 0; FlagCoordRotVert = 0; CameraId = -1; if (! (Math.abs(y + DeslocamentoLinear) >= AntonioVandre.MaximoValorReal)) {y += DeslocamentoLinear; ContadorFrames = 0;} else VariavelLimiteAtingido();}
-						}
-					else if (keyCode == KeyEvent.VK_D)
-						{
-						if (ke.isShiftDown())
-							{if (! (Math.abs(zCamera + DeslocamentoLinear) >= AntonioVandre.MaximoValorReal)) {zCamera += DeslocamentoLinear; ContadorFrames = 0;} else VariavelLimiteAtingido();}
-						else
-							{FlagMouseY = 1; FlagCoordRot = 0; FlagCoordRotHor = 0; FlagCoordRotVert = 0; CameraId = -1; if (! (Math.abs(z - DeslocamentoLinear) >= AntonioVandre.MaximoValorReal)) {z -= DeslocamentoLinear; ContadorFrames = 0;} else VariavelLimiteAtingido();}
-						}
-					else if (keyCode == KeyEvent.VK_C)
-						{
-						if (ke.isShiftDown())
-							{if (! (Math.abs(zCamera - DeslocamentoLinear) >= AntonioVandre.MaximoValorReal)) {zCamera -= DeslocamentoLinear; ContadorFrames = 0;} else VariavelLimiteAtingido();}
-						else
-							{FlagMouseY = 1; FlagCoordRot = 0; FlagCoordRotHor = 0; FlagCoordRotVert = 0; CameraId = -1; if (! (Math.abs(z + DeslocamentoLinear) >= AntonioVandre.MaximoValorReal)) {z += DeslocamentoLinear; ContadorFrames = 0;} else VariavelLimiteAtingido();}
-						}
-					else if (keyCode == KeyEvent.VK_F)
-						{
-						FlagMouseY = 1; FlagCoordRot = 0; FlagCoordRotHor = 0; FlagCoordRotVert = 0; CameraId = -1;
-
-						if (ke.isShiftDown())
-							{
-							if (FlagCoordRotOnce == 0)
-								{
-								if (Math.abs(Teta) < TetaMax - DeslocamentoAngular) {if ((! (Math.abs(Rot + DeslocamentoAngular * Math.cos(Rot) * Math.sin(Phi)) >= AntonioVandre.MaximoValorReal)) || (! (Math.abs(Teta + DeslocamentoAngular * Math.cos(Rot)) >= AntonioVandre.MaximoValorReal)) || (! (Math.abs(Phi - DeslocamentoAngular * Math.sin(Rot) * Math.cos(Phi)) >= AntonioVandre.MaximoValorReal))) {Teta += DeslocamentoAngular * Math.cos(Rot); Phi -= DeslocamentoAngular * Math.sin(Rot) * Math.cos(Phi); Rot += DeslocamentoAngular * Math.cos(Rot) * Math.sin(Phi); ContadorFrames = 0;} else VariavelLimiteAtingido();} else {Teta -= Math.signum(Teta) * DeslocamentoAngular; ContadorFrames = FramesDeslocamento; Tetat = Teta; FlagTetaInferior = 1;}
-								} else NoRedrawFlag = 1;
-							}
-						else
-							{
-							if (Math.abs(Teta) < TetaMax - DeslocamentoAngular) {if (! (Math.abs(Teta + DeslocamentoAngular) >= AntonioVandre.MaximoValorReal)) {Teta += DeslocamentoAngular; ContadorFrames = 0;} else VariavelLimiteAtingido();} else {Teta -= Math.signum(Teta) * DeslocamentoAngular; ContadorFrames = FramesDeslocamento; Tetat = Teta; FlagTetaInferior = 1;}
-							}
-						}
-					else if (keyCode == KeyEvent.VK_V)
-						{
-						FlagMouseY = 1; FlagCoordRot = 0; FlagCoordRotHor = 0; FlagCoordRotVert = 0; CameraId = -1;
-
-						if (ke.isShiftDown())
-							{
-							if (FlagCoordRotOnce == 0)
-								{
-								if (Math.abs(Teta) < TetaMax - DeslocamentoAngular) {if (Math.abs(Phi) < PhiMax - DeslocamentoAngular) {if ((! (Math.abs(Rot - DeslocamentoAngular * Math.cos(Rot) * Math.sin(Phi)) >= AntonioVandre.MaximoValorReal)) || (! (Math.abs(Teta - DeslocamentoAngular * Math.cos(Rot)) >= AntonioVandre.MaximoValorReal)) || (! (Math.abs(Phi + DeslocamentoAngular * Math.sin(Rot) * Math.cos(Phi)) >= AntonioVandre.MaximoValorReal))) {Teta -= DeslocamentoAngular * Math.cos(Rot); Phi += DeslocamentoAngular * Math.sin(Rot) * Math.cos(Phi); Rot -= DeslocamentoAngular * Math.cos(Rot) * Math.sin(Phi); ContadorFrames = 0;} else VariavelLimiteAtingido();} else {Phi -= Math.signum(Phi) * DeslocamentoAngular; ContadorFrames = FramesDeslocamento; Phit = Phi; FlagPhiSuperior = 1;}} else {Teta -= Math.signum(Teta) * DeslocamentoAngular; ContadorFrames = FramesDeslocamento; Tetat = Teta; FlagTetaInferior = 1;}
-								} else NoRedrawFlag = 1;
-							}
-						else
-							{
-							if (Math.abs(Teta) < TetaMax - DeslocamentoAngular) {if (! (Math.abs(Teta - DeslocamentoAngular) >= AntonioVandre.MaximoValorReal)) {Teta -= DeslocamentoAngular; ContadorFrames = 0;} else VariavelLimiteAtingido();} else {Teta -= Math.signum(Teta) * DeslocamentoAngular; ContadorFrames = FramesDeslocamento; Tetat = Teta; FlagTetaInferior = 1;}
-							}
-						}
-					else if (keyCode == KeyEvent.VK_B) {if (FlagCoordRotOnce == 0)
-						{
-						FlagMouseY = 1; FlagCoordRot = 0; FlagCoordRotHor = 0; FlagCoordRotVert = 0; CameraId = -1;
-
-						if (ke.isShiftDown())
-							{
-							if (Math.abs(Teta) < TetaMax - DeslocamentoAngular) {if (Math.abs(Phi) < PhiMax - DeslocamentoAngular) {if ((! (Math.abs(Rot - DeslocamentoAngular * Math.sin(Rot) * Math.sin(Phi)) >= AntonioVandre.MaximoValorReal)) || (! (Math.abs(Teta - DeslocamentoAngular * Math.sin(Rot)) >= AntonioVandre.MaximoValorReal)) || (! (Math.abs(Phi - DeslocamentoAngular * Math.cos(Rot) * Math.cos(Phi)) >= AntonioVandre.MaximoValorReal))) {Teta -= DeslocamentoAngular * Math.sin(Rot); Phi -= DeslocamentoAngular * Math.cos(Rot) * Math.cos(Phi); Rot -= DeslocamentoAngular * Math.sin(Rot) * Math.sin(Phi); ContadorFrames = 0;} else VariavelLimiteAtingido();} else {Phi -= Math.signum(Phi) * DeslocamentoAngular; ContadorFrames = FramesDeslocamento; Phit = Phi; FlagPhiSuperior = 1;}} else {Teta -= Math.signum(Teta) * DeslocamentoAngular; ContadorFrames = FramesDeslocamento; Tetat = Teta; FlagTetaInferior = 1;}
-							}
-						else
-							{
-							if (Math.abs(Phi) < PhiMax - DeslocamentoAngular) {if (! (Math.abs(Phi - DeslocamentoAngular) >= AntonioVandre.MaximoValorReal)) {Phi -= DeslocamentoAngular; ContadorFrames = 0;} else {Phi -= Math.signum(Phi) * DeslocamentoAngular; ContadorFrames = FramesDeslocamento; Phit = Phi; FlagPhiSuperior = 1;}} else {Teta -= Math.signum(Teta) * DeslocamentoAngular; ContadorFrames = FramesDeslocamento; Tetat = Teta; FlagTetaInferior = 1;}
-							}
-						} else NoRedrawFlag = 1;}
-					else if (keyCode == KeyEvent.VK_G) {if (FlagCoordRotOnce == 0)
-						{
-						FlagMouseY = 1; FlagCoordRot = 0; FlagCoordRotHor = 0; FlagCoordRotVert = 0; CameraId = -1;
-
-						if (ke.isShiftDown())
-							{
-							if (Math.abs(Teta) < TetaMax - DeslocamentoAngular) {if (Math.abs(Phi) < PhiMax - DeslocamentoAngular) {if ((! (Math.abs(Rot + DeslocamentoAngular * Math.sin(Rot) * Math.sin(Phi)) >= AntonioVandre.MaximoValorReal)) || (! (Math.abs(Teta + DeslocamentoAngular * Math.sin(Rot)) >= AntonioVandre.MaximoValorReal)) || (! (Math.abs(Phi + DeslocamentoAngular * Math.cos(Rot) * Math.cos(Phi)) >= AntonioVandre.MaximoValorReal))) {Teta += DeslocamentoAngular * Math.sin(Rot); Phi += DeslocamentoAngular * Math.cos(Rot) * Math.cos(Phi); Rot += DeslocamentoAngular * Math.sin(Rot) * Math.sin(Phi); ContadorFrames = 0;} else VariavelLimiteAtingido();} else {Phi -= Math.signum(Phi) * DeslocamentoAngular; ContadorFrames = FramesDeslocamento; Phit = Phi; FlagPhiSuperior = 1;}} else {Teta -= Math.signum(Teta) * DeslocamentoAngular; ContadorFrames = FramesDeslocamento; Tetat = Teta; FlagTetaInferior = 1;}
-							}
-						else
-							{
-							if (Math.abs(Phi) < PhiMax - DeslocamentoAngular) {if (! (Math.abs(Phi - DeslocamentoAngular) >= AntonioVandre.MaximoValorReal)) {Phi += DeslocamentoAngular; ContadorFrames = 0;}  else VariavelLimiteAtingido();} else {Phi -= Math.signum(Phi) * DeslocamentoAngular; ContadorFrames = FramesDeslocamento; Phit = Phi; FlagPhiSuperior = 1;}
-							}
-						} else NoRedrawFlag = 1;}
-					else if (keyCode == KeyEvent.VK_H)
-						if (ke.isShiftDown()) {Rot = 0; Rott = Rot; ContadorFrames = FramesDeslocamento;} else {FlagCoordRot = 0; FlagCoordRotHor = 0; FlagCoordRotVert = 0; CameraId = -1; if (! (Math.abs(Rot + DeslocamentoAngular) >= AntonioVandre.MaximoValorReal)) {Rot += DeslocamentoAngular; ContadorFrames = 0;} else VariavelLimiteAtingido();}
-					else if (keyCode == KeyEvent.VK_N)
-						{FlagCoordRot = 0; FlagCoordRotHor = 0; FlagCoordRotVert = 0; CameraId = -1; if (! (Math.abs(Rot - DeslocamentoAngular) >= AntonioVandre.MaximoValorReal)) {Rot -= DeslocamentoAngular; ContadorFrames = 0;} else VariavelLimiteAtingido();}
-					else if (keyCode == KeyEvent.VK_J)
-						{
-						if (ke.isShiftDown())
-							{
-							FlagMouseY = 1; FlagCoordRot = 0; FlagCoordRotHor = 0; FlagCoordRotVert = 1; CameraId = -1;
-
-							if (! (Math.abs(RotacaoPhi - DeslocamentoAngular) >= AntonioVandre.MaximoValorReal)) RotacaoPhi -= DeslocamentoAngular; else VariavelLimiteAtingido();
-
-							if (Math.abs(Phi) < PhiMax - DeslocamentoAngular) {if (! (Math.abs(Phi - DeslocamentoAngular) >= AntonioVandre.MaximoValorReal)) {Phi -= DeslocamentoAngular; x = xRotacaoPhi + RaioPhi * Math.cos(RotacaoPhi) * Math.cos(Teta); y = yRotacaoPhi - RaioPhi * Math.cos(RotacaoPhi) * Math.sin(Teta); z = zRotacaoPhi - RaioPhi * Math.sin(RotacaoPhi); ContadorFrames = 0;} else VariavelLimiteAtingido();} else {Phi -= Math.signum(Phi) * DeslocamentoAngular; ContadorFrames = FramesDeslocamento; Phit = Phi; FlagPhiSuperior = 1;}
-							}
-						else
-							{
-							FlagMouseY = 1; FlagCoordRot = 0; FlagCoordRotHor = 1; FlagCoordRotVert = 0; CameraId = -1;
-
-							if (! (Math.abs(RotacaoTeta + DeslocamentoAngular) >= AntonioVandre.MaximoValorReal)) RotacaoTeta += DeslocamentoAngular; else VariavelLimiteAtingido();
-
-							if (Math.abs(Teta) < TetaMax - DeslocamentoAngular) {if (! (Math.abs(Teta + DeslocamentoAngular) >= AntonioVandre.MaximoValorReal)) {Teta += DeslocamentoAngular; x = xRotacaoTeta + RaioTeta * Math.cos(RotacaoTeta) * Math.cos(Phi); y = yRotacaoTeta - RaioTeta * Math.sin(RotacaoTeta) * Math.cos(Phi); ContadorFrames = 0;} else VariavelLimiteAtingido();} else {Teta -= Math.signum(Teta) * DeslocamentoAngular; ContadorFrames = FramesDeslocamento; Tetat = Teta; FlagTetaInferior = 1;}
-							}
-						}
-					else if (keyCode == KeyEvent.VK_M)
-						{
-						if (ke.isShiftDown())
-							{
-							FlagMouseY = 1; FlagCoordRot = 0; FlagCoordRotHor = 0; FlagCoordRotVert = 1; CameraId = -1;
-
-							if (! (Math.abs(RotacaoPhi + DeslocamentoAngular) >= AntonioVandre.MaximoValorReal)) RotacaoPhi += DeslocamentoAngular; else VariavelLimiteAtingido();
-
-							if (Math.abs(Phi) < PhiMax - DeslocamentoAngular) {if (! (Math.abs(Phi + DeslocamentoAngular) >= AntonioVandre.MaximoValorReal)) {Phi += DeslocamentoAngular; x = xRotacaoPhi + RaioPhi * Math.cos(RotacaoPhi) * Math.cos(Teta); y = yRotacaoPhi - RaioPhi * Math.cos(RotacaoPhi) * Math.sin(Teta); z = zRotacaoPhi - RaioPhi * Math.sin(RotacaoPhi); ContadorFrames = 0;} else VariavelLimiteAtingido();} else {Phi -= Math.signum(Phi) * DeslocamentoAngular; ContadorFrames = FramesDeslocamento; Phit = Phi; FlagPhiSuperior = 1;}
-							}
-						else
-							{
-							FlagMouseY = 1; FlagCoordRot = 0; FlagCoordRotHor = 1; FlagCoordRotVert = 0; CameraId = -1;
-
-							if (! (Math.abs(RotacaoTeta - DeslocamentoAngular) >= AntonioVandre.MaximoValorReal)) RotacaoTeta -= DeslocamentoAngular; else VariavelLimiteAtingido();
-
-							if (Math.abs(Teta) < TetaMax - DeslocamentoAngular) {if (! (Math.abs(Teta - DeslocamentoAngular) >= AntonioVandre.MaximoValorReal)) {Teta -= DeslocamentoAngular; x = xRotacaoTeta + RaioTeta * Math.cos(RotacaoTeta) * Math.cos(Phi); y = yRotacaoTeta - RaioTeta * Math.sin(RotacaoTeta) * Math.cos(Phi); ContadorFrames = 0;} else VariavelLimiteAtingido();} else {Teta -= Math.signum(Teta) * DeslocamentoAngular; ContadorFrames = FramesDeslocamento; Tetat = Teta; FlagTetaInferior = 1;}
-							}
-						}
-					else if (keyCode == KeyEvent.VK_K)
-						{
-						if (ke.isControlDown())
-							{RaioRot = 0; FlagCoordRot = 0; FlagCoordRotOnce = 0;}
-						else if (ke.isShiftDown())
-							{
-							FlagMouseY = 1; FlagCoordRot = 1; FlagCoordRotHor = 0; FlagCoordRotVert = 0; CameraId = -1; FlagCoordRotOnce = 1;
-
-							if (! (Math.abs(Rotacao - DeslocamentoAngular) >= AntonioVandre.MaximoValorReal)) Rotacao += DeslocamentoAngular; else VariavelLimiteAtingido();
-
-							if (Math.abs(Teta) < TetaMax - DeslocamentoAngular) {if (Math.abs(Phi) < PhiMax - DeslocamentoAngular) {if ((! (Teta - DeslocamentoAngular * Math.sin(Rot) >= AntonioVandre.MaximoValorReal)) || (! (Phi - DeslocamentoAngular * Math.cos(Rot) >= AntonioVandre.MaximoValorReal)) || (! (Rot - DeslocamentoAngular * Math.sin(Rot) * Math.sin(Phi) >= AntonioVandre.MaximoValorReal))) {Teta -= DeslocamentoAngular * Math.sin(Rot); Phi -= DeslocamentoAngular * Math.cos(Rot) * Math.cos(Phi); Rot -= DeslocamentoAngular * Math.sin(Rot) * Math.sin(Phi); x = xRotacao + RaioRot * Math.cos(Phi + Math.PI) * Math.cos(Teta); y = yRotacao - RaioRot * Math.cos(Phi + Math.PI) * Math.sin(Teta); z = zRotacao - RaioRot * Math.sin(Phi + Math.PI); ContadorFrames = 0;} else VariavelLimiteAtingido();} else {Phi -= Math.signum(Phi) * DeslocamentoAngular; ContadorFrames = FramesDeslocamento; Phit = Phi; FlagPhiInferior = 1;}} else {Teta -= Math.signum(Teta) * DeslocamentoAngular; ContadorFrames = FramesDeslocamento; Tetat = Teta; FlagTetaInferior = 1;}
-							}
-						else
-							{
-							FlagMouseY = 1; FlagCoordRot = 1; FlagCoordRotHor = 0; FlagCoordRotVert = 0; CameraId = -1; FlagCoordRotOnce = 1;
-
-							if (! (Math.abs(Rotacao + DeslocamentoAngular) >= AntonioVandre.MaximoValorReal)) Rotacao += DeslocamentoAngular; else VariavelLimiteAtingido();
-
-							if (Math.abs(Teta) < TetaMax - DeslocamentoAngular) {if (Math.abs(Phi) < PhiMax - DeslocamentoAngular) {if ((! (Math.abs(Teta + DeslocamentoAngular * Math.cos(Rot)) >= AntonioVandre.MaximoValorReal)) || (! (Math.abs(Phi - DeslocamentoAngular * Math.sin(Rot) * Math.cos(Phi)) >= AntonioVandre.MaximoValorReal)) || (! (Math.abs(Rot + DeslocamentoAngular * Math.cos(Rot) * Math.sin(Phi)) >= AntonioVandre.MaximoValorReal))) {Teta += DeslocamentoAngular * Math.cos(Rot); Phi -= DeslocamentoAngular * Math.sin(Rot) * Math.cos(Phi); Rot += DeslocamentoAngular * Math.cos(Rot) * Math.sin(Phi); x = xRotacao + RaioRot * Math.cos(Phi + Math.PI) * Math.cos(Teta); y = yRotacao - RaioRot * Math.cos(Phi + Math.PI) * Math.sin(Teta); z = zRotacao - RaioRot * Math.sin(Phi + Math.PI); ContadorFrames = 0;} else VariavelLimiteAtingido();} else {Phi -= Math.signum(Phi) * DeslocamentoAngular; ContadorFrames = FramesDeslocamento; Phit = Phi; FlagPhiInferior = 1;}} else {Teta -= Math.signum(Teta) * DeslocamentoAngular; ContadorFrames = FramesDeslocamento; Tetat = Teta; FlagTetaInferior = 1;}
-							}
-						}
-					else if (keyCode == KeyEvent.VK_COMMA)
-						{
-						if (ke.isShiftDown())
-							{
-							FlagMouseY = 1; FlagCoordRot = 1; FlagCoordRotHor = 0; FlagCoordRotVert = 0; CameraId = -1; FlagCoordRotOnce = 1;
-
-							if (! (Math.abs(Rotacao - DeslocamentoAngular) >= AntonioVandre.MaximoValorReal)) Rotacao -= DeslocamentoAngular; else VariavelLimiteAtingido();
-
-							if (Math.abs(Teta) < TetaMax - DeslocamentoAngular) {if (Math.abs(Phi) < PhiMax - DeslocamentoAngular) {if ((! (Teta + DeslocamentoAngular * Math.sin(Rot) >= AntonioVandre.MaximoValorReal)) || (! (Phi + DeslocamentoAngular * Math.cos(Rot) >= AntonioVandre.MaximoValorReal)) || (! (Rot + DeslocamentoAngular * Math.sin(Rot) * Math.sin(Phi) >= AntonioVandre.MaximoValorReal))) {Teta += DeslocamentoAngular * Math.sin(Rot); Phi += DeslocamentoAngular * Math.cos(Rot) * Math.cos(Phi); Rot += DeslocamentoAngular * Math.sin(Rot) * Math.sin(Phi); x = xRotacao + RaioRot * Math.cos(Phi + Math.PI) * Math.cos(Teta); y = yRotacao - RaioRot * Math.cos(Phi + Math.PI) * Math.sin(Teta); z = zRotacao - RaioRot * Math.sin(Phi + Math.PI); ContadorFrames = 0;} else VariavelLimiteAtingido();} else {Phi -= Math.signum(Phi) * DeslocamentoAngular; ContadorFrames = FramesDeslocamento; Phit = Phi; FlagPhiInferior = 1;}} else {Teta -= Math.signum(Teta) * DeslocamentoAngular; ContadorFrames = FramesDeslocamento; Tetat = Teta; FlagTetaInferior = 1;}
-							}
-						else
-							{
-							FlagMouseY = 1; FlagCoordRot = 1; FlagCoordRotHor = 0; FlagCoordRotVert = 0; CameraId = -1; FlagCoordRotOnce = 1;
-
-							if (! (Math.abs(Rotacao - DeslocamentoAngular) >= AntonioVandre.MaximoValorReal)) Rotacao -= DeslocamentoAngular; else VariavelLimiteAtingido();
-
-							if (Math.abs(Teta) < TetaMax - DeslocamentoAngular) {if (Math.abs(Phi) < PhiMax - DeslocamentoAngular) {if ((! (Math.abs(Teta - DeslocamentoAngular * Math.cos(Rot)) >= AntonioVandre.MaximoValorReal)) || (! (Math.abs(Phi + DeslocamentoAngular * Math.sin(Rot) * Math.cos(Phi)) >= AntonioVandre.MaximoValorReal)) || (! (Math.abs(Rot - DeslocamentoAngular * Math.cos(Rot) * Math.sin(Phi)) >= AntonioVandre.MaximoValorReal))) {Teta -= DeslocamentoAngular * Math.cos(Rot); Phi += DeslocamentoAngular * Math.sin(Rot) * Math.cos(Phi); Rot -= DeslocamentoAngular * Math.cos(Rot) * Math.sin(Phi); x = xRotacao + RaioRot * Math.cos(Phi + Math.PI) * Math.cos(Teta); y = yRotacao - RaioRot * Math.cos(Phi + Math.PI) * Math.sin(Teta); z = zRotacao - RaioRot * Math.sin(Phi + Math.PI); ContadorFrames = 0;} else VariavelLimiteAtingido();} else {Phi -= Math.signum(Phi) * DeslocamentoAngular; ContadorFrames = FramesDeslocamento; Phit = Phi; FlagPhiInferior = 1;}} else {Teta -= Math.signum(Teta) * DeslocamentoAngular; ContadorFrames = FramesDeslocamento; Tetat = Teta; FlagTetaInferior = 1;}
-							}
-						}
-					else if (keyCode == KeyEvent.VK_L)
-						{
-						if (ke.isShiftDown())
-							{FlagCoordRot = 0; FlagCoordRotHor = 0; FlagCoordRotVert = 0; CameraId = -1; if (! (Math.abs(RaioPhi + DeslocamentoLinear) >= AntonioVandre.MaximoValorReal)) {RaioPhi += DeslocamentoLinear;} else VariavelLimiteAtingido();}
-						else
-							{FlagCoordRot = 0; FlagCoordRotHor = 0; FlagCoordRotVert = 0; CameraId = -1; if (! (Math.abs(RaioTeta + DeslocamentoLinear) >= AntonioVandre.MaximoValorReal)) {RaioTeta += DeslocamentoLinear;} else VariavelLimiteAtingido();}
-
-						NoRedrawFlag = 1;
-						}
-					else if (keyCode == KeyEvent.VK_PERIOD)
-						{
-						if (ke.isShiftDown())
-							{FlagCoordRot = 0; FlagCoordRotHor = 0; FlagCoordRotVert = 0; CameraId = -1; if (! (Math.abs(RaioPhi - DeslocamentoLinear) >= AntonioVandre.MaximoValorReal)) {RaioPhi -= DeslocamentoLinear;} else VariavelLimiteAtingido();}
-						else
-							{FlagCoordRot = 0; FlagCoordRotHor = 0; FlagCoordRotVert = 0; CameraId = -1; if (! (Math.abs(RaioTeta - DeslocamentoLinear) >= AntonioVandre.MaximoValorReal)) {RaioTeta -= DeslocamentoLinear;} else VariavelLimiteAtingido();}
-
-						NoRedrawFlag = 1;
-						}
-					else if (keyCode == KeyEvent.VK_OPEN_BRACKET)
-						{FlagCoordRot = 0; FlagCoordRotHor = 0; FlagCoordRotVert = 0; CameraId = -1; if (! (Math.abs(RaioRot + DeslocamentoLinear) >= AntonioVandre.MaximoValorReal)) {RaioRot += DeslocamentoLinear; NoRedrawFlag = 1;} else VariavelLimiteAtingido();}
-					else if (keyCode == KeyEvent.VK_CLOSE_BRACKET)
-						{FlagCoordRot = 0; FlagCoordRotHor = 0; FlagCoordRotVert = 0; CameraId = -1; if (! (Math.abs(RaioRot - DeslocamentoLinear) >= AntonioVandre.MaximoValorReal)) {RaioRot -= DeslocamentoLinear; NoRedrawFlag = 1;} else VariavelLimiteAtingido();}
-					else if (keyCode == KeyEvent.VK_Q)
-						{FlagCoordRot = 0; FlagCoordRotHor = 0; FlagCoordRotVert = 0; CameraId = -1; if (DistanciaTela >= 1) DistanciaTela -= 1;}
-					else if (keyCode == KeyEvent.VK_W)
-						{FlagCoordRot = 0; FlagCoordRotHor = 0; FlagCoordRotVert = 0; CameraId = -1; if (! (DistanciaTela + 1 >= AntonioVandre.MaximoValorReal)) DistanciaTela += 1; else VariavelLimiteAtingido();}
-					else if (keyCode == KeyEvent.VK_E)
-						{FlagCoordRot = 0; FlagCoordRotHor = 0; FlagCoordRotVert = 0; CameraId = -1; if (FatorAnguloVisao > 1) FatorAnguloVisao -= 1;}
-					else if (keyCode == KeyEvent.VK_R)
-						{FlagCoordRot = 0; FlagCoordRotHor = 0; FlagCoordRotVert = 0; CameraId = -1; if (! (FatorAnguloVisao + 1 >= AntonioVandre.MaximoValorReal)) FatorAnguloVisao += 1; else VariavelLimiteAtingido();}
-					else if (keyCode == KeyEvent.VK_T)
-						{
-						if (ke.isShiftDown())
-							{
-							if (CorLinhaGreen > 0) CorLinhaGreen -= 1;
-							}
-						else if (ke.isControlDown())
-							{
-							if (CorLinhaBlue > 0) CorLinhaBlue -= 1;
-							}
-						else
-							{
-							if (CorLinhaRed > 0) CorLinhaRed -= 1;
-							}
-						}
-					else if (keyCode == KeyEvent.VK_Y)
-						{
-						if (ke.isShiftDown())
-							{
-							if (CorLinhaGreen < 255) CorLinhaGreen += 1;
-							}
-						else if (ke.isControlDown())
-							{
-							if (CorLinhaBlue < 255) CorLinhaBlue += 1;
-							}
-						else
-							{
-							if (CorLinhaRed < 255) CorLinhaRed += 1;
-							}
-						}
-					else if (keyCode == KeyEvent.VK_U)
-						{
-						if (ke.isShiftDown())
-							{
-							if (CorBackgroundGreen > 0) CorBackgroundGreen -= 1;
-							}
-						else if (ke.isControlDown())
-							{
-							if (CorBackgroundBlue > 0) CorBackgroundBlue -= 1;
-							}
-						else
-							{
-							if (CorBackgroundRed > 0) CorBackgroundRed -= 1;
-							}
-						}
-					else if (keyCode == KeyEvent.VK_I)
-						{
-						if (ke.isShiftDown())
-							{
-							if (CorBackgroundGreen < 255) CorBackgroundGreen += 1;
-							}
-						else if (ke.isControlDown())
-							{
-							if (CorBackgroundBlue < 255) CorBackgroundBlue += 1;
-							}
-						else
-							{
-							if (CorBackgroundRed < 255) CorBackgroundRed += 1;
-							}
-						}
-					else if (keyCode == KeyEvent.VK_O)
-						{
-						if (ke.isShiftDown())
-							{
-							if (CorTrianguloShapeGreen > 0) CorTrianguloShapeGreen -= 1;
-							}
-						else if (ke.isControlDown())
-							{
-							if (CorTrianguloShapeBlue > 0) CorTrianguloShapeBlue -= 1;
-							}
-						else
-							{
-							if (CorTrianguloShapeRed > 0) CorTrianguloShapeRed -= 1;
-							}
-						}
-					else if (keyCode == KeyEvent.VK_P)
-						{
-						if (ke.isShiftDown())
-							{
-							if (CorTrianguloShapeGreen < 255) CorTrianguloShapeGreen += 1;
-							}
-						else if (ke.isControlDown())
-							{
-							if (CorTrianguloShapeBlue < 255) CorTrianguloShapeBlue += 1;
-							}
-						else
-							{
-							if (CorTrianguloShapeRed < 255) CorTrianguloShapeRed += 1;
-							}
-						}
-					else if (keyCode == KeyEvent.VK_INSERT)
-						{
-						if (ke.isShiftDown())
-							{
-							if (CorLegendaGreen > 0) CorLegendaGreen -= 1;
-							}
-						else if (ke.isControlDown())
-							{
-							if (CorLegendaBlue > 0) CorLegendaBlue -= 1;
-							}
-						else
-							{
-							if (CorLegendaRed > 0) CorLegendaRed -= 1;
-							}
-						}
-					else if (keyCode == KeyEvent.VK_HOME)
-						{
-						if (ke.isShiftDown())
-							{
-							if (CorLegendaGreen < 255) CorLegendaGreen += 1;
-							}
-						else if (ke.isControlDown())
-							{
-							if (CorLegendaBlue < 255) CorLegendaBlue += 1;
-							}
-						else
-							{
-							if (CorLegendaRed < 255) CorLegendaRed += 1;
-							}
-						}
-					else if (keyCode == KeyEvent.VK_NUMPAD0)
-						{
-						if (ApfloatFlag == 0)
-							{
-							if (! (Debug.equals("Debug"))) try
-								{
-								(new Thread () {
-									public void run ()
+									if (LinhaArr.length == 6)
 										{
-										try
-											{
-											URL ExecUrl = new URL("https://github.com/antoniovandre/AV3DNavigatorStats/releases/download/AV3DNavigatorStats/AV3DNavigatorApfloatCount");
-											BufferedReader in = new BufferedReader(new InputStreamReader(ExecUrl.openStream()));
-											String inputLine;
-											while ((inputLine = in.readLine()) != null);
-											in.close();
-											} catch (IOException e) {}
+										double xcam = (new Expression(LinhaArr[0].replaceAll("AV3DCamPar", "(" + String.valueOf(CameraMovePar) + ")").replaceAll(" ", ""))).calculate();
+
+										double ycam = (new Expression("(" + LinhaArr[1].replaceAll("AV3DCamPar", "(" + String.valueOf(CameraMovePar) + ")").replaceAll(" ", "") + ") * (-1)")).calculate();
+
+										double zcam = (new Expression("(" + LinhaArr[2].replaceAll("AV3DCamPar", "(" + String.valueOf(CameraMovePar) + ")").replaceAll(" ", "") + ") * (-1)")).calculate();
+
+										double Tetacam = (new Expression(LinhaArr[3].replaceAll("AV3DCamPar", "(" + String.valueOf(CameraMovePar) + ")").replaceAll(" ", ""))).calculate();
+
+										double Phicam = (new Expression(LinhaArr[4].replaceAll("AV3DCamPar", "(" + String.valueOf(CameraMovePar) + ")").replaceAll(" ", ""))).calculate();
+
+										double Rotcam = (new Expression(LinhaArr[5].replaceAll("AV3DCamPar", "(" + String.valueOf(CameraMovePar) + ")").replaceAll(" ", ""))).calculate();
+
+										if ((AntonioVandre.NumeroReal(String.valueOf(xcam))) && (AntonioVandre.NumeroReal(String.valueOf(ycam))) && (AntonioVandre.NumeroReal(String.valueOf(zcam))) && (AntonioVandre.NumeroReal(String.valueOf(Tetacam))) && (AntonioVandre.NumeroReal(String.valueOf(Phicam))) && (AntonioVandre.NumeroReal(String.valueOf(Rotcam))))
+												{
+												x = xcam;
+												y = ycam;
+												z = zcam;
+												Teta = Tetacam;
+												Phi = Phicam;
+												Rot = Rotcam;
+
+												xt = x; yt = y; zt = z; Tetat = Teta; Phit = Phi; Rott = Rot; ContadorFrames = FramesDeslocamento;
+												}
 										}
-									}).start();} catch (IllegalThreadStateException e) {}
-
-							ApfloatFlag = 1;
-							}
-						else
-							ApfloatFlag = 0;
-
-						TriangulosString = "";
-						}
-					else if (keyCode == KeyEvent.VK_F4)
-						if (TrianguloPoligono == 0) TrianguloPoligono = 1; else TrianguloPoligono = 0;
-					else if (keyCode == KeyEvent.VK_UP)
-						{
-						FlagMouseY = 1; FlagCoordRot = 0; FlagCoordRotHor = 0; FlagCoordRotVert = 0; CameraId = -1;
-
-						if (ke.isShiftDown()) {if (Rot == 0)
-							{
-							if ((Math.abs(x + Math.sin(-Teta) * Math.cos(-Rot + Math.PI / 2) - Math.sin(Phi) * Math.cos(Rot)) >= AntonioVandre.MaximoValorReal) || (Math.abs(y - Math.cos(-Teta) * Math.cos(-Rot + Math.PI / 2) + Math.sin(Phi) * Math.sin(Rot)) >= AntonioVandre.MaximoValorReal) || (Math.abs(z - Math.sin(-Phi - Rot + Math.PI / 2) + Math.cos(Phi) * Math.cos(Rot)) >= AntonioVandre.MaximoValorReal))
-								VariavelLimiteAtingido();
-							else
-								{
-								x += Math.cos(Phi + Math.PI / 2) * Math.cos(Teta);
-								y -= Math.cos(Phi + Math.PI / 2) * Math.sin(Teta);
-								z -= Math.sin(Phi + Math.PI / 2);
+									} catch (IOException e) {}
 								}
-							} else NoRedrawFlag = 1;}
-						else
-							{
-							if ((Math.abs(x + Math.cos(Phi) * Math.cos(Teta)) >= AntonioVandre.MaximoValorReal) || (Math.abs(y - Math.cos(Phi) * Math.sin(Teta)) >= AntonioVandre.MaximoValorReal) || (Math.abs(z - Math.sin(Phit)) >= AntonioVandre.MaximoValorReal))
-								VariavelLimiteAtingido();
-							else
-								{
-								x += Math.cos(Phi) * Math.cos(Teta);
-								y -= Math.cos(Phi) * Math.sin(Teta);
-								z -= Math.sin(Phi);
-								}
-							}
 
-						ContadorFrames = 0;
-						}
-					else if (keyCode == KeyEvent.VK_DOWN)
-						{
-						FlagMouseY = 1; FlagCoordRot = 0; FlagCoordRotHor = 0; FlagCoordRotVert = 0; CameraId = -1;
+							break;
 
-						if (ke.isShiftDown()) {if (Rot == 0)
-							{
-							if ((Math.abs(x - Math.sin(-Teta) * Math.cos(-Rot + Math.PI / 2) - Math.sin(Phi) * Math.cos(Rot)) >= AntonioVandre.MaximoValorReal) || (Math.abs(y + Math.cos(-Teta) * Math.cos(-Rot + Math.PI / 2) + Math.sin(Phi) * Math.sin(Rot)) >= AntonioVandre.MaximoValorReal) || (Math.abs(z + Math.sin(-Phi - Rot + Math.PI / 2) + Math.cos(Phi) * Math.cos(Rot)) >= AntonioVandre.MaximoValorReal))
-								VariavelLimiteAtingido();
-							else
-								{
-								x -= Math.cos(Phi + Math.PI / 2) * Math.cos(Teta);
-								y += Math.cos(Phi + Math.PI / 2) * Math.sin(Teta);
-								z += Math.sin(Phi + Math.PI / 2);
-								}
-							} else NoRedrawFlag = 1;}
-						else
-							{
-							if ((Math.abs(x - Math.cos(Phi) * Math.cos(Teta)) >= AntonioVandre.MaximoValorReal) || (Math.abs(y + Math.cos(Phi) * Math.sin(Teta)) >= AntonioVandre.MaximoValorReal) || (Math.abs(z + Math.sin(Phit)) >= AntonioVandre.MaximoValorReal))
-								VariavelLimiteAtingido();
-							else
-								{
-								x -= Math.cos(Phi) * Math.cos(Teta);
-								y += Math.cos(Phi) * Math.sin(Teta);
-								z += Math.sin(Phi);
-								}
-							}
+						case KeyEvent.VK_NUMPAD4:
+							file = new File("AV3DNCamIds.txt");
 
-						ContadorFrames = 0;
-						}
-					else if (keyCode == KeyEvent.VK_LEFT)
-						{
-						FlagMouseY = 1; FlagCoordRot = 0; FlagCoordRotHor = 0; FlagCoordRotVert = 0; CameraId = -1;
-
-						if ((Math.abs(x - Math.cos(Teta - Math.PI / 2)) >= AntonioVandre.MaximoValorReal) || (Math.abs(y + Math.sin(Teta - Math.PI / 2)) >= AntonioVandre.MaximoValorReal))
-							VariavelLimiteAtingido();
-						else
-							{
-							x -= Math.cos(Teta - Math.PI / 2);
-							y += Math.sin(Teta - Math.PI / 2);
-							}
-
-						ContadorFrames = 0;
-						}
-					else if (keyCode == KeyEvent.VK_RIGHT)
-						{
-						FlagMouseY = 1; FlagCoordRot = 0; FlagCoordRotHor = 0; FlagCoordRotVert = 0; CameraId = -1;
-
-						if ((Math.abs(x + Math.cos(Teta - Math.PI / 2)) >= AntonioVandre.MaximoValorReal) || (Math.abs(y - Math.sin(Teta - Math.PI / 2)) >= AntonioVandre.MaximoValorReal))
-							VariavelLimiteAtingido();
-						else
-							{
-							x += Math.cos(Teta - Math.PI / 2);
-							y -= Math.sin(Teta - Math.PI / 2);
-							}
-
-						ContadorFrames = 0;
-						}
-					else if (keyCode == KeyEvent.VK_0)
-						{
-						if ((ke.isControlDown()) && (ke.isShiftDown()))
-							{
-							if (Math.abs(Parametro0Step - 0.1) >= AntonioVandre.MaximoValorReal)
-								VariavelLimiteAtingido();
-							else
-								Parametro0Step -= 0.1;
-							}
-						else if (ke.isControlDown())
-							{
-							if (Math.abs(Parametro0Step + 0.1) >= AntonioVandre.MaximoValorReal)
-								VariavelLimiteAtingido();
-							else
-								Parametro0Step += 0.1;
-							}
-						else if (ke.isShiftDown())
-							{
-							if (Math.abs(Parametro0 - Parametro0Step) >= AntonioVandre.MaximoValorReal)
-								VariavelLimiteAtingido();
-							else
-								Parametro0 -= Parametro0Step;
-							}
-						else
-							{
-							if (Math.abs(Parametro0 + Parametro0Step) >= AntonioVandre.MaximoValorReal)
-								VariavelLimiteAtingido();
-							else
-								Parametro0 += Parametro0Step;
-							}
-						}
-					else if (keyCode == KeyEvent.VK_1)
-						{
-						if ((ke.isControlDown()) && (ke.isShiftDown()))
-							{
-							if (Math.abs(Parametro1Step - 0.1) >= AntonioVandre.MaximoValorReal)
-								VariavelLimiteAtingido();
-							else
-								Parametro1Step -= 0.1;
-							}
-						else if (ke.isControlDown())
-							{
-							if (Math.abs(Parametro1Step + 0.1) >= AntonioVandre.MaximoValorReal)
-								VariavelLimiteAtingido();
-							else
-								Parametro1Step += 0.1;
-							}
-						else if (ke.isShiftDown())
-							{
-							if (Math.abs(Parametro1 - Parametro1Step) >= AntonioVandre.MaximoValorReal)
-								VariavelLimiteAtingido();
-							else
-								Parametro1 -= Parametro1Step;
-							}
-						else
-							{
-							if (Math.abs(Parametro1 + Parametro1Step) >= AntonioVandre.MaximoValorReal)
-								VariavelLimiteAtingido();
-							else
-								Parametro1 += Parametro1Step;
-							}
-						}
-					else if (keyCode == KeyEvent.VK_2)
-						{
-						if ((ke.isControlDown()) && (ke.isShiftDown()))
-							{
-							if (Math.abs(Parametro2Step - 0.1) >= AntonioVandre.MaximoValorReal)
-								VariavelLimiteAtingido();
-							else
-								Parametro2Step -= 0.1;
-							}
-						else if (ke.isControlDown())
-							{
-							if (Math.abs(Parametro2Step + 0.1) >= AntonioVandre.MaximoValorReal)
-								VariavelLimiteAtingido();
-							else
-								Parametro2Step += 0.1;
-							}
-						else if (ke.isShiftDown())
-							{
-							if (Math.abs(Parametro2 - Parametro2Step) >= AntonioVandre.MaximoValorReal)
-								VariavelLimiteAtingido();
-							else
-								Parametro2 -= Parametro2Step;
-							}
-						else
-							{
-							if (Math.abs(Parametro2 + Parametro2Step) >= AntonioVandre.MaximoValorReal)
-								VariavelLimiteAtingido();
-							else
-								Parametro2 += Parametro2Step;
-							}
-						}
-					else if (keyCode == KeyEvent.VK_3)
-						{
-						if ((ke.isControlDown()) && (ke.isShiftDown()))
-							{
-							if (Math.abs(Parametro3Step - 0.1) >= AntonioVandre.MaximoValorReal)
-								VariavelLimiteAtingido();
-							else
-								Parametro3Step -= 0.1;
-							}
-						else if (ke.isControlDown())
-							{
-							if (Math.abs(Parametro3Step + 0.1) >= AntonioVandre.MaximoValorReal)
-								VariavelLimiteAtingido();
-							else
-								Parametro3Step += 0.1;
-							}
-						else if (ke.isShiftDown())
-							{
-							if (Math.abs(Parametro3 - Parametro3Step) >= AntonioVandre.MaximoValorReal)
-								VariavelLimiteAtingido();
-							else
-								Parametro3 -= Parametro3Step;
-							}
-						else
-							{
-							if (Math.abs(Parametro3 + Parametro3Step) >= AntonioVandre.MaximoValorReal)
-								VariavelLimiteAtingido();
-							else
-								Parametro3 += Parametro3Step;
-							}
-						}
-					else if (keyCode == KeyEvent.VK_4)
-						{
-						if ((ke.isControlDown()) && (ke.isShiftDown()))
-							{
-							if (Math.abs(Parametro4Step - 0.1) >= AntonioVandre.MaximoValorReal)
-								VariavelLimiteAtingido();
-							else
-								Parametro4Step -= 0.1;
-							}
-						else if (ke.isControlDown())
-							{
-							if (Math.abs(Parametro4Step + 0.1) >= AntonioVandre.MaximoValorReal)
-								VariavelLimiteAtingido();
-							else
-								Parametro4Step += 0.1;
-							}
-						else if (ke.isShiftDown())
-							{
-							if (Math.abs(Parametro4 - Parametro4Step) >= AntonioVandre.MaximoValorReal)
-								VariavelLimiteAtingido();
-							else
-								Parametro4 -= Parametro4Step;
-							}
-						else
-							{
-							if (Math.abs(Parametro4 + Parametro4Step) >= AntonioVandre.MaximoValorReal)
-								VariavelLimiteAtingido();
-							else
-								Parametro4 += Parametro4Step;
-							}
-						}
-					else if (keyCode == KeyEvent.VK_5)
-						{
-						if ((ke.isControlDown()) && (ke.isShiftDown()))
-							{
-							if (Math.abs(Parametro5Step - 0.1) >= AntonioVandre.MaximoValorReal)
-								VariavelLimiteAtingido();
-							else
-								Parametro5Step -= 0.1;
-							}
-						else if (ke.isControlDown())
-							{
-							if (Math.abs(Parametro5Step + 0.1) >= AntonioVandre.MaximoValorReal)
-								VariavelLimiteAtingido();
-							else
-								Parametro5Step += 0.1;
-							}
-						else if (ke.isShiftDown())
-							{
-							if (Math.abs(Parametro5 - Parametro5Step) >= AntonioVandre.MaximoValorReal)
-								VariavelLimiteAtingido();
-							else
-								Parametro5 -= Parametro5Step;
-							}
-						else
-							{
-							if (Math.abs(Parametro5 + Parametro5Step) >= AntonioVandre.MaximoValorReal)
-								VariavelLimiteAtingido();
-							else
-								Parametro5 += Parametro5Step;
-							}
-						}
-					else if (keyCode == KeyEvent.VK_6)
-						{
-						if ((ke.isControlDown()) && (ke.isShiftDown()))
-							{
-							if (Math.abs(Parametro6Step - 0.1) >= AntonioVandre.MaximoValorReal)
-								VariavelLimiteAtingido();
-							else
-								Parametro6Step -= 0.1;
-							}
-						else if (ke.isControlDown())
-							{
-							if (Math.abs(Parametro6Step + 0.1) >= AntonioVandre.MaximoValorReal)
-								VariavelLimiteAtingido();
-							else
-								Parametro6Step += 0.1;
-							}
-						else if (ke.isShiftDown())
-							{
-							if (Math.abs(Parametro6 - Parametro6Step) >= AntonioVandre.MaximoValorReal)
-								VariavelLimiteAtingido();
-							else
-								Parametro6 -= Parametro6Step;
-							}
-						else
-							{
-							if (Math.abs(Parametro6 + Parametro6Step) >= AntonioVandre.MaximoValorReal)
-								VariavelLimiteAtingido();
-							else
-								Parametro6 += Parametro6Step;
-							}
-						}
-					else if (keyCode == KeyEvent.VK_7)
-						{
-						if ((ke.isControlDown()) && (ke.isShiftDown()))
-							{
-							if (Math.abs(Parametro7Step - 0.1) >= AntonioVandre.MaximoValorReal)
-								VariavelLimiteAtingido();
-							else
-								Parametro7Step -= 0.1;
-							}
-						else if (ke.isControlDown())
-							{
-							if (Math.abs(Parametro7Step + 0.1) >= AntonioVandre.MaximoValorReal)
-								VariavelLimiteAtingido();
-							else
-								Parametro7Step += 0.1;
-							}
-						else if (ke.isShiftDown())
-							{
-							if (Math.abs(Parametro7 - Parametro7Step) >= AntonioVandre.MaximoValorReal)
-								VariavelLimiteAtingido();
-							else
-								Parametro0 -= Parametro7Step;
-							}
-						else
-							{
-							if (Math.abs(Parametro7 + Parametro7Step) >= AntonioVandre.MaximoValorReal)
-								VariavelLimiteAtingido();
-							else
-								Parametro7 += Parametro7Step;
-							}
-						}
-					else if (keyCode == KeyEvent.VK_8)
-						{
-						if ((ke.isControlDown()) && (ke.isShiftDown()))
-							{
-							if (Math.abs(Parametro8Step - 0.1) >= AntonioVandre.MaximoValorReal)
-								VariavelLimiteAtingido();
-							else
-								Parametro8Step -= 0.1;
-							}
-						else if (ke.isControlDown())
-							{
-							if (Math.abs(Parametro8Step + 0.1) >= AntonioVandre.MaximoValorReal)
-								VariavelLimiteAtingido();
-							else
-								Parametro8Step += 0.1;
-							}
-						else if (ke.isShiftDown())
-							{
-							if (Math.abs(Parametro8 - Parametro8Step) >= AntonioVandre.MaximoValorReal)
-								VariavelLimiteAtingido();
-							else
-								Parametro8 -= Parametro8Step;
-							}
-						else
-							{
-							if (Math.abs(Parametro8 + Parametro8Step) >= AntonioVandre.MaximoValorReal)
-								VariavelLimiteAtingido();
-							else
-								Parametro8 += Parametro8Step;
-							}
-						}
-					else if (keyCode == KeyEvent.VK_9)
-						{
-						if ((ke.isControlDown()) && (ke.isShiftDown()))
-							{
-							if (Math.abs(Parametro9Step - 0.1) >= AntonioVandre.MaximoValorReal)
-								VariavelLimiteAtingido();
-							else
-								Parametro9Step -= 0.1;
-							}
-						else if (ke.isControlDown())
-							{
-							if (Math.abs(Parametro9Step + 0.1) >= AntonioVandre.MaximoValorReal)
-								VariavelLimiteAtingido();
-							else
-								Parametro9Step += 0.1;
-							}
-						else if (ke.isShiftDown())
-							{
-							if (Math.abs(Parametro9 - Parametro9Step) >= AntonioVandre.MaximoValorReal)
-								VariavelLimiteAtingido();
-							else
-								Parametro9 -= Parametro9Step;
-							}
-						else
-							{
-							if (Math.abs(Parametro9 + Parametro9Step) >= AntonioVandre.MaximoValorReal)
-								VariavelLimiteAtingido();
-							else
-								Parametro9 += Parametro9Step;
-							}
-						}
-					else if (keyCode == KeyEvent.VK_BACK_SPACE)
-						{if (LabelAnimado == 0) LabelAnimado = 1; else LabelAnimado = 0; NoRedrawFlag = 1;}
-					else if (keyCode == KeyEvent.VK_ENTER)
-						{
-						if (ke.isControlDown())
-							{
-							FlagMouseY = 1; FlagCoordRot = 0; FlagCoordRotHor = 0; FlagCoordRotVert = 0; FlagCoordRotOnce = 0;
-
-							File file = new File("AV3DNCamIds.txt");
-
-							if (ke.isShiftDown())
-								{if (CameraId > 0) CameraId--;}
-							else CameraId++;
+							String LinhasCam = "";
 
 							try
 								{
 								BufferedReader br = new BufferedReader(new FileReader(file));
 
 								String Linha;
-
-								i = 0;
 
 								do
 									{
 									Linha = br.readLine();
 
-									if (Linha == null)
-										{
-										CameraId = i - 1;
+									if (Linha != null)
+										LinhasCam = LinhasCam + Linha + "\n"; 
+									} while (Linha != null);
+								} catch (IOException e) {}
 
-										if (CameraId > -1)
-											{br = new BufferedReader(new FileReader(file)); i = 0; continue;}
-										else
-											break;
-										}
-									else if ((! (Linha.replaceAll(" ", "").equals(""))) && (Linha.replaceAll(" ", "").charAt(0) != '#'))
-										{
-										String LinhaArr [] = null;
+							if (CamPersOnce == 0)
+								{
+								CamPersCont = LinhasCam;
+								CamPersOnce = 1;
+								}
 
-										if (Linha.contains("DIVISOR"))
+							try
+								{
+								BufferedWriter writer = new BufferedWriter(new FileWriter(file));
+
+								if (ke.isShiftDown())
+									writer.write(CamPersCont);
+								else
+									writer.write(LinhasCam + String.valueOf(x) + ", " + String.valueOf(-y) + ", " + String.valueOf(-z) + ", " + String.valueOf(Teta) + ", " + String.valueOf(Phi) + ", " + String.valueOf(Rot) + "\n");
+
+								writer.close();
+								} catch (IOException e) {}
+
+							NoRedrawFlag = 1;
+
+							break;
+
+						case KeyEvent.VK_PAGE_UP:
+							if (SleepTime < AntonioVandre.MaximoValorInteiro) SleepTime++;
+
+							NoRedrawFlag = 1;
+
+							break;
+
+						case KeyEvent.VK_PAGE_DOWN:
+							if (SleepTime > 1) SleepTime--;
+
+							NoRedrawFlag = 1;
+
+							break;
+
+						case KeyEvent.VK_A:
+							if (ke.isShiftDown())
+								{if (! (Math.abs(xCamera + DeslocamentoLinear) >= AntonioVandre.MaximoValorReal)) {xCamera += DeslocamentoLinear; ContadorFrames = 0;} else VariavelLimiteAtingido();}
+							else
+								{FlagMouseY = 1; FlagCoordRot = 0; FlagCoordRotHor = 0; FlagCoordRotVert = 0; CameraId = -1; if (! (Math.abs(x + DeslocamentoLinear) >= AntonioVandre.MaximoValorReal)) {x += DeslocamentoLinear; ContadorFrames = 0;} else VariavelLimiteAtingido();}
+
+							break;
+
+						case KeyEvent.VK_Z:
+							if (ke.isShiftDown())
+								{if (! (Math.abs(xCamera - DeslocamentoLinear) >= AntonioVandre.MaximoValorReal)) {xCamera -= DeslocamentoLinear; ContadorFrames = 0;} else VariavelLimiteAtingido();}
+							else
+								{FlagMouseY = 1; FlagCoordRot = 0; FlagCoordRotHor = 0; FlagCoordRotVert = 0; CameraId = -1; if (! (Math.abs(x - DeslocamentoLinear) >= AntonioVandre.MaximoValorReal)) {x -= DeslocamentoLinear; ContadorFrames = 0;} else VariavelLimiteAtingido();}
+
+							break;
+
+						case KeyEvent.VK_S:
+							if (ke.isShiftDown())
+								{if (! (Math.abs(yCamera + DeslocamentoLinear) >= AntonioVandre.MaximoValorReal)) {yCamera += DeslocamentoLinear; ContadorFrames = 0;} else VariavelLimiteAtingido();}
+							else
+								{FlagMouseY = 1; FlagCoordRot = 0; FlagCoordRotHor = 0; FlagCoordRotVert = 0; CameraId = -1; if (! (Math.abs(y - DeslocamentoLinear) >= AntonioVandre.MaximoValorReal)) {y -= DeslocamentoLinear; ContadorFrames = 0;} else VariavelLimiteAtingido();}
+
+							break;
+
+						case KeyEvent.VK_X:
+							if (ke.isShiftDown())
+								{if (! (Math.abs(yCamera - DeslocamentoLinear) >= AntonioVandre.MaximoValorReal)) {yCamera -= DeslocamentoLinear; ContadorFrames = 0;} else VariavelLimiteAtingido();}
+							else
+								{FlagMouseY = 1; FlagCoordRot = 0; FlagCoordRotHor = 0; FlagCoordRotVert = 0; CameraId = -1; if (! (Math.abs(y + DeslocamentoLinear) >= AntonioVandre.MaximoValorReal)) {y += DeslocamentoLinear; ContadorFrames = 0;} else VariavelLimiteAtingido();}
+
+							break;
+
+						case KeyEvent.VK_D:
+							if (ke.isShiftDown())
+								{if (! (Math.abs(zCamera + DeslocamentoLinear) >= AntonioVandre.MaximoValorReal)) {zCamera += DeslocamentoLinear; ContadorFrames = 0;} else VariavelLimiteAtingido();}
+							else
+								{FlagMouseY = 1; FlagCoordRot = 0; FlagCoordRotHor = 0; FlagCoordRotVert = 0; CameraId = -1; if (! (Math.abs(z - DeslocamentoLinear) >= AntonioVandre.MaximoValorReal)) {z -= DeslocamentoLinear; ContadorFrames = 0;} else VariavelLimiteAtingido();}
+
+							break;
+
+						case KeyEvent.VK_C:
+							if (ke.isShiftDown())
+								{if (! (Math.abs(zCamera - DeslocamentoLinear) >= AntonioVandre.MaximoValorReal)) {zCamera -= DeslocamentoLinear; ContadorFrames = 0;} else VariavelLimiteAtingido();}
+							else
+								{FlagMouseY = 1; FlagCoordRot = 0; FlagCoordRotHor = 0; FlagCoordRotVert = 0; CameraId = -1; if (! (Math.abs(z + DeslocamentoLinear) >= AntonioVandre.MaximoValorReal)) {z += DeslocamentoLinear; ContadorFrames = 0;} else VariavelLimiteAtingido();}
+
+							break;
+
+						case KeyEvent.VK_F:
+							FlagMouseY = 1; FlagCoordRot = 0; FlagCoordRotHor = 0; FlagCoordRotVert = 0; CameraId = -1;
+
+							if (ke.isShiftDown())
+								{
+								if (FlagCoordRotOnce == 0)
+									{
+									if (Math.abs(Teta) < TetaMax - DeslocamentoAngular) {if ((! (Math.abs(Rot + DeslocamentoAngular * Math.cos(Rot) * Math.sin(Phi)) >= AntonioVandre.MaximoValorReal)) || (! (Math.abs(Teta + DeslocamentoAngular * Math.cos(Rot)) >= AntonioVandre.MaximoValorReal)) || (! (Math.abs(Phi - DeslocamentoAngular * Math.sin(Rot) * Math.cos(Phi)) >= AntonioVandre.MaximoValorReal))) {Teta += DeslocamentoAngular * Math.cos(Rot); Phi -= DeslocamentoAngular * Math.sin(Rot) * Math.cos(Phi); Rot += DeslocamentoAngular * Math.cos(Rot) * Math.sin(Phi); ContadorFrames = 0;} else VariavelLimiteAtingido();} else {Teta -= Math.signum(Teta) * DeslocamentoAngular; ContadorFrames = FramesDeslocamento; Tetat = Teta; FlagTetaInferior = 1;}
+									} else NoRedrawFlag = 1;
+								}
+							else
+								{
+								if (Math.abs(Teta) < TetaMax - DeslocamentoAngular) {if (! (Math.abs(Teta + DeslocamentoAngular) >= AntonioVandre.MaximoValorReal)) {Teta += DeslocamentoAngular; ContadorFrames = 0;} else VariavelLimiteAtingido();} else {Teta -= Math.signum(Teta) * DeslocamentoAngular; ContadorFrames = FramesDeslocamento; Tetat = Teta; FlagTetaInferior = 1;}
+								}
+
+							break;
+
+						case KeyEvent.VK_V:
+							FlagMouseY = 1; FlagCoordRot = 0; FlagCoordRotHor = 0; FlagCoordRotVert = 0; CameraId = -1;
+
+							if (ke.isShiftDown())
+								{
+								if (FlagCoordRotOnce == 0)
+									{
+									if (Math.abs(Teta) < TetaMax - DeslocamentoAngular) {if (Math.abs(Phi) < PhiMax - DeslocamentoAngular) {if ((! (Math.abs(Rot - DeslocamentoAngular * Math.cos(Rot) * Math.sin(Phi)) >= AntonioVandre.MaximoValorReal)) || (! (Math.abs(Teta - DeslocamentoAngular * Math.cos(Rot)) >= AntonioVandre.MaximoValorReal)) || (! (Math.abs(Phi + DeslocamentoAngular * Math.sin(Rot) * Math.cos(Phi)) >= AntonioVandre.MaximoValorReal))) {Teta -= DeslocamentoAngular * Math.cos(Rot); Phi += DeslocamentoAngular * Math.sin(Rot) * Math.cos(Phi); Rot -= DeslocamentoAngular * Math.cos(Rot) * Math.sin(Phi); ContadorFrames = 0;} else VariavelLimiteAtingido();} else {Phi -= Math.signum(Phi) * DeslocamentoAngular; ContadorFrames = FramesDeslocamento; Phit = Phi; FlagPhiSuperior = 1;}} else {Teta -= Math.signum(Teta) * DeslocamentoAngular; ContadorFrames = FramesDeslocamento; Tetat = Teta; FlagTetaInferior = 1;}
+									} else NoRedrawFlag = 1;
+								}
+							else
+								{
+								if (Math.abs(Teta) < TetaMax - DeslocamentoAngular) {if (! (Math.abs(Teta - DeslocamentoAngular) >= AntonioVandre.MaximoValorReal)) {Teta -= DeslocamentoAngular; ContadorFrames = 0;} else VariavelLimiteAtingido();} else {Teta -= Math.signum(Teta) * DeslocamentoAngular; ContadorFrames = FramesDeslocamento; Tetat = Teta; FlagTetaInferior = 1;}
+								}
+
+							break;
+
+						case KeyEvent.VK_B:
+							if (FlagCoordRotOnce == 0)
+								{
+								FlagMouseY = 1; FlagCoordRot = 0; FlagCoordRotHor = 0; FlagCoordRotVert = 0; CameraId = -1;
+
+								if (ke.isShiftDown())
+									{
+									if (Math.abs(Teta) < TetaMax - DeslocamentoAngular) {if (Math.abs(Phi) < PhiMax - DeslocamentoAngular) {if ((! (Math.abs(Rot - DeslocamentoAngular * Math.sin(Rot) * Math.sin(Phi)) >= AntonioVandre.MaximoValorReal)) || (! (Math.abs(Teta - DeslocamentoAngular * Math.sin(Rot)) >= AntonioVandre.MaximoValorReal)) || (! (Math.abs(Phi - DeslocamentoAngular * Math.cos(Rot) * Math.cos(Phi)) >= AntonioVandre.MaximoValorReal))) {Teta -= DeslocamentoAngular * Math.sin(Rot); Phi -= DeslocamentoAngular * Math.cos(Rot) * Math.cos(Phi); Rot -= DeslocamentoAngular * Math.sin(Rot) * Math.sin(Phi); ContadorFrames = 0;} else VariavelLimiteAtingido();} else {Phi -= Math.signum(Phi) * DeslocamentoAngular; ContadorFrames = FramesDeslocamento; Phit = Phi; FlagPhiSuperior = 1;}} else {Teta -= Math.signum(Teta) * DeslocamentoAngular; ContadorFrames = FramesDeslocamento; Tetat = Teta; FlagTetaInferior = 1;}
+									}
+								else
+									{
+									if (Math.abs(Phi) < PhiMax - DeslocamentoAngular) {if (! (Math.abs(Phi - DeslocamentoAngular) >= AntonioVandre.MaximoValorReal)) {Phi -= DeslocamentoAngular; ContadorFrames = 0;} else {Phi -= Math.signum(Phi) * DeslocamentoAngular; ContadorFrames = FramesDeslocamento; Phit = Phi; FlagPhiSuperior = 1;}} else {Teta -= Math.signum(Teta) * DeslocamentoAngular; ContadorFrames = FramesDeslocamento; Tetat = Teta; FlagTetaInferior = 1;}
+									}
+								} else NoRedrawFlag = 1;
+
+							break;
+
+						case KeyEvent.VK_G:
+							if (FlagCoordRotOnce == 0)
+								{
+								FlagMouseY = 1; FlagCoordRot = 0; FlagCoordRotHor = 0; FlagCoordRotVert = 0; CameraId = -1;
+
+								if (ke.isShiftDown())
+									{
+									if (Math.abs(Teta) < TetaMax - DeslocamentoAngular) {if (Math.abs(Phi) < PhiMax - DeslocamentoAngular) {if ((! (Math.abs(Rot + DeslocamentoAngular * Math.sin(Rot) * Math.sin(Phi)) >= AntonioVandre.MaximoValorReal)) || (! (Math.abs(Teta + DeslocamentoAngular * Math.sin(Rot)) >= AntonioVandre.MaximoValorReal)) || (! (Math.abs(Phi + DeslocamentoAngular * Math.cos(Rot) * Math.cos(Phi)) >= AntonioVandre.MaximoValorReal))) {Teta += DeslocamentoAngular * Math.sin(Rot); Phi += DeslocamentoAngular * Math.cos(Rot) * Math.cos(Phi); Rot += DeslocamentoAngular * Math.sin(Rot) * Math.sin(Phi); ContadorFrames = 0;} else VariavelLimiteAtingido();} else {Phi -= Math.signum(Phi) * DeslocamentoAngular; ContadorFrames = FramesDeslocamento; Phit = Phi; FlagPhiSuperior = 1;}} else {Teta -= Math.signum(Teta) * DeslocamentoAngular; ContadorFrames = FramesDeslocamento; Tetat = Teta; FlagTetaInferior = 1;}
+									}
+								else
+									{
+									if (Math.abs(Phi) < PhiMax - DeslocamentoAngular) {if (! (Math.abs(Phi - DeslocamentoAngular) >= AntonioVandre.MaximoValorReal)) {Phi += DeslocamentoAngular; ContadorFrames = 0;}  else VariavelLimiteAtingido();} else {Phi -= Math.signum(Phi) * DeslocamentoAngular; ContadorFrames = FramesDeslocamento; Phit = Phi; FlagPhiSuperior = 1;}
+									}
+								} else NoRedrawFlag = 1;
+
+							break;
+
+						case KeyEvent.VK_H:
+							if (ke.isShiftDown()) {Rot = 0; Rott = Rot; ContadorFrames = FramesDeslocamento;} else {FlagCoordRot = 0; FlagCoordRotHor = 0; FlagCoordRotVert = 0; CameraId = -1; if (! (Math.abs(Rot + DeslocamentoAngular) >= AntonioVandre.MaximoValorReal)) {Rot += DeslocamentoAngular; ContadorFrames = 0;} else VariavelLimiteAtingido();}
+
+							break;
+
+						case KeyEvent.VK_N:
+							FlagCoordRot = 0; FlagCoordRotHor = 0; FlagCoordRotVert = 0; CameraId = -1; if (! (Math.abs(Rot - DeslocamentoAngular) >= AntonioVandre.MaximoValorReal)) {Rot -= DeslocamentoAngular; ContadorFrames = 0;} else VariavelLimiteAtingido();
+
+							break;
+
+						case KeyEvent.VK_J:
+							if (ke.isShiftDown())
+								{
+								FlagMouseY = 1; FlagCoordRot = 0; FlagCoordRotHor = 0; FlagCoordRotVert = 1; CameraId = -1;
+
+								if (! (Math.abs(RotacaoPhi - DeslocamentoAngular) >= AntonioVandre.MaximoValorReal)) RotacaoPhi -= DeslocamentoAngular; else VariavelLimiteAtingido();
+
+								if (Math.abs(Phi) < PhiMax - DeslocamentoAngular) {if (! (Math.abs(Phi - DeslocamentoAngular) >= AntonioVandre.MaximoValorReal)) {Phi -= DeslocamentoAngular; x = xRotacaoPhi + RaioPhi * Math.cos(RotacaoPhi) * Math.cos(Teta); y = yRotacaoPhi - RaioPhi * Math.cos(RotacaoPhi) * Math.sin(Teta); z = zRotacaoPhi - RaioPhi * Math.sin(RotacaoPhi); ContadorFrames = 0;} else VariavelLimiteAtingido();} else {Phi -= Math.signum(Phi) * DeslocamentoAngular; ContadorFrames = FramesDeslocamento; Phit = Phi; FlagPhiSuperior = 1;}
+								}
+							else
+								{
+								FlagMouseY = 1; FlagCoordRot = 0; FlagCoordRotHor = 1; FlagCoordRotVert = 0; CameraId = -1;
+
+								if (! (Math.abs(RotacaoTeta + DeslocamentoAngular) >= AntonioVandre.MaximoValorReal)) RotacaoTeta += DeslocamentoAngular; else VariavelLimiteAtingido();
+
+								if (Math.abs(Teta) < TetaMax - DeslocamentoAngular) {if (! (Math.abs(Teta + DeslocamentoAngular) >= AntonioVandre.MaximoValorReal)) {Teta += DeslocamentoAngular; x = xRotacaoTeta + RaioTeta * Math.cos(RotacaoTeta) * Math.cos(Phi); y = yRotacaoTeta - RaioTeta * Math.sin(RotacaoTeta) * Math.cos(Phi); ContadorFrames = 0;} else VariavelLimiteAtingido();} else {Teta -= Math.signum(Teta) * DeslocamentoAngular; ContadorFrames = FramesDeslocamento; Tetat = Teta; FlagTetaInferior = 1;}
+								}
+
+							break;
+
+						case KeyEvent.VK_M:
+							if (ke.isShiftDown())
+								{
+								FlagMouseY = 1; FlagCoordRot = 0; FlagCoordRotHor = 0; FlagCoordRotVert = 1; CameraId = -1;
+
+								if (! (Math.abs(RotacaoPhi + DeslocamentoAngular) >= AntonioVandre.MaximoValorReal)) RotacaoPhi += DeslocamentoAngular; else VariavelLimiteAtingido();
+
+								if (Math.abs(Phi) < PhiMax - DeslocamentoAngular) {if (! (Math.abs(Phi + DeslocamentoAngular) >= AntonioVandre.MaximoValorReal)) {Phi += DeslocamentoAngular; x = xRotacaoPhi + RaioPhi * Math.cos(RotacaoPhi) * Math.cos(Teta); y = yRotacaoPhi - RaioPhi * Math.cos(RotacaoPhi) * Math.sin(Teta); z = zRotacaoPhi - RaioPhi * Math.sin(RotacaoPhi); ContadorFrames = 0;} else VariavelLimiteAtingido();} else {Phi -= Math.signum(Phi) * DeslocamentoAngular; ContadorFrames = FramesDeslocamento; Phit = Phi; FlagPhiSuperior = 1;}
+								}
+							else
+								{
+								FlagMouseY = 1; FlagCoordRot = 0; FlagCoordRotHor = 1; FlagCoordRotVert = 0; CameraId = -1;
+
+								if (! (Math.abs(RotacaoTeta - DeslocamentoAngular) >= AntonioVandre.MaximoValorReal)) RotacaoTeta -= DeslocamentoAngular; else VariavelLimiteAtingido();
+
+								if (Math.abs(Teta) < TetaMax - DeslocamentoAngular) {if (! (Math.abs(Teta - DeslocamentoAngular) >= AntonioVandre.MaximoValorReal)) {Teta -= DeslocamentoAngular; x = xRotacaoTeta + RaioTeta * Math.cos(RotacaoTeta) * Math.cos(Phi); y = yRotacaoTeta - RaioTeta * Math.sin(RotacaoTeta) * Math.cos(Phi); ContadorFrames = 0;} else VariavelLimiteAtingido();} else {Teta -= Math.signum(Teta) * DeslocamentoAngular; ContadorFrames = FramesDeslocamento; Tetat = Teta; FlagTetaInferior = 1;}
+								}
+
+							break;
+
+						case KeyEvent.VK_K:
+							if (ke.isControlDown())
+								{RaioRot = 0; FlagCoordRot = 0; FlagCoordRotOnce = 0;}
+							else if (ke.isShiftDown())
+								{
+								FlagMouseY = 1; FlagCoordRot = 1; FlagCoordRotHor = 0; FlagCoordRotVert = 0; CameraId = -1; FlagCoordRotOnce = 1;
+
+								if (! (Math.abs(Rotacao - DeslocamentoAngular) >= AntonioVandre.MaximoValorReal)) Rotacao += DeslocamentoAngular; else VariavelLimiteAtingido();
+
+								if (Math.abs(Teta) < TetaMax - DeslocamentoAngular) {if (Math.abs(Phi) < PhiMax - DeslocamentoAngular) {if ((! (Teta - DeslocamentoAngular * Math.sin(Rot) >= AntonioVandre.MaximoValorReal)) || (! (Phi - DeslocamentoAngular * Math.cos(Rot) >= AntonioVandre.MaximoValorReal)) || (! (Rot - DeslocamentoAngular * Math.sin(Rot) * Math.sin(Phi) >= AntonioVandre.MaximoValorReal))) {Teta -= DeslocamentoAngular * Math.sin(Rot); Phi -= DeslocamentoAngular * Math.cos(Rot) * Math.cos(Phi); Rot -= DeslocamentoAngular * Math.sin(Rot) * Math.sin(Phi); x = xRotacao + RaioRot * Math.cos(Phi + Math.PI) * Math.cos(Teta); y = yRotacao - RaioRot * Math.cos(Phi + Math.PI) * Math.sin(Teta); z = zRotacao - RaioRot * Math.sin(Phi + Math.PI); ContadorFrames = 0;} else VariavelLimiteAtingido();} else {Phi -= Math.signum(Phi) * DeslocamentoAngular; ContadorFrames = FramesDeslocamento; Phit = Phi; FlagPhiInferior = 1;}} else {Teta -= Math.signum(Teta) * DeslocamentoAngular; ContadorFrames = FramesDeslocamento; Tetat = Teta; FlagTetaInferior = 1;}
+								}
+							else
+								{
+								FlagMouseY = 1; FlagCoordRot = 1; FlagCoordRotHor = 0; FlagCoordRotVert = 0; CameraId = -1; FlagCoordRotOnce = 1;
+
+								if (! (Math.abs(Rotacao + DeslocamentoAngular) >= AntonioVandre.MaximoValorReal)) Rotacao += DeslocamentoAngular; else VariavelLimiteAtingido();
+
+								if (Math.abs(Teta) < TetaMax - DeslocamentoAngular) {if (Math.abs(Phi) < PhiMax - DeslocamentoAngular) {if ((! (Math.abs(Teta + DeslocamentoAngular * Math.cos(Rot)) >= AntonioVandre.MaximoValorReal)) || (! (Math.abs(Phi - DeslocamentoAngular * Math.sin(Rot) * Math.cos(Phi)) >= AntonioVandre.MaximoValorReal)) || (! (Math.abs(Rot + DeslocamentoAngular * Math.cos(Rot) * Math.sin(Phi)) >= AntonioVandre.MaximoValorReal))) {Teta += DeslocamentoAngular * Math.cos(Rot); Phi -= DeslocamentoAngular * Math.sin(Rot) * Math.cos(Phi); Rot += DeslocamentoAngular * Math.cos(Rot) * Math.sin(Phi); x = xRotacao + RaioRot * Math.cos(Phi + Math.PI) * Math.cos(Teta); y = yRotacao - RaioRot * Math.cos(Phi + Math.PI) * Math.sin(Teta); z = zRotacao - RaioRot * Math.sin(Phi + Math.PI); ContadorFrames = 0;} else VariavelLimiteAtingido();} else {Phi -= Math.signum(Phi) * DeslocamentoAngular; ContadorFrames = FramesDeslocamento; Phit = Phi; FlagPhiInferior = 1;}} else {Teta -= Math.signum(Teta) * DeslocamentoAngular; ContadorFrames = FramesDeslocamento; Tetat = Teta; FlagTetaInferior = 1;}
+								}
+
+							break;
+
+						case KeyEvent.VK_COMMA:
+							if (ke.isShiftDown())
+								{
+								FlagMouseY = 1; FlagCoordRot = 1; FlagCoordRotHor = 0; FlagCoordRotVert = 0; CameraId = -1; FlagCoordRotOnce = 1;
+
+								if (! (Math.abs(Rotacao - DeslocamentoAngular) >= AntonioVandre.MaximoValorReal)) Rotacao -= DeslocamentoAngular; else VariavelLimiteAtingido();
+
+								if (Math.abs(Teta) < TetaMax - DeslocamentoAngular) {if (Math.abs(Phi) < PhiMax - DeslocamentoAngular) {if ((! (Teta + DeslocamentoAngular * Math.sin(Rot) >= AntonioVandre.MaximoValorReal)) || (! (Phi + DeslocamentoAngular * Math.cos(Rot) >= AntonioVandre.MaximoValorReal)) || (! (Rot + DeslocamentoAngular * Math.sin(Rot) * Math.sin(Phi) >= AntonioVandre.MaximoValorReal))) {Teta += DeslocamentoAngular * Math.sin(Rot); Phi += DeslocamentoAngular * Math.cos(Rot) * Math.cos(Phi); Rot += DeslocamentoAngular * Math.sin(Rot) * Math.sin(Phi); x = xRotacao + RaioRot * Math.cos(Phi + Math.PI) * Math.cos(Teta); y = yRotacao - RaioRot * Math.cos(Phi + Math.PI) * Math.sin(Teta); z = zRotacao - RaioRot * Math.sin(Phi + Math.PI); ContadorFrames = 0;} else VariavelLimiteAtingido();} else {Phi -= Math.signum(Phi) * DeslocamentoAngular; ContadorFrames = FramesDeslocamento; Phit = Phi; FlagPhiInferior = 1;}} else {Teta -= Math.signum(Teta) * DeslocamentoAngular; ContadorFrames = FramesDeslocamento; Tetat = Teta; FlagTetaInferior = 1;}
+								}
+							else
+								{
+								FlagMouseY = 1; FlagCoordRot = 1; FlagCoordRotHor = 0; FlagCoordRotVert = 0; CameraId = -1; FlagCoordRotOnce = 1;
+
+								if (! (Math.abs(Rotacao - DeslocamentoAngular) >= AntonioVandre.MaximoValorReal)) Rotacao -= DeslocamentoAngular; else VariavelLimiteAtingido();
+
+								if (Math.abs(Teta) < TetaMax - DeslocamentoAngular) {if (Math.abs(Phi) < PhiMax - DeslocamentoAngular) {if ((! (Math.abs(Teta - DeslocamentoAngular * Math.cos(Rot)) >= AntonioVandre.MaximoValorReal)) || (! (Math.abs(Phi + DeslocamentoAngular * Math.sin(Rot) * Math.cos(Phi)) >= AntonioVandre.MaximoValorReal)) || (! (Math.abs(Rot - DeslocamentoAngular * Math.cos(Rot) * Math.sin(Phi)) >= AntonioVandre.MaximoValorReal))) {Teta -= DeslocamentoAngular * Math.cos(Rot); Phi += DeslocamentoAngular * Math.sin(Rot) * Math.cos(Phi); Rot -= DeslocamentoAngular * Math.cos(Rot) * Math.sin(Phi); x = xRotacao + RaioRot * Math.cos(Phi + Math.PI) * Math.cos(Teta); y = yRotacao - RaioRot * Math.cos(Phi + Math.PI) * Math.sin(Teta); z = zRotacao - RaioRot * Math.sin(Phi + Math.PI); ContadorFrames = 0;} else VariavelLimiteAtingido();} else {Phi -= Math.signum(Phi) * DeslocamentoAngular; ContadorFrames = FramesDeslocamento; Phit = Phi; FlagPhiInferior = 1;}} else {Teta -= Math.signum(Teta) * DeslocamentoAngular; ContadorFrames = FramesDeslocamento; Tetat = Teta; FlagTetaInferior = 1;}
+								}
+
+							break;
+
+						case KeyEvent.VK_L:
+							if (ke.isShiftDown())
+								{FlagCoordRot = 0; FlagCoordRotHor = 0; FlagCoordRotVert = 0; CameraId = -1; if (! (Math.abs(RaioPhi + DeslocamentoLinear) >= AntonioVandre.MaximoValorReal)) {RaioPhi += DeslocamentoLinear;} else VariavelLimiteAtingido();}
+							else
+								{FlagCoordRot = 0; FlagCoordRotHor = 0; FlagCoordRotVert = 0; CameraId = -1; if (! (Math.abs(RaioTeta + DeslocamentoLinear) >= AntonioVandre.MaximoValorReal)) {RaioTeta += DeslocamentoLinear;} else VariavelLimiteAtingido();}
+
+							NoRedrawFlag = 1;
+
+							break;
+
+						case KeyEvent.VK_PERIOD:
+							if (ke.isShiftDown())
+								{FlagCoordRot = 0; FlagCoordRotHor = 0; FlagCoordRotVert = 0; CameraId = -1; if (! (Math.abs(RaioPhi - DeslocamentoLinear) >= AntonioVandre.MaximoValorReal)) {RaioPhi -= DeslocamentoLinear;} else VariavelLimiteAtingido();}
+							else
+								{FlagCoordRot = 0; FlagCoordRotHor = 0; FlagCoordRotVert = 0; CameraId = -1; if (! (Math.abs(RaioTeta - DeslocamentoLinear) >= AntonioVandre.MaximoValorReal)) {RaioTeta -= DeslocamentoLinear;} else VariavelLimiteAtingido();}
+
+							NoRedrawFlag = 1;
+
+							break;
+
+						case KeyEvent.VK_OPEN_BRACKET:
+							FlagCoordRot = 0; FlagCoordRotHor = 0; FlagCoordRotVert = 0; CameraId = -1; if (! (Math.abs(RaioRot + DeslocamentoLinear) >= AntonioVandre.MaximoValorReal)) {RaioRot += DeslocamentoLinear; NoRedrawFlag = 1;} else VariavelLimiteAtingido();
+
+							break;
+
+						case KeyEvent.VK_CLOSE_BRACKET:
+							FlagCoordRot = 0; FlagCoordRotHor = 0; FlagCoordRotVert = 0; CameraId = -1; if (! (Math.abs(RaioRot - DeslocamentoLinear) >= AntonioVandre.MaximoValorReal)) {RaioRot -= DeslocamentoLinear; NoRedrawFlag = 1;} else VariavelLimiteAtingido();
+
+							break;
+
+						case KeyEvent.VK_Q:
+							FlagCoordRot = 0; FlagCoordRotHor = 0; FlagCoordRotVert = 0; CameraId = -1; if (DistanciaTela >= 1) DistanciaTela -= 1;
+
+							break;
+
+						case KeyEvent.VK_W:
+							FlagCoordRot = 0; FlagCoordRotHor = 0; FlagCoordRotVert = 0; CameraId = -1; if (! (DistanciaTela + 1 >= AntonioVandre.MaximoValorReal)) DistanciaTela += 1; else VariavelLimiteAtingido();
+
+							break;
+
+						case KeyEvent.VK_E:
+							FlagCoordRot = 0; FlagCoordRotHor = 0; FlagCoordRotVert = 0; CameraId = -1; if (FatorAnguloVisao > 1) FatorAnguloVisao -= 1;
+
+							break;
+
+						case KeyEvent.VK_R:
+							FlagCoordRot = 0; FlagCoordRotHor = 0; FlagCoordRotVert = 0; CameraId = -1; if (! (FatorAnguloVisao + 1 >= AntonioVandre.MaximoValorReal)) FatorAnguloVisao += 1; else VariavelLimiteAtingido();
+
+							break;
+
+						case KeyEvent.VK_T:
+							if (ke.isShiftDown())
+								{
+								if (CorLinhaGreen > 0) CorLinhaGreen -= 1;
+								}
+							else if (ke.isControlDown())
+								{
+								if (CorLinhaBlue > 0) CorLinhaBlue -= 1;
+								}
+							else
+								{
+								if (CorLinhaRed > 0) CorLinhaRed -= 1;
+								}
+
+							break;
+
+						case KeyEvent.VK_Y:
+							if (ke.isShiftDown())
+								{
+								if (CorLinhaGreen < 255) CorLinhaGreen += 1;
+								}
+							else if (ke.isControlDown())
+								{
+								if (CorLinhaBlue < 255) CorLinhaBlue += 1;
+								}
+							else
+								{
+								if (CorLinhaRed < 255) CorLinhaRed += 1;
+								}
+
+							break;
+
+						case KeyEvent.VK_U:
+							if (ke.isShiftDown())
+								{
+								if (CorBackgroundGreen > 0) CorBackgroundGreen -= 1;
+								}
+							else if (ke.isControlDown())
+								{
+								if (CorBackgroundBlue > 0) CorBackgroundBlue -= 1;
+								}
+							else
+								{
+								if (CorBackgroundRed > 0) CorBackgroundRed -= 1;
+								}
+
+							break;
+
+						case KeyEvent.VK_I:
+							if (ke.isShiftDown())
+								{
+								if (CorBackgroundGreen < 255) CorBackgroundGreen += 1;
+								}
+							else if (ke.isControlDown())
+								{
+								if (CorBackgroundBlue < 255) CorBackgroundBlue += 1;
+								}
+							else
+								{
+								if (CorBackgroundRed < 255) CorBackgroundRed += 1;
+								}
+
+							break;
+
+						case KeyEvent.VK_O:
+							if (ke.isShiftDown())
+								{
+								if (CorTrianguloShapeGreen > 0) CorTrianguloShapeGreen -= 1;
+								}
+							else if (ke.isControlDown())
+								{
+								if (CorTrianguloShapeBlue > 0) CorTrianguloShapeBlue -= 1;
+								}
+							else
+								{
+								if (CorTrianguloShapeRed > 0) CorTrianguloShapeRed -= 1;
+								}
+
+							break;
+
+						case KeyEvent.VK_P:
+							if (ke.isShiftDown())
+								{
+								if (CorTrianguloShapeGreen < 255) CorTrianguloShapeGreen += 1;
+								}
+							else if (ke.isControlDown())
+								{
+								if (CorTrianguloShapeBlue < 255) CorTrianguloShapeBlue += 1;
+								}
+							else
+								{
+								if (CorTrianguloShapeRed < 255) CorTrianguloShapeRed += 1;
+								}
+
+							break;
+
+						case KeyEvent.VK_INSERT:
+							if (ke.isShiftDown())
+								{
+								if (CorLegendaGreen > 0) CorLegendaGreen -= 1;
+								}
+							else if (ke.isControlDown())
+								{
+								if (CorLegendaBlue > 0) CorLegendaBlue -= 1;
+								}
+							else
+								{
+								if (CorLegendaRed > 0) CorLegendaRed -= 1;
+								}
+
+							break;
+
+						case KeyEvent.VK_HOME:
+							if (ke.isShiftDown())
+								{
+								if (CorLegendaGreen < 255) CorLegendaGreen += 1;
+								}
+							else if (ke.isControlDown())
+								{
+								if (CorLegendaBlue < 255) CorLegendaBlue += 1;
+								}
+							else
+								{
+								if (CorLegendaRed < 255) CorLegendaRed += 1;
+								}
+
+							break;
+
+						case KeyEvent.VK_NUMPAD0:
+							if (ApfloatFlag == 0)
+								{
+								if (! (Debug.equals("Debug"))) try
+									{
+									(new Thread () {
+										public void run ()
 											{
-											LinhaArr = Linha.split("DIVISOR");
-
-											if (LinhaArr.length == 6)
+											try
 												{
-												double xcam = (new Expression(LinhaArr[0].replaceAll(" ", ""))).calculate();
+												URL ExecUrl = new URL("https://github.com/antoniovandre/AV3DNavigatorStats/releases/download/AV3DNavigatorStats/AV3DNavigatorApfloatCount");
+												BufferedReader in = new BufferedReader(new InputStreamReader(ExecUrl.openStream()));
+												String inputLine;
+												while ((inputLine = in.readLine()) != null);
+												in.close();
+												} catch (IOException e) {}
+											}
+										}).start();} catch (IllegalThreadStateException e) {}
 
-												double ycam = (new Expression("(" + LinhaArr[1].replaceAll(" ", "") + ") * (-1)")).calculate();
+								ApfloatFlag = 1;
+								}
+							else
+								ApfloatFlag = 0;
 
-												double zcam = (new Expression("(" + LinhaArr[2].replaceAll(" ", "") + ") * (-1)")).calculate();
+							TriangulosString = "";
 
-												double Tetacam = (new Expression(LinhaArr[3].replaceAll(" ", ""))).calculate();
+							break;
 
-												double Phicam = (new Expression(LinhaArr[4].replaceAll(" ", ""))).calculate();
+						case KeyEvent.VK_F4:
+							if (TrianguloPoligono == 0) TrianguloPoligono = 1; else TrianguloPoligono = 0;
 
-												double Rotcam = (new Expression(LinhaArr[5].replaceAll(" ", ""))).calculate();
+							break;
 
-												if ((AntonioVandre.NumeroReal(String.valueOf(xcam))) && (AntonioVandre.NumeroReal(String.valueOf(ycam))) && (AntonioVandre.NumeroReal(String.valueOf(zcam))) && (AntonioVandre.NumeroReal(String.valueOf(Tetacam))) && (AntonioVandre.NumeroReal(String.valueOf(Phicam))) && (AntonioVandre.NumeroReal(String.valueOf(Rotcam))))
+						case KeyEvent.VK_UP:
+							FlagMouseY = 1; FlagCoordRot = 0; FlagCoordRotHor = 0; FlagCoordRotVert = 0; CameraId = -1;
+
+							if (ke.isShiftDown()) {if (Rot == 0)
+								{
+								if ((Math.abs(x + Math.cos(Phi + Math.PI / 2) * Math.cos(Teta)) >= AntonioVandre.MaximoValorReal) || (Math.abs(y - Math.cos(Phi + Math.PI / 2) * Math.sin(Teta)) >= AntonioVandre.MaximoValorReal) || (Math.abs(z - Math.sin(Phi + Math.PI / 2)) >= AntonioVandre.MaximoValorReal))
+									VariavelLimiteAtingido();
+								else
+									{
+									x += Math.cos(Phi + Math.PI / 2) * Math.cos(Teta);
+									y -= Math.cos(Phi + Math.PI / 2) * Math.sin(Teta);
+									z -= Math.sin(Phi + Math.PI / 2);
+									}
+								} else NoRedrawFlag = 1;}
+							else
+								{
+								if ((Math.abs(x + Math.cos(Phi) * Math.cos(Teta)) >= AntonioVandre.MaximoValorReal) || (Math.abs(y - Math.cos(Phi) * Math.sin(Teta)) >= AntonioVandre.MaximoValorReal) || (Math.abs(z - Math.sin(Phit)) >= AntonioVandre.MaximoValorReal))
+									VariavelLimiteAtingido();
+								else
+									{
+									x += Math.cos(Phi) * Math.cos(Teta);
+									y -= Math.cos(Phi) * Math.sin(Teta);
+									z -= Math.sin(Phi);
+									}
+								}
+
+							ContadorFrames = 0;
+
+							break;
+
+						case KeyEvent.VK_DOWN:
+							FlagMouseY = 1; FlagCoordRot = 0; FlagCoordRotHor = 0; FlagCoordRotVert = 0; CameraId = -1;
+
+							if (ke.isShiftDown()) {if (Rot == 0)
+								{
+								if ((Math.abs(x - Math.cos(Phi + Math.PI / 2) * Math.cos(Teta)) >= AntonioVandre.MaximoValorReal) || (Math.abs(y + Math.cos(Phi + Math.PI / 2) * Math.sin(Teta)) >= AntonioVandre.MaximoValorReal) || (Math.abs(z + Math.sin(Phi + Math.PI / 2)) >= AntonioVandre.MaximoValorReal))
+									VariavelLimiteAtingido();
+								else
+									{
+									x -= Math.cos(Phi + Math.PI / 2) * Math.cos(Teta);
+									y += Math.cos(Phi + Math.PI / 2) * Math.sin(Teta);
+									z += Math.sin(Phi + Math.PI / 2);
+									}
+								} else NoRedrawFlag = 1;}
+							else
+								{
+								if ((Math.abs(x - Math.cos(Phi) * Math.cos(Teta)) >= AntonioVandre.MaximoValorReal) || (Math.abs(y + Math.cos(Phi) * Math.sin(Teta)) >= AntonioVandre.MaximoValorReal) || (Math.abs(z + Math.sin(Phit)) >= AntonioVandre.MaximoValorReal))
+									VariavelLimiteAtingido();
+								else
+									{
+									x -= Math.cos(Phi) * Math.cos(Teta);
+									y += Math.cos(Phi) * Math.sin(Teta);
+									z += Math.sin(Phi);
+									}
+								}
+
+							ContadorFrames = 0;
+
+							break;
+
+						case KeyEvent.VK_LEFT:
+							FlagMouseY = 1; FlagCoordRot = 0; FlagCoordRotHor = 0; FlagCoordRotVert = 0; CameraId = -1;
+
+							if ((Math.abs(x - Math.cos(Teta - Math.PI / 2)) >= AntonioVandre.MaximoValorReal) || (Math.abs(y + Math.sin(Teta - Math.PI / 2)) >= AntonioVandre.MaximoValorReal))
+								VariavelLimiteAtingido();
+							else
+								{
+								x -= Math.cos(Teta - Math.PI / 2);
+								y += Math.sin(Teta - Math.PI / 2);
+								}
+
+							ContadorFrames = 0;
+
+							break;
+
+						case KeyEvent.VK_RIGHT:
+							FlagMouseY = 1; FlagCoordRot = 0; FlagCoordRotHor = 0; FlagCoordRotVert = 0; CameraId = -1;
+
+							if ((Math.abs(x + Math.cos(Teta - Math.PI / 2)) >= AntonioVandre.MaximoValorReal) || (Math.abs(y - Math.sin(Teta - Math.PI / 2)) >= AntonioVandre.MaximoValorReal))
+								VariavelLimiteAtingido();
+							else
+								{
+								x += Math.cos(Teta - Math.PI / 2);
+								y -= Math.sin(Teta - Math.PI / 2);
+								}
+
+							ContadorFrames = 0;
+
+							break;
+
+						case KeyEvent.VK_0:
+							if ((ke.isControlDown()) && (ke.isShiftDown()))
+								{
+								if (Math.abs(Parametro0Step - 0.1) >= AntonioVandre.MaximoValorReal)
+									VariavelLimiteAtingido();
+								else
+									Parametro0Step -= 0.1;
+								}
+							else if (ke.isControlDown())
+								{
+								if (Math.abs(Parametro0Step + 0.1) >= AntonioVandre.MaximoValorReal)
+									VariavelLimiteAtingido();
+								else
+									Parametro0Step += 0.1;
+								}
+							else if (ke.isShiftDown())
+								{
+								if (Math.abs(Parametro0 - Parametro0Step) >= AntonioVandre.MaximoValorReal)
+									VariavelLimiteAtingido();
+								else
+									Parametro0 -= Parametro0Step;
+								}
+							else
+								{
+								if (Math.abs(Parametro0 + Parametro0Step) >= AntonioVandre.MaximoValorReal)
+									VariavelLimiteAtingido();
+								else
+									Parametro0 += Parametro0Step;
+								}
+
+							break;
+
+						case KeyEvent.VK_1:
+							if ((ke.isControlDown()) && (ke.isShiftDown()))
+								{
+								if (Math.abs(Parametro1Step - 0.1) >= AntonioVandre.MaximoValorReal)
+									VariavelLimiteAtingido();
+								else
+									Parametro1Step -= 0.1;
+								}
+							else if (ke.isControlDown())
+								{
+								if (Math.abs(Parametro1Step + 0.1) >= AntonioVandre.MaximoValorReal)
+									VariavelLimiteAtingido();
+								else
+									Parametro1Step += 0.1;
+								}
+							else if (ke.isShiftDown())
+								{
+								if (Math.abs(Parametro1 - Parametro1Step) >= AntonioVandre.MaximoValorReal)
+									VariavelLimiteAtingido();
+								else
+									Parametro1 -= Parametro1Step;
+								}
+							else
+								{
+								if (Math.abs(Parametro1 + Parametro1Step) >= AntonioVandre.MaximoValorReal)
+									VariavelLimiteAtingido();
+								else
+									Parametro1 += Parametro1Step;
+								}
+
+							break;
+
+						case KeyEvent.VK_2:
+							if ((ke.isControlDown()) && (ke.isShiftDown()))
+								{
+								if (Math.abs(Parametro2Step - 0.1) >= AntonioVandre.MaximoValorReal)
+									VariavelLimiteAtingido();
+								else
+									Parametro2Step -= 0.1;
+								}
+							else if (ke.isControlDown())
+								{
+								if (Math.abs(Parametro2Step + 0.1) >= AntonioVandre.MaximoValorReal)
+									VariavelLimiteAtingido();
+								else
+									Parametro2Step += 0.1;
+								}
+							else if (ke.isShiftDown())
+								{
+								if (Math.abs(Parametro2 - Parametro2Step) >= AntonioVandre.MaximoValorReal)
+									VariavelLimiteAtingido();
+								else
+									Parametro2 -= Parametro2Step;
+								}
+							else
+								{
+								if (Math.abs(Parametro2 + Parametro2Step) >= AntonioVandre.MaximoValorReal)
+									VariavelLimiteAtingido();
+								else
+									Parametro2 += Parametro2Step;
+								}
+
+							break;
+
+						case KeyEvent.VK_3:
+							if ((ke.isControlDown()) && (ke.isShiftDown()))
+								{
+								if (Math.abs(Parametro3Step - 0.1) >= AntonioVandre.MaximoValorReal)
+									VariavelLimiteAtingido();
+								else
+									Parametro3Step -= 0.1;
+								}
+							else if (ke.isControlDown())
+								{
+								if (Math.abs(Parametro3Step + 0.1) >= AntonioVandre.MaximoValorReal)
+									VariavelLimiteAtingido();
+								else
+									Parametro3Step += 0.1;
+								}
+							else if (ke.isShiftDown())
+								{
+								if (Math.abs(Parametro3 - Parametro3Step) >= AntonioVandre.MaximoValorReal)
+									VariavelLimiteAtingido();
+								else
+									Parametro3 -= Parametro3Step;
+								}
+							else
+								{
+								if (Math.abs(Parametro3 + Parametro3Step) >= AntonioVandre.MaximoValorReal)
+									VariavelLimiteAtingido();
+								else
+									Parametro3 += Parametro3Step;
+								}
+
+							break;
+
+						case KeyEvent.VK_4:
+							if ((ke.isControlDown()) && (ke.isShiftDown()))
+								{
+								if (Math.abs(Parametro4Step - 0.1) >= AntonioVandre.MaximoValorReal)
+									VariavelLimiteAtingido();
+								else
+									Parametro4Step -= 0.1;
+								}
+							else if (ke.isControlDown())
+								{
+								if (Math.abs(Parametro4Step + 0.1) >= AntonioVandre.MaximoValorReal)
+									VariavelLimiteAtingido();
+								else
+									Parametro4Step += 0.1;
+								}
+							else if (ke.isShiftDown())
+								{
+								if (Math.abs(Parametro4 - Parametro4Step) >= AntonioVandre.MaximoValorReal)
+									VariavelLimiteAtingido();
+								else
+									Parametro4 -= Parametro4Step;
+								}
+							else
+								{
+								if (Math.abs(Parametro4 + Parametro4Step) >= AntonioVandre.MaximoValorReal)
+									VariavelLimiteAtingido();
+								else
+									Parametro4 += Parametro4Step;
+								}
+
+							break;
+
+						case KeyEvent.VK_5:
+							if ((ke.isControlDown()) && (ke.isShiftDown()))
+								{
+								if (Math.abs(Parametro5Step - 0.1) >= AntonioVandre.MaximoValorReal)
+									VariavelLimiteAtingido();
+								else
+									Parametro5Step -= 0.1;
+								}
+							else if (ke.isControlDown())
+								{
+								if (Math.abs(Parametro5Step + 0.1) >= AntonioVandre.MaximoValorReal)
+									VariavelLimiteAtingido();
+								else
+									Parametro5Step += 0.1;
+								}
+							else if (ke.isShiftDown())
+								{
+								if (Math.abs(Parametro5 - Parametro5Step) >= AntonioVandre.MaximoValorReal)
+									VariavelLimiteAtingido();
+								else
+									Parametro5 -= Parametro5Step;
+								}
+							else
+								{
+								if (Math.abs(Parametro5 + Parametro5Step) >= AntonioVandre.MaximoValorReal)
+									VariavelLimiteAtingido();
+								else
+									Parametro5 += Parametro5Step;
+								}
+
+							break;
+
+						case KeyEvent.VK_6:
+							if ((ke.isControlDown()) && (ke.isShiftDown()))
+								{
+								if (Math.abs(Parametro6Step - 0.1) >= AntonioVandre.MaximoValorReal)
+									VariavelLimiteAtingido();
+								else
+									Parametro6Step -= 0.1;
+								}
+							else if (ke.isControlDown())
+								{
+								if (Math.abs(Parametro6Step + 0.1) >= AntonioVandre.MaximoValorReal)
+									VariavelLimiteAtingido();
+								else
+									Parametro6Step += 0.1;
+								}
+							else if (ke.isShiftDown())
+								{
+								if (Math.abs(Parametro6 - Parametro6Step) >= AntonioVandre.MaximoValorReal)
+									VariavelLimiteAtingido();
+								else
+									Parametro6 -= Parametro6Step;
+								}
+							else
+								{
+								if (Math.abs(Parametro6 + Parametro6Step) >= AntonioVandre.MaximoValorReal)
+									VariavelLimiteAtingido();
+								else
+									Parametro6 += Parametro6Step;
+								}
+
+							break;
+
+						case KeyEvent.VK_7:
+							if ((ke.isControlDown()) && (ke.isShiftDown()))
+								{
+								if (Math.abs(Parametro7Step - 0.1) >= AntonioVandre.MaximoValorReal)
+									VariavelLimiteAtingido();
+								else
+									Parametro7Step -= 0.1;
+								}
+							else if (ke.isControlDown())
+								{
+								if (Math.abs(Parametro7Step + 0.1) >= AntonioVandre.MaximoValorReal)
+									VariavelLimiteAtingido();
+								else
+									Parametro7Step += 0.1;
+								}
+							else if (ke.isShiftDown())
+								{
+								if (Math.abs(Parametro7 - Parametro7Step) >= AntonioVandre.MaximoValorReal)
+									VariavelLimiteAtingido();
+								else
+									Parametro0 -= Parametro7Step;
+								}
+							else
+								{
+								if (Math.abs(Parametro7 + Parametro7Step) >= AntonioVandre.MaximoValorReal)
+									VariavelLimiteAtingido();
+								else
+									Parametro7 += Parametro7Step;
+								}
+
+							break;
+
+						case KeyEvent.VK_8:
+							if ((ke.isControlDown()) && (ke.isShiftDown()))
+								{
+								if (Math.abs(Parametro8Step - 0.1) >= AntonioVandre.MaximoValorReal)
+									VariavelLimiteAtingido();
+								else
+									Parametro8Step -= 0.1;
+								}
+							else if (ke.isControlDown())
+								{
+								if (Math.abs(Parametro8Step + 0.1) >= AntonioVandre.MaximoValorReal)
+									VariavelLimiteAtingido();
+								else
+									Parametro8Step += 0.1;
+								}
+							else if (ke.isShiftDown())
+								{
+								if (Math.abs(Parametro8 - Parametro8Step) >= AntonioVandre.MaximoValorReal)
+									VariavelLimiteAtingido();
+								else
+									Parametro8 -= Parametro8Step;
+								}
+							else
+								{
+								if (Math.abs(Parametro8 + Parametro8Step) >= AntonioVandre.MaximoValorReal)
+									VariavelLimiteAtingido();
+								else
+									Parametro8 += Parametro8Step;
+								}
+
+							break;
+
+						case KeyEvent.VK_9:
+							if ((ke.isControlDown()) && (ke.isShiftDown()))
+								{
+								if (Math.abs(Parametro9Step - 0.1) >= AntonioVandre.MaximoValorReal)
+									VariavelLimiteAtingido();
+								else
+									Parametro9Step -= 0.1;
+								}
+							else if (ke.isControlDown())
+								{
+								if (Math.abs(Parametro9Step + 0.1) >= AntonioVandre.MaximoValorReal)
+									VariavelLimiteAtingido();
+								else
+									Parametro9Step += 0.1;
+								}
+							else if (ke.isShiftDown())
+								{
+								if (Math.abs(Parametro9 - Parametro9Step) >= AntonioVandre.MaximoValorReal)
+									VariavelLimiteAtingido();
+								else
+									Parametro9 -= Parametro9Step;
+								}
+							else
+								{
+								if (Math.abs(Parametro9 + Parametro9Step) >= AntonioVandre.MaximoValorReal)
+									VariavelLimiteAtingido();
+								else
+									Parametro9 += Parametro9Step;
+								}
+
+							break;
+
+						case KeyEvent.VK_BACK_SPACE:
+							if (LabelAnimado == 0) LabelAnimado = 1; else LabelAnimado = 0; NoRedrawFlag = 1;
+
+							break;
+
+						case KeyEvent.VK_ENTER:
+							if (ke.isControlDown())
+								{
+								FlagMouseY = 1; FlagCoordRot = 0; FlagCoordRotHor = 0; FlagCoordRotVert = 0; FlagCoordRotOnce = 0;
+
+								file = new File("AV3DNCamIds.txt");
+
+								if (ke.isShiftDown())
+									{if (CameraId > 0) CameraId--;}
+								else CameraId++;
+
+								try
+									{
+									BufferedReader br = new BufferedReader(new FileReader(file));
+
+									String Linha;
+
+									i = 0;
+
+									do
+										{
+										Linha = br.readLine();
+
+										if (Linha == null)
+											{
+											CameraId = i - 1;
+
+											if (CameraId > -1)
+												{br = new BufferedReader(new FileReader(file)); i = 0; continue;}
+											else
+												break;
+											}
+										else if ((! (Linha.replaceAll(" ", "").equals(""))) && (Linha.replaceAll(" ", "").charAt(0) != '#'))
+											{
+											String LinhaArr [] = null;
+
+											if (Linha.contains("DIVISOR"))
+												{
+												LinhaArr = Linha.split("DIVISOR");
+
+												if (LinhaArr.length == 6)
+													{
+													double xcam = (new Expression(LinhaArr[0].replaceAll(" ", ""))).calculate();
+
+													double ycam = (new Expression("(" + LinhaArr[1].replaceAll(" ", "") + ") * (-1)")).calculate();
+
+													double zcam = (new Expression("(" + LinhaArr[2].replaceAll(" ", "") + ") * (-1)")).calculate();
+
+													double Tetacam = (new Expression(LinhaArr[3].replaceAll(" ", ""))).calculate();
+
+													double Phicam = (new Expression(LinhaArr[4].replaceAll(" ", ""))).calculate();
+
+													double Rotcam = (new Expression(LinhaArr[5].replaceAll(" ", ""))).calculate();
+
+													if ((AntonioVandre.NumeroReal(String.valueOf(xcam))) && (AntonioVandre.NumeroReal(String.valueOf(ycam))) && (AntonioVandre.NumeroReal(String.valueOf(zcam))) && (AntonioVandre.NumeroReal(String.valueOf(Tetacam))) && (AntonioVandre.NumeroReal(String.valueOf(Phicam))) && (AntonioVandre.NumeroReal(String.valueOf(Rotcam))))
+														if (CameraId == i++)
+															{
+															x = xcam;
+															y = ycam;
+															z = zcam;
+															Teta = Tetacam;
+															Phi = Phicam;
+															Rot = Rotcam;
+											
+															xt = x; yt = y; zt = z; Tetat = Teta; Phit = Phi; Rott = Rot; ContadorFrames = FramesDeslocamento;
+
+															break;
+															}
+													}
+												}
+											else
+												{
+												LinhaArr = Linha.split(",");
+
+												if (LinhaArr.length == 6) if ((AntonioVandre.NumeroReal(LinhaArr[0].replaceAll(" ", ""))) && (AntonioVandre.NumeroReal(LinhaArr[1].replaceAll(" ", ""))) && (AntonioVandre.NumeroReal(LinhaArr[2].replaceAll(" ", ""))) && (AntonioVandre.NumeroReal(LinhaArr[3].replaceAll(" ", ""))) && (AntonioVandre.NumeroReal(LinhaArr[4].replaceAll(" ", ""))) && (AntonioVandre.NumeroReal(LinhaArr[5].replaceAll(" ", ""))))
 													if (CameraId == i++)
 														{
-														x = xcam;
-														y = ycam;
-														z = zcam;
-														Teta = Tetacam;
-														Phi = Phicam;
-														Rot = Rotcam;
-										
+														x = Double.parseDouble(LinhaArr[0].replaceAll(" ", ""));
+
+														y = -Double.parseDouble(LinhaArr[1].replaceAll(" ", ""));
+
+														z = -Double.parseDouble(LinhaArr[2].replaceAll(" ", ""));
+
+														Teta = Double.parseDouble(LinhaArr[3].replaceAll(" ", ""));
+
+														Phi = Double.parseDouble(LinhaArr[4].replaceAll(" ", ""));
+
+														Rot = Double.parseDouble(LinhaArr[5].replaceAll(" ", ""));
+
 														xt = x; yt = y; zt = z; Tetat = Teta; Phit = Phi; Rott = Rot; ContadorFrames = FramesDeslocamento;
 
 														break;
 														}
 												}
 											}
-										else
-											{
-											LinhaArr = Linha.split(",");
-
-											if (LinhaArr.length == 6) if ((AntonioVandre.NumeroReal(LinhaArr[0].replaceAll(" ", ""))) && (AntonioVandre.NumeroReal(LinhaArr[1].replaceAll(" ", ""))) && (AntonioVandre.NumeroReal(LinhaArr[2].replaceAll(" ", ""))) && (AntonioVandre.NumeroReal(LinhaArr[3].replaceAll(" ", ""))) && (AntonioVandre.NumeroReal(LinhaArr[4].replaceAll(" ", ""))) && (AntonioVandre.NumeroReal(LinhaArr[5].replaceAll(" ", ""))))
-												if (CameraId == i++)
-													{
-													x = Double.parseDouble(LinhaArr[0].replaceAll(" ", ""));
-
-													y = -Double.parseDouble(LinhaArr[1].replaceAll(" ", ""));
-
-													z = -Double.parseDouble(LinhaArr[2].replaceAll(" ", ""));
-
-													Teta = Double.parseDouble(LinhaArr[3].replaceAll(" ", ""));
-
-													Phi = Double.parseDouble(LinhaArr[4].replaceAll(" ", ""));
-
-													Rot = Double.parseDouble(LinhaArr[5].replaceAll(" ", ""));
-
-													xt = x; yt = y; zt = z; Tetat = Teta; Phit = Phi; Rott = Rot; ContadorFrames = FramesDeslocamento;
-
-													break;
-													}
-											}
-										}
-									} while (true);
-								} catch (IOException e) {}
-							}
-						else if (ke.isShiftDown())
-							{if (FlagTime == 0) FlagTime = 1; else FlagTime = 0;}
-						else
-							{
-							File file = new File("AV3DNParFile0.txt");
-
-							try
+										} while (true);
+									} catch (IOException e) {}
+								}
+							else if (ke.isShiftDown())
+								{if (FlagTime == 0) FlagTime = 1; else FlagTime = 0;}
+							else
 								{
-								BufferedReader br = new BufferedReader(new FileReader(file));
+								file = new File("AV3DNParFile0.txt");
 
-								do
+								try
 									{
-									String Content = br.readLine();
+									BufferedReader br = new BufferedReader(new FileReader(file));
 
-									if (Content != null) if ((! (Content.replaceAll(" ", "").equals(""))) && (Content.replaceAll(" ", "").charAt(0) != '#'))
+									do
 										{
-										if (AntonioVandre.NumeroReal(String.valueOf((new Expression(Content)).calculate())))
+										String Content = br.readLine();
+
+										if (Content != null) if ((! (Content.replaceAll(" ", "").equals(""))) && (Content.replaceAll(" ", "").charAt(0) != '#'))
 											{
-											ParametroFile0 = (new Expression(Content)).calculate();
-											break;
+											if (AntonioVandre.NumeroReal(String.valueOf((new Expression(Content)).calculate())))
+												{
+												ParametroFile0 = (new Expression(Content)).calculate();
+												break;
+												}
+											else
+												ParametroFile0 = 0;
 											}
-										else
-											ParametroFile0 = 0;
-										}
-									} while (true);
-								} catch (IOException e) {ParametroFile0 = 0;}
+										} while (true);
+									} catch (IOException e) {ParametroFile0 = 0;}
 
-							file = new File("AV3DNParFile1.txt");
+								file = new File("AV3DNParFile1.txt");
 
-							try
-								{
-								BufferedReader br = new BufferedReader(new FileReader(file));
-
-								do
+								try
 									{
-									String Content = br.readLine();
+									BufferedReader br = new BufferedReader(new FileReader(file));
 
-									if (Content != null) if ((! (Content.replaceAll(" ", "").equals(""))) && (Content.replaceAll(" ", "").charAt(0) != '#'))
+									do
 										{
-										if (AntonioVandre.NumeroReal(String.valueOf((new Expression(Content)).calculate())))
+										String Content = br.readLine();
+
+										if (Content != null) if ((! (Content.replaceAll(" ", "").equals(""))) && (Content.replaceAll(" ", "").charAt(0) != '#'))
 											{
-											ParametroFile1 = (new Expression(Content)).calculate();
-											break;
+											if (AntonioVandre.NumeroReal(String.valueOf((new Expression(Content)).calculate())))
+												{
+												ParametroFile1 = (new Expression(Content)).calculate();
+												break;
+												}
+											else
+												ParametroFile1 = 0;
 											}
-										else
-											ParametroFile1 = 0;
-										}
-									} while (true);
-								} catch (IOException e) {ParametroFile1 = 0;}
+										} while (true);
+									} catch (IOException e) {ParametroFile1 = 0;}
 
-							file = new File("AV3DNParFile2.txt");
+								file = new File("AV3DNParFile2.txt");
 
-							try
-								{
-								BufferedReader br = new BufferedReader(new FileReader(file));
-
-								do
+								try
 									{
-									String Content = br.readLine();
+									BufferedReader br = new BufferedReader(new FileReader(file));
 
-									if (Content != null) if ((! (Content.replaceAll(" ", "").equals(""))) && (Content.replaceAll(" ", "").charAt(0) != '#'))
+									do
 										{
-										if (AntonioVandre.NumeroReal(String.valueOf((new Expression(Content)).calculate())))
+										String Content = br.readLine();
+
+										if (Content != null) if ((! (Content.replaceAll(" ", "").equals(""))) && (Content.replaceAll(" ", "").charAt(0) != '#'))
 											{
-											ParametroFile2 = (new Expression(Content)).calculate();
-											break;
+											if (AntonioVandre.NumeroReal(String.valueOf((new Expression(Content)).calculate())))
+												{
+												ParametroFile2 = (new Expression(Content)).calculate();
+												break;
+												}
+											else
+												ParametroFile2 = 0;
 											}
-										else
-											ParametroFile2 = 0;
-										}
-									} while (true);
-								} catch (IOException e) {ParametroFile2 = 0;}
+										} while (true);
+									} catch (IOException e) {ParametroFile2 = 0;}
 
-							file = new File("AV3DNParFile3.txt");
+								file = new File("AV3DNParFile3.txt");
 
-							try
-								{
-								BufferedReader br = new BufferedReader(new FileReader(file));
-
-								do
+								try
 									{
-									String Content = br.readLine();
+									BufferedReader br = new BufferedReader(new FileReader(file));
 
-									if (Content != null) if ((! (Content.replaceAll(" ", "").equals(""))) && (Content.replaceAll(" ", "").charAt(0) != '#'))
+									do
 										{
-										if (AntonioVandre.NumeroReal(String.valueOf((new Expression(Content)).calculate())))
+										String Content = br.readLine();
+
+										if (Content != null) if ((! (Content.replaceAll(" ", "").equals(""))) && (Content.replaceAll(" ", "").charAt(0) != '#'))
 											{
-											ParametroFile3 = (new Expression(Content)).calculate();
-											break;
+											if (AntonioVandre.NumeroReal(String.valueOf((new Expression(Content)).calculate())))
+												{
+												ParametroFile3 = (new Expression(Content)).calculate();
+												break;
+												}
+											else
+												ParametroFile3 = 0;
 											}
-										else
-											ParametroFile3 = 0;
-										}
-									} while (true);
-								} catch (IOException e) {ParametroFile3 = 0;}
+										} while (true);
+									} catch (IOException e) {ParametroFile3 = 0;}
 
-							file = new File("AV3DNParFile4.txt");
+								file = new File("AV3DNParFile4.txt");
 
-							try
-								{
-								BufferedReader br = new BufferedReader(new FileReader(file));
-
-								do
+								try
 									{
-									String Content = br.readLine();
+									BufferedReader br = new BufferedReader(new FileReader(file));
 
-									if (Content != null) if ((! (Content.replaceAll(" ", "").equals(""))) && (Content.replaceAll(" ", "").charAt(0) != '#'))
+									do
 										{
-										if (AntonioVandre.NumeroReal(String.valueOf((new Expression(Content)).calculate())))
+										String Content = br.readLine();
+
+										if (Content != null) if ((! (Content.replaceAll(" ", "").equals(""))) && (Content.replaceAll(" ", "").charAt(0) != '#'))
 											{
-											ParametroFile4 = (new Expression(Content)).calculate();
-											break;
+											if (AntonioVandre.NumeroReal(String.valueOf((new Expression(Content)).calculate())))
+												{
+												ParametroFile4 = (new Expression(Content)).calculate();
+												break;
+												}
+											else
+												ParametroFile4 = 0;
 											}
-										else
-											ParametroFile4 = 0;
-										}
-									} while (true);
-								} catch (IOException e) {ParametroFile4 = 0;}
+										} while (true);
+									} catch (IOException e) {ParametroFile4 = 0;}
 
-							file = new File("AV3DNParFile5.txt");
+								file = new File("AV3DNParFile5.txt");
 
-							try
-								{
-								BufferedReader br = new BufferedReader(new FileReader(file));
-
-								do
+								try
 									{
-									String Content = br.readLine();
+									BufferedReader br = new BufferedReader(new FileReader(file));
 
-									if (Content != null) if ((! (Content.replaceAll(" ", "").equals(""))) && (Content.replaceAll(" ", "").charAt(0) != '#'))
+									do
 										{
-										if (AntonioVandre.NumeroReal(String.valueOf((new Expression(Content)).calculate())))
+										String Content = br.readLine();
+
+										if (Content != null) if ((! (Content.replaceAll(" ", "").equals(""))) && (Content.replaceAll(" ", "").charAt(0) != '#'))
 											{
-											ParametroFile5 = (new Expression(Content)).calculate();
-											break;
+											if (AntonioVandre.NumeroReal(String.valueOf((new Expression(Content)).calculate())))
+												{
+												ParametroFile5 = (new Expression(Content)).calculate();
+												break;
+												}
+											else
+												ParametroFile5 = 0;
 											}
-										else
-											ParametroFile5 = 0;
-										}
-									} while (true);
-								} catch (IOException e) {ParametroFile5 = 0;}
+										} while (true);
+									} catch (IOException e) {ParametroFile5 = 0;}
 
-							file = new File("AV3DNParFile6.txt");
+								file = new File("AV3DNParFile6.txt");
 
-							try
-								{
-								BufferedReader br = new BufferedReader(new FileReader(file));
-
-								do
+								try
 									{
-									String Content = br.readLine();
+									BufferedReader br = new BufferedReader(new FileReader(file));
 
-									if (Content != null) if ((! (Content.replaceAll(" ", "").equals(""))) && (Content.replaceAll(" ", "").charAt(0) != '#'))
+									do
 										{
-										if (AntonioVandre.NumeroReal(String.valueOf((new Expression(Content)).calculate())))
+										String Content = br.readLine();
+
+										if (Content != null) if ((! (Content.replaceAll(" ", "").equals(""))) && (Content.replaceAll(" ", "").charAt(0) != '#'))
 											{
-											ParametroFile6 = (new Expression(Content)).calculate();
-											break;
+											if (AntonioVandre.NumeroReal(String.valueOf((new Expression(Content)).calculate())))
+												{
+												ParametroFile6 = (new Expression(Content)).calculate();
+												break;
+												}
+											else
+												ParametroFile6 = 0;
 											}
-										else
-											ParametroFile6 = 0;
-										}
-									} while (true);
-								} catch (IOException e) {ParametroFile6 = 0;}
+										} while (true);
+									} catch (IOException e) {ParametroFile6 = 0;}
 
-							file = new File("AV3DNParFile7.txt");
+								file = new File("AV3DNParFile7.txt");
 
-							try
-								{
-								BufferedReader br = new BufferedReader(new FileReader(file));
-
-								do
+								try
 									{
-									String Content = br.readLine();
+									BufferedReader br = new BufferedReader(new FileReader(file));
 
-									if (Content != null) if ((! (Content.replaceAll(" ", "").equals(""))) && (Content.replaceAll(" ", "").charAt(0) != '#'))
+									do
 										{
-										if (AntonioVandre.NumeroReal(String.valueOf((new Expression(Content)).calculate())))
+										String Content = br.readLine();
+
+										if (Content != null) if ((! (Content.replaceAll(" ", "").equals(""))) && (Content.replaceAll(" ", "").charAt(0) != '#'))
 											{
-											ParametroFile7 = (new Expression(Content)).calculate();
-											break;
+											if (AntonioVandre.NumeroReal(String.valueOf((new Expression(Content)).calculate())))
+												{
+												ParametroFile7 = (new Expression(Content)).calculate();
+												break;
+												}
+											else
+												ParametroFile7 = 0;
 											}
-										else
-											ParametroFile7 = 0;
-										}
-									} while (true);
-								} catch (IOException e) {ParametroFile7 = 0;}
+										} while (true);
+									} catch (IOException e) {ParametroFile7 = 0;}
 
-							file = new File("AV3DNParFile8.txt");
+								file = new File("AV3DNParFile8.txt");
 
-							try
-								{
-								BufferedReader br = new BufferedReader(new FileReader(file));
-
-								do
+								try
 									{
-									String Content = br.readLine();
+									BufferedReader br = new BufferedReader(new FileReader(file));
 
-									if (Content != null) if ((! (Content.replaceAll(" ", "").equals(""))) && (Content.replaceAll(" ", "").charAt(0) != '#'))
+									do
 										{
-										if (AntonioVandre.NumeroReal(String.valueOf((new Expression(Content)).calculate())))
+										String Content = br.readLine();
+
+										if (Content != null) if ((! (Content.replaceAll(" ", "").equals(""))) && (Content.replaceAll(" ", "").charAt(0) != '#'))
 											{
-											ParametroFile8 = (new Expression(Content)).calculate();
-											break;
+											if (AntonioVandre.NumeroReal(String.valueOf((new Expression(Content)).calculate())))
+												{
+												ParametroFile8 = (new Expression(Content)).calculate();
+												break;
+												}
+											else
+												ParametroFile8 = 0;
 											}
-										else
-											ParametroFile8 = 0;
-										}
-									} while (true);
-								} catch (IOException e) {ParametroFile8 = 0;}
+										} while (true);
+									} catch (IOException e) {ParametroFile8 = 0;}
 
-							file = new File("AV3DNParFile9.txt");
+								file = new File("AV3DNParFile9.txt");
 
-							try
-								{
-								BufferedReader br = new BufferedReader(new FileReader(file));
-
-								do
+								try
 									{
-									String Content = br.readLine();
+									BufferedReader br = new BufferedReader(new FileReader(file));
 
-									if (Content != null) if ((! (Content.replaceAll(" ", "").equals(""))) && (Content.replaceAll(" ", "").charAt(0) != '#'))
+									do
 										{
-										if (AntonioVandre.NumeroReal(String.valueOf((new Expression(Content)).calculate())))
+										String Content = br.readLine();
+
+										if (Content != null) if ((! (Content.replaceAll(" ", "").equals(""))) && (Content.replaceAll(" ", "").charAt(0) != '#'))
 											{
-											ParametroFile9 = (new Expression(Content)).calculate();
-											break;
+											if (AntonioVandre.NumeroReal(String.valueOf((new Expression(Content)).calculate())))
+												{
+												ParametroFile9 = (new Expression(Content)).calculate();
+												break;
+												}
+											else
+												ParametroFile9 = 0;
 											}
-										else
-											ParametroFile9 = 0;
-										}
-									} while (true);
-								} catch (IOException e) {ParametroFile9 = 0;}
-							}
-						} else NoRedrawFlag = 1;
+										} while (true);
+									} catch (IOException e) {ParametroFile9 = 0;}
+								}
+
+							break;
+
+						default: NoRedrawFlag = 1; break;
+						}
 
 					FlagAlteracaoStatus = 1;
 					}
