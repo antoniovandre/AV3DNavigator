@@ -7,7 +7,7 @@ Arquivo gerador de um espaço do AV3DNavigator gráfico de curva tridimensional 
 
 Argumentos: 1: primeiramente a string título e, após barra vertical "|", strings separadas por barra vertical "|" com campos separados por ponto e vírgula ";", função θ em "VARIAVELDESUBSTITUICAO3", função φ em "VARIAVELDESUBSTITUICAO3", função ρ em "VARIAVELDESUBSTITUICAO3", o menor valor atribuído a "VARIAVELDESUBSTITUICAO3", o maior valor atribuído a "VARIAVELDESUBSTITUICAO3", os pontos de exclusões no intervalo separados por vírgula, e a cor RGB com os menores para vermelho, verde e azul separados por vírgula ",". 2: a resolução.
 
-Última atualização: 04-04-2025. Sem considerar alterações em variáveis globais.
+Última atualização: 14-04-2025. Sem considerar alterações em variáveis globais.
 */
 
 #include "antoniovandre_eval/antoniovandre.c"
@@ -308,12 +308,12 @@ int main (int argc, char * argv[])
 
 		tc = TOKENFIMEVAL; strncat(funcaoy[i], & tc, NUMEROUM);
 
-		strcat(funcaoy[i], "cos");
+		strcat(funcaoy[i], "sen");
 		tc = TOKENINICIOEVAL; strncat(funcaoy[i], & tc, NUMEROUM);
 		strcat(funcaoy[i], funcaoteta[i]);
 		tc = TOKENFIMEVAL; strncat(funcaoy[i], & tc, NUMEROUM);
 
-		strcat(funcaoy[i], "sen");
+		strcat(funcaoy[i], "cos");
 		tc = TOKENINICIOEVAL; strncat(funcaoy[i], & tc, NUMEROUM);
 		strcat(funcaoy[i], funcaophi[i]);
 		tc = TOKENFIMEVAL; strncat(funcaoy[i], & tc, NUMEROUM);
@@ -673,10 +673,8 @@ int main (int argc, char * argv[])
 
 	printf("@@");
 
-	printf("%s|_____|x = 0, ", titulo);
+	printf("%s|_____|, ", titulo);
 
 	for (i = NUMEROZERO; i < argi; i++)
-		printf("θ = %s, φ = %s, ρ = %s", funcaoteta[i], funcaophi[i], funcaorho[i]);
-
-	printf(";%s|", rgb[i]);
+		printf("θ = %s, φ = %s, ρ = %s;%s|", funcaoteta[i], funcaophi[i], funcaorho[i], rgb[i]);
 	}

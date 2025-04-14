@@ -7,7 +7,7 @@ Arquivo gerador de um espaço do AV3DNavigator gráfico de curva tridimensional 
 
 Argumentos: 1: primeiramente a string título e, após barra vertical "|", strings separadas por barra vertical "|" com campos separados por ponto e vírgula ";", composta das tríades de funções θ em "VARIAVELDESUBSTITUICAO3", funções φ em "VARIAVELDESUBSTITUICAO3" e funções ρ em "VARIAVELDESUBSTITUICAO3" separadas por vírgula ",", o menor valor atribuído a "VARIAVELDESUBSTITUICAO3", o maior valor atribuído a "VARIAVELDESUBSTITUICAO3", os pontos de exclusões no intervalo separados por vírgula, e a cor RGB com os menores para vermelho, verde e azul separados por vírgula ",". 2: a resolução.
 
-Última atualização: 04-04-2025. Sem considerar alterações em variáveis globais.
+Última atualização: 14-04-2025. Sem considerar alterações em variáveis globais.
 */
 
 #include "antoniovandre_eval/antoniovandre.c"
@@ -321,12 +321,12 @@ int main (int argc, char * argv[])
 
 		tc = TOKENFIMEVAL; strncat(funcaoy[i], & tc, NUMEROUM);
 
-		strcat(funcaoy[i], "cos");
+		strcat(funcaoy[i], "sen");
 		tc = TOKENINICIOEVAL; strncat(funcaoy[i], & tc, NUMEROUM);
 		strcat(funcaoy[i], funcaoteta[i][j]);
 		tc = TOKENFIMEVAL; strncat(funcaoy[i], & tc, NUMEROUM);
 
-		strcat(funcaoy[i], "sen");
+		strcat(funcaoy[i], "cos");
 		tc = TOKENINICIOEVAL; strncat(funcaoy[i], & tc, NUMEROUM);
 		strcat(funcaoy[i], funcaophi[i][j]);
 		tc = TOKENFIMEVAL; strncat(funcaoy[i], & tc, NUMEROUM);
