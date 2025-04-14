@@ -694,13 +694,13 @@ int main (int argc, char * argv[])
 
 	printf("@@");
 
-	printf("%s|_____|x = 0, ", titulo); fflush(stdout);
+	printf("%s|_____|", titulo); fflush(stdout);
 
 	for (i = NUMEROZERO; i < argi; i++)
 		{
 		for (j = NUMEROZERO; j < t; j++)
 			{
-			printf("θ_%d = %s, φ_%d = %s, ρ_%d = %s", j, funcaoteta[i][j], j, funcaophi[i][j], j, funcaorho[i][j]);
+			printf("θ_%d = %s, φ_%d = %s, ρ_%d = %s", j, funcaoteta[i][j], j, funcaophi[i][j], j, funcaorho[i][j], rgb[i]);
 
 			if (j < s - NUMEROUM) printf(",");
 			}

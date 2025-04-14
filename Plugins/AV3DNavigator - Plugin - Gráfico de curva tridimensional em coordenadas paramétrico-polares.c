@@ -673,7 +673,7 @@ int main (int argc, char * argv[])
 
 	printf("@@");
 
-	printf("%s|_____|, ", titulo);
+	printf("%s|_____|", titulo);
 
 	for (i = NUMEROZERO; i < argi; i++)
 		printf("θ = %s, φ = %s, ρ = %s;%s|", funcaoteta[i], funcaophi[i], funcaorho[i], rgb[i]);
