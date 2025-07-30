@@ -11,7 +11,7 @@
  * 
  * Licença de uso: Creative Commons Attribution ShareAlike License V3.0.
  * 
- * Última atualização: 24-07-2025. Não considerando alterações em variáveis globais.
+ * Última atualização: 30-07-2025. Não considerando alterações em variáveis globais.
  */
 
 import java.lang.IllegalThreadStateException;
@@ -301,6 +301,7 @@ public class AV3DNavigator extends JComponent
 	public int MouseYR;
 	public double TetaR;
 	public double PhiR;
+	public double RotR;
 	public int TamanhoPlanoXAd;
 	public int TamanhoPlanoYAd;
 	public int ContadorFrames = FramesDeslocamento;
@@ -1600,6 +1601,7 @@ public class AV3DNavigator extends JComponent
 				MouseYR = MouseY;
 				TetaR = Teta;
 				PhiR = Phi;
+				RotR = Rot;
 				MouseDown = 1;
 				if ((MouseX > 0) && (MouseX <= TamanhoPlanoX) && (MouseY > FrameEspaco.getInsets().top) && (MouseY <= TamanhoPlanoY + FrameEspaco.getInsets().top)) FlagMouseDownArea = 1;
 				}
@@ -3562,53 +3564,53 @@ public class AV3DNavigator extends JComponent
 
 			if (FlagMouseDownArea == 1)
 				{
-				if ((Math.abs(Teta) - DeslocamentoAngular > AntonioVandre.MaximoValorReal - DeslocamentoAngular) || (Math.abs(Phi) - DeslocamentoAngular > AntonioVandre.MaximoValorReal - DeslocamentoAngular))
+				FlagCoordRotOnce = 0;
+
+				if ((Math.abs(Teta) - DeslocamentoAngular > AntonioVandre.MaximoValorReal - DeslocamentoAngular) || (Math.abs(Phi) - DeslocamentoAngular > AntonioVandre.MaximoValorReal - DeslocamentoAngular) || (Math.abs(Rot) - DeslocamentoAngular > AntonioVandre.MaximoValorReal - DeslocamentoAngular))
 					VariavelLimiteAtingido();
 				else
 					{
 					FlagMouseY = Math.signum(Math.cos(Phi));
 
-					if (Rot == 0)
+					if (Math.abs(Teta) < TetaMax - DeslocamentoAngular)
 						{
-						if (Math.abs(Teta) < TetaMax - DeslocamentoAngular)
-							Teta = FlagMouseY * 2 * Math.PI * (MouseX - MouseXR) / TamanhoPlanoX + TetaR;
+						if (Math.abs(Phi) < PhiMax - DeslocamentoAngular)
+							{
+							Teta = (FlagMouseY * 2 * Math.PI * (MouseX - MouseXR) * Math.cos(-RotR) + Math.PI * (MouseY - MouseYR) * Math.sin(RotR)) / TamanhoPlanoX + TetaR;
+
+							Phi = (FlagMouseY * 2 * Math.PI * (MouseX - MouseXR) * Math.sin(-RotR) + Math.PI * (MouseY - MouseYR) * Math.cos(RotR)) * Math.cos(PhiR) / TamanhoPlanoY + PhiR;
+
+							Rot = ((Teta - TetaR) * Math.cos(Rot) + (Phi - PhiR) * Math.sin(Rot)) * Math.sin(Phi) + RotR;
+							}
 						else
 							{
-							MouseXR = MouseX;
-							TetaR -= Math.signum(Math.sin(Teta)) * DeslocamentoAngular;
-							Teta = TetaR;
+							MouseYR = MouseY;
+							PhiR -= Math.signum(Phi) * DeslocamentoAngular;
+							Phi = PhiR;
 
-							if (Math.signum(Teta) > 0)
-								FlagTetaSuperior = 1;
+							if (Math.signum(Phi) > 0)
+								FlagPhiSuperior = 1;
 							else
-								FlagTetaInferior = 1;
+								FlagPhiInferior = 1;
 							}
-
-						Tetat = Teta;
-
-						if (FlagCoordRotOnce == 0)
-							{
-							if (Math.abs(Phi) < PhiMax - DeslocamentoAngular)
-								{
-								Phi = Math.PI * (MouseY - MouseYR) / TamanhoPlanoY + PhiR;
-								}
-							else
-								{
-								MouseYR = MouseY;
-								PhiR -= Math.signum(Phi) * DeslocamentoAngular;
-								Phi = PhiR;
-
-								if (Math.signum(Phi) > 0)
-									FlagPhiSuperior = 1;
-								else
-									FlagPhiInferior = 1;
-								}
-
-							Phit = Math.atan(Math.tan(Phi));
-							}
-
-						FlagAlteracaoStatus = 1;
 						}
+					else
+						{
+						MouseXR = MouseX;
+						TetaR -= Math.signum(Math.sin(Teta)) * DeslocamentoAngular;
+						Teta = TetaR;
+
+						if (Math.signum(Teta) > 0)
+							FlagTetaSuperior = 1;
+						else
+							FlagTetaInferior = 1;
+						}
+
+					Tetat = Teta;
+					Phit = Phi;
+					Rott = Rot;
+
+					FlagAlteracaoStatus = 1;
 					}
 				}
 
