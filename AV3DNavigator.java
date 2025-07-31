@@ -11,7 +11,7 @@
  * 
  * Licença de uso: Creative Commons Attribution ShareAlike License V3.0.
  * 
- * Última atualização: 30-07-2025. Não considerando alterações em variáveis globais.
+ * Última atualização: 31-07-2025. Não considerando alterações em variáveis globais.
  */
 
 import java.lang.IllegalThreadStateException;
@@ -295,8 +295,10 @@ public class AV3DNavigator extends JComponent
 	public double IntervaloRot = 0;
 	public int MouseDown = 0;
 	public int FlagMouseDownArea = 0;
-	public int MouseX;
-	public int MouseY;
+	public int MouseX = 0;
+	public int MouseY = 0;
+	public int MouseXBak;
+	public int MouseYBak;
 	public int MouseXR;
 	public int MouseYR;
 	public double TetaR;
@@ -1608,7 +1610,20 @@ public class AV3DNavigator extends JComponent
 			public void mouseClicked(MouseEvent MouseEvento) {}
 			public void mouseEntered(MouseEvent MouseEvento) {}
 			public void mouseExited(MouseEvent MouseEvento) {}
-			public void mouseReleased(MouseEvent MouseEvento) {ContadorFrames = FramesDeslocamento; MouseDown = 0; FlagMouseDownArea = 0; FlagCoordRot = 0; FlagCoordRotHor = 0; FlagCoordRotVert = 0;}
+
+			public void mouseReleased(MouseEvent MouseEvento)
+				{
+				ContadorFrames = FramesDeslocamento;
+				MouseDown = 0;
+				FlagMouseDownArea = 0;
+				FlagCoordRot = 0;
+				FlagCoordRotHor = 0;
+				FlagCoordRotVert = 0;
+				TetaR = Teta;
+				PhiR = Phi;
+				RotR = Rot;
+				}
+
 			public void mouseDragged(MouseEvent MouseEvento) {}
 			public void mouseMoved(MouseEvent MouseEvento) {}
 			});
@@ -2413,7 +2428,7 @@ public class AV3DNavigator extends JComponent
 
 								DeslocamentoAngularBak = DeslocamentoAngular;
 
-								if (Math.cos(Phi) != 0) DeslocamentoAngular *= 1 / Math.cos(Phi);
+								if (Math.cos(Phi) != 0) DeslocamentoAngular *= Math.signum(Math.cos(Phi)) / Math.pow(Math.abs(Math.cos(Phi)), 0.5);
 
 								if (! (Math.abs(Rotacao - DeslocamentoAngular) >= AntonioVandre.MaximoValorReal)) Rotacao += DeslocamentoAngular; else VariavelLimiteAtingido();
 
@@ -2427,7 +2442,7 @@ public class AV3DNavigator extends JComponent
 
 								DeslocamentoAngularBak = DeslocamentoAngular;
 
-								if (Math.cos(Phi) != 0) DeslocamentoAngular *= 1 / Math.cos(Phi);
+								if (Math.cos(Phi) != 0) DeslocamentoAngular *= Math.signum(Math.cos(Phi)) / Math.pow(Math.abs(Math.cos(Phi)), 0.5);
 
 								if (! (Math.abs(Rotacao + DeslocamentoAngular) >= AntonioVandre.MaximoValorReal)) Rotacao += DeslocamentoAngular; else VariavelLimiteAtingido();
 
@@ -2445,7 +2460,7 @@ public class AV3DNavigator extends JComponent
 
 								DeslocamentoAngularBak = DeslocamentoAngular;
 
-								if (Math.cos(Phi) != 0) DeslocamentoAngular *= 1 / Math.cos(Phi);
+								if (Math.cos(Phi) != 0) DeslocamentoAngular *= Math.signum(Math.cos(Phi)) / Math.pow(Math.abs(Math.cos(Phi)), 0.5);
 
 								if (! (Math.abs(Rotacao - DeslocamentoAngular) >= AntonioVandre.MaximoValorReal)) Rotacao -= DeslocamentoAngular; else VariavelLimiteAtingido();
 
@@ -2459,7 +2474,7 @@ public class AV3DNavigator extends JComponent
 
 								DeslocamentoAngularBak = DeslocamentoAngular;
 
-								if (Math.cos(Phi) != 0) DeslocamentoAngular *= 1 / Math.cos(Phi);
+								if (Math.cos(Phi) != 0) DeslocamentoAngular *= Math.signum(Math.cos(Phi)) / Math.pow(Math.abs(Math.cos(Phi)), 0.5);
 
 								if (! (Math.abs(Rotacao - DeslocamentoAngular) >= AntonioVandre.MaximoValorReal)) Rotacao -= DeslocamentoAngular; else VariavelLimiteAtingido();
 
@@ -3448,6 +3463,8 @@ public class AV3DNavigator extends JComponent
 		while(Sair == 0)
 			{
 			Point reference = FrameEspaco.getLocationOnScreen();
+			MouseXBak = MouseX;
+			MouseYBak = MouseY;
 			MouseX = MouseInfo.getPointerInfo().getLocation().x - reference.x;
 			MouseY = MouseInfo.getPointerInfo().getLocation().y - reference.y;
 
@@ -3572,11 +3589,14 @@ public class AV3DNavigator extends JComponent
 						{
 						if (Math.abs(Phi) < PhiMax - DeslocamentoAngular)
 							{
-							Teta = (2 * Math.PI * (MouseX - MouseXR) * Math.cos(-RotR) + Math.PI * (MouseY - MouseYR) * Math.sin(RotR)) / TamanhoPlanoX + TetaR;
+							if (Math.cos(PhiR) != 0)
+								{
+								Teta = (2 * Math.PI * (MouseX - MouseXR) * Math.cos(RotR) + Math.PI * (MouseY - MouseYR) * Math.sin(RotR) * Math.cos(PhiR)) / (Math.signum(Math.cos(PhiR)) * Math.pow(Math.abs(Math.cos(PhiR)), 0.5)) / TamanhoPlanoX + TetaR;
 
-							Phi = (2 * Math.PI * (MouseX - MouseXR) * Math.sin(-RotR) + Math.PI * (MouseY - MouseYR) * Math.cos(RotR)) * Math.cos(PhiR) / TamanhoPlanoY + PhiR;
+								Phi = (-2 * Math.PI * (MouseX - MouseXR) * Math.sin(RotR) + Math.PI * (MouseY - MouseYR) * Math.cos(RotR) * Math.cos(PhiR)) / (Math.signum(Math.cos(PhiR)) * Math.pow(Math.abs(Math.cos(PhiR)), 0.5)) / TamanhoPlanoY + PhiR;
 
-							Rot = ((Teta - TetaR) * Math.cos(RotR) + (Phi - PhiR) * Math.sin(Rot)) * Math.sin(PhiR) + RotR;
+								Rot = ((Teta - TetaR) * Math.cos(RotR) + (Phi - PhiR) * Math.sin(RotR)) * Math.sin(PhiR) + RotR;
+								}
 							}
 						else
 							{
@@ -3606,7 +3626,8 @@ public class AV3DNavigator extends JComponent
 					Phit = Phi;
 					Rott = Rot;
 
-					FlagAlteracaoStatus = 1;
+					if ((MouseXBak != MouseX) || (MouseYBak != MouseY))
+						FlagAlteracaoStatus = 1;
 					}
 				}
 
