@@ -139,8 +139,7 @@ public class AV3DNavigator extends JComponent
 	public static String MensagemErroEspacoInvalido = "Entre com um arquivo de espaço válido.";
 	public static double FatorMouseWheel = 3; // Default: 3.
 	public static double DeslocamentoLinear = 1; // Default: 1.
-	public double DeslocamentoAngular = 0.1; // Default: 0.1.
-	public double DeslocamentoAngularBak;
+	public static double DeslocamentoAngular = 0.1; // Default: 0.1.
 	public static int FramesDeslocamento = 4; // Default: 4.
 	public static int EspacamentoVerticalLegendas = 6; // Default: 6.
 	public double Parametro0 = 0; // Default: valor inicial: 0.
@@ -2426,29 +2425,17 @@ public class AV3DNavigator extends JComponent
 								{
 								FlagCoordRot = 1; FlagCoordRotHor = 0; FlagCoordRotVert = 0; CameraId = -1; FlagCoordRotOnce = 1;
 
-								DeslocamentoAngularBak = DeslocamentoAngular;
-
-								if (Math.cos(Phi) != 0) DeslocamentoAngular *= Math.signum(Math.cos(Phi)) / Math.pow(Math.abs(Math.cos(Phi)), 0.5);
-
 								if (! (Math.abs(Rotacao - DeslocamentoAngular) >= AntonioVandre.MaximoValorReal)) Rotacao += DeslocamentoAngular; else VariavelLimiteAtingido();
 
-								if (Math.abs(Teta) < TetaMax - DeslocamentoAngular) {if (Math.abs(Phi) < PhiMax - DeslocamentoAngular) {if ((! (Teta - DeslocamentoAngular * Math.sin(Rot) >= AntonioVandre.MaximoValorReal)) || (! (Phi - DeslocamentoAngular * Math.cos(Rot) >= AntonioVandre.MaximoValorReal)) || (! (Rot - DeslocamentoAngular * Math.sin(Rot) * Math.sin(Phi) >= AntonioVandre.MaximoValorReal))) {Teta -= DeslocamentoAngular * Math.sin(Rot); Phi -= DeslocamentoAngular * Math.cos(Rot) * Math.cos(Phi); Rot -= DeslocamentoAngular * Math.sin(Rot) * Math.sin(Phi); x = xRotacao + RaioRot * Math.cos(Phi + Math.PI) * Math.cos(Teta); y = yRotacao - RaioRot * Math.cos(Phi + Math.PI) * Math.sin(Teta); z = zRotacao - RaioRot * Math.sin(Phi + Math.PI); ContadorFrames = 0;} else VariavelLimiteAtingido();} else {Phi -= Math.signum(Phi) * DeslocamentoAngular; ContadorFrames = FramesDeslocamento; Phit = Phi; FlagPhiInferior = 1;}} else {Teta -= Math.signum(Teta) * DeslocamentoAngular; ContadorFrames = FramesDeslocamento; Tetat = Teta; FlagTetaInferior = 1;}
-
-								DeslocamentoAngular = DeslocamentoAngularBak;
+								if (Math.abs(Teta) < TetaMax - DeslocamentoAngular) {if (Math.abs(Phi) < PhiMax - DeslocamentoAngular) {if ((! (Teta0Rotacao - DeslocamentoAngular * Math.sin(Rot + Phi0Rotacao) >= AntonioVandre.MaximoValorReal)) || (! (Phi - DeslocamentoAngular * Math.cos(Rot) >= AntonioVandre.MaximoValorReal)) || (! (Rot - DeslocamentoAngular * Math.sin(Rot + Phi0Rotacao) * Math.sin(Phi) >= AntonioVandre.MaximoValorReal))) {Teta -= DeslocamentoAngular * Math.sin(Rot + Phi0Rotacao); Phi -= DeslocamentoAngular * Math.cos(Rot); Rot -= DeslocamentoAngular * Math.sin(Rot + Phi0Rotacao) * Math.sin(Phi); x = xRotacao + RaioRot * Math.cos(Phi + Math.PI) * Math.cos(Teta); y = yRotacao - RaioRot * Math.cos(Phi + Math.PI) * Math.sin(Teta); z = zRotacao - RaioRot * Math.sin(Phi + Math.PI); ContadorFrames = 0;} else VariavelLimiteAtingido();} else {Phi -= Math.signum(Phi) * DeslocamentoAngular; ContadorFrames = FramesDeslocamento; Phit = Phi; FlagPhiInferior = 1;}} else {Teta -= Math.signum(Teta) * DeslocamentoAngular; ContadorFrames = FramesDeslocamento; Tetat = Teta; FlagTetaInferior = 1;}
 								}
 							else
 								{
 								FlagCoordRot = 1; FlagCoordRotHor = 0; FlagCoordRotVert = 0; CameraId = -1; FlagCoordRotOnce = 1;
 
-								DeslocamentoAngularBak = DeslocamentoAngular;
-
-								if (Math.cos(Phi) != 0) DeslocamentoAngular *= Math.signum(Math.cos(Phi)) / Math.pow(Math.abs(Math.cos(Phi)), 0.5);
-
 								if (! (Math.abs(Rotacao + DeslocamentoAngular) >= AntonioVandre.MaximoValorReal)) Rotacao += DeslocamentoAngular; else VariavelLimiteAtingido();
 
-								if (Math.abs(Teta) < TetaMax - DeslocamentoAngular) {if (Math.abs(Phi) < PhiMax - DeslocamentoAngular) {if ((! (Math.abs(Teta + DeslocamentoAngular * Math.cos(Rot)) >= AntonioVandre.MaximoValorReal)) || (! (Math.abs(Phi - DeslocamentoAngular * Math.sin(Rot) * Math.cos(Phi)) >= AntonioVandre.MaximoValorReal)) || (! (Math.abs(Rot + DeslocamentoAngular * Math.cos(Rot) * Math.sin(Phi)) >= AntonioVandre.MaximoValorReal))) {Teta += DeslocamentoAngular * Math.cos(Rot); Phi -= DeslocamentoAngular * Math.sin(Rot) * Math.cos(Phi); Rot += DeslocamentoAngular * Math.cos(Rot) * Math.sin(Phi); x = xRotacao + RaioRot * Math.cos(Phi + Math.PI) * Math.cos(Teta); y = yRotacao - RaioRot * Math.cos(Phi + Math.PI) * Math.sin(Teta); z = zRotacao - RaioRot * Math.sin(Phi + Math.PI); ContadorFrames = 0;} else VariavelLimiteAtingido();} else {Phi -= Math.signum(Phi) * DeslocamentoAngular; ContadorFrames = FramesDeslocamento; Phit = Phi; FlagPhiInferior = 1;}} else {Teta -= Math.signum(Teta) * DeslocamentoAngular; ContadorFrames = FramesDeslocamento; Tetat = Teta; FlagTetaInferior = 1;}
-
-								DeslocamentoAngular = DeslocamentoAngularBak;
+								if (Math.abs(Teta) < TetaMax - DeslocamentoAngular) {if (Math.abs(Phi) < PhiMax - DeslocamentoAngular) {if ((! (Math.abs(Teta0Rotacao + DeslocamentoAngular * Math.cos(Rot)) >= AntonioVandre.MaximoValorReal)) || (! (Math.abs(Phi - DeslocamentoAngular * Math.sin(Rot + Phi0Rotacao)) >= AntonioVandre.MaximoValorReal)) || (! (Math.abs(Rot + DeslocamentoAngular * Math.cos(Rot) * Math.sin(Phi)) >= AntonioVandre.MaximoValorReal))) {Teta += DeslocamentoAngular * Math.cos(Rot); Phi -= DeslocamentoAngular * Math.sin(Rot + Phi0Rotacao); Rot += DeslocamentoAngular * Math.cos(Rot) * Math.sin(Phi); x = xRotacao + RaioRot * Math.cos(Phi + Math.PI) * Math.cos(Teta); y = yRotacao - RaioRot * Math.cos(Phi + Math.PI) * Math.sin(Teta); z = zRotacao - RaioRot * Math.sin(Phi + Math.PI); ContadorFrames = 0;} else VariavelLimiteAtingido();} else {Phi -= Math.signum(Phi) * DeslocamentoAngular; ContadorFrames = FramesDeslocamento; Phit = Phi; FlagPhiInferior = 1;}} else {Teta -= Math.signum(Teta) * DeslocamentoAngular; ContadorFrames = FramesDeslocamento; Tetat = Teta; FlagTetaInferior = 1;}
 								}
 
 							break;
@@ -2458,29 +2445,17 @@ public class AV3DNavigator extends JComponent
 								{
 								FlagCoordRot = 1; FlagCoordRotHor = 0; FlagCoordRotVert = 0; CameraId = -1; FlagCoordRotOnce = 1;
 
-								DeslocamentoAngularBak = DeslocamentoAngular;
-
-								if (Math.cos(Phi) != 0) DeslocamentoAngular *= Math.signum(Math.cos(Phi)) / Math.pow(Math.abs(Math.cos(Phi)), 0.5);
-
 								if (! (Math.abs(Rotacao - DeslocamentoAngular) >= AntonioVandre.MaximoValorReal)) Rotacao -= DeslocamentoAngular; else VariavelLimiteAtingido();
 
-								if (Math.abs(Teta) < TetaMax - DeslocamentoAngular) {if (Math.abs(Phi) < PhiMax - DeslocamentoAngular) {if ((! (Teta + DeslocamentoAngular * Math.sin(Rot) >= AntonioVandre.MaximoValorReal)) || (! (Phi + DeslocamentoAngular * Math.cos(Rot) >= AntonioVandre.MaximoValorReal)) || (! (Rot + DeslocamentoAngular * Math.sin(Rot) * Math.sin(Phi) >= AntonioVandre.MaximoValorReal))) {Teta += DeslocamentoAngular * Math.sin(Rot); Phi += DeslocamentoAngular * Math.cos(Rot) * Math.cos(Phi); Rot += DeslocamentoAngular * Math.sin(Rot) * Math.sin(Phi); x = xRotacao + RaioRot * Math.cos(Phi + Math.PI) * Math.cos(Teta); y = yRotacao - RaioRot * Math.cos(Phi + Math.PI) * Math.sin(Teta); z = zRotacao - RaioRot * Math.sin(Phi + Math.PI); ContadorFrames = 0;} else VariavelLimiteAtingido();} else {Phi -= Math.signum(Phi) * DeslocamentoAngular; ContadorFrames = FramesDeslocamento; Phit = Phi; FlagPhiInferior = 1;}} else {Teta -= Math.signum(Teta) * DeslocamentoAngular; ContadorFrames = FramesDeslocamento; Tetat = Teta; FlagTetaInferior = 1;}
-
-								DeslocamentoAngular = DeslocamentoAngularBak;
+								if (Math.abs(Teta) < TetaMax - DeslocamentoAngular) {if (Math.abs(Phi) < PhiMax - DeslocamentoAngular) {if ((! (Teta0Rotacao + DeslocamentoAngular * Math.sin(Rot + Phi0Rotacao) >= AntonioVandre.MaximoValorReal)) || (! (Phi + DeslocamentoAngular * Math.cos(Rot) >= AntonioVandre.MaximoValorReal)) || (! (Rot + DeslocamentoAngular * Math.sin(Rot + Phi0Rotacao) * Math.sin(Phi) >= AntonioVandre.MaximoValorReal))) {Teta += DeslocamentoAngular * Math.sin(Rot + Phi0Rotacao); Phi += DeslocamentoAngular * Math.cos(Rot) * Math.cos(Phi); Rot += DeslocamentoAngular * Math.sin(Rot + Phi0Rotacao) * Math.sin(Phi); x = xRotacao + RaioRot * Math.cos(Phi + Math.PI) * Math.cos(Teta); y = yRotacao - RaioRot * Math.cos(Phi + Math.PI) * Math.sin(Teta); z = zRotacao - RaioRot * Math.sin(Phi + Math.PI); ContadorFrames = 0;} else VariavelLimiteAtingido();} else {Phi -= Math.signum(Phi) * DeslocamentoAngular; ContadorFrames = FramesDeslocamento; Phit = Phi; FlagPhiInferior = 1;}} else {Teta -= Math.signum(Teta) * DeslocamentoAngular; ContadorFrames = FramesDeslocamento; Tetat = Teta; FlagTetaInferior = 1;}
 								}
 							else
 								{
 								FlagCoordRot = 1; FlagCoordRotHor = 0; FlagCoordRotVert = 0; CameraId = -1; FlagCoordRotOnce = 1;
 
-								DeslocamentoAngularBak = DeslocamentoAngular;
-
-								if (Math.cos(Phi) != 0) DeslocamentoAngular *= Math.signum(Math.cos(Phi)) / Math.pow(Math.abs(Math.cos(Phi)), 0.5);
-
 								if (! (Math.abs(Rotacao - DeslocamentoAngular) >= AntonioVandre.MaximoValorReal)) Rotacao -= DeslocamentoAngular; else VariavelLimiteAtingido();
 
-								if (Math.abs(Teta) < TetaMax - DeslocamentoAngular) {if (Math.abs(Phi) < PhiMax - DeslocamentoAngular) {if ((! (Math.abs(Teta - DeslocamentoAngular * Math.cos(Rot)) >= AntonioVandre.MaximoValorReal)) || (! (Math.abs(Phi + DeslocamentoAngular * Math.sin(Rot) * Math.cos(Phi)) >= AntonioVandre.MaximoValorReal)) || (! (Math.abs(Rot - DeslocamentoAngular * Math.cos(Rot) * Math.sin(Phi)) >= AntonioVandre.MaximoValorReal))) {Teta -= DeslocamentoAngular * Math.cos(Rot); Phi += DeslocamentoAngular * Math.sin(Rot) * Math.cos(Phi); Rot -= DeslocamentoAngular * Math.cos(Rot) * Math.sin(Phi); x = xRotacao + RaioRot * Math.cos(Phi + Math.PI) * Math.cos(Teta); y = yRotacao - RaioRot * Math.cos(Phi + Math.PI) * Math.sin(Teta); z = zRotacao - RaioRot * Math.sin(Phi + Math.PI); ContadorFrames = 0;} else VariavelLimiteAtingido();} else {Phi -= Math.signum(Phi) * DeslocamentoAngular; ContadorFrames = FramesDeslocamento; Phit = Phi; FlagPhiInferior = 1;}} else {Teta -= Math.signum(Teta) * DeslocamentoAngular; ContadorFrames = FramesDeslocamento; Tetat = Teta; FlagTetaInferior = 1;}
-
-								DeslocamentoAngular = DeslocamentoAngularBak;
+								if (Math.abs(Teta) < TetaMax - DeslocamentoAngular) {if (Math.abs(Phi) < PhiMax - DeslocamentoAngular) {if ((! (Math.abs(Teta0Rotacao - DeslocamentoAngular * Math.cos(Rot)) >= AntonioVandre.MaximoValorReal)) || (! (Math.abs(Phi + DeslocamentoAngular * Math.sin(Rot) * Math.cos(Phi)) >= AntonioVandre.MaximoValorReal)) || (! (Math.abs(Rot - DeslocamentoAngular * Math.cos(Rot) * Math.sin(Phi)) >= AntonioVandre.MaximoValorReal))) {Teta -= DeslocamentoAngular * Math.cos(Rot); Phi += DeslocamentoAngular * Math.sin(Rot + Phi0Rotacao); Rot -= DeslocamentoAngular * Math.cos(Rot) * Math.sin(Phi); x = xRotacao + RaioRot * Math.cos(Phi + Math.PI) * Math.cos(Teta); y = yRotacao - RaioRot * Math.cos(Phi + Math.PI) * Math.sin(Teta); z = zRotacao - RaioRot * Math.sin(Phi + Math.PI); ContadorFrames = 0;} else VariavelLimiteAtingido();} else {Phi -= Math.signum(Phi) * DeslocamentoAngular; ContadorFrames = FramesDeslocamento; Phit = Phi; FlagPhiInferior = 1;}} else {Teta -= Math.signum(Teta) * DeslocamentoAngular; ContadorFrames = FramesDeslocamento; Tetat = Teta; FlagTetaInferior = 1;}
 								}
 
 							break;
@@ -3591,11 +3566,11 @@ public class AV3DNavigator extends JComponent
 							{
 							if (Math.cos(PhiR) != 0)
 								{
-								Teta = (2 * Math.PI * (MouseX - MouseXR) * Math.cos(RotR) + Math.PI * (MouseY - MouseYR) * Math.sin(RotR) * Math.cos(PhiR)) / (Math.signum(Math.cos(PhiR)) * Math.pow(Math.abs(Math.cos(PhiR)), 0.5)) / TamanhoPlanoX + TetaR;
+								Teta = (2 * Math.PI * (MouseX - MouseXR) * Math.cos(RotR) + Math.PI * (MouseY - MouseYR) * Math.sin(RotR + PhiR)) / TamanhoPlanoX + TetaR;
 
-								Phi = (-2 * Math.PI * (MouseX - MouseXR) * Math.sin(RotR) + Math.PI * (MouseY - MouseYR) * Math.cos(RotR) * Math.cos(PhiR)) / (Math.signum(Math.cos(PhiR)) * Math.pow(Math.abs(Math.cos(PhiR)), 0.5)) / TamanhoPlanoY + PhiR;
+								Phi = (-2 * Math.PI * (MouseX - MouseXR) * Math.sin(RotR - PhiR) + Math.PI * (MouseY - MouseYR) * Math.cos(RotR)) / TamanhoPlanoY + PhiR;
 
-								Rot = ((Teta - TetaR) * Math.cos(RotR) + (Phi - PhiR) * Math.sin(RotR)) * Math.sin(PhiR) + RotR;
+								Rot = ((Teta - TetaR) * Math.cos(RotR) + (Phi - PhiR) * Math.sin(-RotR + PhiR)) * Math.sin(PhiR) + RotR;
 								}
 							}
 						else
