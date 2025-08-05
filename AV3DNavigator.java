@@ -123,7 +123,7 @@ public class AV3DNavigator extends JComponent
 	public double FatorAnguloVisao = 1; // Default: 1.
 
 	public double TetaMax = AntonioVandre.MaximoValorReal;
-	public double PhiMax = 3 * Math.PI / 8;
+	public double PhiMax = 3 * Math.PI / 8; // Valor limitado, entre 0 e π/2, para evitar anomalias na movimentação da câmera.
 
 	public static double MargemAnguloVisao = 0; // Default: 0.
 	public static int TamanhoFonteLabelStatus = 7; // Default: 7.
