@@ -3584,7 +3584,7 @@ public class AV3DNavigator extends JComponent
 							{
 							Teta = (2 * Math.PI * (MouseX - MouseXR) * Math.cos(RotR + PhiR) + Math.PI * (MouseY - MouseYR) * Math.sin(RotR + TetaR)) / TamanhoPlanoX + TetaR;
 
-							Phi = (-2 * Math.PI * (MouseX - MouseXR) * Math.sin(RotR + TetaR) * Math.cos(Phi) + Math.PI * (MouseY - MouseYR) * Math.cos(RotR)) / TamanhoPlanoY + PhiR;
+							Phi = (-2 * Math.PI * (MouseX - MouseXR) * Math.sin(RotR + TetaR) * Math.cos(PhiR) + Math.PI * (MouseY - MouseYR) * Math.cos(RotR)) / TamanhoPlanoY + PhiR;
 
 							Rot = ((Teta - TetaR) * Math.cos(RotR) + (Phi - PhiR) * Math.sin(RotR + PhiR)) * Math.sin(PhiR) + RotR;
 							}
@@ -3615,12 +3615,6 @@ public class AV3DNavigator extends JComponent
 					Tetat = Teta;
 					Phit = Phi;
 					Rott = Rot;
-
-					if (Math.abs(MouseX - MouseXR) > DeslocamentoAngular)
-						MouseX = MouseXR;
-
-					if (Math.abs(MouseY - MouseYR) > DeslocamentoAngular)
-						MouseY = MouseYR;
 
 					FlagAlteracaoStatus = 1;
 					}
