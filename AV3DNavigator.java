@@ -11,7 +11,7 @@
  * 
  * Licença de uso: Creative Commons Attribution ShareAlike License V3.0.
  * 
- * Última atualização: 02-08-2025. Não considerando alterações em variáveis globais.
+ * Última atualização: 05-08-2025. Não considerando alterações em variáveis globais.
  */
 
 import java.lang.IllegalThreadStateException;
@@ -122,8 +122,8 @@ public class AV3DNavigator extends JComponent
 	public static String AV3DNavigatorIconFilePath = "AV3DNavigator - Logo - 200p.png";
 	public double FatorAnguloVisao = 1; // Default: 1.
 
-	public static double TetaMax = AntonioVandre.MaximoValorReal;
-	public static double PhiMax = 3 * Math.PI / 8;
+	public double TetaMax = AntonioVandre.MaximoValorReal;
+	public double PhiMax = 3 * Math.PI / 8;
 
 	public static double MargemAnguloVisao = 0; // Default: 0.
 	public static int TamanhoFonteLabelStatus = 7; // Default: 7.
@@ -780,6 +780,28 @@ public class AV3DNavigator extends JComponent
 											Rot = Temp;
 											Rott = Rot;
 											}
+										}
+
+									break;
+
+								case "TetaMax":
+									if (AntonioVandre.NumeroReal(String.valueOf(new Expression(INIelements[1].replaceAll(" ", "")).calculate())))
+										{
+										double Temp = Double.parseDouble(String.valueOf(new Expression(INIelements[1].replaceAll(" ", "")).calculate()));
+
+										if (Math.abs(Temp) <= AntonioVandre.MaximoValorReal)
+											TetaMax = Temp;
+										}
+
+									break;
+
+								case "PhiMax":
+									if (AntonioVandre.NumeroReal(String.valueOf(new Expression(INIelements[1].replaceAll(" ", "")).calculate())))
+										{
+										double Temp = Double.parseDouble(String.valueOf(new Expression(INIelements[1].replaceAll(" ", "")).calculate()));
+
+										if (Math.abs(Temp) <= AntonioVandre.MaximoValorReal)
+											PhiMax = Temp;
 										}
 
 									break;
