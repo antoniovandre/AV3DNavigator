@@ -3584,9 +3584,9 @@ public class AV3DNavigator extends JComponent
 						{
 						if (Math.abs(Phi) < PhiMax - DeslocamentoAngular)
 							{
-							Teta = (2 * Math.PI * (MouseX - MouseXR) * Math.cos(RotR + PhiR) + Math.PI * (MouseY - MouseYR) * Math.sin(RotR + TetaR)) / TamanhoPlanoX + TetaR;
+							Teta = (2 * Math.PI * (MouseX - MouseXR) * Math.cos(RotR) + Math.PI * (MouseY - MouseYR) * Math.sin(RotR)) / TamanhoPlanoX + TetaR;
 
-							Phi = (-2 * Math.PI * (MouseX - MouseXR) * Math.sin(RotR + TetaR) * Math.cos(PhiR) + Math.PI * (MouseY - MouseYR) * Math.cos(RotR)) / TamanhoPlanoY + PhiR;
+							Phi = (-2 * Math.PI * (MouseX - MouseXR) * Math.sin(RotR) + Math.PI * (MouseY - MouseYR) * Math.cos(RotR)) / TamanhoPlanoY + PhiR;
 
 							Rot = ((Teta - TetaR) * Math.cos(RotR) + (Phi - PhiR) * Math.sin(RotR + PhiR)) * Math.sin(PhiR) + RotR;
 							}
