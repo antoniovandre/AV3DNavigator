@@ -9,7 +9,7 @@
  * 
  * Sugestões ou comunicar erros: "a.vandre.g@gmail.com".
  * 
- * Licença de uso: Creative Commons Attribution ShareAlike License V3.0.
+ * Licença de uso: Creative Commons Attribution Non-Commercial License V2.0.
  * 
  * Última atualização: 06-08-2025. Não considerando alterações em variáveis globais.
  */
