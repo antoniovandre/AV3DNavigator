@@ -173,7 +173,7 @@ public class AV3DNavigatorLauncher
 
 						BufferedReader brL = new BufferedReader(new FileReader(fileList));
 
-						do {Lista = brL.readLine(); if (! ((Lista.replaceAll(" ", "").equals("")) || (Lista.replaceAll(" ", "").charAt(0) == '#'))) downloadUsingStream(Lista.split(",")[0], Lista.split(",")[1]);} while (Lista != null);
+						do {Lista = brL.readLine(); if (Lista != null) if (! ((Lista.replaceAll(" ", "").equals("")) || (Lista.replaceAll(" ", "").charAt(0) == '#'))) downloadUsingStream(Lista.split(",")[0], Lista.split(",")[1]);} while (Lista != null);
 						} catch (IOException e) {}
 
 					/* Mostrar aviso de atualização.
@@ -197,7 +197,7 @@ public class AV3DNavigatorLauncher
 
 					BufferedReader brL = new BufferedReader(new FileReader(fileList));
 
-					do {Lista = brL.readLine(); if (! ((Lista.replaceAll(" ", "").equals("")) || (Lista.replaceAll(" ", "").charAt(0) == '#'))) downloadUsingStream(Lista.split(",")[0], Lista.split(",")[1]);} while (Lista != null);
+					do {Lista = brL.readLine(); if (Lista != null) if (! ((Lista.replaceAll(" ", "").equals("")) || (Lista.replaceAll(" ", "").charAt(0) == '#'))) downloadUsingStream(Lista.split(",")[0], Lista.split(",")[1]);} while (Lista != null);
 					} catch (IOException e) {}
 			}
 
