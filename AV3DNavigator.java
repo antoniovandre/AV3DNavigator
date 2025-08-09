@@ -1428,7 +1428,7 @@ public class AV3DNavigator extends JComponent
 										{
 										double Temp = Double.parseDouble(String.valueOf(new Expression(INIelements[1].replaceAll(" ", "")).calculate()));
 
-										if (Math.abs(Temp) <= AntonioVandre.MaximoValorReal)
+										if ((Temp >= 1) && (Temp <= 10))
 											FatorShiftMouse = Temp;
 										}
 
@@ -3443,9 +3443,9 @@ public class AV3DNavigator extends JComponent
 
 						case KeyEvent.VK_F5:
 							if (ke.isShiftDown())
-								{if (FatorShiftMouse > 1) FatorShiftMouse--;}
+								{if (FatorShiftMouse > 1) FatorShiftMouse -= 0.1;}
 							else
-								{if (FatorShiftMouse < 10) FatorShiftMouse++;}
+								{if (FatorShiftMouse < 10) FatorShiftMouse += 0.1;}
 
 							break;
 
