@@ -39,31 +39,19 @@ import java.io.*;
 
 public class AV3DNavigatorLauncher
 	{
-	public static String VersaoLauncher = "03-04-2025";
+	public static String VersaoLauncher = "09-08-2025";
 
 	public static String URL3DNavigatorVersao = "https://github.com/antoniovandre/AV3DNavigator/raw/main/AV3DNavigatorVersao.txt";
 
 	public static String ArquivoAV3DNavigatorVersao = "AV3DNavigatorVersao.txt";
 
-	public static String URLAV3DNavigator = "https://github.com/antoniovandre/AV3DNavigator/raw/main/AV3DNavigator.jar";
+	public static String URLAV3DNavigatorList = "https://github.com/antoniovandre/AV3DNavigator/raw/main/AV3DNavigatorList.txt";
 
-	public static String ArquivoAV3DNavigator = "AV3DNavigator.jar";
-
-	public static String URL3DNavigatorURL = "https://github.com/antoniovandre/AV3DNavigator/raw/main/AV3DNavigatorURL.txt";
-
-	public static String ArquivoAV3DNavigatorURL = "AV3DNavigatorURL.txt";
-
-	public static String URL3DNavigatorAtribuicao = "https://github.com/antoniovandre/AV3DNavigator/raw/main/AV3DNavigatorAtribuicao.txt";
+	public static String ArquivoAV3DNavigatorList = "AV3DNavigatorList.txt";
 
 	public static String URLapfloat = "https://github.com/antoniovandre/AV3DNavigator/raw/main/apfloat.jar";
 
 	public static String URLmXparser = "https://github.com/antoniovandre/AV3DNavigator/raw/main/MathParser.org-mXparser.jar";
-
-	public static String ArquivoAV3DNavigatorAtribuicao = "AV3DNavigatorAtribuicao.txt";
-
-	public static String Arquivoapfloat = "apfloat.jar";
-
-	public static String ArquivomXparser = "MathParser.org-mXparser.jar";
 
 	public static String MensagemErroAtualizar = "Erro ao atualizar o AV3DNavigator.";
 
@@ -163,8 +151,10 @@ public class AV3DNavigatorLauncher
 				} catch (IOException e) {FlagSucessoVersaoLocal = 0;}
 
 			File fileNet = new File(ArquivoAV3DNavigatorVersao + ".tmp");
+			File fileList = new File(ArquivoAV3DNavigatorList);
 			int FlagSucessoVersaoNet = 1;
 			String VersaoNet = "";
+			String Lista = "";
 
 			try
 				{
@@ -179,10 +169,11 @@ public class AV3DNavigatorLauncher
 					{
 					try
 						{
-						downloadUsingStream(URLAV3DNavigator, ArquivoAV3DNavigator);
-						downloadUsingStream(URL3DNavigatorVersao, ArquivoAV3DNavigatorVersao);
-						downloadUsingStream(URLapfloat, Arquivoapfloat);
-						downloadUsingStream(URLmXparser, ArquivomXparser);
+						downloadUsingStream(URLAV3DNavigatorList, ArquivoAV3DNavigatorList);
+
+						BufferedReader brL = new BufferedReader(new FileReader(fileList));
+
+						do {Lista = brL.readLine(); if (! ((Lista.replaceAll(" ", "").equals("")) || (Lista.replaceAll(" ", "").charAt(0) == '#'))) downloadUsingStream(Lista.split(",")[0], Lista.split(",")[1]);} while (Lista != null);
 						} catch (IOException e) {}
 
 					/* Mostrar aviso de atualização.
@@ -202,10 +193,11 @@ public class AV3DNavigatorLauncher
 			else
 				try
 					{
-					downloadUsingStream(URLAV3DNavigator, ArquivoAV3DNavigator);
-					downloadUsingStream(URL3DNavigatorVersao, ArquivoAV3DNavigatorVersao);
-					downloadUsingStream(URLapfloat, Arquivoapfloat);
-					downloadUsingStream(URLmXparser, ArquivomXparser);
+					downloadUsingStream(URLAV3DNavigatorList, ArquivoAV3DNavigatorList);
+
+					BufferedReader brL = new BufferedReader(new FileReader(fileList));
+
+					do {Lista = brL.readLine(); if (! ((Lista.replaceAll(" ", "").equals("")) || (Lista.replaceAll(" ", "").charAt(0) == '#'))) downloadUsingStream(Lista.split(",")[0], Lista.split(",")[1]);} while (Lista != null);
 					} catch (IOException e) {}
 			}
 
@@ -215,7 +207,7 @@ public class AV3DNavigatorLauncher
 			String Debug = "";
 			ProcessBuilder pb = null;
 
-			if (args.length == 2) {ArquivoEspaco = args[0]; Debug = args[1]; pb = new ProcessBuilder("java", "-jar", ArquivoAV3DNavigator, ArquivoEspaco, Debug);} else if (args.length == 1) {if (args[0].equals("Debug")) pb = new ProcessBuilder("java", "-jar", ArquivoAV3DNavigator, "Debug"); else {ArquivoEspaco = args[0]; pb = new ProcessBuilder("java", "-jar", ArquivoAV3DNavigator, ArquivoEspaco, "");}} else pb = new ProcessBuilder("java", "-jar", ArquivoAV3DNavigator, "", "");
+			if (args.length == 2) {ArquivoEspaco = args[0]; Debug = args[1]; pb = new ProcessBuilder("java", "-jar", "AV3DNavigator.jar", ArquivoEspaco, Debug);} else if (args.length == 1) {if (args[0].equals("Debug")) pb = new ProcessBuilder("java", "-jar", "AV3DNavigator.jar", "Debug"); else {ArquivoEspaco = args[0]; pb = new ProcessBuilder("java", "-jar", "AV3DNavigator.jar", ArquivoEspaco, "");}} else pb = new ProcessBuilder("java", "-jar", "AV3DNavigator.jar", "", "");
 
 			SplashScreen.close();
 			Process p = pb.start();
