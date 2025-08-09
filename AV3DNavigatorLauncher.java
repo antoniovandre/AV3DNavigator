@@ -7,9 +7,9 @@
  * 
  * Sugestões ou comunicar erros: "a.vandre.g@gmail.com".
  * 
- * Licença de uso: Atribuição-NãoComercial-CompartilhaIgual (CC BY-NC-SA).
+ * Licença de uso: Creative Commons Attribution Non-Commercial License V2.0.
  * 
- * Última atualização: 23-09-2024.
+ * Última atualização: 09-08-2025.
  */
 
 import java.awt.Toolkit;
@@ -185,15 +185,18 @@ public class AV3DNavigatorLauncher
 						downloadUsingStream(URLmXparser, ArquivomXparser);
 						} catch (IOException e) {}
 
+					/* Mostrar aviso de atualização.
+
 					JFrame Frame = new JFrame("Nova versão.");
 					Frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 					Frame.setPreferredSize(new Dimension(320, 130));
-					GradientLabel Label = new GradientLabel("<html>O software jar foi atualizado, entretanto podem haver atualizações estruturais; assim sendo, pode ser necessário fazer o download de um novo pacote completo.</html>", Color.BLUE, Color.BLACK, Color.WHITE);
+					GradientLabel Label = new GradientLabel("<html>O software foi atualizado.</html>", Color.BLUE, Color.BLACK, Color.WHITE);
 					Label.setBorder(new EmptyBorder(5, 5, 5, 5));
 					Label.setFont(new Font("DialogInput", Font.BOLD | Font.ITALIC, 12));
 					Frame.add(Label);
 					Frame.pack();
 					Frame.setVisible(true);
+					*/
 					}
 				}
 			else
