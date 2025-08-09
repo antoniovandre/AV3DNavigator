@@ -3573,11 +3573,13 @@ public class AV3DNavigator extends JComponent
 						{
 						if (Math.abs(Phi) < PhiMax - DeslocamentoAngular)
 							{
-							Teta = Math.abs(Math.cos(PhiR)) < DeslocamentoLinear * FatorShiftMouse / 10 ? (2 * Math.PI * (MouseX - MouseXR) * Math.cos(RotR) + Math.PI * (MouseY - MouseYR) * Math.sin(RotR)) / TamanhoPlanoX + Math.signum(Teta - TetaR) * FatorShiftMouse * DeslocamentoAngular + TetaR : (2 * Math.PI * (MouseX - MouseXR) * Math.cos(RotR) + Math.PI * (MouseY - MouseYR) * Math.sin(RotR)) / TamanhoPlanoX + TetaR;
+							Teta = Math.abs(Math.cos(Phi)) < DeslocamentoLinear * FatorShiftMouse / 10 ? (2 * Math.PI * (MouseX - MouseXR) * Math.cos(RotR) + Math.PI * (MouseY - MouseYR) * Math.sin(RotR)) / TamanhoPlanoX + Math.signum(Teta - TetaR) * FatorShiftMouse * DeslocamentoAngular + TetaR : (2 * Math.PI * (MouseX - MouseXR) * Math.cos(RotR) + Math.PI * (MouseY - MouseYR) * Math.sin(RotR)) / TamanhoPlanoX + TetaR;
 
-							Phi = Math.abs(Math.cos(PhiR)) < DeslocamentoLinear * FatorShiftMouse / 10 ? (-2 * Math.PI * (MouseX - MouseXR) * Math.sin(RotR) + Math.PI * (MouseY - MouseYR) * Math.cos(RotR)) / TamanhoPlanoY + Math.signum(Phi - PhiR) * FatorShiftMouse * DeslocamentoAngular + PhiR : (-2 * Math.PI * (MouseX - MouseXR) * Math.sin(RotR) + Math.PI * (MouseY - MouseYR) * Math.cos(RotR)) * Math.cos(PhiR) / TamanhoPlanoY + PhiR;
+							Phi = Math.abs(Math.cos(Phi)) < DeslocamentoLinear * FatorShiftMouse / 10 ? (-2 * Math.PI * (MouseX - MouseXR) * Math.sin(RotR) + Math.PI * (MouseY - MouseYR) * Math.cos(RotR)) / TamanhoPlanoY + Math.signum(Phi - PhiR) * FatorShiftMouse * DeslocamentoAngular + PhiR : (-2 * Math.PI * (MouseX - MouseXR) * Math.sin(RotR) + Math.PI * (MouseY - MouseYR) * Math.cos(RotR)) * Math.cos(PhiR) / TamanhoPlanoY + PhiR;
 
-							Rot = Math.abs(Math.cos(PhiR)) < DeslocamentoLinear * FatorShiftMouse / 10 ? (2 * Math.PI * (MouseX - MouseXR) * Math.cos(RotR) / TamanhoPlanoX + Math.PI * (MouseY - MouseYR) * Math.sin(RotR) / TamanhoPlanoY) * Math.sin(PhiR) + Math.signum(Teta - TetaR) * FatorShiftMouse * DeslocamentoAngular + Math.signum(Phi - PhiR) * FatorShiftMouse * DeslocamentoAngular + RotR : (2 * Math.PI * (MouseX - MouseXR) * Math.cos(RotR) / TamanhoPlanoX + Math.PI * (MouseY - MouseYR) * Math.sin(RotR) / TamanhoPlanoY) * Math.sin(PhiR) + RotR;
+							Rot = Math.abs(Math.cos(Phi)) < DeslocamentoLinear * FatorShiftMouse / 10 ? (2 * Math.PI * (MouseX - MouseXR) * Math.cos(RotR) / TamanhoPlanoX + Math.PI * (MouseY - MouseYR) * Math.sin(RotR) / TamanhoPlanoY) * Math.sin(PhiR) + Math.signum(Teta - TetaR) * FatorShiftMouse * DeslocamentoAngular + Math.signum(Phi - PhiR) * FatorShiftMouse * DeslocamentoAngular + RotR : (2 * Math.PI * (MouseX - MouseXR) * Math.cos(RotR) / TamanhoPlanoX + Math.PI * (MouseY - MouseYR) * Math.sin(RotR) / TamanhoPlanoY) * Math.sin(PhiR) + RotR;
+
+							if (Math.abs(Math.cos(Phi)) < DeslocamentoLinear * FatorShiftMouse / 10) {TetaR = Teta; PhiR = Phi; RotR = Rot;}
 							}
 						else
 							{
