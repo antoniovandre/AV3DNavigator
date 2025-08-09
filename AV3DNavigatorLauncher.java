@@ -45,9 +45,9 @@ public class AV3DNavigatorLauncher
 
 	public static String ArquivoAV3DNavigatorVersao = "AV3DNavigatorVersao.txt";
 
-	public static String URLAV3DNavigatorList = "https://github.com/antoniovandre/AV3DNavigator/raw/main/AV3DNavigatorList.txt";
+	public static String URLAV3DNavigatorInstallList = "https://github.com/antoniovandre/AV3DNavigator/raw/main/AV3DNavigatorInstallList.txt";
 
-	public static String ArquivoAV3DNavigatorList = "AV3DNavigatorList.txt";
+	public static String ArquivoAV3DNavigatorInstallList = "AV3DNavigatorInstallList.txt";
 
 	public static String URLapfloat = "https://github.com/antoniovandre/AV3DNavigator/raw/main/apfloat.jar";
 
@@ -151,7 +151,7 @@ public class AV3DNavigatorLauncher
 				} catch (IOException e) {FlagSucessoVersaoLocal = 0;}
 
 			File fileNet = new File(ArquivoAV3DNavigatorVersao + ".tmp");
-			File fileList = new File(ArquivoAV3DNavigatorList);
+			File fileList = new File(ArquivoAV3DNavigatorInstallList);
 			int FlagSucessoVersaoNet = 1;
 			String VersaoNet = "";
 			String Lista = "";
@@ -169,7 +169,7 @@ public class AV3DNavigatorLauncher
 					{
 					try
 						{
-						downloadUsingStream(URLAV3DNavigatorList, ArquivoAV3DNavigatorList);
+						downloadUsingStream(URLAV3DNavigatorInstallList, ArquivoAV3DNavigatorInstallList);
 
 						BufferedReader brL = new BufferedReader(new FileReader(fileList));
 
@@ -193,7 +193,7 @@ public class AV3DNavigatorLauncher
 			else
 				try
 					{
-					downloadUsingStream(URLAV3DNavigatorList, ArquivoAV3DNavigatorList);
+					downloadUsingStream(URLAV3DNavigatorInstallList, ArquivoAV3DNavigatorInstallList);
 
 					BufferedReader brL = new BufferedReader(new FileReader(fileList));
 
