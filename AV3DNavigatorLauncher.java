@@ -213,7 +213,12 @@ public class AV3DNavigatorLauncher
 
 			SplashScreen.close();
 			Process p = pb.start();
-			} catch (IOException e) {System.out.println(MensagemErroExecutar);}
+			} catch (IOException e)
+				{
+				File file = new File(ArquivoAV3DNavigatorVersao);
+				file.delete();
+				System.out.println(MensagemErroExecutar);
+				}
 		}
 
 	private static void downloadUsingStream(String urlStr, String file) throws IOException
