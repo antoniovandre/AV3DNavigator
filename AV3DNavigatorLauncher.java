@@ -169,6 +169,8 @@ public class AV3DNavigatorLauncher
 					{
 					try
 						{
+						downloadUsingStream(URL3DNavigatorVersao, ArquivoAV3DNavigatorVersao);
+
 						downloadUsingStream(URLAV3DNavigatorInstallList, ArquivoAV3DNavigatorInstallList);
 
 						BufferedReader brL = new BufferedReader(new FileReader(fileList));
@@ -198,9 +200,6 @@ public class AV3DNavigatorLauncher
 					BufferedReader brL = new BufferedReader(new FileReader(fileList));
 
 					do {Lista = brL.readLine(); if (Lista != null) if (! ((Lista.replaceAll(" ", "").equals("")) || (Lista.replaceAll(" ", "").charAt(0) == '#'))) downloadUsingStream(Lista.split(",")[0], Lista.split(",")[1]);} while (Lista != null);
-
-					downloadUsingStream(URL3DNavigatorVersao, ArquivoAV3DNavigatorVersao);
-
 					} catch (IOException e) {}
 			}
 
