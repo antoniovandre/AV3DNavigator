@@ -11,7 +11,7 @@
  * 
  * Licença de uso: Creative Commons Attribution Non-Commercial License V2.0.
  * 
- * Última atualização: 09-08-2025. Não considerando alterações em variáveis globais.
+ * Última atualização: 10-08-2025. Não considerando alterações em variáveis globais.
  */
 
 import java.lang.IllegalThreadStateException;
@@ -124,6 +124,8 @@ public class AV3DNavigator extends JComponent
 
 	public double TetaMax = AntonioVandre.MaximoValorReal; // Opção: 3 * Math.PI / 8.
 	public double PhiMax = AntonioVandre.MaximoValorReal; // Opção: 3 * Math.PI / 8.
+
+	public double FatorShiftMouse = 2; // Pular cálculos de rotações com mouse quando o cosseno de φ está próximo de 0, para fluência. Default: 2.
 
 	public static double MargemAnguloVisao = 0; // Default: 0.
 	public static int TamanhoFonteLabelStatus = 7; // Default: 7.
@@ -301,7 +303,7 @@ public class AV3DNavigator extends JComponent
 	public double TetaR;
 	public double PhiR;
 	public double RotR;
-	public double FatorShiftMouse = 2; // Pular cálculos de rotações com mouse quando o cosseno de φ está próximo de 0, para fluência. Default: 2.
+	public int FlagShiftMouse;
 	public int TamanhoPlanoXAd;
 	public int TamanhoPlanoYAd;
 	public int ContadorFrames = FramesDeslocamento;
@@ -3590,13 +3592,15 @@ public class AV3DNavigator extends JComponent
 						{
 						if (Math.abs(Phi) < PhiMax - DeslocamentoAngular)
 							{
-							Teta = Math.abs(Math.cos(Phi)) < DeslocamentoLinear * FatorShiftMouse / 10 ? (2 * Math.PI * (MouseX - MouseXR) * Math.cos(RotR) + Math.PI * (MouseY - MouseYR) * Math.sin(RotR)) / TamanhoPlanoX + Math.signum(Teta - TetaR) * FatorShiftMouse * DeslocamentoAngular + TetaR : (2 * Math.PI * (MouseX - MouseXR) * Math.cos(RotR) + Math.PI * (MouseY - MouseYR) * Math.sin(RotR)) / TamanhoPlanoX + TetaR;
+							if (Math.abs(Math.cos(PhiR)) < DeslocamentoLinear * FatorShiftMouse / 10) FlagShiftMouse = 1; else FlagShiftMouse = 0;
 
-							Phi = Math.abs(Math.cos(Phi)) < DeslocamentoLinear * FatorShiftMouse / 10 ? (-2 * Math.PI * (MouseX - MouseXR) * Math.sin(RotR) + Math.PI * (MouseY - MouseYR) * Math.cos(RotR)) / TamanhoPlanoY + Math.signum(Phi - PhiR) * FatorShiftMouse * DeslocamentoAngular + PhiR : (-2 * Math.PI * (MouseX - MouseXR) * Math.sin(RotR) + Math.PI * (MouseY - MouseYR) * Math.cos(RotR)) * Math.cos(PhiR) / TamanhoPlanoY + PhiR;
+							Teta = FlagShiftMouse == 1 ? (2 * Math.PI * (MouseX - MouseXR) * Math.cos(RotR) + Math.PI * (MouseY - MouseYR) * Math.sin(RotR)) / TamanhoPlanoX + Math.signum(Teta - TetaR) * FatorShiftMouse * DeslocamentoAngular + TetaR : (2 * Math.PI * (MouseX - MouseXR) * Math.cos(RotR) + Math.PI * (MouseY - MouseYR) * Math.sin(RotR)) / TamanhoPlanoX + TetaR;
 
-							Rot = Math.abs(Math.cos(Phi)) < DeslocamentoLinear * FatorShiftMouse / 10 ? (2 * Math.PI * (MouseX - MouseXR) * Math.cos(RotR) / TamanhoPlanoX + Math.PI * (MouseY - MouseYR) * Math.sin(RotR) / TamanhoPlanoY) * Math.sin(PhiR) + Math.signum(Teta - TetaR) * FatorShiftMouse * DeslocamentoAngular + Math.signum(Phi - PhiR) * FatorShiftMouse * DeslocamentoAngular + RotR : (2 * Math.PI * (MouseX - MouseXR) * Math.cos(RotR) / TamanhoPlanoX + Math.PI * (MouseY - MouseYR) * Math.sin(RotR) / TamanhoPlanoY) * Math.sin(PhiR) + RotR;
+							Phi = FlagShiftMouse == 1 ? (-2 * Math.PI * (MouseX - MouseXR) * Math.sin(RotR) + Math.PI * (MouseY - MouseYR) * Math.cos(RotR)) * Math.signum(Math.cos(PhiR)) / TamanhoPlanoY + Math.signum(Phi - PhiR) * FatorShiftMouse * DeslocamentoAngular + PhiR : (-2 * Math.PI * (MouseX - MouseXR) * Math.sin(RotR) + Math.PI * (MouseY - MouseYR) * Math.cos(RotR)) * Math.signum(Math.cos(PhiR)) * Math.cos(PhiR) / TamanhoPlanoY + PhiR;
 
-							if (Math.abs(Math.cos(Phi)) < DeslocamentoLinear * FatorShiftMouse / 10) {TetaR = Teta; PhiR = Phi; RotR = Rot;}
+							Rot = FlagShiftMouse == 1 ? (2 * Math.PI * (MouseX - MouseXR) * Math.cos(RotR) / TamanhoPlanoX + Math.PI * (MouseY - MouseYR) * Math.sin(RotR) / TamanhoPlanoY) * Math.sin(PhiR) + Math.signum(Teta - TetaR) * FatorShiftMouse * DeslocamentoAngular + Math.signum(Phi - PhiR) * FatorShiftMouse * DeslocamentoAngular + RotR : (2 * Math.PI * (MouseX - MouseXR) * Math.cos(RotR) / TamanhoPlanoX + Math.PI * (MouseY - MouseYR) * Math.sin(RotR) / TamanhoPlanoY) * Math.sin(PhiR) + RotR;
+
+							if (FlagShiftMouse == 1) {TetaR = Teta; PhiR = Phi; RotR = Rot;}
 							}
 						else
 							{
