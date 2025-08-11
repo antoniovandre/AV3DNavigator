@@ -3,7 +3,7 @@
  * 
  * Software AV3DNavigator.
  * 
- * Dependências: AntonioVandre >= 20240921, Apfloat 1.14.0 (http://www.apfloat.org), mXparser v.6.1 (Sagitara) (https://mathparser.org/).
+ * Dependências: AntonioVandre >= 20250212, Apfloat 1.14.0 (http://www.apfloat.org), mXparser v.6.1 (Sagitara) (https://mathparser.org/).
  * 
  * Motor Gráfico: AV3D.
  * 
@@ -138,7 +138,7 @@ public class AV3DNavigator extends JComponent
 	public static int TamanhoFonteRendering = 11; // Default: 11.
 	public static int TamanhoFonteLendoEspaco = 11; // Default: 11.
 	public double DistanciaTela = 2; // Default: valor inicial: 2.
-	public static String MensagemErroAntonioVandreLib = "Requer AntonioVandre >= 20231101.";
+	public static String MensagemErroAntonioVandreLib = "Requer AntonioVandre >= 20250212.";
 	public static String MensagemErroEspacoAusente = "Entre com um arquivo de espaço.";
 	public static String MensagemErroEspacoInvalido = "Entre com um arquivo de espaço válido.";
 	public static double FatorMouseWheel = 3; // Default: 3.

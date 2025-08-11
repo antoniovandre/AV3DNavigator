@@ -3,13 +3,11 @@
  * 
  * Launcher do software AV3DNavigator.
  * 
- * Dependências: AntonioVandre.
- * 
  * Sugestões ou comunicar erros: "a.vandre.g@gmail.com".
  * 
  * Licença de uso: Creative Commons Attribution Non-Commercial License V2.0.
  * 
- * Última atualização: 09-08-2025.
+ * Última atualização: 11-08-2025.
  */
 
 import java.awt.Toolkit;
@@ -31,6 +29,8 @@ import javax.swing.JLabel;
 import javax.swing.WindowConstants;
 import javax.swing.border.EmptyBorder;
 
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.net.URL;
 
 import java.lang.ProcessBuilder;
@@ -195,6 +195,8 @@ public class AV3DNavigatorLauncher
 			else
 				try
 					{
+					downloadUsingStream(URL3DNavigatorVersao, ArquivoAV3DNavigatorVersao);
+
 					downloadUsingStream(URLAV3DNavigatorInstallList, ArquivoAV3DNavigatorInstallList);
 
 					BufferedReader brL = new BufferedReader(new FileReader(fileList));
@@ -223,12 +225,15 @@ public class AV3DNavigatorLauncher
 
 	private static void downloadUsingStream(String urlStr, String file) throws IOException
 		{
-		URL url = new URL (urlStr);
-		BufferedInputStream bis = new BufferedInputStream (url.openStream ());
-		FileOutputStream fis = new FileOutputStream (file);
-		byte [] buffer = new byte [1024];
-		int count = 0;
-		while((count = bis.read (buffer, 0, 1024)) != -1) {fis.write(buffer, 0, count);}
-		fis.close(); bis.close();
+		try
+			{
+			URL url = new URI(urlStr).toURL();
+			BufferedInputStream bis = new BufferedInputStream (url.openStream ());
+			FileOutputStream fis = new FileOutputStream (file);
+			byte [] buffer = new byte [1024];
+			int count = 0;
+			while((count = bis.read (buffer, 0, 1024)) != -1) {fis.write(buffer, 0, count);}
+			fis.close(); bis.close();
+			} catch (URISyntaxException e) {}
 		}
 }
