@@ -76,7 +76,13 @@ import java.text.SimpleDateFormat;
 
 import java.util.Calendar;
 
-import java.io.*;
+import java.io.InputStreamReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.IOException;
 
 // Alta precisão com o Apfloat, porém com custo computacional.
 
