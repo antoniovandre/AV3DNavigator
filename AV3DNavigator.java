@@ -11,7 +11,7 @@
  * 
  * Licença de uso: Creative Commons Attribution Non-Commercial License V2.0.
  * 
- * Última atualização: 10-08-2025. Não considerando alterações em variáveis globais.
+ * Última atualização: 11-08-2025. Não considerando alterações em variáveis globais.
  */
 
 import java.lang.IllegalThreadStateException;
@@ -68,6 +68,8 @@ import javax.imageio.ImageIO;
 import java.time.format.DateTimeFormatter;  
 import java.time.LocalDateTime; 
 
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.net.URL;
 
 import java.text.SimpleDateFormat;
@@ -109,10 +111,10 @@ public class AV3DNavigator extends JComponent
 	public int CorFonteJanelaB = 255; // Default: 255.
 	public int TamanhoPlanoX = 460; // Default: 460.
 	public int TamanhoPlanoY = 460; // Default: 460.
-	public static int TamanhoEspacoLabelStatus = 320; // Default: 310.
+	public static int TamanhoEspacoLabelStatus = 300; // Default: 300.
 	public static int TamanhoEspacoLabelURL = 65; // Default: 65.
-	public static int TamanhoJanelaHelpX = 1600;
-	public static int TamanhoJanelaHelpY = 550;
+	public static int TamanhoJanelaHelpX = 1800;
+	public static int TamanhoJanelaHelpY = 600;
 	public static int TamanhoEspacoInvalidoX = 300; // Default: 300.
 	public static int TamanhoEspacoInvalidoY = 80; // Default: 80.
 	public static int TamanhoRenderingX = 200; // Default: 200.
@@ -128,9 +130,9 @@ public class AV3DNavigator extends JComponent
 	public double FatorShiftMouse = 2; // Pular cálculos de rotações com mouse quando o cosseno de φ está próximo de 0, para fluência. Default: 2.
 
 	public static double MargemAnguloVisao = 0; // Default: 0.
-	public static int TamanhoFonteLabelStatus = 7; // Default: 7.
-	public static int TamanhoFonteLabelURL = 11; // Default: 11.
-	public static int TamanhoFonteLabelHelp = 10; // Default: 10.
+	public static int TamanhoFonteLabelStatus = 8; // Default: 8.
+	public static int TamanhoFonteLabelURL = 15; // Default: 15.
+	public static int TamanhoFonteLabelHelp = 11; // Default: 11.
 	public static int TamanhoFonteLabelPrint = 12; // Default: 12.
 	public static int TamanhoFonteLabelErroEspacoInvalido = 11; // Default: 11.
 	public static int TamanhoFonteRendering = 11; // Default: 11.
@@ -1608,12 +1610,12 @@ public class AV3DNavigator extends JComponent
 						{
 						try
 							{
-							URL ExecUrl = new URL("https://github.com/antoniovandre/AV3DNavigatorStats/releases/download/AV3DNavigatorStats/AV3DNavigatorExecCount");
+							URL ExecUrl = new URI("https://github.com/antoniovandre/AV3DNavigatorStats/releases/download/AV3DNavigatorStats/AV3DNavigatorExecCount").toURL();
 							BufferedReader in = new BufferedReader(new InputStreamReader(ExecUrl.openStream()));
 							String inputLine;
 							while ((inputLine = in.readLine()) != null);
 							in.close();
-							} catch (IOException e) {}
+							} catch (IOException | URISyntaxException e) {}
 						}
 					}).start();} catch (IllegalThreadStateException e) {}
 
@@ -1846,12 +1848,12 @@ public class AV3DNavigator extends JComponent
 											{
 											try
 												{
-												URL ExecUrl = new URL("https://github.com/antoniovandre/AV3DNavigatorStats/releases/download/AV3DNavigatorStats/AV3DNavigatorHelpCount");
+												URL ExecUrl = new URI("https://github.com/antoniovandre/AV3DNavigatorStats/releases/download/AV3DNavigatorStats/AV3DNavigatorHelpCount").toURL();
 												BufferedReader in = new BufferedReader(new InputStreamReader(ExecUrl.openStream()));
 												String inputLine;
 												while ((inputLine = in.readLine()) != null);
 												in.close();
-												} catch (IOException e) {}
+												} catch (IOException | URISyntaxException e) {}
 											}
 									}).start();} catch (IllegalThreadStateException e) {}
 
@@ -1878,7 +1880,7 @@ public class AV3DNavigator extends JComponent
 									} catch (IOException e)
 										{
 										FrameHelp.setPreferredSize(new Dimension(TamanhoJanelaHelpX, TamanhoJanelaHelpY));
-										FrameHelp.setSize(new Dimension(1600, 550));
+										FrameHelp.setSize(new Dimension(TamanhoJanelaHelpX, TamanhoJanelaHelpY));
 										LabelHelp = new GradientLabel("<html><table><tr><td>F2 para selecionar e abrir arquivo de espaço.<br><br>\"A\" para incrementar x, \"Z\" para decrementar. Shift + \"A\" para incrementar xCamera, Shift + \"Z\" para decrementar.<br>\"S\" para incrementar y, \"X\" para decrementar. Shift + \"S\" para incrementar yCamera, Shift + \"X\" para decrementar.<br>\"D\" para incrementar z, \"C\" para decrementar. Shift + \"D\" para incrementar zCamera, Shift + \"C\" para decrementar.<br>\"F\" para incrementar Teta. \"V\" para decrementar. \"G\" para incrementar Phi. \"B\" para decrementar.<br>Shift + \"F\" para rotação lateral esquerda. Shift + \"V\" para direita.<br>Shift + \"B\" para rotação vertical para baixo. Shift + \"G\" para cima.<br>\"H\" para incrementar a rotação da tela. \"N\" para decrementar. Shift + \"H\" para zerar rotação.<br>\"J\" para rotação horizontal positiva. \"M\" para negativa.<br>Shift + \"J\" para rotação vertical positiva. Shift + \"M\" para negativa.<br>\"K\" para rotação total horizontal positiva. \",\" para negativa.<br>Shift + \"K\" para rotação total vertical positiva. Shift + \",\" para negativa.<br>Ctrl + \"K\" para resetar rotação total.<br>\"L\" para incrementar o raio de rotação horizontal. \".\" para decrementar.<br>Shift + \"L\" para incrementar o raio de rotação vertical. Shift + \".\" para decrementar.<br>\"[\" para incrementar o raio de rotação total. \"]\" para decrementar.<br>\"W\" para aumentar a distância da tela. \"Q\" para reduzir.<br>\"E\" para reduzir o fator redutor do ângulo de visão. \"R\" para aumentar.<br>\"T\" para shift negativo na cor vermelha padrão da linha. \"Y\" para shift positivo.<br>Shift + \"T\" para shift negativo na cor verde padrão da linha. Shift + \"Y\" para shift positivo.<br>Ctrl + \"T\" para shift negativo na cor azul padrão da linha. Ctrl + \"Y\" para shift positivo.<br>\"U\" para shift negativo na cor vermelha padrão de fundo. \"I\" para shift positivo.<br>Shift + \"U\" para shift negativo na cor verde padrão de fundo. Shift + \"I\" para shift positivo.<br>Ctrl + \"U\" para shift negativo na cor azul padrão de fundo. Ctrl + \"I\" para shift positivo.<br>\"O\" para shift negativo na cor vermelha padrão dos polígonos preenchidos. \"P\" para shift positivo.<br>Shift + \"O\" para shift negativo na cor verde padrão dos polígonos preenchidos. Shift + \"P\" para shift positivo.<br>Ctrl + \"O\" para shift negativo na cor azul padrão dos polígonos preenchidos. Ctrl + \"P\" para shift positivo.<br>INSERT para shift negativo na cor vermelha padrão das legendas. HOME para shift positivo.<br>Shift + INSERT para shift negativo na cor verde padrão das legendas. Shift + HOME para shift positivo.<br>Ctrl + INSERT para shift negativo na cor azul padrão das legendas. Ctrl + HOME para shift positivo.<br>DELETE para shift negativo no tamanho padrão das legendas. END para shift positivo.<br>\"-\" para shift negativo no offset das legendas. \"=\" para shift positivo.<br>Numpad \"1\" para shift negativo na resolução dos triângulos. Numpad \"2\" para shift positivo.<br>PAGE DOWN para shift negativo no sleep time. PAGE UP para shift positivo.<\td><td></td><td>Numpad \"0\" para toggle alta precisão Apfloat (com custo computacional).<br>F4 para toggle preenchimento dos polígonos com linhas ou fillPolygon.<br><br>Ctrl + ENTER para shift positivo em câmeras predefinidas, Ctrl + Shift + ENTER para negativo.<br>Numpad \"4\" para salvar uma câmera predefinida. Shift + Numpad \"4\" para restaurar as câmeras predefinidas originais.<br><br>Numpad \"3\" para incremento no parâmetro de movimentação da câmera. Shift + Numpad \"3\" para decremento.<br>Ctrl + Numpad \"3\" para incremento no step de variação do parâmetro de movimentação da câmera. Ctrl + Shift + Numpad \"3\" para decremento.<br><br>Teclas de \"0\" a \"9\" para incrementar o parâmetro correspondente. Shift + tecla para decrementar.<br>Ctrl + tecla para incrementar o step do parâmetro. Ctrl + Shift + tecla para decrementar.<br><br>ENTER para ler os arquivos de parâmetros.<br><br>Shift + ENTER para ativar / desativar os parâmetros de tempo.<br><br>Setas para strafe. Shift + UP e Shift + DOWN para strafes verticais.<br>Mouse pode ser utilizado para movimentar desde que \"Rot\" seja zero.<br><br>Barra de espaços para resetar as variáveis.<br>Shift + barra de espaços para toggle visualizar a câmera. Ctrl + Shift + barra de espaços para toggle CameraViewFollow.<br><br>F10 para toggle stretch. F11 para setar aspect ratio 1. F12 para screenshot.<br>F3 para ocultar e mostrar os labels.<br>F5 para incrementar FatorShiftMouse. Shift + F5 para decrementar.<br>BACKSPACE para ativar / desativar labels animados.<br><br>ESC para sair.</td></tr></table></html>", new Color(CorJanelaR, CorJanelaG, CorJanelaB), new Color(CorJanelaGradienteR, CorJanelaGradienteG, CorJanelaGradienteB), new Color(CorFonteJanelaR, CorFonteJanelaG, CorFonteJanelaB), 2);
 										}
 
@@ -2668,12 +2670,12 @@ public class AV3DNavigator extends JComponent
 											{
 											try
 												{
-												URL ExecUrl = new URL("https://github.com/antoniovandre/AV3DNavigatorStats/releases/download/AV3DNavigatorStats/AV3DNavigatorApfloatCount");
+												URL ExecUrl = new URI("https://github.com/antoniovandre/AV3DNavigatorStats/releases/download/AV3DNavigatorStats/AV3DNavigatorApfloatCount").toURL();
 												BufferedReader in = new BufferedReader(new InputStreamReader(ExecUrl.openStream()));
 												String inputLine;
 												while ((inputLine = in.readLine()) != null);
 												in.close();
-												} catch (IOException e) {}
+												} catch (IOException | URISyntaxException e) {}
 											}
 										}).start();} catch (IllegalThreadStateException e) {}
 
@@ -3601,6 +3603,9 @@ public class AV3DNavigator extends JComponent
 							Rot = FlagShiftMouse == 1 ? (2 * Math.PI * (MouseX - MouseXR) * Math.cos(RotR) / TamanhoPlanoX + Math.PI * (MouseY - MouseYR) * Math.sin(RotR) / TamanhoPlanoY) * Math.sin(PhiR) + Math.signum(Teta - TetaR) * FatorShiftMouse * DeslocamentoAngular + Math.signum(Phi - PhiR) * FatorShiftMouse * DeslocamentoAngular + RotR : (2 * Math.PI * (MouseX - MouseXR) * Math.cos(RotR) / TamanhoPlanoX + Math.PI * (MouseY - MouseYR) * Math.sin(RotR) / TamanhoPlanoY) * Math.sin(PhiR) + RotR;
 
 							if (FlagShiftMouse == 1) {TetaR = Teta; PhiR = Phi; RotR = Rot;}
+
+							if (MouseX != MouseXR) MouseX = MouseXR;
+							if (MouseY != MouseYR) MouseY = MouseYR;
 							}
 						else
 							{
@@ -4816,12 +4821,12 @@ public class AV3DNavigator extends JComponent
 							{
 							try
 								{
-								URL ExecUrl = new URL("https://github.com/antoniovandre/AV3DNavigatorStats/releases/download/AV3DNavigatorStats/AV3DNavigatorEspacosPCount");
+								URL ExecUrl = new URI("https://github.com/antoniovandre/AV3DNavigatorStats/releases/download/AV3DNavigatorStats/AV3DNavigatorEspacosPCount").toURL();
 								BufferedReader in = new BufferedReader(new InputStreamReader(ExecUrl.openStream()));
 								String inputLine;
 								while ((inputLine = in.readLine()) != null);
 								in.close();
-								} catch (IOException e) {}
+								} catch (IOException | URISyntaxException e) {}
 							}
 					}).start();} catch (IllegalThreadStateException e) {}
 
@@ -4833,12 +4838,12 @@ public class AV3DNavigator extends JComponent
 							{
 							try
 								{
-								URL ExecUrl = new URL("https://github.com/antoniovandre/AV3DNavigatorStats/releases/download/AV3DNavigatorStats/AV3DNavigatorEspacosPFileCount");
+								URL ExecUrl = new URI("https://github.com/antoniovandre/AV3DNavigatorStats/releases/download/AV3DNavigatorStats/AV3DNavigatorEspacosPFileCount").toURL();
 								BufferedReader in = new BufferedReader(new InputStreamReader(ExecUrl.openStream()));
 								String inputLine;
 								while ((inputLine = in.readLine()) != null);
 								in.close();
-								} catch (IOException e) {}
+								} catch (IOException | URISyntaxException e) {}
 							}
 					}).start();} catch (IllegalThreadStateException e) {}
 
@@ -4850,12 +4855,12 @@ public class AV3DNavigator extends JComponent
 							{
 							try
 								{
-								URL ExecUrl = new URL("https://github.com/antoniovandre/AV3DNavigatorStats/releases/download/AV3DNavigatorStats/AV3DNavigatorEspacosPTimeCount");
+								URL ExecUrl = new URI("https://github.com/antoniovandre/AV3DNavigatorStats/releases/download/AV3DNavigatorStats/AV3DNavigatorEspacosPTimeCount").toURL();
 								BufferedReader in = new BufferedReader(new InputStreamReader(ExecUrl.openStream()));
 								String inputLine;
 								while ((inputLine = in.readLine()) != null);
 								in.close();
-								} catch (IOException e) {}
+								} catch (IOException | URISyntaxException e) {}
 							}
 					}).start();} catch (IllegalThreadStateException e) {}
 
