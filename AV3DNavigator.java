@@ -147,7 +147,9 @@ public class AV3DNavigator extends JComponent
 	public static String MensagemErroEspacoInvalido = "Entre com um arquivo de espaço válido.";
 	public static double FatorMouseWheel = 3; // Default: 3.
 	public static double DeslocamentoLinear = 1; // Default: 1.
-	public static double DeslocamentoAngular = 0.1; // Default: 0.1.
+
+	public static double DeslocamentoAngularStatic = 0.1; // Default: 0.1. Valor especial em razão do "trick" para rotações quando o cosseno de φ está próximo de 0.
+
 	public static int FramesDeslocamento = 4; // Default: 4.
 	public static int EspacamentoVerticalLegendas = 6; // Default: 6.
 	public double Parametro0 = 0; // Default: valor inicial: 0.
@@ -209,6 +211,9 @@ public class AV3DNavigator extends JComponent
 	public int FrameEspacoXBak;
 	public int FrameEspacoYBak;
 	public int MinTamanhoPlanoYMaisLabels = MinTamanhoPlanoY + TamanhoEspacoLabelStatus + TamanhoEspacoLabelURL;
+
+	public double DeslocamentoAngular; // Variável para "trick" em rotações quando o cosseno de φ está próximo de 0.
+
 	public double RaioRot = 0;
 	public double RaioTeta = 0;
 	public double RaioPhi = 0;
@@ -3571,11 +3576,11 @@ public class AV3DNavigator extends JComponent
 						{
 						if (Math.abs(Phi) < PhiMax - DeslocamentoAngular)
 							{
-							Teta += (2 * Math.PI * (MouseX - MouseXR) * Math.cos(Rot) + Math.PI * (MouseY - MouseYR) * Math.sin(Rot)) * Math.signum(Math.cos(Phi)) / TamanhoPlanoX;
+							Teta += (2 * Math.PI * 10 * DeslocamentoAngular * (MouseX - MouseXR) * Math.cos(Rot) + Math.PI * 10 * DeslocamentoAngular * (MouseY - MouseYR) * Math.sin(Rot)) * Math.signum(Math.cos(Phi)) / TamanhoPlanoX;
 
-							Phi += (-2 * Math.PI * (MouseX - MouseXR) * Math.sin(Rot) + Math.PI * (MouseY - MouseYR) * Math.cos(Rot)) * Math.cos(Phi) * Math.signum(Math.cos(Phi)) / TamanhoPlanoY;
+							Phi += (-2 * Math.PI * 10 * DeslocamentoAngular * (MouseX - MouseXR) * Math.sin(Rot) + Math.PI * 10 * DeslocamentoAngular * (MouseY - MouseYR) * Math.cos(Rot)) * Math.cos(Phi) * Math.signum(Math.cos(Phi)) / TamanhoPlanoY;
 
-							Rot += (2 * Math.PI * (MouseX - MouseXR) * Math.signum(Math.cos(Phi)) * Math.cos(Rot) / TamanhoPlanoX + Math.PI * (MouseY - MouseYR) * Math.sin(Rot) * Math.signum(Math.cos(Phi)) / TamanhoPlanoY) * Math.sin(Phi);
+							Rot += (2 * Math.PI * 10 * DeslocamentoAngular * (MouseX - MouseXR) * Math.signum(Math.cos(Phi)) * Math.cos(Rot) / TamanhoPlanoX + Math.PI * 10 * DeslocamentoAngular * (MouseY - MouseYR) * Math.sin(Rot) * Math.signum(Math.cos(Phi)) / TamanhoPlanoY) * Math.sin(Phi);
 
 							MouseXR = MouseX; MouseYR = MouseY;
 							}
@@ -3664,7 +3669,9 @@ public class AV3DNavigator extends JComponent
 					AnguloVisao = (new Apfloat(AnguloVisao)).divide(new Apfloat(FatorAnguloVisao)).doubleValue();
 					}
 
-				try {Thread.sleep(SleepTime);} catch(InterruptedException e) {}
+				DeslocamentoAngular = DeslocamentoAngularStatic / Math.max(Math.abs(Math.cos(Phi)), 0.2);
+
+				try {Thread.sleep(Math.max((int) (SleepTime * Math.abs(Math.cos(Phi))), 1));} catch(InterruptedException e) {}
 
 				if (StretchFlag == 1)
 					AspectRatio = (double) TamanhoPlanoX / (double) TamanhoPlanoY;
