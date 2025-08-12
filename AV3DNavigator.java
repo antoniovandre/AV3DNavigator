@@ -1463,7 +1463,7 @@ public class AV3DNavigator extends JComponent
 										{
 										double Temp = Double.parseDouble(String.valueOf(new Expression(INIelements[1].replaceAll(" ", "")).calculate()));
 
-										if (Math.abs(Temp) <= AntonioVandre.MaximoValorReal)
+										if ((Math.abs(Temp) >= 0.1) && (Math.abs(Temp) <= 1))
 											{
 											TricksFactor = Temp;
 											}
@@ -1809,6 +1809,9 @@ public class AV3DNavigator extends JComponent
 								RotBak = 0;
 								TetaViewBak = 0;
 								PhiViewBak = 0;
+								TrickSpeed = 1;
+								TrickRot = 1;
+								TricksFactor = 0.2;
 
 								ReadINI();
 
@@ -3728,7 +3731,7 @@ public class AV3DNavigator extends JComponent
 
 				if (TrickRot == 1) if (FlagCoordRotOnce == 1) if (Math.sin(Rot) < DeslocamentoLinear * TricksFactor / 10) {Rot += Rot - Rott == 0 ? TricksFactor / 10 * DeslocamentoAngular : Math.signum(Rott) * TricksFactor / 10 * DeslocamentoAngular;}
 
-				DeslocamentoAngular = TrickSpeed == 1 ? DeslocamentoAngularStatic : DeslocamentoAngularStatic / Math.max(Math.abs(Math.cos(Phi)), TricksFactor);
+				DeslocamentoAngular = TrickSpeed == 1 ? DeslocamentoAngularStatic : DeslocamentoAngularStatic / Math.max(Math.abs(Math.cos(Phi)), 0.04 / TricksFactor);
 
 				try {Thread.sleep(TrickSpeed == 1 ? Math.max((int) (SleepTime * Math.abs(Math.cos(Phi))), 1) : SleepTime);} catch(InterruptedException e) {}
 
