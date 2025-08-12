@@ -3729,9 +3729,9 @@ public class AV3DNavigator extends JComponent
 
 				// Início tricks area.
 
-				if (TrickRot == 1) if (FlagCoordRotOnce == 1) if (Math.sin(Rot) < DeslocamentoLinear * TricksFactor / 10) {Rot += Rot - Rott == 0 ? TricksFactor / 10 * DeslocamentoAngular : Math.signum(Rott) * TricksFactor / 10 * DeslocamentoAngular;}
+				if (TrickRot == 1) if (FlagCoordRotOnce == 1) if (Math.sin(Rot) < DeslocamentoLinear * TricksFactor) {Rot += Rot - Rott == 0 ? TricksFactor / 10 * DeslocamentoAngular : Math.signum(Rott) * TricksFactor / 10 * DeslocamentoAngular;}
 
-				DeslocamentoAngular = TrickSpeed == 1 ? DeslocamentoAngularStatic : DeslocamentoAngularStatic / Math.max(Math.abs(Math.cos(Phi)), 0.04 / TricksFactor);
+				DeslocamentoAngular = TrickSpeed == 1 ? DeslocamentoAngularStatic : DeslocamentoAngularStatic / Math.max(Math.abs(Math.cos(Phi)), 0.005 / TricksFactor);
 
 				try {Thread.sleep(TrickSpeed == 1 ? Math.max((int) (SleepTime * Math.abs(Math.cos(Phi))), 1) : SleepTime);} catch(InterruptedException e) {}
 
