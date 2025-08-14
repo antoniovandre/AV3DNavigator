@@ -7,7 +7,7 @@
  * 
  * Licença de uso: Creative Commons Attribution Non-Commercial License V2.0.
  * 
- * Última atualização: 11-08-2025.
+ * Última atualização: 14-08-2025.
  */
 
 import java.awt.Toolkit;
@@ -20,6 +20,8 @@ import java.awt.BorderLayout;
 import java.awt.Paint;
 import java.awt.Color;
 import java.awt.Font;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
@@ -44,7 +46,7 @@ import java.io.IOException;
 
 public class AV3DNavigatorLauncher
 	{
-	public static String VersaoLauncher = "09-08-2025";
+	public static String VersaoLauncher = "14-08-2025";
 
 	public static String URL3DNavigatorVersao = "https://github.com/antoniovandre/AV3DNavigator/raw/main/AV3DNavigatorVersao.txt";
 
@@ -53,6 +55,10 @@ public class AV3DNavigatorLauncher
 	public static String URLAV3DNavigatorInstallList = "https://github.com/antoniovandre/AV3DNavigator/raw/main/AV3DNavigatorInstallList.txt";
 
 	public static String ArquivoAV3DNavigatorInstallList = "AV3DNavigatorInstallList.txt";
+
+	public static String URLAV3DNavigatorUninstallList = "https://github.com/antoniovandre/AV3DNavigator/raw/main/AV3DNavigatorUninstallList.txt";
+
+	public static String ArquivoAV3DNavigatorUninstallList = "AV3DNavigatorUninstallList.txt";
 
 	public static String URLapfloat = "https://github.com/antoniovandre/AV3DNavigator/raw/main/apfloat.jar";
 
@@ -156,7 +162,8 @@ public class AV3DNavigatorLauncher
 				} catch (IOException e) {FlagSucessoVersaoLocal = 0;}
 
 			File fileNet = new File(ArquivoAV3DNavigatorVersao + ".tmp");
-			File fileList = new File(ArquivoAV3DNavigatorInstallList);
+			File fileInstallList = new File(ArquivoAV3DNavigatorInstallList);
+			File fileUninstallList = new File(ArquivoAV3DNavigatorUninstallList);
 			int FlagSucessoVersaoNet = 1;
 			String VersaoNet = "";
 			String Lista = "";
@@ -178,23 +185,39 @@ public class AV3DNavigatorLauncher
 
 						downloadUsingStream(URLAV3DNavigatorInstallList, ArquivoAV3DNavigatorInstallList);
 
-						BufferedReader brL = new BufferedReader(new FileReader(fileList));
+						downloadUsingStream(URLAV3DNavigatorUninstallList, ArquivoAV3DNavigatorUninstallList);
 
-						do {Lista = brL.readLine(); if (Lista != null) if (! ((Lista.replaceAll(" ", "").equals("")) || (Lista.replaceAll(" ", "").charAt(0) == '#'))) downloadUsingStream(Lista.split(",")[0], Lista.split(",")[1]);} while (Lista != null);
+						BufferedReader brInstallList = new BufferedReader(new FileReader(fileInstallList));
+
+						BufferedReader brUninstallList = new BufferedReader(new FileReader(fileUninstallList));
+
+						do {Lista = brUninstallList.readLine(); if (Lista != null) if (! ((Lista.replaceAll(" ", "").equals("")) || (Lista.replaceAll(" ", "").charAt(0) == '#'))) {file = new File(Lista); file.delete();}} while (Lista != null);
+
+						do {Lista = brInstallList.readLine(); if (Lista != null) if (! ((Lista.replaceAll(" ", "").equals("")) || (Lista.replaceAll(" ", "").charAt(0) == '#'))) downloadUsingStream(Lista.split(",")[0], Lista.split(",")[1]);} while (Lista != null);
 						} catch (IOException e) {}
-
-					/* Mostrar aviso de atualização.
 
 					JFrame Frame = new JFrame("Nova versão.");
 					Frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-					Frame.setPreferredSize(new Dimension(320, 130));
+					Frame.setPreferredSize(new Dimension(210, 40));
 					GradientLabel Label = new GradientLabel("<html>O software foi atualizado.</html>", Color.BLUE, Color.BLACK, Color.WHITE);
 					Label.setBorder(new EmptyBorder(5, 5, 5, 5));
 					Label.setFont(new Font("DialogInput", Font.BOLD | Font.ITALIC, 12));
 					Frame.add(Label);
+					Frame.setResizable(false);
 					Frame.pack();
 					Frame.setVisible(true);
-					*/
+
+					Frame.addKeyListener(new KeyListener()
+						{
+						public void keyPressed(KeyEvent keHelp)
+							{
+							int keyCodeHelp = keHelp.getKeyCode();
+							if (keyCodeHelp == KeyEvent.VK_ESCAPE) Frame.dispose();
+							}
+
+						public void keyReleased(KeyEvent keHelp){}
+						public void keyTyped(KeyEvent keHelp){}
+						});
 					}
 				}
 			else
@@ -204,9 +227,9 @@ public class AV3DNavigatorLauncher
 
 					downloadUsingStream(URLAV3DNavigatorInstallList, ArquivoAV3DNavigatorInstallList);
 
-					BufferedReader brL = new BufferedReader(new FileReader(fileList));
+					BufferedReader brInstallList = new BufferedReader(new FileReader(fileInstallList));
 
-					do {Lista = brL.readLine(); if (Lista != null) if (! ((Lista.replaceAll(" ", "").equals("")) || (Lista.replaceAll(" ", "").charAt(0) == '#'))) downloadUsingStream(Lista.split(",")[0], Lista.split(",")[1]);} while (Lista != null);
+					do {Lista = brInstallList.readLine(); if (Lista != null) if (! ((Lista.replaceAll(" ", "").equals("")) || (Lista.replaceAll(" ", "").charAt(0) == '#'))) downloadUsingStream(Lista.split(",")[0], Lista.split(",")[1]);} while (Lista != null);
 					} catch (IOException e) {}
 			}
 

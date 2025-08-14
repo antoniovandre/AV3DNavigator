@@ -1,3 +1,1 @@
 # Lista de arquivos de desinstalação do AV3DNavigator.
-
-teste.txt
