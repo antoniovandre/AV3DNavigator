@@ -3731,7 +3731,7 @@ public class AV3DNavigator extends JComponent
 					AnguloVisao = (new Apfloat(AnguloVisao)).divide(new Apfloat(FatorAnguloVisao)).doubleValue();
 					}
 
-				// Tricks area.
+				// Tricks area. Há, fora deste escopo, dois tricks aplicados quanto aos strafes verticais.
 
 				if (TrickRot == 1) if (Rotacao != RotacaoBak) if ((Math.abs(Math.sin(Rot)) < TricksFactor / 2) || (Math.abs(Math.cos(Rot)) < TricksFactor / 2)) Rot += (Math.cos(Phi) >= 0 ? 1 : -1) * TricksFactor / 10 * DeslocamentoAngularStatic;
 
