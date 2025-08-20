@@ -11,7 +11,7 @@
  * 
  * Licença de uso: Creative Commons Attribution Non-Commercial License V2.0.
  * 
- * Última atualização: 17-08-2025. Não considerando alterações em variáveis globais.
+ * Última atualização: 20-08-2025. Não considerando alterações em variáveis globais.
  */
 
 import java.lang.IllegalThreadStateException;
@@ -3728,6 +3728,8 @@ public class AV3DNavigator extends JComponent
 					AnguloVisao = (new Apfloat(AnguloVisao)).divide(new Apfloat(FatorAnguloVisao)).doubleValue();
 					}
 
+				// Tricks scope.
+
 				if (TrickRot == 1) if (Rotacao != RotacaoBak) if ((Math.abs(Math.sin(Rot)) < TricksFactor / 2) || (Math.abs(Math.cos(Rot)) < TricksFactor / 2)) Rot += (Math.cos(Phi) >= 0 ? 1 : -1) * TricksFactor / 10 * DeslocamentoAngularStatic;
 
 				RotacaoBak = Rotacao;
@@ -3735,6 +3737,7 @@ public class AV3DNavigator extends JComponent
 				DeslocamentoAngular = TrickSpeed == 1 ? DeslocamentoAngularStatic / Math.max(Math.abs(Math.cos(Phi)), TricksFactor) : DeslocamentoAngularStatic;
 
 				try {Thread.sleep(TrickSpeed == 1 ? Math.max((int) (SleepTime * Math.abs(Math.cos(Phi))), 1) : SleepTime);} catch(InterruptedException e) {}
+
 
 				if (StretchFlag == 1)
 					AspectRatio = (double) TamanhoPlanoX / (double) TamanhoPlanoY;
@@ -3749,7 +3752,7 @@ public class AV3DNavigator extends JComponent
 					{
 					if (CameraView == 1)
 						{
-						Seta = "|" + String.valueOf(x) + "," + String.valueOf(-y) + "," + String.valueOf(-z) + ";" + String.valueOf(x + TamanhoSetaCamera / 2 * Math.cos(Teta) * Math.cos(Phi)) + "," + String.valueOf(-y + TamanhoSetaCamera / 2 * Math.sin(Teta) * Math.cos(Phi)) + "," + String.valueOf(-z + TamanhoSetaCamera / 2 * Math.sin(Phi)) + "c255,0,0|" + String.valueOf(x + TamanhoSetaCamera / 2 * Math.cos(Teta) * Math.cos(Phi)) + "," + String.valueOf(-y + TamanhoSetaCamera / 2 * Math.sin(Teta) * Math.cos(Phi)) + "," + String.valueOf(-z + TamanhoSetaCamera / 2 * Math.sin(Phi)) + ";" + String.valueOf(x + TamanhoSetaCamera * Math.cos(Teta) * Math.cos(Phi)) + "," + String.valueOf(-y + TamanhoSetaCamera * Math.sin(Teta) * Math.cos(Phi)) + "," + String.valueOf(-z + TamanhoSetaCamera * Math.sin(Phi)) + "c0,255,0|" + String.valueOf(x + TamanhoSetaCamera / 2 * Math.cos(Teta + Math.PI / 4 * Math.cos(-Rot)) * Math.cos(Phi + Math.PI / 4 * Math.sin(-Rot))) + "," + String.valueOf(-y + TamanhoSetaCamera / 2 * Math.sin(Teta + Math.PI / 4 * Math.cos(-Rot)) * Math.cos(Phi + Math.PI / 4 * Math.sin(-Rot))) + "," + String.valueOf(-z + TamanhoSetaCamera / 2 * Math.sin(Phi + Math.PI / 4 * Math.sin(-Rot))) + ";" + String.valueOf(x + TamanhoSetaCamera * Math.cos(Teta) * Math.cos(Phi)) + "," + String.valueOf(-y + TamanhoSetaCamera * Math.sin(Teta) * Math.cos(Phi)) + "," + String.valueOf(-z + TamanhoSetaCamera * Math.sin(Phi)) + "c0,255,0|" + String.valueOf(x + TamanhoSetaCamera / 2 * Math.cos(Teta - Math.PI / 4 * Math.cos(-Rot)) * Math.cos(Phi - Math.PI / 4 * Math.sin(-Rot))) + "," + String.valueOf(-y + TamanhoSetaCamera / 2 * Math.sin(Teta - Math.PI / 4 * Math.cos(-Rot)) * Math.cos(Phi - Math.PI / 4 * Math.sin(-Rot))) + "," + String.valueOf(-z + TamanhoSetaCamera / 2 * Math.sin(Phi - Math.PI / 4 * Math.sin(-Rot))) + ";" + String.valueOf(x + TamanhoSetaCamera * Math.cos(Teta) * Math.cos(Phi)) + "," + String.valueOf(-y + TamanhoSetaCamera * Math.sin(Teta) * Math.cos(Phi)) + "," + String.valueOf(-z + TamanhoSetaCamera * Math.sin(Phi)) + "c0,255,0";
+						Seta = "|" + String.valueOf(x) + "," + String.valueOf(-y) + "," + String.valueOf(-z) + ";" + String.valueOf(x + TamanhoSetaCamera / 2 * Math.cos(Teta) * Math.cos(Phi)) + "," + String.valueOf(-y + TamanhoSetaCamera / 2 * Math.sin(Teta) * Math.cos(Phi)) + "," + String.valueOf(-z + TamanhoSetaCamera / 2 * Math.sin(Phi)) + "c255,0,0|" + String.valueOf(x + TamanhoSetaCamera / 2 * Math.cos(Teta) * Math.cos(Phi)) + "," + String.valueOf(-y + TamanhoSetaCamera / 2 * Math.sin(Teta) * Math.cos(Phi)) + "," + String.valueOf(-z + TamanhoSetaCamera / 2 * Math.sin(Phi)) + ";" + String.valueOf(x + TamanhoSetaCamera * Math.cos(Teta) * Math.cos(Phi)) + "," + String.valueOf(-y + TamanhoSetaCamera * Math.sin(Teta) * Math.cos(Phi)) + "," + String.valueOf(-z + TamanhoSetaCamera * Math.sin(Phi)) + "c0,255,0|" + String.valueOf(x + TamanhoSetaCamera / 2 * Math.cos(Teta + Math.PI / 4 * Math.cos(-Rot)) * Math.cos(Phi + Math.PI / 4 * Math.sin(-Rot))) + "," + String.valueOf(-y + TamanhoSetaCamera / 2 * Math.sin(Teta + Math.PI / 4 * Math.cos(-Rot)) * Math.cos(Phi + Math.PI / 4 * Math.sin(-Rot))) + "," + String.valueOf(-z + TamanhoSetaCamera / 2 * Math.sin(Phi + Math.PI / 4 * Math.sin(-Rot))) + ";" + String.valueOf(x + TamanhoSetaCamera * Math.cos(Teta) * Math.cos(Phi)) + "," + String.valueOf(-y + TamanhoSetaCamera * Math.sin(Teta) * Math.cos(Phi)) + "," + String.valueOf(-z + TamanhoSetaCamera * Math.sin(Phi)) + "c0,255,0|" + String.valueOf(x + TamanhoSetaCamera / 2 * Math.cos(Teta - Math.PI / 4 * Math.cos(-Rot)) * Math.cos(Phi - Math.PI / 4 * Math.sin(-Rot))) + "," + String.valueOf(-y + TamanhoSetaCamera / 2 * Math.sin(Teta - Math.PI / 4 * Math.cos(-Rot)) * Math.cos(Phi - Math.PI / 4 * Math.sin(-Rot))) + "," + String.valueOf(-z + TamanhoSetaCamera / 2 * Math.sin(Phi - Math.PI / 4 * Math.sin(-Rot))) + ";" + String.valueOf(x + TamanhoSetaCamera * Math.cos(Teta) * Math.cos(Phi)) + "," + String.valueOf(-y + TamanhoSetaCamera * Math.sin(Teta) * Math.cos(Phi)) + "," + String.valueOf(-z + TamanhoSetaCamera * Math.sin(Phi)) + "c0,255,0|" + String.valueOf(x + TamanhoSetaCamera / 2 * Math.cos(Teta - Math.PI / 4 * Math.sin(-Rot)) * Math.cos(Phi + Math.PI / 4 * Math.cos(-Rot))) + "," + String.valueOf(-y + TamanhoSetaCamera / 2 * Math.sin(Teta - Math.PI / 4 * Math.sin(-Rot)) * Math.cos(Phi + Math.PI / 4 * Math.cos(-Rot))) + "," + String.valueOf(-z + TamanhoSetaCamera / 2 * Math.sin(Phi + Math.PI / 4 * Math.cos(-Rot))) + ";" + String.valueOf(x + TamanhoSetaCamera * Math.cos(Teta) * Math.cos(Phi)) + "," + String.valueOf(-y + TamanhoSetaCamera * Math.sin(Teta) * Math.cos(Phi)) + "," + String.valueOf(-z + TamanhoSetaCamera * Math.sin(Phi)) + "c0,255,255";
 
 						TotalLinhasSeta = Seta.split("\\|").length - 1;
 						}
