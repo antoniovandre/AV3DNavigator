@@ -24,7 +24,6 @@ int main (int argc, char * argv[])
 	int shift = 0;
 	int inicio = 0;
 	int argi = 0;
-	int flagdescricao;
 	int i;
 	int j;
 	int k;
@@ -48,7 +47,7 @@ int main (int argc, char * argv[])
 	long double max = 0;
 	long double valoresnumericos [MAXITENS];
 	char * err;
-	char * mensagemerro = "Erro.\n\nArgumentos: 1: primeiramente a string título e, após barra vertical \"|\", uma string composta dos item a exibir separados por barra vertical \"|\", cada item composto do valor e da cor separados por ponto e vírgula \";\", a cor RGB com os valores para vermelho, verde e azul separados por vírgula \",\". 2: o raio principal. 3: o raio dos itens. 4: a resolução.\n";
+	char * mensagemerro = "Erro.\n\nArgumentos: 1: primeiramente a string título e, após barra vertical \"|\", uma string composta dos item a exibir separados por barra vertical \"|\", cada item composto da descrição, do valor e da cor separados por ponto e vírgula \";\", a cor RGB com os valores para vermelho, verde e azul separados por vírgula \",\". 2: o raio principal. 3: o raio dos itens. 4: a resolução.\n";
 	long double fator;
 
 	if (argc != 5) {printf(mensagemerro); return 1;}
@@ -76,7 +75,7 @@ int main (int argc, char * argv[])
 		rpstring[j++] = argv[2][i];
 		}
 
-	long double raioprincipal = strtod(rpstring, &err);
+	long double raioprincipal = strtold(rpstring, &err);
 
 	if ((! strcmp(rpstring, "")) || (err == rpstring)) {printf(mensagemerro); return 1;}
 
@@ -88,7 +87,7 @@ int main (int argc, char * argv[])
 		ristring[j++] = argv[3][i];
 		}
 
-	long double raioitens = strtod(ristring, &err);
+	long double raioitens = strtold(ristring, &err);
 
 	if ((! strcmp(ristring, "")) || (err == ristring)) {printf(mensagemerro); return 1;}
 
@@ -117,13 +116,11 @@ int main (int argc, char * argv[])
 	do
 		{
 		i = 0;
-		flagdescricao = 0;
 
 		do
 			{
 			c = mainstring[shift++ + 1];
-			if (c == ';') flagdescricao = 1;
-			if (! ((c == ' ') && (flagdescricao == 1))) if ((c != '|') && (c != '\0')) {item[argi][i++] = c;} else break;
+			if (! (c == ' ')) if ((c != '|') && (c != '\0')) {item[argi][i++] = c;} else break;
 			} while (VERDADE);
 
 		item[argi][i] = '\0';
@@ -150,7 +147,7 @@ int main (int argc, char * argv[])
 
 		valor[argi][k] = '\0';
 
-		valoresnumericos[argi] = strtod(valor[argi], &err);
+		valoresnumericos[argi] = strtold(valor[argi], &err);
 
 		if ((! strcmp(valor[argi], "")) || (err == valor[argi])) {printf(mensagemerro); return 1;}
 
@@ -188,19 +185,17 @@ int main (int argc, char * argv[])
 		if (++argi > MAXITENS) {printf(mensagemerro); return 1;}
 		} while (flag == 0);
 
-	fator = 1; l = 0; m = 0;
+	fator = 1; m = 0;
 
 	for (i = 0; i < argi; i++)
 		{
-		if (i % 2 == 1) l++;
+		printf("0,0,0;%Lf,%Lf,%Lfc%s|", fator * raioprincipal * valoresnumericos[i] / max * cosl(i * 2 * M_PI / argi) * sinl(i * 2 * M_PI / argi + M_PI_2), raioprincipal * valoresnumericos[i] / max * cosl(i * 2 * M_PI / argi) * sinl(i * 2 * M_PI / argi + M_PI_2), raioprincipal * valoresnumericos[i] / max * sinl(i * 2 * M_PI / argi + M_PI_2), rgb[i]);
 
-		printf("0,0,0;%Lf,%Lf,%Lfc%s|", raioprincipal * valoresnumericos[i] / max * fator * cosl(l * 4 * M_PI / argi) * cosl(l * 2 * M_PI / argi - M_PI_2), raioprincipal * valoresnumericos[i] / max * fator * sinl(l * 4 * M_PI / argi) * cosl(l * 2 * M_PI / argi - M_PI_2), raioprincipal * valoresnumericos[i] / max * sinl(l * 2 * M_PI / argi - M_PI_2), rgb[i]);
+		ligacoes [i][0] = fator * raioprincipal * valoresnumericos[i] / max * cosl(i * 2 * M_PI / argi) * sinl(i * 2 * M_PI / argi + M_PI_2);
 
-		ligacoes [i][0] = raioprincipal * valoresnumericos[i] / max * fator * cosl(l * 4 * M_PI / argi) * cosl(l * 2 * M_PI / argi - M_PI_2);
+		ligacoes [i][1] = raioprincipal * valoresnumericos[i] / max * cosl(i * 2 * M_PI / argi) * sinl(i * 2 * M_PI / argi + M_PI_2);
 
-		ligacoes [i][1] = raioprincipal * valoresnumericos[i] / max * fator * sinl(l * 4 * M_PI / argi) * cosl(l * 2 * M_PI / argi - M_PI_2);
-
-		ligacoes [i][2] = raioprincipal * valoresnumericos[i] / max * sinl(l * 2 * M_PI / argi - M_PI_2);
+		ligacoes [i][2] = raioprincipal * valoresnumericos[i] / max * sinl(i * 2 * M_PI / argi + M_PI_2);
 
 		m++;
 
@@ -212,15 +207,13 @@ int main (int argc, char * argv[])
 
 	printf("@");
 
-	fator = 1; l = 0;
+	fator = 1;
 
 	for (i = 0; i < argi; i++)
 		{
-		if (i % 2 == 1) l++;
-
 		for (j = 0; j < resolucao; j++) for (k = 0; k < resolucao; k++)
 			{
-			printf("%Lf,%Lf,%Lf;%Lf,%Lf,%Lf;%Lf,%Lf,%Lf;%Lf,%Lf,%Lfc%s|", raioprincipal * valoresnumericos[i] / max * fator * cosl(l * 4 * M_PI / argi) * cosl(l * 2 * M_PI / argi - M_PI_2) + raioitens * cosl(j * 2 * M_PI / resolucao) * cosl(k * M_PI / resolucao - M_PI_2), raioprincipal * valoresnumericos[i] / max * fator * sinl(l * 4 * M_PI / argi) * cosl(l * 2 * M_PI / argi - M_PI_2) + raioitens * sinl(j * 2 * M_PI / resolucao) * cosl(k * M_PI / resolucao - M_PI_2), raioprincipal * valoresnumericos[i] / max * sinl(l * 2 * M_PI / argi - M_PI_2) + raioitens * sinl(k * M_PI / resolucao - M_PI_2), raioprincipal * valoresnumericos[i] / max * fator * cosl(l * 4 * M_PI / argi) * cosl(l * 2 * M_PI / argi - M_PI_2) + raioitens * cosl((j + 1) * 2 * M_PI / resolucao) * cosl(k * M_PI / resolucao - M_PI_2), raioprincipal * valoresnumericos[i] / max * fator * sinl(l * 4 * M_PI / argi) * cosl(l * 2 * M_PI / argi - M_PI_2) + raioitens * sinl((j + 1) * 2 * M_PI / resolucao) * cosl(k * M_PI / resolucao - M_PI_2), raioprincipal * valoresnumericos[i] / max * sinl(l * 2 * M_PI / argi - M_PI_2) + raioitens * sinl(k * M_PI / resolucao - M_PI_2), raioprincipal * valoresnumericos[i] / max * fator * cosl(l * 4 * M_PI / argi) * cosl(l * 2 * M_PI / argi - M_PI_2) + raioitens * cosl((j + 1) * 2 * M_PI / resolucao) * cosl((k + 1) * M_PI / resolucao - M_PI_2), raioprincipal * valoresnumericos[i] / max * fator * sinl(l * 4 * M_PI / argi) * cosl(l * 2 * M_PI / argi - M_PI_2) + raioitens * sinl((j + 1) * 2 * M_PI / resolucao) * cosl((k + 1) * M_PI / resolucao - M_PI_2), raioprincipal * valoresnumericos[i] / max * sinl(l * 2 * M_PI / argi - M_PI_2) + raioitens * sinl((k + 1) * M_PI / resolucao - M_PI_2), raioprincipal * valoresnumericos[i] / max * fator * cosl(l * 4 * M_PI / argi) * cosl(l * 2 * M_PI / argi - M_PI_2) + raioitens * cosl(j * 2 * M_PI / resolucao) * cosl((k + 1) * M_PI / resolucao - M_PI_2), raioprincipal * valoresnumericos[i] / max * fator * sinl(l * 4 * M_PI / argi) * cosl(l * 2 * M_PI / argi - M_PI_2) + raioitens * sinl(j * 2 * M_PI / resolucao) * cosl((k + 1) * M_PI / resolucao - M_PI_2), raioprincipal * valoresnumericos[i] / max * sinl(l * 2 * M_PI / argi - M_PI_2) + raioitens * sinl((k + 1) * M_PI / resolucao - M_PI_2), rgb[i]);
+			printf("%Lf,%Lf,%Lf;%Lf,%Lf,%Lf;%Lf,%Lf,%Lf;%Lf,%Lf,%Lfc%s|", fator * raioprincipal * valoresnumericos[i] / max * cosl(i * 2 * M_PI / argi) * sinl(i * 2 * M_PI / argi + M_PI_2) + raioitens * cosl(j * 2 * M_PI / resolucao) * cosl(k * M_PI / resolucao - M_PI_2), raioprincipal * valoresnumericos[i] / max * cosl(i * 2 * M_PI / argi) * sinl(i * 2 * M_PI / argi + M_PI_2) + raioitens * sinl(j * 2 * M_PI / resolucao) * cosl(k * M_PI / resolucao - M_PI_2), raioprincipal * valoresnumericos[i] / max * sinl(i * 2 * M_PI / argi + M_PI_2) + raioitens * sinl(k * M_PI / resolucao - M_PI_2), fator * raioprincipal * valoresnumericos[i] / max * cosl(i * 2 * M_PI / argi) * sinl(i * 2 * M_PI / argi + M_PI_2) + raioitens * cosl((j + 1) * 2 * M_PI / resolucao) * cosl(k * M_PI / resolucao - M_PI_2), raioprincipal * valoresnumericos[i] / max * cosl(i * 2 * M_PI / argi) * sinl(i * 2 * M_PI / argi + M_PI_2) + raioitens * sinl((j + 1) * 2 * M_PI / resolucao) * cosl(k * M_PI / resolucao - M_PI_2), raioprincipal * valoresnumericos[i] / max * sinl(i * 2 * M_PI / argi + M_PI_2) + raioitens * sinl(k * M_PI / resolucao - M_PI_2), fator * raioprincipal * valoresnumericos[i] / max * cosl(i * 2 * M_PI / argi) * sinl(i * 2 * M_PI / argi + M_PI_2) + raioitens * cosl((j + 1) * 2 * M_PI / resolucao) * cosl((k + 1) * M_PI / resolucao - M_PI_2), raioprincipal * valoresnumericos[i] / max * cosl(i * 2 * M_PI / argi) * sinl(i * 2 * M_PI / argi + M_PI_2) + raioitens * sinl((j + 1) * 2 * M_PI / resolucao) * cosl((k + 1) * M_PI / resolucao - M_PI_2), raioprincipal * valoresnumericos[i] / max * sinl(i * 2 * M_PI / argi + M_PI_2) + raioitens * sinl((k + 1) * M_PI / resolucao - M_PI_2), fator * raioprincipal * valoresnumericos[i] / max * cosl(i * 2 * M_PI / argi) * sinl(i * 2 * M_PI / argi + M_PI_2) + raioitens * cosl(j * 2 * M_PI / resolucao) * cosl((k + 1) * M_PI / resolucao - M_PI_2), raioprincipal * valoresnumericos[i] / max * cosl(i * 2 * M_PI / argi) * sinl(i * 2 * M_PI / argi + M_PI_2) + raioitens * sinl(j * 2 * M_PI / resolucao) * cosl((k + 1) * M_PI / resolucao - M_PI_2), raioprincipal * valoresnumericos[i] / max * sinl(i * 2 * M_PI / argi + M_PI_2) + raioitens * sinl((k + 1) * M_PI / resolucao - M_PI_2), rgb[i]);
 
 			fflush(stdout);
 			}
