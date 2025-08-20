@@ -2072,14 +2072,14 @@ public class AV3DNavigator extends JComponent
 										public void keyReleased(KeyEvent keErroEspacoInvalido){}
 										public void keyTyped(KeyEvent keErroEspacoInvalido){}
 										});
-
-									Espaco = "";
 									}
-
-								if (EspacoT.equals(Espaco))
-									NoRedrawFlag = 1;
 								else
-									Espaco = EspacoT;
+									{
+									if (EspacoT.equals(Espaco))
+										NoRedrawFlag = 1;
+									else
+										Espaco = EspacoT;
+									}
 								}
 							else if (result == JFileChooser.CANCEL_OPTION) NoRedrawFlag = 1;
 
