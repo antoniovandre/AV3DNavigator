@@ -7,7 +7,7 @@ Arquivo gerador de um espaço do AV3DNavigator gráfico de radar 3D tridimension
 
 Argumentos: 1: primeiramente a string título e, após barra vertical "|", uma string composta dos item a exibir separados por barra vertical "|", cada item composto do valor e da cor separados por ponto e vírgula ";", a cor RGB com os valores para vermelho, verde e azul separados por vírgula ",". 2: a resolução.
 
-Última atualização: 07-08-2024.
+Última atualização: 20-08-2025.
 */
 
 #include <stdio.h>
