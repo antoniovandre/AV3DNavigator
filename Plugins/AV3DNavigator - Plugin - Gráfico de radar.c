@@ -7,7 +7,7 @@ Arquivo gerador de um espaço do AV3DNavigator gráfico de radar tridimensional.
 
 Argumentos: 1: primeiramente a string título e, após barra vertical "|", uma string composta dos item a exibir separados por barra vertical "|", cada item composto do valor e da cor separados por ponto e vírgula ";", a cor RGB com os valores para vermelho, verde e azul separados por vírgula ",". 2: a resolução.
 
-Última atualização: 06-08-2024.
+Última atualização: 20-08-2025.
 */
 
 #include <stdio.h>
@@ -24,7 +24,6 @@ int main (int argc, char * argv[])
 	int shift = 0;
 	int inicio = 0;
 	int argi = 0;
-	int flagdescricao;
 	int i;
 	int j;
 	int k;
@@ -47,7 +46,7 @@ int main (int argc, char * argv[])
 	long double max = 0;
 	long double valoresnumericos [MAXITENS];
 	char * err;
-	char * mensagemerro = "Erro.\n\nArgumentos: 1: primeiramente a string título e, após barra vertical \"|\", uma string composta dos item a exibir separados por barra vertical \"|\", cada item composto do valor e da cor separados por ponto e vírgula \";\", a cor RGB com os valores para vermelho, verde e azul separados por vírgula \",\". 2: o raio principal. 3: o raio dos itens. 4: a resolução.\n";
+	char * mensagemerro = "Erro.\n\nArgumentos: 1: primeiramente a string título e, após barra vertical \"|\", uma string composta dos item a exibir separados por barra vertical \"|\", cada item composto da descrição, do valor e da cor separados por ponto e vírgula \";\", a cor RGB com os valores para vermelho, verde e azul separados por vírgula \",\". 2: o raio principal. 3: o raio dos itens. 4: a resolução.\n";
 
 	if (argc != 5) {printf(mensagemerro); return 1;}
 
@@ -115,13 +114,11 @@ int main (int argc, char * argv[])
 	do
 		{
 		i = 0;
-		flagdescricao = 0;
 
 		do
 			{
 			c = mainstring[shift++ + 1];
-			if (c == ';') flagdescricao = 1;
-			if (! ((c == ' ') && (flagdescricao == 1))) if ((c != '|') && (c != '\0')) {item[argi][i++] = c;} else break;
+			if (! (c == ' ')) if ((c != '|') && (c != '\0')) {item[argi][i++] = c;} else break;
 			} while (VERDADE);
 
 		item[argi][i] = '\0';
@@ -188,16 +185,32 @@ int main (int argc, char * argv[])
 
 	for (i = 0; i < argi; i++)
 		for (j = 0; j < resolucao; j++)
-			printf("%Lf,%Lf,%Lf;%Lf,%Lf,%Lfc%s|", 0, raioprincipal * valoresnumericos[i] / max * cosl(j * 2 * M_PI / resolucao), raioprincipal * valoresnumericos[i] / max * sinl(j * 2 * M_PI / resolucao), 0, raioprincipal * valoresnumericos[i] / max * cosl((j + 1) * 2 * M_PI / resolucao), raioprincipal * valoresnumericos[i] / max * sinl((j + 1) * 2 * M_PI / resolucao), rgb[i]);
+			{
+			printf("0,%Lf,%Lf;0,%Lf,%Lfc", raioprincipal * valoresnumericos[i] / max * cosl(j * 2 * M_PI / resolucao), raioprincipal * valoresnumericos[i] / max * sinl(j * 2 * M_PI / resolucao), raioprincipal * valoresnumericos[i] / max * cosl((j + 1) * 2 * M_PI / resolucao), raioprincipal * valoresnumericos[i] / max * sinl((j + 1) * 2 * M_PI / resolucao));
+
+			fflush(stdout);
+
+			printf("%s|", rgb[i]);
+
+			fflush(stdout);
+			}
 
 	for (i = 0; i < argi; i++)
-		printf("%Lf,%Lf,%Lf;%Lf,%Lf,%Lf|", 0, raioprincipal * valoresnumericos[i] / max * cosl(i * 2 * M_PI / argi), raioprincipal* valoresnumericos[i] / max * sinl(i * 2 * M_PI / argi), 0, raioprincipal * valoresnumericos[(i + 1) % argi] / max * cosl((i + 1) * 2 * M_PI / argi), raioprincipal* valoresnumericos[(i + 1) % argi] / max * sinl((i + 1) * 2 * M_PI / argi));
+		printf("0,%Lf,%Lf;0,%Lf,%Lf|", raioprincipal * valoresnumericos[i] / max * cosl(i * 2 * M_PI / argi), raioprincipal* valoresnumericos[i] / max * sinl(i * 2 * M_PI / argi), raioprincipal * valoresnumericos[(i + 1) % argi] / max * cosl((i + 1) * 2 * M_PI / argi), raioprincipal* valoresnumericos[(i + 1) % argi] / max * sinl((i + 1) * 2 * M_PI / argi));
 
 	printf("@");
 
 	for (i = 0; i < argi; i++)
 		for (j = 0; j < resolucao; j++)
-			printf("%Lf,%Lf,%Lf;%Lf,%Lf,%Lf;%Lf,%Lf,%Lfc%s|", 0, raioprincipal * valoresnumericos[i] / max * cosl(i * 2 * M_PI / argi), raioprincipal * valoresnumericos[i] / max * sinl(i * 2 * M_PI / argi), 0, raioprincipal * valoresnumericos[i] / max * cosl(i * 2 * M_PI / argi) + raioitens * cosl(j * 2 * M_PI / resolucao), raioprincipal * valoresnumericos[i] / max * sinl(i * 2 * M_PI / argi) + raioitens * sinl(j * 2 * M_PI / resolucao), 0, raioprincipal * valoresnumericos[i] / max * cosl(i * 2 * M_PI / argi) + raioitens * cosl((j + 1) * 2 * M_PI / resolucao), raioprincipal * valoresnumericos[i] / max * sinl(i * 2 * M_PI / argi) + raioitens * sinl((j + 1) * 2 * M_PI / resolucao), rgb[i]);
+			{
+			printf("0,%Lf,%Lf;0,%Lf,%Lf;0,%Lf,%Lfc", raioprincipal * valoresnumericos[i] / max * cosl(i * 2 * M_PI / argi), raioprincipal * valoresnumericos[i] / max * sinl(i * 2 * M_PI / argi), raioprincipal * valoresnumericos[i] / max * cosl(i * 2 * M_PI / argi) + raioitens * cosl(j * 2 * M_PI / resolucao), raioprincipal * valoresnumericos[i] / max * sinl(i * 2 * M_PI / argi) + raioitens * sinl(j * 2 * M_PI / resolucao), raioprincipal * valoresnumericos[i] / max * cosl(i * 2 * M_PI / argi) + raioitens * cosl((j + 1) * 2 * M_PI / resolucao), raioprincipal * valoresnumericos[i] / max * sinl(i * 2 * M_PI / argi) + raioitens * sinl((j + 1) * 2 * M_PI / resolucao));
+
+			fflush(stdout);
+
+			printf("%s|", rgb[i]);
+
+			fflush(stdout);
+			}
 
 	printf("@");
 
