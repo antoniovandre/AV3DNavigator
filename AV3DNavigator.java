@@ -11,7 +11,7 @@
  * 
  * Licença de uso: Creative Commons Attribution Non-Commercial License V2.0.
  * 
- * Última atualização: 20-08-2025. Não considerando alterações em variáveis globais.
+ * Última atualização: 21-08-2025. Não considerando alterações em variáveis globais.
  */
 
 import java.lang.IllegalThreadStateException;
@@ -120,7 +120,7 @@ public class AV3DNavigator extends JComponent
 	public static int TamanhoEspacoLabelStatus = 300; // Default: 300.
 	public static int TamanhoEspacoLabelURL = 65; // Default: 65.
 	public static int TamanhoJanelaHelpX = 1800;
-	public static int TamanhoJanelaHelpY = 560;
+	public static int TamanhoJanelaHelpY = 570;
 	public static int TamanhoEspacoInvalidoX = 300; // Default: 300.
 	public static int TamanhoEspacoInvalidoY = 80; // Default: 80.
 	public static int TamanhoRenderingX = 200; // Default: 200.
@@ -221,6 +221,14 @@ public class AV3DNavigator extends JComponent
 	public double RaioRot = 0;
 	public double RaioTeta = 0;
 	public double RaioPhi = 0;
+	public int FlagRotTetaPos = 0;
+	public int FlagRotTetaNeg = 0;
+	public int FlagRotPhiPos = 0;
+	public int FlagRotPhiNeg = 0;
+	public int FlagRotRotTetaPos = 0;
+	public int FlagRotRotTetaNeg = 0;
+	public int FlagRotRotPhiPos = 0;
+	public int FlagRotRotPhiNeg = 0;
 	double ProdutoEscalar;
 	double ProdutoEscalaro;
 	double ProdutoEscalard;
@@ -1477,6 +1485,78 @@ public class AV3DNavigator extends JComponent
 			}
 		}
 
+	public void RotTetaPos ()
+		{
+		FlagCoordRot = 0; FlagCoordRotHor = 1; FlagCoordRotVert = 0; CameraId = -1;
+
+		if (! (Math.abs(RotacaoTeta + DeslocamentoAngular) >= AntonioVandre.MaximoValorReal)) RotacaoTeta += DeslocamentoAngular; else VariavelLimiteAtingido();
+
+		if (Math.abs(Teta) < TetaMax - DeslocamentoAngular) {if (! (Math.abs(Teta + DeslocamentoAngular) >= AntonioVandre.MaximoValorReal)) {Teta += DeslocamentoAngular; x = xRotacaoTeta + RaioTeta * Math.cos(RotacaoTeta) * Math.cos(Phi); y = yRotacaoTeta - RaioTeta * Math.sin(RotacaoTeta) * Math.cos(Phi); ContadorFrames = 0;} else VariavelLimiteAtingido();} else {Teta -= Math.signum(Teta) * DeslocamentoAngular; ContadorFrames = FramesDeslocamento; Tetat = Teta; FlagTetaInferior = 1;}
+		}
+
+	public void RotTetaNeg ()
+		{
+		FlagCoordRot = 0; FlagCoordRotHor = 1; FlagCoordRotVert = 0; CameraId = -1;
+
+		if (! (Math.abs(RotacaoTeta - DeslocamentoAngular) >= AntonioVandre.MaximoValorReal)) RotacaoTeta -= DeslocamentoAngular; else VariavelLimiteAtingido();
+
+		if (Math.abs(Teta) < TetaMax - DeslocamentoAngular) {if (! (Math.abs(Teta - DeslocamentoAngular) >= AntonioVandre.MaximoValorReal)) {Teta -= DeslocamentoAngular; x = xRotacaoTeta + RaioTeta * Math.cos(RotacaoTeta) * Math.cos(Phi); y = yRotacaoTeta - RaioTeta * Math.sin(RotacaoTeta) * Math.cos(Phi); ContadorFrames = 0;} else VariavelLimiteAtingido();} else {Teta -= Math.signum(Teta) * DeslocamentoAngular; ContadorFrames = FramesDeslocamento; Tetat = Teta; FlagTetaInferior = 1;}
+		}
+
+	public void RotPhiPos ()
+		{
+		FlagCoordRot = 0; FlagCoordRotHor = 0; FlagCoordRotVert = 1; CameraId = -1;
+
+		if (! (Math.abs(RotacaoPhi - DeslocamentoAngular) >= AntonioVandre.MaximoValorReal)) RotacaoPhi -= DeslocamentoAngular; else VariavelLimiteAtingido();
+
+		if (Math.abs(Phi) < PhiMax - DeslocamentoAngular) {if (! (Math.abs(Phi - DeslocamentoAngular) >= AntonioVandre.MaximoValorReal)) {Phi -= DeslocamentoAngular; x = xRotacaoPhi + RaioPhi * Math.cos(RotacaoPhi) * Math.cos(Teta); y = yRotacaoPhi - RaioPhi * Math.cos(RotacaoPhi) * Math.sin(Teta); z = zRotacaoPhi - RaioPhi * Math.sin(RotacaoPhi); ContadorFrames = 0;} else VariavelLimiteAtingido();} else {Phi -= Math.signum(Phi) * DeslocamentoAngular; ContadorFrames = FramesDeslocamento; Phit = Phi; FlagPhiSuperior = 1;}
+		}
+
+	public void RotPhiNeg ()
+		{
+		FlagCoordRot = 0; FlagCoordRotHor = 0; FlagCoordRotVert = 1; CameraId = -1;
+
+		if (! (Math.abs(RotacaoPhi + DeslocamentoAngular) >= AntonioVandre.MaximoValorReal)) RotacaoPhi += DeslocamentoAngular; else VariavelLimiteAtingido();
+
+		if (Math.abs(Phi) < PhiMax - DeslocamentoAngular) {if (! (Math.abs(Phi + DeslocamentoAngular) >= AntonioVandre.MaximoValorReal)) {Phi += DeslocamentoAngular; x = xRotacaoPhi + RaioPhi * Math.cos(RotacaoPhi) * Math.cos(Teta); y = yRotacaoPhi - RaioPhi * Math.cos(RotacaoPhi) * Math.sin(Teta); z = zRotacaoPhi - RaioPhi * Math.sin(RotacaoPhi); ContadorFrames = 0;} else VariavelLimiteAtingido();} else {Phi -= Math.signum(Phi) * DeslocamentoAngular; ContadorFrames = FramesDeslocamento; Phit = Phi; FlagPhiSuperior = 1;}
+		}
+
+	public void RotRotTetaPos()
+		{
+		FlagCoordRot = 1; FlagCoordRotHor = 0; FlagCoordRotVert = 0; CameraId = -1; FlagCoordRotOnce = 1;
+
+		if (! (Math.abs(Rotacao + DeslocamentoAngular) >= AntonioVandre.MaximoValorReal)) Rotacao += DeslocamentoAngular; else VariavelLimiteAtingido();
+
+		if (Math.abs(Teta) < TetaMax - DeslocamentoAngular) {if (Math.abs(Phi) < PhiMax - DeslocamentoAngular) {if ((! (Math.abs(Teta + DeslocamentoAngular * Math.cos(Rot)) >= AntonioVandre.MaximoValorReal)) || (! (Math.abs(Phi - DeslocamentoAngular * Math.sin(Rot) * Math.cos(Phi)) >= AntonioVandre.MaximoValorReal)) || (! (Math.abs(Rot + DeslocamentoAngular * Math.cos(Rot) * Math.sin(Phi)) >= AntonioVandre.MaximoValorReal))) {Teta += DeslocamentoAngular * Math.cos(Rot); Phi -= DeslocamentoAngular * Math.sin(Rot) * Math.cos(Phi); Rot += DeslocamentoAngular * Math.cos(Rot) * Math.sin(Phi); x = xRotacao + RaioRot * Math.cos(Phi + Math.PI) * Math.cos(Teta); y = yRotacao - RaioRot * Math.cos(Phi + Math.PI) * Math.sin(Teta); z = zRotacao - RaioRot * Math.sin(Phi + Math.PI); ContadorFrames = 0;} else VariavelLimiteAtingido();} else {Phi -= Math.signum(Phi) * DeslocamentoAngular; ContadorFrames = FramesDeslocamento; Phit = Phi; FlagPhiInferior = 1;}} else {Teta -= Math.signum(Teta) * DeslocamentoAngular; ContadorFrames = FramesDeslocamento; Tetat = Teta; FlagTetaInferior = 1;}
+		}
+
+	public void RotRotTetaNeg ()
+		{
+		FlagCoordRot = 1; FlagCoordRotHor = 0; FlagCoordRotVert = 0; CameraId = -1; FlagCoordRotOnce = 1;
+
+		if (! (Math.abs(Rotacao - DeslocamentoAngular) >= AntonioVandre.MaximoValorReal)) Rotacao -= DeslocamentoAngular; else VariavelLimiteAtingido();
+
+		if (Math.abs(Teta) < TetaMax - DeslocamentoAngular) {if (Math.abs(Phi) < PhiMax - DeslocamentoAngular) {if ((! (Math.abs(Teta - DeslocamentoAngular * Math.cos(Rot)) >= AntonioVandre.MaximoValorReal)) || (! (Math.abs(Phi + DeslocamentoAngular * Math.sin(Rot) * Math.cos(Phi)) >= AntonioVandre.MaximoValorReal)) || (! (Math.abs(Rot - DeslocamentoAngular * Math.cos(Rot) * Math.sin(Phi)) >= AntonioVandre.MaximoValorReal))) {Teta -= DeslocamentoAngular * Math.cos(Rot); Phi += DeslocamentoAngular * Math.sin(Rot) * Math.cos(Phi); Rot -= DeslocamentoAngular * Math.cos(Rot) * Math.sin(Phi); x = xRotacao + RaioRot * Math.cos(Phi + Math.PI) * Math.cos(Teta); y = yRotacao - RaioRot * Math.cos(Phi + Math.PI) * Math.sin(Teta); z = zRotacao - RaioRot * Math.sin(Phi + Math.PI); ContadorFrames = 0;} else VariavelLimiteAtingido();} else {Phi -= Math.signum(Phi) * DeslocamentoAngular; ContadorFrames = FramesDeslocamento; Phit = Phi; FlagPhiInferior = 1;}} else {Teta -= Math.signum(Teta) * DeslocamentoAngular; ContadorFrames = FramesDeslocamento; Tetat = Teta; FlagTetaInferior = 1;}
+		}
+
+	public void RotRotPhiPos ()
+		{
+		FlagCoordRot = 1; FlagCoordRotHor = 0; FlagCoordRotVert = 0; CameraId = -1; FlagCoordRotOnce = 1;
+
+		if (! (Math.abs(Rotacao - DeslocamentoAngular) >= AntonioVandre.MaximoValorReal)) Rotacao += DeslocamentoAngular; else VariavelLimiteAtingido();
+
+		if (Math.abs(Teta) < TetaMax - DeslocamentoAngular) {if (Math.abs(Phi) < PhiMax - DeslocamentoAngular) {if ((! (Math.abs(Teta - DeslocamentoAngular * Math.sin(Rot)) >= AntonioVandre.MaximoValorReal)) || (! (Math.abs(Phi - DeslocamentoAngular * Math.cos(Rot) * Math.cos(Phi)) >= AntonioVandre.MaximoValorReal)) || (! (Math.abs(Rot - DeslocamentoAngular * Math.sin(Rot) * Math.sin(Phi)) >= AntonioVandre.MaximoValorReal))) {Teta -= DeslocamentoAngular * Math.sin(Rot); Phi -= DeslocamentoAngular * Math.cos(Rot) * Math.cos(Phi); Rot -= DeslocamentoAngular * Math.sin(Rot) * Math.sin(Phi); x = xRotacao + RaioRot * Math.cos(Phi + Math.PI) * Math.cos(Teta); y = yRotacao - RaioRot * Math.cos(Phi + Math.PI) * Math.sin(Teta); z = zRotacao - RaioRot * Math.sin(Phi + Math.PI); ContadorFrames = 0;} else VariavelLimiteAtingido();} else {Phi -= Math.signum(Phi) * DeslocamentoAngular; ContadorFrames = FramesDeslocamento; Phit = Phi; FlagPhiInferior = 1;}} else {Teta -= Math.signum(Teta) * DeslocamentoAngular; ContadorFrames = FramesDeslocamento; Tetat = Teta; FlagTetaInferior = 1;}
+		}
+
+	public void RotRotPhiNeg ()
+		{
+		FlagCoordRot = 1; FlagCoordRotHor = 0; FlagCoordRotVert = 0; CameraId = -1; FlagCoordRotOnce = 1;
+
+		if (! (Math.abs(Rotacao - DeslocamentoAngular) >= AntonioVandre.MaximoValorReal)) Rotacao -= DeslocamentoAngular; else VariavelLimiteAtingido();
+
+		if (Math.abs(Teta) < TetaMax - DeslocamentoAngular) {if (Math.abs(Phi) < PhiMax - DeslocamentoAngular) {if ((! (Math.abs(Teta + DeslocamentoAngular * Math.sin(Rot)) >= AntonioVandre.MaximoValorReal)) || (! (Math.abs(Phi + DeslocamentoAngular * Math.cos(Rot) * Math.cos(Phi)) >= AntonioVandre.MaximoValorReal)) || (! (Math.abs(Rot + DeslocamentoAngular * Math.sin(Rot) * Math.sin(Phi)) >= AntonioVandre.MaximoValorReal))) {Teta += DeslocamentoAngular * Math.sin(Rot); Phi += DeslocamentoAngular * Math.cos(Rot) * Math.cos(Phi); Rot += DeslocamentoAngular * Math.sin(Rot) * Math.sin(Phi); x = xRotacao + RaioRot * Math.cos(Phi + Math.PI) * Math.cos(Teta); y = yRotacao - RaioRot * Math.cos(Phi + Math.PI) * Math.sin(Teta); z = zRotacao - RaioRot * Math.sin(Phi + Math.PI); ContadorFrames = 0;} else VariavelLimiteAtingido();} else {Phi -= Math.signum(Phi) * DeslocamentoAngular; ContadorFrames = FramesDeslocamento; Phit = Phi; FlagPhiInferior = 1;}} else {Teta -= Math.signum(Teta) * DeslocamentoAngular; ContadorFrames = FramesDeslocamento; Tetat = Teta; FlagTetaInferior = 1;}
+		}
+
 	public static void main (String[] args) {AV3DNavigator mainc = new AV3DNavigator(); if (args.length == 1) {if (args[0].equals("Debug")) mainc.mainrun("", "Debug"); else mainc.mainrun(args[0], "");} else if (args.length == 2) mainc.mainrun(args[0], args[1]); else mainc.mainrun("", "");}
 
 	public void mainrun (String ArquivoEspaco, String Debug)
@@ -1714,10 +1794,12 @@ public class AV3DNavigator extends JComponent
 			{
 			public void keyPressed(KeyEvent ke)
 				{
+				int keyCode = ke.getKeyCode();
+
+				if ((keyCode == KeyEvent.VK_H) && (ke.isControlDown())) {FlagRotTetaPos = 0; FlagRotTetaNeg = 0; FlagRotPhiPos = 0; FlagRotPhiNeg = 0; FlagRotRotTetaPos = 0; FlagRotRotTetaNeg = 0; FlagRotRotPhiPos = 0; FlagRotRotPhiNeg = 0;}
+
 				if (ContadorFrames == FramesDeslocamento)
 					{
-					int keyCode = ke.getKeyCode();
-
 					switch (keyCode)
 						{
 						case KeyEvent.VK_ESCAPE:
@@ -1912,7 +1994,7 @@ public class AV3DNavigator extends JComponent
 										{
 										FrameHelp.setPreferredSize(new Dimension(TamanhoJanelaHelpX, TamanhoJanelaHelpY));
 										FrameHelp.setSize(new Dimension(TamanhoJanelaHelpX, TamanhoJanelaHelpY));
-										LabelHelp = new GradientLabel("<html><table><tr><td>F2 para selecionar e abrir arquivo de espaço.<br><br>\"A\" para incrementar x, \"Z\" para decrementar. Shift + \"A\" para incrementar xCamera, Shift + \"Z\" para decrementar.<br>\"S\" para incrementar y, \"X\" para decrementar. Shift + \"S\" para incrementar yCamera, Shift + \"X\" para decrementar.<br>\"D\" para incrementar z, \"C\" para decrementar. Shift + \"D\" para incrementar zCamera, Shift + \"C\" para decrementar.<br>\"F\" para incrementar Teta. \"V\" para decrementar. \"G\" para incrementar Phi. \"B\" para decrementar.<br>Shift + \"F\" para rotação lateral esquerda. Shift + \"V\" para direita.<br>Shift + \"B\" para rotação vertical para baixo. Shift + \"G\" para cima.<br>\"H\" para incrementar a rotação da tela. \"N\" para decrementar. Shift + \"H\" para zerar rotação.<br>\"J\" para rotação horizontal positiva. \"M\" para negativa.<br>Shift + \"J\" para rotação vertical positiva. Shift + \"M\" para negativa.<br>\"K\" para rotação total horizontal positiva. \",\" para negativa.<br>Shift + \"K\" para rotação total vertical positiva. Shift + \",\" para negativa.<br>Ctrl + \"K\" para resetar rotação total.<br>\"L\" para incrementar o raio de rotação horizontal. \".\" para decrementar.<br>Shift + \"L\" para incrementar o raio de rotação vertical. Shift + \".\" para decrementar.<br>\"[\" para incrementar o raio de rotação total. \"]\" para decrementar.<br>\"W\" para aumentar a distância da tela. \"Q\" para reduzir.<br>\"E\" para reduzir o fator redutor do ângulo de visão. \"R\" para aumentar.<br>\"T\" para shift negativo na cor vermelha padrão da linha. \"Y\" para shift positivo.<br>Shift + \"T\" para shift negativo na cor verde padrão da linha. Shift + \"Y\" para shift positivo.<br>Ctrl + \"T\" para shift negativo na cor azul padrão da linha. Ctrl + \"Y\" para shift positivo.<br>\"U\" para shift negativo na cor vermelha padrão de fundo. \"I\" para shift positivo.<br>Shift + \"U\" para shift negativo na cor verde padrão de fundo. Shift + \"I\" para shift positivo.<br>Ctrl + \"U\" para shift negativo na cor azul padrão de fundo. Ctrl + \"I\" para shift positivo.<br>\"O\" para shift negativo na cor vermelha padrão dos polígonos preenchidos. \"P\" para shift positivo.<br>Shift + \"O\" para shift negativo na cor verde padrão dos polígonos preenchidos. Shift + \"P\" para shift positivo.<br>Ctrl + \"O\" para shift negativo na cor azul padrão dos polígonos preenchidos. Ctrl + \"P\" para shift positivo.<br>INSERT para shift negativo na cor vermelha padrão das legendas. HOME para shift positivo.<br>Shift + INSERT para shift negativo na cor verde padrão das legendas. Shift + HOME para shift positivo.<br>Ctrl + INSERT para shift negativo na cor azul padrão das legendas. Ctrl + HOME para shift positivo.<br>DELETE para shift negativo no tamanho padrão das legendas. END para shift positivo.<br>\"-\" para shift negativo no offset das legendas. \"=\" para shift positivo.<br>Numpad \"1\" para shift negativo na resolução dos triângulos. Numpad \"2\" para shift positivo.<br>PAGE DOWN para shift negativo no sleep time. PAGE UP para shift positivo.<\td><td></td><td>Numpad \"0\" para toggle alta precisão Apfloat (com custo computacional).<br>F4 para toggle preenchimento dos polígonos com linhas ou fillPolygon.<br><br>Ctrl + ENTER para shift positivo em câmeras predefinidas, Ctrl + Shift + ENTER para negativo.<br>Numpad \"4\" para salvar uma câmera predefinida. Shift + Numpad \"4\" para restaurar as câmeras predefinidas originais.<br><br>Numpad \"3\" para incremento no parâmetro de movimentação da câmera. Shift + Numpad \"3\" para decremento.<br>Ctrl + Numpad \"3\" para incremento no step de variação do parâmetro de movimentação da câmera. Ctrl + Shift + Numpad \"3\" para decremento.<br><br>Teclas de \"0\" a \"9\" para incrementar o parâmetro correspondente. Shift + tecla para decrementar.<br>Ctrl + tecla para incrementar o step do parâmetro. Ctrl + Shift + tecla para decrementar.<br><br>ENTER para ler os arquivos de parâmetros.<br><br>Shift + ENTER para ativar / desativar os parâmetros de tempo.<br><br>Setas para strafe. Shift + UP e Shift + DOWN para strafes verticais.<br>Mouse pode ser utilizado para movimentar desde que \"Rot\" seja zero.<br><br>Barra de espaços para resetar as variáveis.<br>Shift + barra de espaços para toggle visualizar a câmera. Ctrl + Shift + barra de espaços para toggle CameraViewFollow.<br><br>F10 para toggle stretch. F11 para setar aspect ratio 1. F12 para screenshot.<br>F3 para ocultar e mostrar os labels.<br>BACKSPACE para ativar / desativar labels animados.<br><br>F5 para toggle TrickSpeed. Shift + F5 para toggle TrickRot.<br>Ctrl + Shift + F5 para incrementar TricksFactor. Ctrl + Shift + F5 para decrementar.<br><br>ESC para sair.</td></tr></table></html>", new Color(CorJanelaR, CorJanelaG, CorJanelaB), new Color(CorJanelaGradienteR, CorJanelaGradienteG, CorJanelaGradienteB), new Color(CorFonteJanelaR, CorFonteJanelaG, CorFonteJanelaB), 2);
+										LabelHelp = new GradientLabel("<html><table><tr><td>F2 para selecionar e abrir arquivo de espaço.<br><br>\"A\" para incrementar x, \"Z\" para decrementar. Shift + \"A\" para incrementar xCamera, Shift + \"Z\" para decrementar.<br>\"S\" para incrementar y, \"X\" para decrementar. Shift + \"S\" para incrementar yCamera, Shift + \"X\" para decrementar.<br>\"D\" para incrementar z, \"C\" para decrementar. Shift + \"D\" para incrementar zCamera, Shift + \"C\" para decrementar.<br>\"F\" para incrementar Teta. \"V\" para decrementar. \"G\" para incrementar Phi. \"B\" para decrementar.<br>Shift + \"F\" para rotação lateral esquerda. Shift + \"V\" para direita.<br>Shift + \"B\" para rotação vertical para baixo. Shift + \"G\" para cima.<br>\"H\" para incrementar a rotação da tela. \"N\" para decrementar. Shift + \"H\" para zerar rotação.<br>\"J\" para rotação horizontal positiva. \"M\" para negativa.<br>Shift + \"J\" para rotação vertical positiva. Shift + \"M\" para negativa.<br>\"K\" para rotação total horizontal positiva. \",\" para negativa.<br>Shift + \"K\" para rotação total vertical positiva. Shift + \",\" para negativa.<br>Ctrl + \"N\" para resetar rotação total.<br>\"L\" para incrementar o raio de rotação horizontal. \".\" para decrementar.<br>Shift + \"L\" para incrementar o raio de rotação vertical. Shift + \".\" para decrementar.<br>\"[\" para incrementar o raio de rotação total. \"]\" para decrementar.<br>\"W\" para aumentar a distância da tela. \"Q\" para reduzir.<br>\"E\" para reduzir o fator redutor do ângulo de visão. \"R\" para aumentar.<br>\"T\" para shift negativo na cor vermelha padrão da linha. \"Y\" para shift positivo.<br>Shift + \"T\" para shift negativo na cor verde padrão da linha. Shift + \"Y\" para shift positivo.<br>Ctrl + \"T\" para shift negativo na cor azul padrão da linha. Ctrl + \"Y\" para shift positivo.<br>\"U\" para shift negativo na cor vermelha padrão de fundo. \"I\" para shift positivo.<br>Shift + \"U\" para shift negativo na cor verde padrão de fundo. Shift + \"I\" para shift positivo.<br>Ctrl + \"U\" para shift negativo na cor azul padrão de fundo. Ctrl + \"I\" para shift positivo.<br>\"O\" para shift negativo na cor vermelha padrão dos polígonos preenchidos. \"P\" para shift positivo.<br>Shift + \"O\" para shift negativo na cor verde padrão dos polígonos preenchidos. Shift + \"P\" para shift positivo.<br>Ctrl + \"O\" para shift negativo na cor azul padrão dos polígonos preenchidos. Ctrl + \"P\" para shift positivo.<br>INSERT para shift negativo na cor vermelha padrão das legendas. HOME para shift positivo.<br>Shift + INSERT para shift negativo na cor verde padrão das legendas. Shift + HOME para shift positivo.<br>Ctrl + INSERT para shift negativo na cor azul padrão das legendas. Ctrl + HOME para shift positivo.<br>DELETE para shift negativo no tamanho padrão das legendas. END para shift positivo.<br>\"-\" para shift negativo no offset das legendas. \"=\" para shift positivo.<br>Numpad \"1\" para shift negativo na resolução dos triângulos. Numpad \"2\" para shift positivo.<br>PAGE DOWN para shift negativo no sleep time. PAGE UP para shift positivo.<\td><td></td><td>Ctrl + \"J\" para rotação horizontal positiva automática. Ctrl + \"M\" para negativa.<br>Ctrl + Shift + \"J\" para rotação vertical positiva automática. Ctrl + Shift + \"M\" para negativa.<br>Ctrl + \"K\" para rotação total horizontal positiva automática. Ctrl + \",\" para negativa.<br>Ctrl + Shift + \"K\" para rotação total vertical positiva automática. Ctrl + Shift + \",\" para negativa.<br>Ctrl + \"H\" para interromper rotações automáticas.<br><br>Numpad \"0\" para toggle alta precisão Apfloat (com custo computacional).<br>F4 para toggle preenchimento dos polígonos com linhas ou fillPolygon.<br><br>Ctrl + ENTER para shift positivo em câmeras predefinidas, Ctrl + Shift + ENTER para negativo.<br>Numpad \"4\" para salvar uma câmera predefinida. Shift + Numpad \"4\" para restaurar as câmeras predefinidas originais.<br><br>Numpad \"3\" para incremento no parâmetro de movimentação da câmera. Shift + Numpad \"3\" para decremento.<br>Ctrl + Numpad \"3\" para incremento no step de variação do parâmetro de movimentação da câmera. Ctrl + Shift + Numpad \"3\" para decremento.<br><br>Teclas de \"0\" a \"9\" para incrementar o parâmetro correspondente. Shift + tecla para decrementar.<br>Ctrl + tecla para incrementar o step do parâmetro. Ctrl + Shift + tecla para decrementar.<br><br>ENTER para ler os arquivos de parâmetros.<br><br>Shift + ENTER para ativar / desativar os parâmetros de tempo.<br><br>Setas para strafe. Shift + UP e Shift + DOWN para strafes verticais.<br>Mouse pode ser utilizado para movimentar desde que \"Rot\" seja zero.<br><br>Barra de espaços para resetar as variáveis.<br>Shift + barra de espaços para toggle visualizar a câmera. Ctrl + Shift + barra de espaços para toggle CameraViewFollow.<br><br>F10 para toggle stretch. F11 para setar aspect ratio 1. F12 para screenshot.<br>F3 para ocultar e mostrar os labels.<br>BACKSPACE para ativar / desativar labels animados.<br><br>F5 para toggle TrickSpeed. Shift + F5 para toggle TrickRot.<br>Ctrl + Shift + F5 para incrementar TricksFactor. Ctrl + Shift + F5 para decrementar.<br><br>ESC para sair.</td></tr></table></html>", new Color(CorJanelaR, CorJanelaG, CorJanelaB), new Color(CorJanelaGradienteR, CorJanelaGradienteG, CorJanelaGradienteB), new Color(CorFonteJanelaR, CorFonteJanelaG, CorFonteJanelaB), 2);
 										}
 
 									FrameHelp.setResizable(false);
@@ -2422,94 +2504,32 @@ public class AV3DNavigator extends JComponent
 							break;
 
 						case KeyEvent.VK_H:
-							if (ke.isShiftDown()) {Rot = 0; Rott = Rot; ContadorFrames = FramesDeslocamento;} else {FlagCoordRot = 0; FlagCoordRotHor = 0; FlagCoordRotVert = 0; CameraId = -1; if (! (Math.abs(Rot + DeslocamentoAngular) >= AntonioVandre.MaximoValorReal)) {Rot += DeslocamentoAngular; ContadorFrames = 0;} else VariavelLimiteAtingido();}
+							if (! (ke.isControlDown())) {if (ke.isShiftDown()) {Rot = 0; Rott = Rot; ContadorFrames = FramesDeslocamento;} else {FlagCoordRot = 0; FlagCoordRotHor = 0; FlagCoordRotVert = 0; CameraId = -1; if (! (Math.abs(Rot + DeslocamentoAngular) >= AntonioVandre.MaximoValorReal)) {Rot += DeslocamentoAngular; ContadorFrames = 0;} else VariavelLimiteAtingido();}}
 
 							break;
 
 						case KeyEvent.VK_N:
-							FlagCoordRot = 0; FlagCoordRotHor = 0; FlagCoordRotVert = 0; CameraId = -1; if (! (Math.abs(Rot - DeslocamentoAngular) >= AntonioVandre.MaximoValorReal)) {Rot -= DeslocamentoAngular; ContadorFrames = 0;} else VariavelLimiteAtingido();
+							if (ke.isControlDown()) {RaioRot = 0; FlagCoordRot = 0; FlagCoordRotOnce = 0;} else {FlagCoordRot = 0; FlagCoordRotHor = 0; FlagCoordRotVert = 0; CameraId = -1; if (! (Math.abs(Rot - DeslocamentoAngular) >= AntonioVandre.MaximoValorReal)) {Rot -= DeslocamentoAngular; ContadorFrames = 0;} else VariavelLimiteAtingido();}
 
 							break;
 
 						case KeyEvent.VK_J:
-							if (ke.isShiftDown())
-								{
-								FlagCoordRot = 0; FlagCoordRotHor = 0; FlagCoordRotVert = 1; CameraId = -1;
-
-								if (! (Math.abs(RotacaoPhi - DeslocamentoAngular) >= AntonioVandre.MaximoValorReal)) RotacaoPhi -= DeslocamentoAngular; else VariavelLimiteAtingido();
-
-								if (Math.abs(Phi) < PhiMax - DeslocamentoAngular) {if (! (Math.abs(Phi - DeslocamentoAngular) >= AntonioVandre.MaximoValorReal)) {Phi -= DeslocamentoAngular; x = xRotacaoPhi + RaioPhi * Math.cos(RotacaoPhi) * Math.cos(Teta); y = yRotacaoPhi - RaioPhi * Math.cos(RotacaoPhi) * Math.sin(Teta); z = zRotacaoPhi - RaioPhi * Math.sin(RotacaoPhi); ContadorFrames = 0;} else VariavelLimiteAtingido();} else {Phi -= Math.signum(Phi) * DeslocamentoAngular; ContadorFrames = FramesDeslocamento; Phit = Phi; FlagPhiSuperior = 1;}
-								}
-							else
-								{
-								FlagCoordRot = 0; FlagCoordRotHor = 1; FlagCoordRotVert = 0; CameraId = -1;
-
-								if (! (Math.abs(RotacaoTeta + DeslocamentoAngular) >= AntonioVandre.MaximoValorReal)) RotacaoTeta += DeslocamentoAngular; else VariavelLimiteAtingido();
-
-								if (Math.abs(Teta) < TetaMax - DeslocamentoAngular) {if (! (Math.abs(Teta + DeslocamentoAngular) >= AntonioVandre.MaximoValorReal)) {Teta += DeslocamentoAngular; x = xRotacaoTeta + RaioTeta * Math.cos(RotacaoTeta) * Math.cos(Phi); y = yRotacaoTeta - RaioTeta * Math.sin(RotacaoTeta) * Math.cos(Phi); ContadorFrames = 0;} else VariavelLimiteAtingido();} else {Teta -= Math.signum(Teta) * DeslocamentoAngular; ContadorFrames = FramesDeslocamento; Tetat = Teta; FlagTetaInferior = 1;}
-								}
+							if (ke.isControlDown()) {if (ke.isShiftDown()) FlagRotPhiPos = 1; else FlagRotTetaPos = 1;} else {if (ke.isShiftDown()) RotPhiPos(); else RotTetaPos();}
 
 							break;
 
 						case KeyEvent.VK_M:
-							if (ke.isShiftDown())
-								{
-								FlagCoordRot = 0; FlagCoordRotHor = 0; FlagCoordRotVert = 1; CameraId = -1;
-
-								if (! (Math.abs(RotacaoPhi + DeslocamentoAngular) >= AntonioVandre.MaximoValorReal)) RotacaoPhi += DeslocamentoAngular; else VariavelLimiteAtingido();
-
-								if (Math.abs(Phi) < PhiMax - DeslocamentoAngular) {if (! (Math.abs(Phi + DeslocamentoAngular) >= AntonioVandre.MaximoValorReal)) {Phi += DeslocamentoAngular; x = xRotacaoPhi + RaioPhi * Math.cos(RotacaoPhi) * Math.cos(Teta); y = yRotacaoPhi - RaioPhi * Math.cos(RotacaoPhi) * Math.sin(Teta); z = zRotacaoPhi - RaioPhi * Math.sin(RotacaoPhi); ContadorFrames = 0;} else VariavelLimiteAtingido();} else {Phi -= Math.signum(Phi) * DeslocamentoAngular; ContadorFrames = FramesDeslocamento; Phit = Phi; FlagPhiSuperior = 1;}
-								}
-							else
-								{
-								FlagCoordRot = 0; FlagCoordRotHor = 1; FlagCoordRotVert = 0; CameraId = -1;
-
-								if (! (Math.abs(RotacaoTeta - DeslocamentoAngular) >= AntonioVandre.MaximoValorReal)) RotacaoTeta -= DeslocamentoAngular; else VariavelLimiteAtingido();
-
-								if (Math.abs(Teta) < TetaMax - DeslocamentoAngular) {if (! (Math.abs(Teta - DeslocamentoAngular) >= AntonioVandre.MaximoValorReal)) {Teta -= DeslocamentoAngular; x = xRotacaoTeta + RaioTeta * Math.cos(RotacaoTeta) * Math.cos(Phi); y = yRotacaoTeta - RaioTeta * Math.sin(RotacaoTeta) * Math.cos(Phi); ContadorFrames = 0;} else VariavelLimiteAtingido();} else {Teta -= Math.signum(Teta) * DeslocamentoAngular; ContadorFrames = FramesDeslocamento; Tetat = Teta; FlagTetaInferior = 1;}
-								}
+							if (ke.isControlDown()) {if (ke.isShiftDown()) FlagRotPhiNeg = 1; else FlagRotTetaNeg = 1;} else {if (ke.isShiftDown()) RotPhiNeg(); else RotTetaNeg();}
 
 							break;
 
 						case KeyEvent.VK_K:
-							if (ke.isControlDown())
-								{RaioRot = 0; FlagCoordRot = 0; FlagCoordRotOnce = 0;}
-							else if (ke.isShiftDown())
-								{
-								FlagCoordRot = 1; FlagCoordRotHor = 0; FlagCoordRotVert = 0; CameraId = -1; FlagCoordRotOnce = 1;
-
-								if (! (Math.abs(Rotacao - DeslocamentoAngular) >= AntonioVandre.MaximoValorReal)) Rotacao += DeslocamentoAngular; else VariavelLimiteAtingido();
-
-								if (Math.abs(Teta) < TetaMax - DeslocamentoAngular) {if (Math.abs(Phi) < PhiMax - DeslocamentoAngular) {if ((! (Math.abs(Teta - DeslocamentoAngular * Math.sin(Rot)) >= AntonioVandre.MaximoValorReal)) || (! (Math.abs(Phi - DeslocamentoAngular * Math.cos(Rot) * Math.cos(Phi)) >= AntonioVandre.MaximoValorReal)) || (! (Math.abs(Rot - DeslocamentoAngular * Math.sin(Rot) * Math.sin(Phi)) >= AntonioVandre.MaximoValorReal))) {Teta -= DeslocamentoAngular * Math.sin(Rot); Phi -= DeslocamentoAngular * Math.cos(Rot) * Math.cos(Phi); Rot -= DeslocamentoAngular * Math.sin(Rot) * Math.sin(Phi); x = xRotacao + RaioRot * Math.cos(Phi + Math.PI) * Math.cos(Teta); y = yRotacao - RaioRot * Math.cos(Phi + Math.PI) * Math.sin(Teta); z = zRotacao - RaioRot * Math.sin(Phi + Math.PI); ContadorFrames = 0;} else VariavelLimiteAtingido();} else {Phi -= Math.signum(Phi) * DeslocamentoAngular; ContadorFrames = FramesDeslocamento; Phit = Phi; FlagPhiInferior = 1;}} else {Teta -= Math.signum(Teta) * DeslocamentoAngular; ContadorFrames = FramesDeslocamento; Tetat = Teta; FlagTetaInferior = 1;}
-								}
-							else
-								{
-								FlagCoordRot = 1; FlagCoordRotHor = 0; FlagCoordRotVert = 0; CameraId = -1; FlagCoordRotOnce = 1;
-
-								if (! (Math.abs(Rotacao + DeslocamentoAngular) >= AntonioVandre.MaximoValorReal)) Rotacao += DeslocamentoAngular; else VariavelLimiteAtingido();
-
-								if (Math.abs(Teta) < TetaMax - DeslocamentoAngular) {if (Math.abs(Phi) < PhiMax - DeslocamentoAngular) {if ((! (Math.abs(Teta + DeslocamentoAngular * Math.cos(Rot)) >= AntonioVandre.MaximoValorReal)) || (! (Math.abs(Phi - DeslocamentoAngular * Math.sin(Rot) * Math.cos(Phi)) >= AntonioVandre.MaximoValorReal)) || (! (Math.abs(Rot + DeslocamentoAngular * Math.cos(Rot) * Math.sin(Phi)) >= AntonioVandre.MaximoValorReal))) {Teta += DeslocamentoAngular * Math.cos(Rot); Phi -= DeslocamentoAngular * Math.sin(Rot) * Math.cos(Phi); Rot += DeslocamentoAngular * Math.cos(Rot) * Math.sin(Phi); x = xRotacao + RaioRot * Math.cos(Phi + Math.PI) * Math.cos(Teta); y = yRotacao - RaioRot * Math.cos(Phi + Math.PI) * Math.sin(Teta); z = zRotacao - RaioRot * Math.sin(Phi + Math.PI); ContadorFrames = 0;} else VariavelLimiteAtingido();} else {Phi -= Math.signum(Phi) * DeslocamentoAngular; ContadorFrames = FramesDeslocamento; Phit = Phi; FlagPhiInferior = 1;}} else {Teta -= Math.signum(Teta) * DeslocamentoAngular; ContadorFrames = FramesDeslocamento; Tetat = Teta; FlagTetaInferior = 1;}
-								}
+							if (ke.isControlDown()) {if (ke.isShiftDown()) FlagRotRotPhiPos = 1; else FlagRotRotTetaPos = 1;} else {if (ke.isShiftDown()) RotRotPhiPos(); else RotRotTetaPos();}
 
 							break;
 
 						case KeyEvent.VK_COMMA:
-							if (ke.isShiftDown())
-								{
-								FlagCoordRot = 1; FlagCoordRotHor = 0; FlagCoordRotVert = 0; CameraId = -1; FlagCoordRotOnce = 1;
-
-								if (! (Math.abs(Rotacao - DeslocamentoAngular) >= AntonioVandre.MaximoValorReal)) Rotacao -= DeslocamentoAngular; else VariavelLimiteAtingido();
-
-								if (Math.abs(Teta) < TetaMax - DeslocamentoAngular) {if (Math.abs(Phi) < PhiMax - DeslocamentoAngular) {if ((! (Math.abs(Teta + DeslocamentoAngular * Math.sin(Rot)) >= AntonioVandre.MaximoValorReal)) || (! (Math.abs(Phi + DeslocamentoAngular * Math.cos(Rot) * Math.cos(Phi)) >= AntonioVandre.MaximoValorReal)) || (! (Math.abs(Rot + DeslocamentoAngular * Math.sin(Rot) * Math.sin(Phi)) >= AntonioVandre.MaximoValorReal))) {Teta += DeslocamentoAngular * Math.sin(Rot); Phi += DeslocamentoAngular * Math.cos(Rot) * Math.cos(Phi); Rot += DeslocamentoAngular * Math.sin(Rot) * Math.sin(Phi); x = xRotacao + RaioRot * Math.cos(Phi + Math.PI) * Math.cos(Teta); y = yRotacao - RaioRot * Math.cos(Phi + Math.PI) * Math.sin(Teta); z = zRotacao - RaioRot * Math.sin(Phi + Math.PI); ContadorFrames = 0;} else VariavelLimiteAtingido();} else {Phi -= Math.signum(Phi) * DeslocamentoAngular; ContadorFrames = FramesDeslocamento; Phit = Phi; FlagPhiInferior = 1;}} else {Teta -= Math.signum(Teta) * DeslocamentoAngular; ContadorFrames = FramesDeslocamento; Tetat = Teta; FlagTetaInferior = 1;}
-								}
-							else
-								{
-								FlagCoordRot = 1; FlagCoordRotHor = 0; FlagCoordRotVert = 0; CameraId = -1; FlagCoordRotOnce = 1;
-
-								if (! (Math.abs(Rotacao - DeslocamentoAngular) >= AntonioVandre.MaximoValorReal)) Rotacao -= DeslocamentoAngular; else VariavelLimiteAtingido();
-
-								if (Math.abs(Teta) < TetaMax - DeslocamentoAngular) {if (Math.abs(Phi) < PhiMax - DeslocamentoAngular) {if ((! (Math.abs(Teta - DeslocamentoAngular * Math.cos(Rot)) >= AntonioVandre.MaximoValorReal)) || (! (Math.abs(Phi + DeslocamentoAngular * Math.sin(Rot) * Math.cos(Phi)) >= AntonioVandre.MaximoValorReal)) || (! (Math.abs(Rot - DeslocamentoAngular * Math.cos(Rot) * Math.sin(Phi)) >= AntonioVandre.MaximoValorReal))) {Teta -= DeslocamentoAngular * Math.cos(Rot); Phi += DeslocamentoAngular * Math.sin(Rot) * Math.cos(Phi); Rot -= DeslocamentoAngular * Math.cos(Rot) * Math.sin(Phi); x = xRotacao + RaioRot * Math.cos(Phi + Math.PI) * Math.cos(Teta); y = yRotacao - RaioRot * Math.cos(Phi + Math.PI) * Math.sin(Teta); z = zRotacao - RaioRot * Math.sin(Phi + Math.PI); ContadorFrames = 0;} else VariavelLimiteAtingido();} else {Phi -= Math.signum(Phi) * DeslocamentoAngular; ContadorFrames = FramesDeslocamento; Phit = Phi; FlagPhiInferior = 1;}} else {Teta -= Math.signum(Teta) * DeslocamentoAngular; ContadorFrames = FramesDeslocamento; Tetat = Teta; FlagTetaInferior = 1;}
-								}
+							if (ke.isControlDown()) {if (ke.isShiftDown()) FlagRotRotPhiNeg = 1; else FlagRotRotTetaNeg = 1;} else {if (ke.isShiftDown()) RotRotPhiNeg(); else RotRotTetaNeg();}
 
 							break;
 
@@ -3738,6 +3758,33 @@ public class AV3DNavigator extends JComponent
 
 				try {Thread.sleep(TrickSpeed == 1 ? Math.max((int) (SleepTime * Math.abs(Math.cos(Phi))), 1) : SleepTime);} catch(InterruptedException e) {}
 
+
+				if (ContadorFrames == FramesDeslocamento)
+					{
+					if (FlagRotTetaPos == 1)
+						{RotTetaPos(); FlagAlteracaoStatus = 1;}
+
+					if (FlagRotTetaNeg == 1)
+						{RotTetaNeg(); FlagAlteracaoStatus = 1;}
+
+					if (FlagRotPhiPos == 1)
+						{RotPhiPos(); FlagAlteracaoStatus = 1;}
+
+					if (FlagRotPhiNeg == 1)
+						{RotPhiNeg(); FlagAlteracaoStatus = 1;}
+
+					if (FlagRotRotTetaPos == 1)
+						{RotRotTetaPos(); FlagAlteracaoStatus = 1;}
+
+					if (FlagRotRotTetaNeg == 1)
+						{RotRotTetaNeg(); FlagAlteracaoStatus = 1;}
+
+					if (FlagRotRotPhiPos == 1)
+						{RotRotPhiPos(); FlagAlteracaoStatus = 1;}
+
+					if (FlagRotRotPhiNeg == 1)
+						{RotRotPhiNeg(); FlagAlteracaoStatus = 1;}
+					}
 
 				if (StretchFlag == 1)
 					AspectRatio = (double) TamanhoPlanoX / (double) TamanhoPlanoY;
