@@ -1624,6 +1624,10 @@ public class AV3DNavigator extends JComponent
 
 		boolean isCallSuccessful = License.iConfirmNonCommercialUse("Antonio Vandré Pedrosa Furtunato Gomes");
 
+		// Lendo arquivo INI.
+
+		ReadINI();
+
 		// Criando frame principal.
 
 		JFrame FrameEspaco;
@@ -1746,10 +1750,6 @@ public class AV3DNavigator extends JComponent
 							} catch (IOException | URISyntaxException e) {}
 						}
 					}).start();} catch (IllegalThreadStateException e) {}
-
-		// Lendo Arquivo ini.
-
-		ReadINI();
 
 		// Helper do Apfloat definindo a precisão do retorno de todas as funções.
 
@@ -3561,9 +3561,9 @@ public class AV3DNavigator extends JComponent
 
 						default: NoRedrawFlag = 1; break;
 						}
-
-					FlagAlteracaoStatus = 1;
 					}
+
+				FlagAlteracaoStatus = 1;
 				}
 
 			public void keyReleased(KeyEvent ke){}
