@@ -11,7 +11,7 @@
  * 
  * Licença de uso: Creative Commons Attribution Non-Commercial License V2.0.
  * 
- * Última atualização: 21-08-2025. Não considerando alterações em variáveis globais.
+ * Última atualização: 22-08-2025. Não considerando alterações em variáveis globais.
  */
 
 import java.lang.IllegalThreadStateException;
@@ -1814,159 +1814,171 @@ public class AV3DNavigator extends JComponent
 				{
 				int keyCode = ke.getKeyCode();
 
-				if (keyCode == KeyEvent.VK_ESCAPE)
-					{Sair = 1; NoRedrawFlag = 1;}
-
-				if (keyCode == KeyEvent.VK_SPACE)
+				switch (keyCode)
 					{
-					FlagCoordRot = 0; FlagCoordRotHor = 0; FlagCoordRotVert = 0; CameraId = -1;
+					case KeyEvent.VK_ESCAPE:
+						Sair = 1; NoRedrawFlag = 1;
 
-					x = 0;
-					y = 0;
-					z = 0;
-					Teta = 0;
-					Phi = 0;
-					Rot = 0;
-					TamanhoFonteLegendas = 12;
-					ShiftVerticalLegendas = 25;
-					RotacaoTeta = Teta + Math.PI;
-					RotacaoPhi = Phi + Math.PI;
-					RaioRot = 0;
-					RaioTeta = 0;
-					RaioPhi = 0;
-					FlagRotTetaPos = 0;
-					FlagRotTetaNeg = 0;
-					FlagRotPhiPos = 0;
-					FlagRotPhiNeg = 0;
-					FlagRotRotTetaPos = 0;
-					FlagRotRotTetaNeg = 0;
-					FlagRotRotPhiPos = 0;
-					FlagRotRotPhiNeg = 0;
-					xt = x;
-					yt = y;
-					zt = z;
-					Tetat = Teta;
-					Phit = Phi;
-					Rott = Rot;
-					FatorAnguloVisao = 1;
-					DistanciaTela = 2;
-					CorLinhaRed = 255;
-					CorLinhaGreen = 255;
-					CorLinhaBlue = 255;
-					CorBackgroundRed = 0;
-					CorBackgroundGreen = 0;
-					CorBackgroundBlue = 0;
-					CorTrianguloShapeRed = 0;
-					CorTrianguloShapeGreen = 0;
-					CorTrianguloShapeBlue = 255;
-					CorLegendaRed = 255;
-					CorLegendaGreen = 255;
-					CorLegendaBlue = 255;
-					Parametro0 = 0;
-					Parametro0Step = 1;
-					Parametro1 = 0;
-					Parametro1Step = 1;
-					Parametro2 = 0;
-					Parametro2Step = 1;
-					Parametro3 = 0;
-					Parametro3Step = 1;
-					Parametro4 = 0;
-					Parametro4Step = 1;
-					Parametro5 = 0;
-					Parametro5Step = 1;
-					Parametro6 = 0;
-					Parametro6Step = 1;
-					Parametro7 = 0;
-					Parametro7Step = 1;
-					Parametro8 = 0;
-					Parametro8Step = 1;
-					Parametro9 = 0;
-					Parametro9Step = 1;
-					CameraMovePar = 0;
-					CameraMoveParStep = 1;
-					StretchFlag = 1;
-					SleepTime = 7;
-					FlagTime = 0;
-					FlagCoordRotOnce = 0;
-					CameraView = 0;
-					CameraViewFollow = 1;
-					xCamera = xCameraInit;
-					yCamera = yCameraInit;
-					zCamera = zCameraInit;
-					RotCamera = 0;
-					xBak = 0;
-					yBak = 0;
-					zBak = 0;
-					TetaBak = 0;
-					PhiBak = 0;
-					RotBak = 0;
-					TetaViewBak = 0;
-					PhiViewBak = 0;
-					TrickSpeed = 1;
-					TrickRot = 1;
-					TricksFactor = 0.2;
+						break;
 
-					ReadINI();
+					case KeyEvent.VK_SPACE:
+						FlagCoordRot = 0; FlagCoordRotHor = 0; FlagCoordRotVert = 0; CameraId = -1;
 
-					// Atualizando frame principal.
+						x = 0;
+						y = 0;
+						z = 0;
+						Teta = 0;
+						Phi = 0;
+						Rot = 0;
+						TamanhoFonteLegendas = 12;
+						ShiftVerticalLegendas = 25;
+						RotacaoTeta = Teta + Math.PI;
+						RotacaoPhi = Phi + Math.PI;
+						RaioRot = 0;
+						RaioTeta = 0;
+						RaioPhi = 0;
+						FlagRotTetaPos = 0;
+						FlagRotTetaNeg = 0;
+						FlagRotPhiPos = 0;
+						FlagRotPhiNeg = 0;
+						FlagRotRotTetaPos = 0;
+						FlagRotRotTetaNeg = 0;
+						FlagRotRotPhiPos = 0;
+						FlagRotRotPhiNeg = 0;
+						xt = x;
+						yt = y;
+						zt = z;
+						Tetat = Teta;
+						Phit = Phi;
+						Rott = Rot;
+						FatorAnguloVisao = 1;
+						DistanciaTela = 2;
+						CorLinhaRed = 255;
+						CorLinhaGreen = 255;
+						CorLinhaBlue = 255;
+						CorBackgroundRed = 0;
+						CorBackgroundGreen = 0;
+						CorBackgroundBlue = 0;
+						CorTrianguloShapeRed = 0;
+						CorTrianguloShapeGreen = 0;
+						CorTrianguloShapeBlue = 255;
+						CorLegendaRed = 255;
+						CorLegendaGreen = 255;
+						CorLegendaBlue = 255;
+						Parametro0 = 0;
+						Parametro0Step = 1;
+						Parametro1 = 0;
+						Parametro1Step = 1;
+						Parametro2 = 0;
+						Parametro2Step = 1;
+						Parametro3 = 0;
+						Parametro3Step = 1;
+						Parametro4 = 0;
+						Parametro4Step = 1;
+						Parametro5 = 0;
+						Parametro5Step = 1;
+						Parametro6 = 0;
+						Parametro6Step = 1;
+						Parametro7 = 0;
+						Parametro7Step = 1;
+						Parametro8 = 0;
+						Parametro8Step = 1;
+						Parametro9 = 0;
+						Parametro9Step = 1;
+						CameraMovePar = 0;
+						CameraMoveParStep = 1;
+						StretchFlag = 1;
+						SleepTime = 7;
+						FlagTime = 0;
+						FlagCoordRotOnce = 0;
+						CameraView = 0;
+						CameraViewFollow = 1;
+						xCamera = xCameraInit;
+						yCamera = yCameraInit;
+						zCamera = zCameraInit;
+						RotCamera = 0;
+						xBak = 0;
+						yBak = 0;
+						zBak = 0;
+						TetaBak = 0;
+						PhiBak = 0;
+						RotBak = 0;
+						TetaViewBak = 0;
+						PhiViewBak = 0;
+						TrickSpeed = 1;
+						TrickRot = 1;
+						TricksFactor = 0.2;
 
-					LabelStatus = new GradientLabel("", new Color(CorJanelaR, CorJanelaG, CorJanelaB), new Color(CorJanelaGradienteR, CorJanelaGradienteG, CorJanelaGradienteB), new Color(CorFonteJanelaR, CorFonteJanelaG, CorFonteJanelaB), 1);
-					LabelStatus.setBorder(new EmptyBorder(5, 5, 5, 5));
-					LabelStatus.setFont(new Font("DialogInput", Font.BOLD | Font.ITALIC, TamanhoFonteLabelStatus));
-					GradientLabel LabelURL = new GradientLabel("<html>" + URL + "</html>", Color.WHITE, Color.BLACK, Color.BLUE, 0);
-					LabelURL.setBorder(new EmptyBorder(5, 5, 5, 5));
-					LabelURL.setFont(new Font("Monospaced", Font.BOLD | Font.ITALIC, TamanhoFonteLabelURL));
-					LabelStatus.setPreferredSize(new Dimension(TamanhoPlanoX, TamanhoEspacoLabelStatus));
-					LabelStatus.setSize(new Dimension(TamanhoPlanoX, TamanhoEspacoLabelStatus));
-					LabelStatusLabelURLPanel = new JPanel(new GridBagLayout());
-					GridBagConstraints GridBagConstraintsLabelStatusLabelURL = new GridBagConstraints();
-					GridBagConstraintsLabelStatusLabelURL.gridx = 0;
-					GridBagConstraintsLabelStatusLabelURL.gridy = 0;
-					GridBagConstraintsLabelStatusLabelURL.fill = GridBagConstraints.BOTH;
-					GridBagConstraintsLabelStatusLabelURL.weightx = TamanhoPlanoX;
-					GridBagConstraintsLabelStatusLabelURL.weighty = TamanhoEspacoLabelStatus;
-					LabelStatusLabelURLPanel.add(LabelStatus, GridBagConstraintsLabelStatusLabelURL);
-					GridBagConstraintsLabelStatusLabelURL.gridx = 0;
-					GridBagConstraintsLabelStatusLabelURL.gridy = 1;
-					GridBagConstraintsLabelStatusLabelURL.fill = GridBagConstraints.BOTH;
-					GridBagConstraintsLabelStatusLabelURL.weightx = TamanhoPlanoX;
-					GridBagConstraintsLabelStatusLabelURL.weighty = TamanhoEspacoLabelURL;
-					LabelStatusLabelURLPanel.add(LabelURL, GridBagConstraintsLabelStatusLabelURL);
-					FrameEspaco.getContentPane().add(LabelStatusLabelURLPanel, BorderLayout.SOUTH);
+						ReadINI();
 
-					// Atualizando frame rendering.
+						// Atualizando frame principal.
 
-					CompRendering.CorJanelaR = CorJanelaR;
-					CompRendering.CorJanelaG = CorJanelaG;
-					CompRendering.CorJanelaB = CorJanelaB;
+						LabelStatus = new GradientLabel("", new Color(CorJanelaR, CorJanelaG, CorJanelaB), new Color(CorJanelaGradienteR, CorJanelaGradienteG, CorJanelaGradienteB), new Color(CorFonteJanelaR, CorFonteJanelaG, CorFonteJanelaB), 1);
+						LabelStatus.setBorder(new EmptyBorder(5, 5, 5, 5));
+						LabelStatus.setFont(new Font("DialogInput", Font.BOLD | Font.ITALIC, TamanhoFonteLabelStatus));
+						GradientLabel LabelURL = new GradientLabel("<html>" + URL + "</html>", Color.WHITE, Color.BLACK, Color.BLUE, 0);
+						LabelURL.setBorder(new EmptyBorder(5, 5, 5, 5));
+						LabelURL.setFont(new Font("Monospaced", Font.BOLD | Font.ITALIC, TamanhoFonteLabelURL));
+						LabelStatus.setPreferredSize(new Dimension(TamanhoPlanoX, TamanhoEspacoLabelStatus));
+						LabelStatus.setSize(new Dimension(TamanhoPlanoX, TamanhoEspacoLabelStatus));
+						LabelStatusLabelURLPanel = new JPanel(new GridBagLayout());
+						GridBagConstraints GridBagConstraintsLabelStatusLabelURL = new GridBagConstraints();
+						GridBagConstraintsLabelStatusLabelURL.gridx = 0;
+						GridBagConstraintsLabelStatusLabelURL.gridy = 0;
+						GridBagConstraintsLabelStatusLabelURL.fill = GridBagConstraints.BOTH;
+						GridBagConstraintsLabelStatusLabelURL.weightx = TamanhoPlanoX;
+						GridBagConstraintsLabelStatusLabelURL.weighty = TamanhoEspacoLabelStatus;
+						LabelStatusLabelURLPanel.add(LabelStatus, GridBagConstraintsLabelStatusLabelURL);
+						GridBagConstraintsLabelStatusLabelURL.gridx = 0;
+						GridBagConstraintsLabelStatusLabelURL.gridy = 1;
+						GridBagConstraintsLabelStatusLabelURL.fill = GridBagConstraints.BOTH;
+						GridBagConstraintsLabelStatusLabelURL.weightx = TamanhoPlanoX;
+						GridBagConstraintsLabelStatusLabelURL.weighty = TamanhoEspacoLabelURL;
+						LabelStatusLabelURLPanel.add(LabelURL, GridBagConstraintsLabelStatusLabelURL);
+						FrameEspaco.getContentPane().add(LabelStatusLabelURLPanel, BorderLayout.SOUTH);
 
-					FrameRendering.dispose();
-					FrameRendering = new JFrame("Renderizando...");
+						// Atualizando frame rendering.
 
-					TamanhoRenderingY = Math.max(TamanhoRenderingY, 2 * RadiusRenderingCircle + 4 + FrameRendering.getInsets().top);
+						CompRendering.CorJanelaR = CorJanelaR;
+						CompRendering.CorJanelaG = CorJanelaG;
+						CompRendering.CorJanelaB = CorJanelaB;
 
-					FrameRendering.setPreferredSize(new Dimension(TamanhoRenderingX + 2 * RadiusRenderingCircle + 4, TamanhoRenderingY));
-					FrameRendering.setSize(new Dimension(TamanhoRenderingX + 2 * RadiusRenderingCircle + 4, TamanhoRenderingY));
-					FrameRendering.setResizable(false);
-					CompRendering.setPreferredSize(new Dimension(2 * RadiusRenderingCircle + 4, TamanhoRenderingY));
-					CompRendering.setSize(new Dimension(2 * RadiusRenderingCircle + 4, TamanhoRenderingY));
-					FrameRendering.getContentPane().add(CompRendering, BorderLayout.LINE_START);
-					LabelRendering = new GradientLabel("Renderizando... 0 %", new Color(CorJanelaR, CorJanelaG, CorJanelaB), new Color(CorJanelaGradienteR, CorJanelaGradienteG, CorJanelaGradienteB), new Color(CorFonteJanelaR, CorFonteJanelaG, CorFonteJanelaB), 0);
-					LabelRendering.setBorder(new EmptyBorder(5, 5, 5, 5));
-					LabelRendering.setFont(new Font("DialogInput", Font.BOLD | Font.ITALIC, TamanhoFonteRendering));
-					FrameRendering.add(LabelRendering);
-					FrameRendering.pack();
-					FrameRendering.setVisible(false);
-					}
+						FrameRendering.dispose();
+						FrameRendering = new JFrame("Renderizando...");
 
-				if ((keyCode == KeyEvent.VK_H) && (ke.isControlDown())) {FlagRotTetaPos = 0; FlagRotTetaNeg = 0; FlagRotPhiPos = 0; FlagRotPhiNeg = 0; FlagRotRotTetaPos = 0; FlagRotRotTetaNeg = 0; FlagRotRotPhiPos = 0; FlagRotRotPhiNeg = 0;}
+						TamanhoRenderingY = Math.max(TamanhoRenderingY, 2 * RadiusRenderingCircle + 4 + FrameRendering.getInsets().top);
 
-				if (keyCode == KeyEvent.VK_F6)
-					{
-					if (ke.isShiftDown())
-						{if (VelocidadeRotacaoAutomatica > 0.1)VelocidadeRotacaoAutomatica -= 0.1;}
-					else
-						{if (VelocidadeRotacaoAutomatica < 2)VelocidadeRotacaoAutomatica += 0.1;}
+						FrameRendering.setPreferredSize(new Dimension(TamanhoRenderingX + 2 * RadiusRenderingCircle + 4, TamanhoRenderingY));
+						FrameRendering.setSize(new Dimension(TamanhoRenderingX + 2 * RadiusRenderingCircle + 4, TamanhoRenderingY));
+						FrameRendering.setResizable(false);
+						CompRendering.setPreferredSize(new Dimension(2 * RadiusRenderingCircle + 4, TamanhoRenderingY));
+						CompRendering.setSize(new Dimension(2 * RadiusRenderingCircle + 4, TamanhoRenderingY));
+						FrameRendering.getContentPane().add(CompRendering, BorderLayout.LINE_START);
+						LabelRendering = new GradientLabel("Renderizando... 0 %", new Color(CorJanelaR, CorJanelaG, CorJanelaB), new Color(CorJanelaGradienteR, CorJanelaGradienteG, CorJanelaGradienteB), new Color(CorFonteJanelaR, CorFonteJanelaG, CorFonteJanelaB), 0);
+						LabelRendering.setBorder(new EmptyBorder(5, 5, 5, 5));
+						LabelRendering.setFont(new Font("DialogInput", Font.BOLD | Font.ITALIC, TamanhoFonteRendering));
+						FrameRendering.add(LabelRendering);
+						FrameRendering.pack();
+						FrameRendering.setVisible(false);
+
+						break;
+
+					case KeyEvent.VK_H:
+						if (ke.isControlDown())
+							{FlagRotTetaPos = 0; FlagRotTetaNeg = 0; FlagRotPhiPos = 0; FlagRotPhiNeg = 0; FlagRotRotTetaPos = 0; FlagRotRotTetaNeg = 0; FlagRotRotPhiPos = 0; FlagRotRotPhiNeg = 0;}
+
+						break;
+
+					case KeyEvent.VK_F6:
+						if (ke.isShiftDown())
+							{if (VelocidadeRotacaoAutomatica > 0.1)VelocidadeRotacaoAutomatica -= 0.1;}
+						else
+							{if (VelocidadeRotacaoAutomatica < 2)VelocidadeRotacaoAutomatica += 0.1;}
+
+						break;
+
+					default:
+						break;
 					}
 
 				if (ContadorFrames == FramesDeslocamento)
