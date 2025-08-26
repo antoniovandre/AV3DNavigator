@@ -1,0 +1,5 @@
+# Arquivo about do AV3DNavigator.
+
+# Última atualização: 26-08-2025.
+
+800DIVISOR300DIVISOR<html>Software feito com muito amor, na verdade para sentir-me mais realizado com mais uma conquista.<br><br><br><table><tr><td><img src="https://antoniovandre.github.io/antoniovandre/Photos/Antonio%20Vandr%C3%A9%20Pedrosa%20Furtunato%20Gomes%20-%2003-04-2021.png" width="100px"><br>Eu e Otto.</td><td><div align="right">Antonio Vandré Pedrosa Furtunato Gomes<br><br><a href="https://antoniovandre.github.io/MathematicalRamblingsjs">antoniovandre.github.io/MathematicalRamblingsjs</a><br><a href="https://sourceforge.net/u/antoniovandre">sourceforge.net/u/antoniovandre</a></div></td></tr></table></html>
