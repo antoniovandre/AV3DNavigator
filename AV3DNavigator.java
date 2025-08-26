@@ -1938,6 +1938,7 @@ public class AV3DNavigator extends JComponent
 						RotacaoTeta = Teta + Math.PI;
 						RotacaoPhi = Phi + Math.PI;
 						RotacaoCirc = 0;
+						RotacaoCircBak = AntonioVandre.MaximoValorReal;
 						RaioTeta = 0;
 						RaioPhi = 0;
 						RaioRot = 0;
@@ -3836,7 +3837,7 @@ public class AV3DNavigator extends JComponent
 				}
 
 			if (FlagCoordRotCirc == 0)
-				{FlagCoordRotCirc = 1;}
+				RotacaoCircBak = AntonioVandre.MaximoValorReal;
 
 			if (FlagMouseDownArea == 1)
 				{
@@ -5170,6 +5171,7 @@ public class AV3DNavigator extends JComponent
 		RotacaoTeta = Teta + Math.PI;
 		RotacaoPhi = Phi + Math.PI;
 		RotacaoCirc = 0;
+		RotacaoCircBak = AntonioVandre.MaximoValorReal;
 		RaioTeta = 0;
 		RaioPhi = 0;
 		RaioRot = 0;
