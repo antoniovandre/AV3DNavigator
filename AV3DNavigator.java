@@ -309,6 +309,7 @@ public class AV3DNavigator extends JComponent
 	public double RotacaoTeta = Math.PI + Teta;
 	public double RotacaoPhi = Math.PI + Phi;
 	public double RotacaoCirc = 0;
+	public double RotacaoCircBak = AntonioVandre.MaximoValorReal;
 	public double xRotacaoTeta = x + RaioTeta * Math.cos(Teta) * Math.cos(Phi);
 	public double yRotacaoTeta = y + RaioTeta * Math.sin(Teta) * Math.cos(Phi);
 	public double xRotacaoPhi = x + RaioPhi * Math.cos(Teta) * Math.cos(Phi);
@@ -1651,6 +1652,10 @@ public class AV3DNavigator extends JComponent
 		{
 		FlagCoordRot = 1; FlagCoordRotHor = 0; FlagCoordRotVert = 0; FlagCoordRotCirc = 1; CameraId = -1;
 
+		if (RotacaoCircBak == AntonioVandre.MaximoValorReal) {xt = x; yt = y; zt = z; Tetat = Teta; Phit = Phi; Rott = Rot;}
+
+		RotacaoCircBak = RotacaoCirc;
+
 		if (! (Math.abs(RotacaoCirc + DeslocamentoAngular * VelocidadeRotacaoAutomatica) >= AntonioVandre.MaximoValorReal)) RotacaoCirc += DeslocamentoAngular * VelocidadeRotacaoAutomatica; else VariavelLimiteAtingido();
 
 		if (Math.abs(Teta0Rotacao + (RaioPRotCirc == 0 ? 0 : Math.atan(RaioSRotCirc / RaioPRotCirc)) * Math.cos(Rot) * Math.sin(RotacaoCirc)) < TetaMax) {if (Math.abs(Phi0Rotacao + (RaioPRotCirc == 0 ? 0 : Math.atan(RaioSRotCirc / RaioPRotCirc)) * Math.sin(Rot) * Math.cos(Phi) * Math.cos(RotacaoCirc)) < PhiMax) {Teta = Teta0Rotacao + (RaioPRotCirc == 0 ? 0 : Math.atan(RaioSRotCirc / RaioPRotCirc)) * Math.cos(Rot) * Math.sin(RotacaoCirc); Phi = Phi0Rotacao + (RaioPRotCirc == 0 ? 0 : Math.atan(RaioSRotCirc / RaioPRotCirc)) * Math.sin(Rot) * Math.cos(Phi) * Math.cos(RotacaoCirc); if ((Math.abs(x0Rotacao + RaioSRotCirc * Math.sin(RotacaoCirc) * Math.sin(Teta0Rotacao + Phi0Rotacao)) >= AntonioVandre.MaximoValorReal) || (Math.abs(y0Rotacao + RaioSRotCirc * (Math.sin(RotacaoCirc) * Math.cos(Phi0Rotacao) + Math.cos(RotacaoCirc) * Math.sin(Phi0Rotacao)) * Math.cos(Teta0Rotacao)) >= AntonioVandre.MaximoValorReal) || (Math.abs(z0Rotacao + RaioSRotCirc * Math.cos(RotacaoCirc) * Math.cos(Phi0Rotacao)) >= AntonioVandre.MaximoValorReal)) {VariavelLimiteAtingido();} else {x = x0Rotacao + RaioSRotCirc * Math.sin(RotacaoCirc) * Math.sin(Teta0Rotacao + Phi0Rotacao); y = y0Rotacao + RaioSRotCirc * (Math.sin(RotacaoCirc) * Math.cos(Phi0Rotacao) + Math.cos(RotacaoCirc) * Math.sin(Phi0Rotacao)) * Math.cos(Teta0Rotacao); z = z0Rotacao + RaioSRotCirc * Math.cos(RotacaoCirc) * Math.cos(Phi0Rotacao); ContadorFrames = 0;}} else {Phi -= Math.signum(Phi) * DeslocamentoAngular * VelocidadeRotacaoAutomatica; ContadorFrames = FramesDeslocamento; Phit = Phi; FlagPhiSuperior = 1;}} else {Teta -= Math.signum(Teta) * DeslocamentoAngular * VelocidadeRotacaoAutomatica; ContadorFrames = FramesDeslocamento; Tetat = Teta; FlagTetaInferior = 1;}
@@ -1659,6 +1664,10 @@ public class AV3DNavigator extends JComponent
 	public void RotCircNeg ()
 		{
 		FlagCoordRot = 1; FlagCoordRotHor = 0; FlagCoordRotVert = 0; FlagCoordRotCirc = 1; CameraId = -1;
+
+		if (RotacaoCircBak == AntonioVandre.MaximoValorReal) {xt = x; yt = y; zt = z; Tetat = Teta; Phit = Phi; Rott = Rot;}
+
+		RotacaoCircBak = RotacaoCirc;
 
 		if (! (Math.abs(RotacaoCirc - DeslocamentoAngular * VelocidadeRotacaoAutomatica) >= AntonioVandre.MaximoValorReal)) RotacaoCirc -= DeslocamentoAngular * VelocidadeRotacaoAutomatica; else VariavelLimiteAtingido();
 
