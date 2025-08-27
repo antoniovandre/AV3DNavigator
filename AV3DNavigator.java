@@ -80,6 +80,8 @@ import java.io.InputStreamReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
+import java.io.FileOutputStream;
+import java.io.BufferedInputStream;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.IOException;
@@ -120,7 +122,9 @@ public class AV3DNavigator extends JComponent
 	public static int TamanhoEspacoLabelStatus = 325; // Default: 325.
 	public static int TamanhoEspacoLabelURL = 65; // Default: 65.
 	public static int TamanhoJanelaHelpX = 1800;
-	public static int TamanhoJanelaHelpY = 590;
+	public static int TamanhoJanelaHelpY = 600;
+	public static int TamanhoJanelaAboutErroX = 280;
+	public static int TamanhoJanelaAboutErroY = 100;
 	public static int TamanhoEspacoInvalidoX = 300; // Default: 300.
 	public static int TamanhoEspacoInvalidoY = 80; // Default: 80.
 	public static int TamanhoRenderingX = 200; // Default: 200.
@@ -138,6 +142,7 @@ public class AV3DNavigator extends JComponent
 	public static int TamanhoFonteLabelStatus = 8; // Default: 8.
 	public static int TamanhoFonteLabelURL = 15; // Default: 15.
 	public static int TamanhoFonteLabelHelp = 11; // Default: 11.
+	public static int TamanhoFonteLabelAbout = 11; // Default: 11.
 	public static int TamanhoFonteLabelPrint = 12; // Default: 12.
 	public static int TamanhoFonteLabelErroEspacoInvalido = 11; // Default: 11.
 	public static int TamanhoFonteRendering = 11; // Default: 11.
@@ -201,6 +206,7 @@ public class AV3DNavigator extends JComponent
 
 	JPanel LabelStatusLabelURLPanel;
 	GradientLabel LabelHelp;
+	GradientLabel LabelAbout;
 	public String Versao;
 	public String URL;
 	public String AtribuicaoString;
@@ -376,6 +382,7 @@ public class AV3DNavigator extends JComponent
 	public int fxGLH;
 	public int fyGLH;
 	public int FlagHelp = 0;
+	public int FlagAbout = 0;
 	public int CamPersOnce = 0;
 	public String CamPersCont;
 	public int CameraView = 0;
@@ -2154,7 +2161,7 @@ public class AV3DNavigator extends JComponent
 									{
 									FrameHelp.setPreferredSize(new Dimension(TamanhoJanelaHelpX, TamanhoJanelaHelpY));
 									FrameHelp.setSize(new Dimension(TamanhoJanelaHelpX, TamanhoJanelaHelpY));
-									LabelHelp = new GradientLabel("<html><table><tr><td>F2 para selecionar e abrir arquivo de espaço.<br><br>\"A\" para incrementar x, \"Z\" para decrementar. Shift + \"A\" para incrementar xCamera, Shift + \"Z\" para decrementar.<br>\"S\" para incrementar y, \"X\" para decrementar. Shift + \"S\" para incrementar yCamera, Shift + \"X\" para decrementar.<br>\"D\" para incrementar z, \"C\" para decrementar. Shift + \"D\" para incrementar zCamera, Shift + \"C\" para decrementar.<br>\"F\" para incrementar Teta. \"V\" para decrementar. \"G\" para incrementar Phi. \"B\" para decrementar.<br>Shift + \"F\" para rotação lateral esquerda. Shift + \"V\" para direita.<br>Shift + \"B\" para rotação vertical para baixo. Shift + \"G\" para cima.<br>\"H\" para incrementar a rotação da tela. \"N\" para decrementar. Shift + \"H\" para zerar rotação.<br>\"J\" para rotação horizontal positiva. \"M\" para negativa.<br>Shift + \"J\" para rotação vertical positiva. Shift + \"M\" para negativa.<br>F7 para rotação circular positiva. Shift + F7 para negativa.<br>\"K\" para rotação total horizontal positiva. \",\" para negativa.<br>Shift + \"K\" para rotação total vertical positiva. Shift + \",\" para negativa.<br>Ctrl + \"N\" para resetar rotação total.<br>\"L\" para incrementar o raio de rotação horizontal. \".\" para decrementar.<br>Shift + \"L\" para incrementar o raio de rotação vertical. Shift + \".\" para decrementar.<br>F6 para incrementar o raio primário de rotação circular. Shift + F6 para decrementar.<br>Ctrl + F6 para incrementar o raio secundário de rotação circular. Ctrl + Shift + F6 para decrementar.<br>\"[\" para incrementar o raio de rotação total. \"]\" para decrementar.<br>\"W\" para aumentar a distância da tela. \"Q\" para reduzir.<br>\"E\" para reduzir o fator redutor do ângulo de visão. \"R\" para aumentar.<br>\"T\" para shift negativo na cor vermelha padrão da linha. \"Y\" para shift positivo.<br>Shift + \"T\" para shift negativo na cor verde padrão da linha. Shift + \"Y\" para shift positivo.<br>Ctrl + \"T\" para shift negativo na cor azul padrão da linha. Ctrl + \"Y\" para shift positivo.<br>\"U\" para shift negativo na cor vermelha padrão de fundo. \"I\" para shift positivo.<br>Shift + \"U\" para shift negativo na cor verde padrão de fundo. Shift + \"I\" para shift positivo.<br>Ctrl + \"U\" para shift negativo na cor azul padrão de fundo. Ctrl + \"I\" para shift positivo.<br>\"O\" para shift negativo na cor vermelha padrão dos polígonos preenchidos. \"P\" para shift positivo.<br>Shift + \"O\" para shift negativo na cor verde padrão dos polígonos preenchidos. Shift + \"P\" para shift positivo.<br>Ctrl + \"O\" para shift negativo na cor azul padrão dos polígonos preenchidos. Ctrl + \"P\" para shift positivo.<br>INSERT para shift negativo na cor vermelha padrão das legendas. HOME para shift positivo.<br>Shift + INSERT para shift negativo na cor verde padrão das legendas. Shift + HOME para shift positivo.<br>Ctrl + INSERT para shift negativo na cor azul padrão das legendas. Ctrl + HOME para shift positivo.<br>DELETE para shift negativo no tamanho padrão das legendas. END para shift positivo.<br>\"-\" para shift negativo no offset das legendas. \"=\" para shift positivo.<br>Numpad \"1\" para shift negativo na resolução dos triângulos. Numpad \"2\" para shift positivo.<br>PAGE DOWN para shift negativo no sleep time. PAGE UP para shift positivo.</td><td></td><td>Ctrl + \"J\" para rotação horizontal positiva automática. Ctrl + \"M\" para negativa.<br>Ctrl + Shift + \"J\" para rotação vertical positiva automática. Ctrl + Shift + \"M\" para negativa.<br>Ctrl + \"K\" para rotação total horizontal positiva automática. Ctrl + \",\" para negativa.<br>Ctrl + Shift + \"K\" para rotação total vertical positiva automática. Ctrl + Shift + \",\" para negativa.<br>F8 para aumentar a velocidade de rotação automática. Shift + F8 para reduzir.<br>Ctrl + \"H\" para interromper rotações automáticas.<br><br>Numpad \"0\" para toggle alta precisão Apfloat (com custo computacional).<br>F4 para toggle preenchimento dos polígonos com linhas ou fillPolygon.<br><br>Ctrl + ENTER para shift positivo em câmeras predefinidas, Ctrl + Shift + ENTER para negativo.<br>Numpad \"4\" para salvar uma câmera predefinida. Shift + Numpad \"4\" para restaurar as câmeras predefinidas originais.<br><br>Numpad \"3\" para incremento no parâmetro de movimentação da câmera. Shift + Numpad \"3\" para decremento.<br>Ctrl + Numpad \"3\" para incremento no step de variação do parâmetro de movimentação da câmera. Ctrl + Shift + Numpad \"3\" para decremento.<br><br>Teclas de \"0\" a \"9\" para incrementar o parâmetro correspondente. Shift + tecla para decrementar.<br>Ctrl + tecla para incrementar o step do parâmetro. Ctrl + Shift + tecla para decrementar.<br><br>ENTER para ler os arquivos de parâmetros.<br><br>Shift + ENTER para ativar / desativar os parâmetros de tempo.<br><br>Setas para strafe. Shift + UP e Shift + DOWN para strafes verticais.<br>Mouse pode ser utilizado para movimentar desde que \"Rot\" seja zero.<br><br>Barra de espaços para resetar as variáveis.<br>Shift + barra de espaços para toggle visualizar a câmera. Ctrl + Shift + barra de espaços para toggle CameraViewFollow.<br><br>F10 para toggle stretch. F11 para setar aspect ratio 1. F12 para screenshot.<br>F3 para ocultar e mostrar os labels.<br>BACKSPACE para ativar / desativar labels animados.<br><br>F5 para toggle TrickSpeed. Shift + F5 para toggle TrickRot.<br>Ctrl + Shift + F5 para incrementar TricksFactor. Ctrl + Shift + F5 para decrementar.<br><br>ESC para sair.</td></tr></table></html>", new Color(CorJanelaR, CorJanelaG, CorJanelaB), new Color(CorJanelaGradienteR, CorJanelaGradienteG, CorJanelaGradienteB), new Color(CorFonteJanelaR, CorFonteJanelaG, CorFonteJanelaB), 2);
+									LabelHelp = new GradientLabel("<html><table><tr><td>F2 para selecionar e abrir arquivo de espaço.<br><br>\"A\" para incrementar x, \"Z\" para decrementar. Shift + \"A\" para incrementar xCamera, Shift + \"Z\" para decrementar.<br>\"S\" para incrementar y, \"X\" para decrementar. Shift + \"S\" para incrementar yCamera, Shift + \"X\" para decrementar.<br>\"D\" para incrementar z, \"C\" para decrementar. Shift + \"D\" para incrementar zCamera, Shift + \"C\" para decrementar.<br>\"F\" para incrementar Teta. \"V\" para decrementar. \"G\" para incrementar Phi. \"B\" para decrementar.<br>Shift + \"F\" para rotação lateral esquerda. Shift + \"V\" para direita.<br>Shift + \"B\" para rotação vertical para baixo. Shift + \"G\" para cima.<br>\"H\" para incrementar a rotação da tela. \"N\" para decrementar. Shift + \"H\" para zerar rotação.<br>\"J\" para rotação horizontal positiva. \"M\" para negativa.<br>Shift + \"J\" para rotação vertical positiva. Shift + \"M\" para negativa.<br>F7 para rotação circular positiva. Shift + F7 para negativa.<br>\"K\" para rotação total horizontal positiva. \",\" para negativa.<br>Shift + \"K\" para rotação total vertical positiva. Shift + \",\" para negativa.<br>Ctrl + \"N\" para resetar rotação total.<br>\"L\" para incrementar o raio de rotação horizontal. \".\" para decrementar.<br>Shift + \"L\" para incrementar o raio de rotação vertical. Shift + \".\" para decrementar.<br>F6 para incrementar o raio primário de rotação circular. Shift + F6 para decrementar.<br>Ctrl + F6 para incrementar o raio secundário de rotação circular. Ctrl + Shift + F6 para decrementar.<br>\"[\" para incrementar o raio de rotação total. \"]\" para decrementar.<br>\"W\" para aumentar a distância da tela. \"Q\" para reduzir.<br>\"E\" para reduzir o fator redutor do ângulo de visão. \"R\" para aumentar.<br>\"T\" para shift negativo na cor vermelha padrão da linha. \"Y\" para shift positivo.<br>Shift + \"T\" para shift negativo na cor verde padrão da linha. Shift + \"Y\" para shift positivo.<br>Ctrl + \"T\" para shift negativo na cor azul padrão da linha. Ctrl + \"Y\" para shift positivo.<br>\"U\" para shift negativo na cor vermelha padrão de fundo. \"I\" para shift positivo.<br>Shift + \"U\" para shift negativo na cor verde padrão de fundo. Shift + \"I\" para shift positivo.<br>Ctrl + \"U\" para shift negativo na cor azul padrão de fundo. Ctrl + \"I\" para shift positivo.<br>\"O\" para shift negativo na cor vermelha padrão dos polígonos preenchidos. \"P\" para shift positivo.<br>Shift + \"O\" para shift negativo na cor verde padrão dos polígonos preenchidos. Shift + \"P\" para shift positivo.<br>Ctrl + \"O\" para shift negativo na cor azul padrão dos polígonos preenchidos. Ctrl + \"P\" para shift positivo.<br>INSERT para shift negativo na cor vermelha padrão das legendas. HOME para shift positivo.<br>Shift + INSERT para shift negativo na cor verde padrão das legendas. Shift + HOME para shift positivo.<br>Ctrl + INSERT para shift negativo na cor azul padrão das legendas. Ctrl + HOME para shift positivo.<br>DELETE para shift negativo no tamanho padrão das legendas. END para shift positivo.<br>\"-\" para shift negativo no offset das legendas. \"=\" para shift positivo.<br>Numpad \"1\" para shift negativo na resolução dos triângulos. Numpad \"2\" para shift positivo.<br>PAGE DOWN para shift negativo no sleep time. PAGE UP para shift positivo.</td><td></td><td>Ctrl + \"J\" para rotação horizontal positiva automática. Ctrl + \"M\" para negativa.<br>Ctrl + Shift + \"J\" para rotação vertical positiva automática. Ctrl + Shift + \"M\" para negativa.<br>Ctrl + \"K\" para rotação total horizontal positiva automática. Ctrl + \",\" para negativa.<br>Ctrl + Shift + \"K\" para rotação total vertical positiva automática. Ctrl + Shift + \",\" para negativa.<br>F8 para aumentar a velocidade de rotação automática. Shift + F8 para reduzir.<br>Ctrl + \"H\" para interromper rotações automáticas.<br><br>Numpad \"0\" para toggle alta precisão Apfloat (com custo computacional).<br>F4 para toggle preenchimento dos polígonos com linhas ou fillPolygon.<br><br>Ctrl + ENTER para shift positivo em câmeras predefinidas, Ctrl + Shift + ENTER para negativo.<br>Numpad \"4\" para salvar uma câmera predefinida. Shift + Numpad \"4\" para restaurar as câmeras predefinidas originais.<br><br>Numpad \"3\" para incremento no parâmetro de movimentação da câmera. Shift + Numpad \"3\" para decremento.<br>Ctrl + Numpad \"3\" para incremento no step de variação do parâmetro de movimentação da câmera. Ctrl + Shift + Numpad \"3\" para decremento.<br><br>Teclas de \"0\" a \"9\" para incrementar o parâmetro correspondente. Shift + tecla para decrementar.<br>Ctrl + tecla para incrementar o step do parâmetro. Ctrl + Shift + tecla para decrementar.<br><br>ENTER para ler os arquivos de parâmetros.<br><br>Shift + ENTER para ativar / desativar os parâmetros de tempo.<br><br>Setas para strafe. Shift + UP e Shift + DOWN para strafes verticais.<br>Mouse pode ser utilizado para movimentar desde que \"Rot\" seja zero.<br><br>Barra de espaços para resetar as variáveis.<br>Shift + barra de espaços para toggle visualizar a câmera. Ctrl + Shift + barra de espaços para toggle CameraViewFollow.<br><br>F10 para toggle stretch. F11 para setar aspect ratio 1. F12 para screenshot.<br>F3 para ocultar e mostrar os labels.<br>BACKSPACE para ativar / desativar labels animados.<br><br>F5 para toggle TrickSpeed. Shift + F5 para toggle TrickRot.<br>Ctrl + Shift + F5 para incrementar TricksFactor. Ctrl + Shift + F5 para decrementar<br><br>F9 para mensagem \"sobre\".<br><br>ESC para sair.</td></tr></table></html>", new Color(CorJanelaR, CorJanelaG, CorJanelaB), new Color(CorJanelaGradienteR, CorJanelaGradienteG, CorJanelaGradienteB), new Color(CorFonteJanelaR, CorFonteJanelaG, CorFonteJanelaB), 2);
 									}
 
 								FrameHelp.setResizable(false);
@@ -2182,6 +2189,86 @@ public class AV3DNavigator extends JComponent
 									{
 									public void windowClosing(WindowEvent e)
 										{FlagHelp = 0;}
+									});
+							}
+
+						NoRedrawFlag = 1;
+
+						break;
+
+					case KeyEvent.VK_F9:
+						if (FlagAbout == 0)
+							{
+							if (! (Debug.equals("Debug"))) try
+								{
+								(new Thread () {
+									public void run ()
+										{
+										try
+											{
+											URL ExecUrl = new URI("https://github.com/antoniovandre/AV3DNavigatorStats/releases/download/AV3DNavigatorStats/AV3DNavigatorAboutCount").toURL();
+											BufferedReader in = new BufferedReader(new InputStreamReader(ExecUrl.openStream()));
+											String inputLine;
+											while ((inputLine = in.readLine()) != null);
+											in.close();
+											} catch (IOException | URISyntaxException e) {}
+										}
+								}).start();} catch (IllegalThreadStateException e) {}
+
+							try {DownloadArquivo("https://antoniovandre.github.io/AV3DNavigator/AV3DNAbout.txt", "AV3DNAbout.txt");} catch (IOException e) {}
+
+							File file = new File("AV3DNAbout.txt");
+
+							JFrame FrameAbout = new JFrame("AV3DNavigator - Sobre");
+
+							try
+								{
+								BufferedReader br = new BufferedReader(new FileReader(file));
+
+								String Linha;
+
+								do {Linha = br.readLine();} while (((Linha.replaceAll(" ", "").equals(""))) || (Linha.replaceAll(" ", "").charAt(0) == '#'));
+								
+								String [] LinhaArr = Linha.split("DIVISOR");
+
+								if (LinhaArr.length == 3) if ((AntonioVandre.NumeroNaturalPositivo(LinhaArr[0])) && (AntonioVandre.NumeroNaturalPositivo(LinhaArr[0])))
+									{
+									FrameAbout.setPreferredSize(new Dimension(Integer.parseInt(LinhaArr[0]), Integer.parseInt(LinhaArr[1])));
+									FrameAbout.setSize(new Dimension(Integer.parseInt(LinhaArr[0]), Integer.parseInt(LinhaArr[1])));
+									LabelAbout = new GradientLabel(LinhaArr[2], new Color(CorJanelaR, CorJanelaG, CorJanelaB), new Color(CorJanelaGradienteR, CorJanelaGradienteG, CorJanelaGradienteB), new Color(CorFonteJanelaR, CorFonteJanelaG, CorFonteJanelaB), 2);
+									}
+								} catch (IOException e)
+									{
+									FrameAbout.setPreferredSize(new Dimension(TamanhoJanelaAboutErroX, TamanhoJanelaAboutErroY));
+									FrameAbout.setSize(new Dimension(TamanhoJanelaAboutErroX, TamanhoJanelaAboutErroY));
+									LabelAbout = new GradientLabel("<html>Erro ao buscar informação na internet.</html>", new Color(CorJanelaR, CorJanelaG, CorJanelaB), new Color(CorJanelaGradienteR, CorJanelaGradienteG, CorJanelaGradienteB), new Color(CorFonteJanelaR, CorFonteJanelaG, CorFonteJanelaB), 2);
+									}
+
+								FrameAbout.setResizable(false);
+								LabelAbout.setBorder(new EmptyBorder(5, 5, 5, 5));
+								LabelAbout.setFont(new Font("DialogInput", Font.BOLD | Font.ITALIC, TamanhoFonteLabelAbout));
+								FrameAbout.add(LabelAbout);
+								FrameAbout.pack();
+								FrameAbout.setVisible(true);
+
+								FlagAbout = 1;
+
+								FrameAbout.addKeyListener(new KeyListener()
+									{
+									public void keyPressed(KeyEvent keAbout)
+										{
+										int keyCodeAbout = keAbout.getKeyCode();
+										if (keyCodeAbout == KeyEvent.VK_ESCAPE) {FrameAbout.dispose(); FlagAbout = 0;}
+										}
+
+									public void keyReleased(KeyEvent keAbout){}
+									public void keyTyped(KeyEvent keAbout){}
+									});
+
+								FrameAbout.addWindowListener(new WindowAdapter()
+									{
+									public void windowClosing(WindowEvent e)
+										{FlagAbout = 0;}
 									});
 							}
 
@@ -4059,7 +4146,7 @@ public class AV3DNavigator extends JComponent
 				FlagAlteracaoStatus = 0; NoRedrawFlag = 0;
 				}
  
-			if (FlagMostrarLabel == 1) if (LabelAnimado == 1) {LabelStatus.setVisible(false); LabelStatus.setVisible(true); if (FlagHelp == 1) {LabelHelp.setVisible(false); LabelHelp.setVisible(true);};}
+			if (FlagMostrarLabel == 1) if (LabelAnimado == 1) {LabelStatus.setVisible(false); LabelStatus.setVisible(true); if (FlagHelp == 1) {LabelHelp.setVisible(false); LabelHelp.setVisible(true);} if (FlagAbout == 1) {LabelAbout.setVisible(false); LabelAbout.setVisible(true);}}
 
 			if (FlagTime == 1)
 				{
@@ -5252,5 +5339,19 @@ public class AV3DNavigator extends JComponent
 		TricksFactor = 0.2;
 
 		ReadINI();
+		}
+
+	public void DownloadArquivo (String URL, String arquivo) throws IOException
+		{
+		try
+			{
+			URL url = new URI(URL).toURL();
+			BufferedInputStream bis = new BufferedInputStream (url.openStream ());
+			FileOutputStream fis = new FileOutputStream (arquivo);
+			byte [] buffer = new byte [1024];
+			int count = 0;
+			while((count = bis.read (buffer, 0, 1024)) != -1) {fis.write(buffer, 0, count);}
+			fis.close(); bis.close();
+			} catch (URISyntaxException e) {}
 		}
 	}
