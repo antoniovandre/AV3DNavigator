@@ -11,7 +11,7 @@
  * 
  * Licença de uso: Creative Commons Attribution Non-Commercial License V2.0.
  * 
- * Última atualização: 26-08-2025. Não considerando alterações em variáveis globais.
+ * Última atualização: 27-08-2025. Não considerando alterações em variáveis globais.
  */
 
 import java.lang.IllegalThreadStateException;
