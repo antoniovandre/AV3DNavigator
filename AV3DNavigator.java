@@ -308,10 +308,12 @@ public class AV3DNavigator extends JComponent
 	public double Teta0Rotacao;
 	public double Phi0Rotacao;
 	public double Rot0Rotacao;
-	public double x0Rotacao;
-	public double y0Rotacao;
-	public double z0Rotacao;
-	public int FlagCoordRotOnce = 0;
+	public double Teta0RotacaoCirc;
+	public double Phi0RotacaoCirc;
+	public double Rot0RotacaoCirc;
+	public double x0RotacaoCirc;
+	public double y0RotacaoCirc;
+	public double z0RotacaoCirc;
 	public double RotacaoTeta = Math.PI + Teta;
 	public double RotacaoPhi = Math.PI + Phi;
 	public double RotacaoCirc = 0;
@@ -1621,7 +1623,7 @@ public class AV3DNavigator extends JComponent
 
 	public void RotRotTetaPos()
 		{
-		FlagCoordRot = 1; FlagCoordRotHor = 0; FlagCoordRotVert = 0; FlagCoordRotCirc = 0; CameraId = -1; FlagCoordRotOnce = 1;
+		FlagCoordRot = 1; FlagCoordRotHor = 0; FlagCoordRotVert = 0; FlagCoordRotCirc = 0; CameraId = -1;
 
 		if (! (Math.abs(Rotacao + DeslocamentoAngular * VelocidadeRotacaoAutomatica) >= AntonioVandre.MaximoValorReal)) Rotacao += DeslocamentoAngular * VelocidadeRotacaoAutomatica; else VariavelLimiteAtingido();
 
@@ -1630,7 +1632,7 @@ public class AV3DNavigator extends JComponent
 
 	public void RotRotTetaNeg ()
 		{
-		FlagCoordRot = 1; FlagCoordRotHor = 0; FlagCoordRotVert = 0; FlagCoordRotCirc = 0; CameraId = -1; FlagCoordRotOnce = 1;
+		FlagCoordRot = 1; FlagCoordRotHor = 0; FlagCoordRotVert = 0; FlagCoordRotCirc = 0; CameraId = -1;
 
 		if (! (Math.abs(Rotacao - DeslocamentoAngular * VelocidadeRotacaoAutomatica) >= AntonioVandre.MaximoValorReal)) Rotacao -= DeslocamentoAngular * VelocidadeRotacaoAutomatica; else VariavelLimiteAtingido();
 
@@ -1639,7 +1641,7 @@ public class AV3DNavigator extends JComponent
 
 	public void RotRotPhiPos ()
 		{
-		FlagCoordRot = 1; FlagCoordRotHor = 0; FlagCoordRotVert = 0; FlagCoordRotCirc = 0; CameraId = -1; FlagCoordRotOnce = 1;
+		FlagCoordRot = 1; FlagCoordRotHor = 0; FlagCoordRotVert = 0; FlagCoordRotCirc = 0; CameraId = -1;
 
 		if (! (Math.abs(Rotacao - DeslocamentoAngular * VelocidadeRotacaoAutomatica) >= AntonioVandre.MaximoValorReal)) Rotacao += DeslocamentoAngular * VelocidadeRotacaoAutomatica; else VariavelLimiteAtingido();
 
@@ -1648,7 +1650,7 @@ public class AV3DNavigator extends JComponent
 
 	public void RotRotPhiNeg ()
 		{
-		FlagCoordRot = 1; FlagCoordRotHor = 0; FlagCoordRotVert = 0; FlagCoordRotCirc = 0; CameraId = -1; FlagCoordRotOnce = 1;
+		FlagCoordRot = 1; FlagCoordRotHor = 0; FlagCoordRotVert = 0; FlagCoordRotCirc = 0; CameraId = -1;
 
 		if (! (Math.abs(Rotacao - DeslocamentoAngular * VelocidadeRotacaoAutomatica) >= AntonioVandre.MaximoValorReal)) Rotacao -= DeslocamentoAngular * VelocidadeRotacaoAutomatica; else VariavelLimiteAtingido();
 
@@ -1657,7 +1659,7 @@ public class AV3DNavigator extends JComponent
 
 	public void RotCircPos ()
 		{
-		FlagCoordRot = 1; FlagCoordRotHor = 0; FlagCoordRotVert = 0; FlagCoordRotCirc = 1; CameraId = -1;
+		FlagCoordRot = 0; FlagCoordRotHor = 0; FlagCoordRotVert = 0; FlagCoordRotCirc = 1; CameraId = -1;
 
 		if (RotacaoCircBak == AntonioVandre.MaximoValorReal) {xt = x; yt = y; zt = z; Tetat = Teta; Phit = Phi; Rott = Rot;}
 
@@ -1665,12 +1667,12 @@ public class AV3DNavigator extends JComponent
 
 		if (! (Math.abs(RotacaoCirc + DeslocamentoAngular * VelocidadeRotacaoAutomatica) >= AntonioVandre.MaximoValorReal)) RotacaoCirc += DeslocamentoAngular * VelocidadeRotacaoAutomatica; else VariavelLimiteAtingido();
 
-		if (Math.abs(Teta0Rotacao + (RaioPRotCirc == 0 ? 0 : Math.atan(RaioSRotCirc / RaioPRotCirc)) * Math.cos(Rot) * Math.sin(RotacaoCirc)) < TetaMax) {if (Math.abs(Phi0Rotacao + (RaioPRotCirc == 0 ? 0 : Math.atan(RaioSRotCirc / RaioPRotCirc)) * Math.sin(Rot) * Math.cos(Phi) * Math.cos(RotacaoCirc)) < PhiMax) {Teta = Teta0Rotacao + (RaioPRotCirc == 0 ? 0 : Math.atan(RaioSRotCirc / RaioPRotCirc)) * Math.cos(Rot) * Math.sin(RotacaoCirc); Phi = Phi0Rotacao + (RaioPRotCirc == 0 ? 0 : Math.atan(RaioSRotCirc / RaioPRotCirc)) * Math.sin(Rot) * Math.cos(Phi) * Math.cos(RotacaoCirc); if ((Math.abs(x0Rotacao + RaioSRotCirc * Math.sin(RotacaoCirc) * Math.sin(Teta0Rotacao + Phi0Rotacao)) >= AntonioVandre.MaximoValorReal) || (Math.abs(y0Rotacao + RaioSRotCirc * (Math.sin(RotacaoCirc) * Math.cos(Phi0Rotacao) + Math.cos(RotacaoCirc) * Math.sin(Phi0Rotacao)) * Math.cos(Teta0Rotacao)) >= AntonioVandre.MaximoValorReal) || (Math.abs(z0Rotacao + RaioSRotCirc * Math.cos(RotacaoCirc) * Math.cos(Phi0Rotacao)) >= AntonioVandre.MaximoValorReal)) {VariavelLimiteAtingido();} else {x = x0Rotacao + RaioSRotCirc * Math.sin(RotacaoCirc) * Math.sin(Teta0Rotacao + Phi0Rotacao); y = y0Rotacao + RaioSRotCirc * (Math.sin(RotacaoCirc) * Math.cos(Phi0Rotacao) + Math.cos(RotacaoCirc) * Math.sin(Phi0Rotacao)) * Math.cos(Teta0Rotacao); z = z0Rotacao + RaioSRotCirc * Math.cos(RotacaoCirc) * Math.cos(Phi0Rotacao); ContadorFrames = 0;}} else {Phi -= Math.signum(Phi) * DeslocamentoAngular * VelocidadeRotacaoAutomatica; ContadorFrames = FramesDeslocamento; Phit = Phi; FlagPhiSuperior = 1;}} else {Teta -= Math.signum(Teta) * DeslocamentoAngular * VelocidadeRotacaoAutomatica; ContadorFrames = FramesDeslocamento; Tetat = Teta; FlagTetaInferior = 1;}
+		if (Math.abs(Teta0RotacaoCirc + (RaioPRotCirc == 0 ? 0 : Math.atan(RaioSRotCirc / RaioPRotCirc)) * Math.cos(Rot) * Math.sin(RotacaoCirc)) < TetaMax) {if (Math.abs(Phi0RotacaoCirc + (RaioPRotCirc == 0 ? 0 : Math.atan(RaioSRotCirc / RaioPRotCirc)) * Math.sin(Rot) * Math.cos(Phi) * Math.cos(RotacaoCirc)) < PhiMax) {Teta = Teta0RotacaoCirc + (RaioPRotCirc == 0 ? 0 : Math.atan(RaioSRotCirc / RaioPRotCirc)) * Math.cos(Rot) * Math.sin(RotacaoCirc); Phi = Phi0RotacaoCirc + (RaioPRotCirc == 0 ? 0 : Math.atan(RaioSRotCirc / RaioPRotCirc)) * Math.sin(Rot) * Math.cos(Phi) * Math.cos(RotacaoCirc); if ((Math.abs(x0RotacaoCirc + RaioSRotCirc * Math.sin(RotacaoCirc) * Math.sin(Teta0RotacaoCirc + Phi0RotacaoCirc)) >= AntonioVandre.MaximoValorReal) || (Math.abs(y0RotacaoCirc + RaioSRotCirc * (Math.sin(RotacaoCirc) * Math.cos(Phi0RotacaoCirc) + Math.cos(RotacaoCirc) * Math.sin(Phi0RotacaoCirc)) * Math.cos(Teta0RotacaoCirc)) >= AntonioVandre.MaximoValorReal) || (Math.abs(z0RotacaoCirc + RaioSRotCirc * Math.cos(RotacaoCirc) * Math.cos(Phi0RotacaoCirc)) >= AntonioVandre.MaximoValorReal)) {VariavelLimiteAtingido();} else {x = x0RotacaoCirc + RaioSRotCirc * Math.sin(RotacaoCirc) * Math.sin(Teta0RotacaoCirc + Phi0RotacaoCirc); y = y0RotacaoCirc + RaioSRotCirc * (Math.sin(RotacaoCirc) * Math.cos(Phi0RotacaoCirc) + Math.cos(RotacaoCirc) * Math.sin(Phi0RotacaoCirc)) * Math.cos(Teta0RotacaoCirc); z = z0RotacaoCirc + RaioSRotCirc * Math.cos(RotacaoCirc) * Math.cos(Phi0RotacaoCirc); ContadorFrames = 0;}} else {Phi -= Math.signum(Phi) * DeslocamentoAngular * VelocidadeRotacaoAutomatica; ContadorFrames = FramesDeslocamento; Phit = Phi; FlagPhiSuperior = 1;}} else {Teta -= Math.signum(Teta) * DeslocamentoAngular * VelocidadeRotacaoAutomatica; ContadorFrames = FramesDeslocamento; Tetat = Teta; FlagTetaInferior = 1;}
 		}
 
 	public void RotCircNeg ()
 		{
-		FlagCoordRot = 1; FlagCoordRotHor = 0; FlagCoordRotVert = 0; FlagCoordRotCirc = 1; CameraId = -1;
+		FlagCoordRot = 0; FlagCoordRotHor = 0; FlagCoordRotVert = 0; FlagCoordRotCirc = 1; CameraId = -1;
 
 		if (RotacaoCircBak == AntonioVandre.MaximoValorReal) {xt = x; yt = y; zt = z; Tetat = Teta; Phit = Phi; Rott = Rot;}
 
@@ -1678,7 +1680,7 @@ public class AV3DNavigator extends JComponent
 
 		if (! (Math.abs(RotacaoCirc - DeslocamentoAngular * VelocidadeRotacaoAutomatica) >= AntonioVandre.MaximoValorReal)) RotacaoCirc -= DeslocamentoAngular * VelocidadeRotacaoAutomatica; else VariavelLimiteAtingido();
 
-		if (Math.abs(Teta0Rotacao + (RaioPRotCirc == 0 ? 0 : Math.atan(RaioSRotCirc / RaioPRotCirc)) * Math.cos(Rot) * Math.sin(RotacaoCirc)) < TetaMax) {if (Math.abs(Phi0Rotacao + (RaioPRotCirc == 0 ? 0 : Math.atan(RaioSRotCirc / RaioPRotCirc)) * Math.sin(Rot) * Math.cos(Phi) * Math.cos(RotacaoCirc)) < PhiMax) {Teta = Teta0Rotacao + (RaioPRotCirc == 0 ? 0 : Math.atan(RaioSRotCirc / RaioPRotCirc)) * Math.cos(Rot) * Math.sin(RotacaoCirc); Phi = Phi0Rotacao + (RaioPRotCirc == 0 ? 0 : Math.atan(RaioSRotCirc / RaioPRotCirc)) * Math.sin(Rot) * Math.cos(Phi) * Math.cos(RotacaoCirc); if ((Math.abs(x0Rotacao + RaioSRotCirc * Math.sin(RotacaoCirc) * Math.sin(Teta0Rotacao + Phi0Rotacao)) >= AntonioVandre.MaximoValorReal) || (Math.abs(y0Rotacao + RaioSRotCirc * (Math.sin(RotacaoCirc) * Math.cos(Phi0Rotacao) + Math.cos(RotacaoCirc) * Math.sin(Phi0Rotacao)) * Math.cos(Teta0Rotacao)) >= AntonioVandre.MaximoValorReal) || (Math.abs(z0Rotacao + RaioSRotCirc * Math.cos(RotacaoCirc) * Math.cos(Phi0Rotacao)) >= AntonioVandre.MaximoValorReal)) {VariavelLimiteAtingido();} else {x = x0Rotacao + RaioSRotCirc * Math.sin(RotacaoCirc) * Math.sin(Teta0Rotacao + Phi0Rotacao); y = y0Rotacao + RaioSRotCirc * (Math.sin(RotacaoCirc) * Math.cos(Phi0Rotacao) + Math.cos(RotacaoCirc) * Math.sin(Phi0Rotacao)) * Math.cos(Teta0Rotacao); z = z0Rotacao + RaioSRotCirc * Math.cos(RotacaoCirc) * Math.cos(Phi0Rotacao); ContadorFrames = 0;}} else {Phi -= Math.signum(Phi) * DeslocamentoAngular * VelocidadeRotacaoAutomatica; ContadorFrames = FramesDeslocamento; Phit = Phi; FlagPhiSuperior = 1;}} else {Teta -= Math.signum(Teta) * DeslocamentoAngular * VelocidadeRotacaoAutomatica; ContadorFrames = FramesDeslocamento; Tetat = Teta; FlagTetaInferior = 1;}
+		if (Math.abs(Teta0RotacaoCirc + (RaioPRotCirc == 0 ? 0 : Math.atan(RaioSRotCirc / RaioPRotCirc)) * Math.cos(Rot) * Math.sin(RotacaoCirc)) < TetaMax) {if (Math.abs(Phi0RotacaoCirc + (RaioPRotCirc == 0 ? 0 : Math.atan(RaioSRotCirc / RaioPRotCirc)) * Math.sin(Rot) * Math.cos(Phi) * Math.cos(RotacaoCirc)) < PhiMax) {Teta = Teta0RotacaoCirc + (RaioPRotCirc == 0 ? 0 : Math.atan(RaioSRotCirc / RaioPRotCirc)) * Math.cos(Rot) * Math.sin(RotacaoCirc); Phi = Phi0RotacaoCirc + (RaioPRotCirc == 0 ? 0 : Math.atan(RaioSRotCirc / RaioPRotCirc)) * Math.sin(Rot) * Math.cos(Phi) * Math.cos(RotacaoCirc); if ((Math.abs(x0RotacaoCirc + RaioSRotCirc * Math.sin(RotacaoCirc) * Math.sin(Teta0RotacaoCirc + Phi0RotacaoCirc)) >= AntonioVandre.MaximoValorReal) || (Math.abs(y0RotacaoCirc + RaioSRotCirc * (Math.sin(RotacaoCirc) * Math.cos(Phi0RotacaoCirc) + Math.cos(RotacaoCirc) * Math.sin(Phi0RotacaoCirc)) * Math.cos(Teta0RotacaoCirc)) >= AntonioVandre.MaximoValorReal) || (Math.abs(z0RotacaoCirc + RaioSRotCirc * Math.cos(RotacaoCirc) * Math.cos(Phi0RotacaoCirc)) >= AntonioVandre.MaximoValorReal)) {VariavelLimiteAtingido();} else {x = x0RotacaoCirc + RaioSRotCirc * Math.sin(RotacaoCirc) * Math.sin(Teta0RotacaoCirc + Phi0RotacaoCirc); y = y0RotacaoCirc + RaioSRotCirc * (Math.sin(RotacaoCirc) * Math.cos(Phi0RotacaoCirc) + Math.cos(RotacaoCirc) * Math.sin(Phi0RotacaoCirc)) * Math.cos(Teta0RotacaoCirc); z = z0RotacaoCirc + RaioSRotCirc * Math.cos(RotacaoCirc) * Math.cos(Phi0RotacaoCirc); ContadorFrames = 0;}} else {Phi -= Math.signum(Phi) * DeslocamentoAngular * VelocidadeRotacaoAutomatica; ContadorFrames = FramesDeslocamento; Phit = Phi; FlagPhiSuperior = 1;}} else {Teta -= Math.signum(Teta) * DeslocamentoAngular * VelocidadeRotacaoAutomatica; ContadorFrames = FramesDeslocamento; Tetat = Teta; FlagTetaInferior = 1;}
 		}
 
 	public static void main (String[] args) {AV3DNavigator mainc = new AV3DNavigator(); if (args.length == 1) {if (args[0].equals("Debug")) mainc.mainrun("", "Debug"); else mainc.mainrun(args[0], "");} else if (args.length == 2) mainc.mainrun(args[0], args[1]); else mainc.mainrun("", "");}
@@ -1944,8 +1946,6 @@ public class AV3DNavigator extends JComponent
 						ShiftVerticalLegendas = 25;
 						RotacaoTeta = Teta + Math.PI;
 						RotacaoPhi = Phi + Math.PI;
-						RotacaoCirc = 0;
-						RotacaoCircBak = AntonioVandre.MaximoValorReal;
 						RaioTeta = 0;
 						RaioPhi = 0;
 						RaioRot = 0;
@@ -2006,7 +2006,6 @@ public class AV3DNavigator extends JComponent
 						StretchFlag = 1;
 						SleepTime = 7;
 						FlagTime = 0;
-						FlagCoordRotOnce = 0;
 						CameraView = 0;
 						CameraViewFollow = 1;
 						xCamera = xCameraInit;
@@ -2776,7 +2775,7 @@ public class AV3DNavigator extends JComponent
 							break;
 
 						case KeyEvent.VK_N:
-							if (ke.isControlDown()) {RaioRot = 0; FlagCoordRot = 0; FlagCoordRotOnce = 0;} else {FlagCoordRot = 0; FlagCoordRotHor = 0; FlagCoordRotVert = 0; FlagCoordRotCirc = 0; CameraId = -1; if (! (Math.abs(Rot - DeslocamentoAngular) >= AntonioVandre.MaximoValorReal)) {Rot -= DeslocamentoAngular; ContadorFrames = 0;} else VariavelLimiteAtingido();}
+							if (ke.isControlDown()) {RaioRot = 0; FlagCoordRot = 0;} else {FlagCoordRot = 0; FlagCoordRotHor = 0; FlagCoordRotVert = 0; FlagCoordRotCirc = 0; CameraId = -1; if (! (Math.abs(Rot - DeslocamentoAngular) >= AntonioVandre.MaximoValorReal)) {Rot -= DeslocamentoAngular; ContadorFrames = 0;} else VariavelLimiteAtingido();}
 
 							break;
 
@@ -3459,7 +3458,7 @@ public class AV3DNavigator extends JComponent
 						case KeyEvent.VK_ENTER:
 							if (ke.isControlDown())
 								{
-								FlagCoordRot = 0; FlagCoordRotHor = 0; FlagCoordRotVert = 0; FlagCoordRotOnce = 0;
+								FlagCoordRot = 0; FlagCoordRotHor = 0; FlagCoordRotVert = 0;
 
 								file = new File("AV3DNCamIds.txt");
 
@@ -3891,18 +3890,10 @@ public class AV3DNavigator extends JComponent
 				xRotacao = x + RaioRot * Math.cos(Teta) * Math.cos(Phi);
 				yRotacao = y - RaioRot * Math.sin(Teta) * Math.cos(Phi);
 				zRotacao = z - RaioRot * Math.sin(Phi);
-
-				if (FlagCoordRotOnce == 0)
-					{
-					Rotacao = 0;
-					x0Rotacao = x;
-					y0Rotacao = y;
-					z0Rotacao = z;
-					Phi0Rotacao = Phi;
-					Rot0Rotacao = Rot;
-					Teta0Rotacao = Teta;
-					}
-
+				Rotacao = 0;
+				Phi0Rotacao = Phi;
+				Rot0Rotacao = Rot;
+				Teta0Rotacao = Teta;
 				FlagCoordRot = 1;
 				}
 
@@ -3924,11 +3915,21 @@ public class AV3DNavigator extends JComponent
 				}
 
 			if (FlagCoordRotCirc == 0)
+				{
+				RotacaoCirc = 0;
+				x0RotacaoCirc = x;
+				y0RotacaoCirc = y;
+				z0RotacaoCirc = z;
+				Phi0RotacaoCirc = Phi;
+				Rot0RotacaoCirc = Rot;
+				Teta0RotacaoCirc = Teta;
 				RotacaoCircBak = AntonioVandre.MaximoValorReal;
+				FlagCoordRotCirc = 1;
+				}
 
 			if (FlagMouseDownArea == 1)
 				{
-				FlagCoordRotOnce = 0;
+				FlagCoordRot = 0; FlagCoordRotHor = 0; FlagCoordRotVert = 0; FlagCoordRotCirc = 0; CameraId = -1;
 
 				if ((Math.abs(Teta) - DeslocamentoAngular > AntonioVandre.MaximoValorReal - DeslocamentoAngular) || (Math.abs(Phi) - DeslocamentoAngular > AntonioVandre.MaximoValorReal - DeslocamentoAngular) || (Math.abs(Rot) - DeslocamentoAngular > AntonioVandre.MaximoValorReal - DeslocamentoAngular))
 					VariavelLimiteAtingido();
@@ -4080,7 +4081,7 @@ public class AV3DNavigator extends JComponent
 				else
 					AspectRatio = 1;
 
-				LabelStatus.setText("<html><p style=\"line-height: 50%;\">x = " + String.valueOf(x) + ". y = " + String.valueOf(-y) + ". z = " + String.valueOf(-z) + ".<br><br>θ = " + String.valueOf(Teta) + ". Max θ = " + String.valueOf(TetaMax) + ".<br>φ = " + String.valueOf(Phi) + ". Max φ = " + String.valueOf(PhiMax) + ".<br><br>Rot = " + String.valueOf(Rot) + ".<br><br>Raio θ = " + String.valueOf(RaioTeta) + ". Rotacao θ = " + String.valueOf(RotacaoTeta) + ".<br>Raio φ = " + String.valueOf(RaioPhi) + ". Rotacao φ = " + String.valueOf(-RotacaoPhi) + ".<br>Raio de rotação = " + String.valueOf(RaioRot) + ". Rotacao = " + String.valueOf(Rotacao) + ".<br> RaioPRotCirc = " + String.valueOf(RaioPRotCirc) + ". RaioSRotCirc = " + String.valueOf(RaioSRotCirc) + " RotacaoCirc = " + String.valueOf(RotacaoCirc) + ".<br> Rotação automática = " + String.valueOf((! ((FlagRotTetaPos == 0) && (FlagRotTetaNeg == 0) && (FlagRotPhiPos == 0) && (FlagRotPhiNeg == 0) && (FlagRotRotTetaPos == 0) && (FlagRotRotTetaNeg == 0) && (FlagRotRotPhiPos == 0) && (FlagRotRotPhiNeg == 0) && (FlagRotCircPos == 0) && (FlagRotCircNeg == 0))) ? 1 : 0) + ". VelocidadeRotacaoAutomatica = " + String.valueOf(VelocidadeRotacaoAutomatica) + ".<br><br>Distância da tela = " + String.valueOf(DistanciaTela) + ".<br>Ângulo de visão = " + String.valueOf(AnguloVisao + MargemAnguloVisao) + ".<br>Aspect ratio = " + String.valueOf(AspectRatio) + "<br><br>P0 = " + String.valueOf(Parametro0) + ". P0S = " + String.valueOf(Parametro0Step) + ". P1 = " + String.valueOf(Parametro1) + ". P1S = " + String.valueOf(Parametro1Step) + ".<br>P2 = " + String.valueOf(Parametro2) + ". P2S = " + String.valueOf(Parametro2Step) + ". P3 = " + String.valueOf(Parametro3) + ". P3S = " + String.valueOf(Parametro3Step) + ".<br>P4 = " + String.valueOf(Parametro4) + ". P4S = " + String.valueOf(Parametro4Step) + ". P5 = " + String.valueOf(Parametro5) + ". P5S = " + String.valueOf(Parametro5Step) + ".<br>P6 = " + String.valueOf(Parametro6) + ". P6S = " + String.valueOf(Parametro6Step) + ". P7 = " + String.valueOf(Parametro7) + ". P7S = " + String.valueOf(Parametro7Step) + ".<br>P8 = " + String.valueOf(Parametro8) + ". P8S = " + String.valueOf(Parametro8Step) + ". P9 = " + String.valueOf(Parametro9) + ". P9S = " + String.valueOf(Parametro9Step) + ".<br><br>CameraMovePar = " + String.valueOf(CameraMovePar) + ". CameraMoveParStep = " + String.valueOf(CameraMoveParStep) + ".<br><br>Stretch = " + String.valueOf(StretchFlag) + ". Apfloat = " + String.valueOf(ApfloatFlag) + ". fillPolygon = " + String.valueOf(TrianguloPoligono) + ". ResolucaoTriangulos = " + String.valueOf(ResolucaoTriangulos) + ". SleepTime = " + String.valueOf(SleepTime) + ".<br> FlagTime = " + String.valueOf(FlagTime) + ". CamId = " + String.valueOf(CameraId) + ". FlagCoordRotOnce = " + String.valueOf(FlagCoordRotOnce) + ". CameraView = " + String.valueOf(CameraView) + ". CameraViewFollow = " + String.valueOf(CameraViewFollow)+ "<br><br>TrickSpeed = " + String.valueOf(TrickSpeed) + ". TrickRot = " + String.valueOf(TrickRot) + ". TricksFactor = " + String.valueOf(TricksFactor) + ".<br><br>Aperte F1 para ajuda.</p></html>");
+				LabelStatus.setText("<html><p style=\"line-height: 50%;\">x = " + String.valueOf(x) + ". y = " + String.valueOf(-y) + ". z = " + String.valueOf(-z) + ".<br><br>θ = " + String.valueOf(Teta) + ". Max θ = " + String.valueOf(TetaMax) + ".<br>φ = " + String.valueOf(Phi) + ". Max φ = " + String.valueOf(PhiMax) + ".<br><br>Rot = " + String.valueOf(Rot) + ".<br><br>Raio θ = " + String.valueOf(RaioTeta) + ". Rotacao θ = " + String.valueOf(RotacaoTeta) + ".<br>Raio φ = " + String.valueOf(RaioPhi) + ". Rotacao φ = " + String.valueOf(-RotacaoPhi) + ".<br>Raio de rotação = " + String.valueOf(RaioRot) + ". Rotacao = " + String.valueOf(Rotacao) + ".<br> RaioPRotCirc = " + String.valueOf(RaioPRotCirc) + ". RaioSRotCirc = " + String.valueOf(RaioSRotCirc) + " RotacaoCirc = " + String.valueOf(RotacaoCirc) + ".<br> Rotação automática = " + String.valueOf((! ((FlagRotTetaPos == 0) && (FlagRotTetaNeg == 0) && (FlagRotPhiPos == 0) && (FlagRotPhiNeg == 0) && (FlagRotRotTetaPos == 0) && (FlagRotRotTetaNeg == 0) && (FlagRotRotPhiPos == 0) && (FlagRotRotPhiNeg == 0) && (FlagRotCircPos == 0) && (FlagRotCircNeg == 0))) ? 1 : 0) + ". VelocidadeRotacaoAutomatica = " + String.valueOf(VelocidadeRotacaoAutomatica) + ".<br><br>Distância da tela = " + String.valueOf(DistanciaTela) + ".<br>Ângulo de visão = " + String.valueOf(AnguloVisao + MargemAnguloVisao) + ".<br>Aspect ratio = " + String.valueOf(AspectRatio) + "<br><br>P0 = " + String.valueOf(Parametro0) + ". P0S = " + String.valueOf(Parametro0Step) + ". P1 = " + String.valueOf(Parametro1) + ". P1S = " + String.valueOf(Parametro1Step) + ".<br>P2 = " + String.valueOf(Parametro2) + ". P2S = " + String.valueOf(Parametro2Step) + ". P3 = " + String.valueOf(Parametro3) + ". P3S = " + String.valueOf(Parametro3Step) + ".<br>P4 = " + String.valueOf(Parametro4) + ". P4S = " + String.valueOf(Parametro4Step) + ". P5 = " + String.valueOf(Parametro5) + ". P5S = " + String.valueOf(Parametro5Step) + ".<br>P6 = " + String.valueOf(Parametro6) + ". P6S = " + String.valueOf(Parametro6Step) + ". P7 = " + String.valueOf(Parametro7) + ". P7S = " + String.valueOf(Parametro7Step) + ".<br>P8 = " + String.valueOf(Parametro8) + ". P8S = " + String.valueOf(Parametro8Step) + ". P9 = " + String.valueOf(Parametro9) + ". P9S = " + String.valueOf(Parametro9Step) + ".<br><br>CameraMovePar = " + String.valueOf(CameraMovePar) + ". CameraMoveParStep = " + String.valueOf(CameraMoveParStep) + ".<br><br>Stretch = " + String.valueOf(StretchFlag) + ". Apfloat = " + String.valueOf(ApfloatFlag) + ". fillPolygon = " + String.valueOf(TrianguloPoligono) + ". ResolucaoTriangulos = " + String.valueOf(ResolucaoTriangulos) + ". SleepTime = " + String.valueOf(SleepTime) + ".<br> FlagTime = " + String.valueOf(FlagTime) + ". CamId = " + String.valueOf(CameraId) + ". CameraView = " + String.valueOf(CameraView) + ". CameraViewFollow = " + String.valueOf(CameraViewFollow)+ "<br><br>TrickSpeed = " + String.valueOf(TrickSpeed) + ". TrickRot = " + String.valueOf(TrickRot) + ". TricksFactor = " + String.valueOf(TricksFactor) + ".<br><br>Aperte F1 para ajuda.</p></html>");
 
 				FrameEspaco.getContentPane().setBackground(CorBackground);
 
@@ -5257,8 +5258,6 @@ public class AV3DNavigator extends JComponent
 		ShiftVerticalLegendas = 25;
 		RotacaoTeta = Teta + Math.PI;
 		RotacaoPhi = Phi + Math.PI;
-		RotacaoCirc = 0;
-		RotacaoCircBak = AntonioVandre.MaximoValorReal;
 		RaioTeta = 0;
 		RaioPhi = 0;
 		RaioRot = 0;
@@ -5319,7 +5318,6 @@ public class AV3DNavigator extends JComponent
 		StretchFlag = 1;
 		SleepTime = 7;
 		FlagTime = 0;
-		FlagCoordRotOnce = 0;
 		CameraView = 0;
 		CameraViewFollow = 1;
 		xCamera = xCameraInit;
