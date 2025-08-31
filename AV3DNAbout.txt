@@ -1,5 +1,5 @@
 # Arquivo about do AV3DNavigator.
 
-# Última atualização: 27-08-2025.
+# Última atualização: 31-08-2025.
 
-690DIVISOR200DIVISOR<html>Software feito com muito amor, na verdade para sentir-me mais realizado com mais uma conquista.<br><br><br><table width="100%"><tr><td>Última atualização: 27-08-2025.</td><td><div align="right">Antonio Vandré Pedrosa Furtunato Gomes<br><br><u>antoniovandre.github.io/MathematicalRamblingsjs</u><br><u>sourceforge.net/u/antoniovandre</u></div></td></tr></table></html>
+690DIVISOR200DIVISOR<html>Software feito com muito amor, e também para sentir-me mais realizado com mais uma conquista.<br><br><br><table width="100%"><tr><td>Última atualização do about: 31-08-2025.</td><td><div align="right">Antonio Vandré Pedrosa Furtunato Gomes<br><br><u>antoniovandre.github.io/MathematicalRamblingsjs</u><br><u>sourceforge.net/u/antoniovandre</u></div></td></tr></table></html>
