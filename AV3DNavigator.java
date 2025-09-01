@@ -117,6 +117,9 @@ public class AV3DNavigator extends JComponent
 	public int CorFonteJanelaR = 255; // Default: 255.
 	public int CorFonteJanelaG = 255; // Default: 255.
 	public int CorFonteJanelaB = 255; // Default: 255.
+	public int CorValorR = 128; // Default: 128.
+	public int CorValorG = 255; // Default: 255.
+	public int CorValorB = 255; // Default: 255.
 	public int TamanhoPlanoX = 460; // Default: 460.
 	public int TamanhoPlanoY = 460; // Default: 460.
 	public static int TamanhoEspacoLabelStatus = 360; // Default: 360.
@@ -212,6 +215,7 @@ public class AV3DNavigator extends JComponent
 	public String URL;
 	public String AtribuicaoString;
 	public String INI = new String("");
+	public String TextoLabel;
 	public int FlagMostrarLabel = 1;
 	public int FlagSwitchLabel = 0;
 	public int ValorInteiro;
@@ -410,6 +414,10 @@ public class AV3DNavigator extends JComponent
 	public int dyGLH = 0;
 	public int fxGLH;
 	public int fyGLH;
+	public int dxGLA = 0;
+	public int dyGLA = 0;
+	public int fxGLA;
+	public int fyGLA;
 	public int FlagHelp = 0;
 	public int FlagAbout = 0;
 	public int CamPersOnce = 0;
@@ -520,6 +528,20 @@ public class AV3DNavigator extends JComponent
 						}
 
 					paint = new GradientPaint(dxGLH, dyGLH, CorInicial, width - dxGLH, height - dyGLH, CorFinal, true);
+					break;
+
+				case 3:
+					if (LabelAnimado == 1)
+						{
+						if ((dxGLA == 0) && (dyGLA == 0)) {fxGLA = 1; fyGLA = 0;}
+						if ((dxGLA == width) && (dyGLA == 0)) {fxGLA = 0; fyGLA = 1;}
+						if ((dxGLA == width) && (dyGLA == height)) {fxGLA = -1; fyGLA = 0;}
+						if ((dxGLA == 0) && (dyGLA == height)) {fxGLA = 0; fyGLA = -1;}
+
+						dxGLA += fxGLA; dyGLA += fyGLA;
+						}
+
+					paint = new GradientPaint(dxGLA, dyGLA, CorInicial, width - dxGLA, height - dyGLA, CorFinal, true);
 					break;
 
 				default:
@@ -1219,6 +1241,28 @@ public class AV3DNavigator extends JComponent
 												CorJanelaGradienteR = ValorInteiro;
 												CorJanelaGradienteG = ValorInteiro1;
 												CorJanelaGradienteB = ValorInteiro2;
+												}
+											}
+
+									break;
+
+								case "CorValor":
+									Cores = INIelements[1].replaceAll(" ", "").split(",");
+
+									if (Cores.length == 3)
+										if (((new Expression(Cores[0].replaceAll(" ", ""))).calculate() == (int) (new Expression(Cores[0].replaceAll(" ", ""))).calculate()) && ((new Expression(Cores[1].replaceAll(" ", ""))).calculate() == (int) (new Expression(Cores[1].replaceAll(" ", ""))).calculate()) && ((new Expression(Cores[2].replaceAll(" ", ""))).calculate() == (int) (new Expression(Cores[2].replaceAll(" ", ""))).calculate()))
+											{
+											ValorInteiro = (int) (new Expression (Cores[0].replaceAll(" ", ""))).calculate();
+
+											ValorInteiro1 = (int) (new Expression (Cores[1].replaceAll(" ", ""))).calculate();
+
+											ValorInteiro2 = (int) (new Expression (Cores[2].replaceAll(" ", ""))).calculate();
+
+											if ((ValorInteiro >= 0) && (ValorInteiro <= 255) && (ValorInteiro1 >= 0) && (ValorInteiro1 <= 255) && (ValorInteiro2 >= 0) && (ValorInteiro2 <= 255))
+												{
+												CorValorR = ValorInteiro;
+												CorValorG = ValorInteiro1;
+												CorValorB = ValorInteiro2;
 												}
 											}
 
@@ -2317,7 +2361,7 @@ public class AV3DNavigator extends JComponent
 									{
 									FrameAbout.setPreferredSize(new Dimension(Integer.parseInt(LinhaArr[0]), Integer.parseInt(LinhaArr[1])));
 									FrameAbout.setSize(new Dimension(Integer.parseInt(LinhaArr[0]), Integer.parseInt(LinhaArr[1])));
-									LabelAbout = new GradientLabel(LinhaArr[2], new Color(CorJanelaR, CorJanelaG, CorJanelaB), new Color(CorJanelaGradienteR, CorJanelaGradienteG, CorJanelaGradienteB), new Color(CorFonteJanelaR, CorFonteJanelaG, CorFonteJanelaB), 2);
+									LabelAbout = new GradientLabel(LinhaArr[2], new Color(CorJanelaR, CorJanelaG, CorJanelaB), new Color(CorJanelaGradienteR, CorJanelaGradienteG, CorJanelaGradienteB), new Color(CorFonteJanelaR, CorFonteJanelaG, CorFonteJanelaB), 3);
 									}
 								} catch (IOException e)
 									{
@@ -4378,7 +4422,9 @@ public class AV3DNavigator extends JComponent
 				else
 					AspectRatio = 1;
 
-				LabelStatus.setText("<html><p style=\"line-height: 50%;\">x = " + String.valueOf(x) + ". y = " + String.valueOf(-y) + ". z = " + String.valueOf(-z) + ".<br><br>θ = " + String.valueOf(Teta) + ". Max θ = " + String.valueOf(TetaMax) + ".<br>φ = " + String.valueOf(Phi) + ". Max φ = " + String.valueOf(PhiMax) + ".<br><br>Rot = " + String.valueOf(Rot) + ".<br><br>Raio θ = " + String.valueOf(RaioTeta) + ". Rotacao θ = " + String.valueOf(RotacaoTeta) + ".<br>Raio φ = " + String.valueOf(RaioPhi) + ". Rotacao φ = " + String.valueOf(-RotacaoPhi) + ".<br>Raio de rotação = " + String.valueOf(RaioRot) + ". Rotacao = " + String.valueOf(Rotacao) + ".<br> RaioPRotCirc = " + String.valueOf(RaioPRotCirc) + ". RaioSRotCirc = " + String.valueOf(RaioSRotCirc) + ".<br> Rotação automática = " + String.valueOf((! ((FlagRotTetaPos == 0) && (FlagRotTetaNeg == 0) && (FlagRotPhiPos == 0) && (FlagRotPhiNeg == 0) && (FlagRotRotTetaPos == 0) && (FlagRotRotTetaNeg == 0) && (FlagRotRotPhiPos == 0) && (FlagRotRotPhiNeg == 0) && (FlagRotCircPos == 0) && (FlagRotCircNeg == 0))) ? 1 : 0) + ". VelocidadeRotacaoAutomatica = " + String.valueOf(VelocidadeRotacaoAutomatica) + ".<br>CurveRaioHor = " + String.valueOf(CurveRaioHor) + ". CurveRaioVert = " + String.valueOf(CurveRaioVert) + ".<br>RotacaoCirc = " + String.valueOf(RotacaoCirc) + ". StraightRotSpeed = " + String.valueOf(StraightRotSpeed) + ".<br>RaioRotHor = " + String.valueOf(RaioRotHor) + ". RaioRotVert = " + String.valueOf(RaioRotVert) + ".<br><br>Distância da tela = " + String.valueOf(DistanciaTela) + ".<br>Ângulo de visão = " + String.valueOf(AnguloVisao + MargemAnguloVisao) + ".<br>Aspect ratio = " + String.valueOf(AspectRatio) + "<br><br>P0 = " + String.valueOf(Parametro0) + ". P0S = " + String.valueOf(Parametro0Step) + ". P1 = " + String.valueOf(Parametro1) + ". P1S = " + String.valueOf(Parametro1Step) + ".<br>P2 = " + String.valueOf(Parametro2) + ". P2S = " + String.valueOf(Parametro2Step) + ". P3 = " + String.valueOf(Parametro3) + ". P3S = " + String.valueOf(Parametro3Step) + ".<br>P4 = " + String.valueOf(Parametro4) + ". P4S = " + String.valueOf(Parametro4Step) + ". P5 = " + String.valueOf(Parametro5) + ". P5S = " + String.valueOf(Parametro5Step) + ".<br>P6 = " + String.valueOf(Parametro6) + ". P6S = " + String.valueOf(Parametro6Step) + ". P7 = " + String.valueOf(Parametro7) + ". P7S = " + String.valueOf(Parametro7Step) + ".<br>P8 = " + String.valueOf(Parametro8) + ". P8S = " + String.valueOf(Parametro8Step) + ". P9 = " + String.valueOf(Parametro9) + ". P9S = " + String.valueOf(Parametro9Step) + ".<br><br>CameraMovePar = " + String.valueOf(CameraMovePar) + ". CameraMoveParStep = " + String.valueOf(CameraMoveParStep) + ".<br><br>Stretch = " + String.valueOf(StretchFlag) + ". Apfloat = " + String.valueOf(ApfloatFlag) + ". fillPolygon = " + String.valueOf(TrianguloPoligono) + ". ResolucaoTriangulos = " + String.valueOf(ResolucaoTriangulos) + ". SleepTime = " + String.valueOf(SleepTime) + ".<br> FlagTime = " + String.valueOf(FlagTime) + ". CamId = " + String.valueOf(CameraId) + ". CameraView = " + String.valueOf(CameraView) + ". CameraViewFollow = " + String.valueOf(CameraViewFollow)+ "<br><br>TrickSpeed = " + String.valueOf(TrickSpeed) + ". TrickRot = " + String.valueOf(TrickRot) + ". TricksFactor = " + String.valueOf(TricksFactor) + ".<br><br>Aperte F1 para ajuda.</p></html>");
+				TextoLabel = "<html><p style=\"line-height: 50%;\">x = <font color=\"#" + String.format("%02d", CorValorR) + String.format("%02d", CorValorG) + String.format("%02d", CorValorB) + "\">" + String.valueOf(x) + "</font>. y = <font color=\"#" + String.format("%02d", CorValorR) + String.format("%02d", CorValorG) + String.format("%02d", CorValorB) + "\">" + String.valueOf(-y) + "</font>. z = <font color=\"#" + String.format("%02d", CorValorR) + String.format("%02d", CorValorG) + String.format("%02d", CorValorB) + "\">" + String.valueOf(-z) + "</font>.<br><br>θ = <font color=\"#" + String.format("%02d", CorValorR) + String.format("%02d", CorValorG) + String.format("%02d", CorValorB) + "\">" + String.valueOf(Teta) + "</font>. Max θ = <font color=\"#" + String.format("%02d", CorValorR) + String.format("%02d", CorValorG) + String.format("%02d", CorValorB) + "\">" + String.valueOf(TetaMax) + "</font>.<br>φ = <font color=\"#" + String.format("%02d", CorValorR) + String.format("%02d", CorValorG) + String.format("%02d", CorValorB) + "\">" + String.valueOf(Phi) + "</font>. Max φ = <font color=\"#" + String.format("%02d", CorValorR) + String.format("%02d", CorValorG) + String.format("%02d", CorValorB) + "\">" + String.valueOf(PhiMax) + "</font>.<br><br>Rot = <font color=\"#" + String.format("%02d", CorValorR) + String.format("%02d", CorValorG) + String.format("%02d", CorValorB) + "\">" + String.valueOf(Rot) + "</font>.<br><br>Raio θ = <font color=\"#" + String.format("%02d", CorValorR) + String.format("%02d", CorValorG) + String.format("%02d", CorValorB) + "\">" + String.valueOf(RaioTeta) + "</font>. Rotacao θ = <font color=\"#" + String.format("%02d", CorValorR) + String.format("%02d", CorValorG) + String.format("%02d", CorValorB) + "\">" + String.valueOf(RotacaoTeta) + "</font>.<br>Raio φ = <font color=\"#" + String.format("%02d", CorValorR) + String.format("%02d", CorValorG) + String.format("%02d", CorValorB) + "\">" + String.valueOf(RaioPhi) + "</font>. Rotacao φ = <font color=\"#" + String.format("%02d", CorValorR) + String.format("%02d", CorValorG) + String.format("%02d", CorValorB) + "\">" + String.valueOf(-RotacaoPhi) + "</font>.<br>Raio de rotação = <font color=\"#" + String.format("%02d", CorValorR) + String.format("%02d", CorValorG) + String.format("%02d", CorValorB) + "\">" + String.valueOf(RaioRot) + "</font>. Rotacao = <font color=\"#" + String.format("%02d", CorValorR) + String.format("%02d", CorValorG) + String.format("%02d", CorValorB) + "\">" + String.valueOf(Rotacao) + "</font>.<br> RaioPRotCirc = <font color=\"#" + String.format("%02d", CorValorR) + String.format("%02d", CorValorG) + String.format("%02d", CorValorB) + "\">" + String.valueOf(RaioPRotCirc) + "</font>. RaioSRotCirc = <font color=\"#" + String.format("%02d", CorValorR) + String.format("%02d", CorValorG) + String.format("%02d", CorValorB) + "\">" + String.valueOf(RaioSRotCirc) + "</font>.<br> Rotação automática = <font color=\"#" + String.format("%02d", CorValorR) + String.format("%02d", CorValorG) + String.format("%02d", CorValorB) + "\">" + String.valueOf((! ((FlagRotTetaPos == 0) && (FlagRotTetaNeg == 0) && (FlagRotPhiPos == 0) && (FlagRotPhiNeg == 0) && (FlagRotRotTetaPos == 0) && (FlagRotRotTetaNeg == 0) && (FlagRotRotPhiPos == 0) && (FlagRotRotPhiNeg == 0) && (FlagRotCircPos == 0) && (FlagRotCircNeg == 0))) ? 1 : 0) + "</font>. VelocidadeRotacaoAutomatica = <font color=\"#" + String.format("%02d", CorValorR) + String.format("%02d", CorValorG) + String.format("%02d", CorValorB) + "\">" + String.valueOf(VelocidadeRotacaoAutomatica) + "</font>.<br>CurveRaioHor = <font color=\"#" + String.format("%02d", CorValorR) + String.format("%02d", CorValorG) + String.format("%02d", CorValorB) + "\">" + String.valueOf(CurveRaioHor) + "</font>. CurveRaioVert = <font color=\"#" + String.format("%02d", CorValorR) + String.format("%02d", CorValorG) + String.format("%02d", CorValorB) + "\">" + String.valueOf(CurveRaioVert) + "</font>.<br>RotacaoCirc = <font color=\"#" + String.format("%02d", CorValorR) + String.format("%02d", CorValorG) + String.format("%02d", CorValorB) + "\">" + String.valueOf(RotacaoCirc) + "</font>. StraightRotSpeed = <font color=\"#" + String.format("%02d", CorValorR) + String.format("%02d", CorValorG) + String.format("%02d", CorValorB) + "\">" + String.valueOf(StraightRotSpeed) + "</font>.<br>RaioRotHor = <font color=\"#" + String.format("%02d", CorValorR) + String.format("%02d", CorValorG) + String.format("%02d", CorValorB) + "\">" + String.valueOf(RaioRotHor) + "</font>. RaioRotVert = <font color=\"#" + String.format("%02d", CorValorR) + String.format("%02d", CorValorG) + String.format("%02d", CorValorB) + "\">" + String.valueOf(RaioRotVert) + "</font>.<br><br>Distância da tela = <font color=\"#" + String.format("%02d", CorValorR) + String.format("%02d", CorValorG) + String.format("%02d", CorValorB) + "\">" + String.valueOf(DistanciaTela) + "</font>.<br>Ângulo de visão = <font color=\"#" + String.format("%02d", CorValorR) + String.format("%02d", CorValorG) + String.format("%02d", CorValorB) + "\">" + String.valueOf(AnguloVisao + MargemAnguloVisao) + "</font>.<br>Aspect ratio = <font color=\"#" + String.format("%02d", CorValorR) + String.format("%02d", CorValorG) + String.format("%02d", CorValorB) + "\">" + String.valueOf(AspectRatio) + "</font><br><br>P0 = <font color=\"#" + String.format("%02d", CorValorR) + String.format("%02d", CorValorG) + String.format("%02d", CorValorB) + "\">" + String.valueOf(Parametro0) + "</font>. P0S = <font color=\"#" + String.format("%02d", CorValorR) + String.format("%02d", CorValorG) + String.format("%02d", CorValorB) + "\">" + String.valueOf(Parametro0Step) + "</font>. P1 = <font color=\"#" + String.format("%02d", CorValorR) + String.format("%02d", CorValorG) + String.format("%02d", CorValorB) + "\">" + String.valueOf(Parametro1) + "</font>. P1S = <font color=\"#" + String.format("%02d", CorValorR) + String.format("%02d", CorValorG) + String.format("%02d", CorValorB) + "\">" + String.valueOf(Parametro1Step) + "</font>.<br>P2 = <font color=\"#" + String.format("%02d", CorValorR) + String.format("%02d", CorValorG) + String.format("%02d", CorValorB) + "\">" + String.valueOf(Parametro2) + "</font>. P2S = <font color=\"#" + String.format("%02d", CorValorR) + String.format("%02d", CorValorG) + String.format("%02d", CorValorB) + "\">" + String.valueOf(Parametro2Step) + "</font>. P3 = <font color=\"#" + String.format("%02d", CorValorR) + String.format("%02d", CorValorG) + String.format("%02d", CorValorB) + "\">" + String.valueOf(Parametro3) + "</font>. P3S = <font color=\"#" + String.format("%02d", CorValorR) + String.format("%02d", CorValorG) + String.format("%02d", CorValorB) + "\">" + String.valueOf(Parametro3Step) + "</font>.<br>P4 = <font color=\"#" + String.format("%02d", CorValorR) + String.format("%02d", CorValorG) + String.format("%02d", CorValorB) + "\">" + String.valueOf(Parametro4) + "</font>. P4S = <font color=\"#" + String.format("%02d", CorValorR) + String.format("%02d", CorValorG) + String.format("%02d", CorValorB) + "\">" + String.valueOf(Parametro4Step) + "</font>. P5 = <font color=\"#" + String.format("%02d", CorValorR) + String.format("%02d", CorValorG) + String.format("%02d", CorValorB) + "\">" + String.valueOf(Parametro5) + "</font>. P5S = <font color=\"#" + String.format("%02d", CorValorR) + String.format("%02d", CorValorG) + String.format("%02d", CorValorB) + "\">" + String.valueOf(Parametro5Step) + "</font>.<br>P6 = <font color=\"#" + String.format("%02d", CorValorR) + String.format("%02d", CorValorG) + String.format("%02d", CorValorB) + "\">" + String.valueOf(Parametro6) + "</font>. P6S = <font color=\"#" + String.format("%02d", CorValorR) + String.format("%02d", CorValorG) + String.format("%02d", CorValorB) + "\">" + String.valueOf(Parametro6Step) + "</font>. P7 = <font color=\"#" + String.format("%02d", CorValorR) + String.format("%02d", CorValorG) + String.format("%02d", CorValorB) + "\">" + String.valueOf(Parametro7) + "</font>. P7S = <font color=\"#" + String.format("%02d", CorValorR) + String.format("%02d", CorValorG) + String.format("%02d", CorValorB) + "\">" + String.valueOf(Parametro7Step) + "</font>.<br>P8 = <font color=\"#" + String.format("%02d", CorValorR) + String.format("%02d", CorValorG) + String.format("%02d", CorValorB) + "\">" + String.valueOf(Parametro8) + "</font>. P8S = <font color=\"#" + String.format("%02d", CorValorR) + String.format("%02d", CorValorG) + String.format("%02d", CorValorB) + "\">" + String.valueOf(Parametro8Step) + "</font>. P9 = <font color=\"#" + String.format("%02d", CorValorR) + String.format("%02d", CorValorG) + String.format("%02d", CorValorB) + "\">" + String.valueOf(Parametro9) + "</font>. P9S = <font color=\"#" + String.format("%02d", CorValorR) + String.format("%02d", CorValorG) + String.format("%02d", CorValorB) + "\">" + String.valueOf(Parametro9Step) + "</font>.<br><br>CameraMovePar = <font color=\"#" + String.format("%02d", CorValorR) + String.format("%02d", CorValorG) + String.format("%02d", CorValorB) + "\">" + String.valueOf(CameraMovePar) + "</font>. CameraMoveParStep = <font color=\"#" + String.format("%02d", CorValorR) + String.format("%02d", CorValorG) + String.format("%02d", CorValorB) + "\">" + String.valueOf(CameraMoveParStep) + "</font>.<br><br>Stretch = <font color=\"#" + String.format("%02d", CorValorR) + String.format("%02d", CorValorG) + String.format("%02d", CorValorB) + "\">" + String.valueOf(StretchFlag) + "</font>. Apfloat = <font color=\"#" + String.format("%02d", CorValorR) + String.format("%02d", CorValorG) + String.format("%02d", CorValorB) + "\">" + String.valueOf(ApfloatFlag) + "</font>. fillPolygon = <font color=\"#" + String.format("%02d", CorValorR) + String.format("%02d", CorValorG) + String.format("%02d", CorValorB) + "\">" + String.valueOf(TrianguloPoligono) + "</font>. ResolucaoTriangulos = <font color=\"#" + String.format("%02d", CorValorR) + String.format("%02d", CorValorG) + String.format("%02d", CorValorB) + "\">" + String.valueOf(ResolucaoTriangulos) + "</font>. SleepTime = <font color=\"#" + String.format("%02d", CorValorR) + String.format("%02d", CorValorG) + String.format("%02d", CorValorB) + "\">" + String.valueOf(SleepTime) + "</font>.<br> FlagTime = <font color=\"#" + String.format("%02d", CorValorR) + String.format("%02d", CorValorG) + String.format("%02d", CorValorB) + "\">" + String.valueOf(FlagTime) + "</font>. CamId = <font color=\"#" + String.format("%02d", CorValorR) + String.format("%02d", CorValorG) + String.format("%02d", CorValorB) + "\">" + String.valueOf(CameraId) + "</font>. CameraView = <font color=\"#" + String.format("%02d", CorValorR) + String.format("%02d", CorValorG) + String.format("%02d", CorValorB) + "\">" + String.valueOf(CameraView) + "</font>. CameraViewFollow = <font color=\"#" + String.format("%02d", CorValorR) + String.format("%02d", CorValorG) + String.format("%02d", CorValorB) + "\">" + String.valueOf(CameraViewFollow)+ "</font><br><br>TrickSpeed = <font color=\"#" + String.format("%02d", CorValorR) + String.format("%02d", CorValorG) + String.format("%02d", CorValorB) + "\">" + String.valueOf(TrickSpeed) + "</font>. TrickRot = <font color=\"#" + String.format("%02d", CorValorR) + String.format("%02d", CorValorG) + String.format("%02d", CorValorB) + "\">" + String.valueOf(TrickRot) + "</font>. TricksFactor = <font color=\"#" + String.format("%02d", CorValorR) + String.format("%02d", CorValorG) + String.format("%02d", CorValorB) + "\">" + String.valueOf(TricksFactor) + "</font>.<br><br>Aperte F1 para ajuda.</p></html>";
+
+				LabelStatus.setText(TextoLabel);
 
 				FrameEspaco.getContentPane().setBackground(CorBackground);
 
@@ -4444,7 +4490,7 @@ public class AV3DNavigator extends JComponent
 				FlagAlteracaoStatus = 0; NoRedrawFlag = 0;
 				}
  
-			if (LabelAnimado == 1) {if (FlagMostrarLabel == 1) {LabelStatus.setVisible(false); LabelStatus.setVisible(true); if (FlagHelp == 1) {LabelHelp.setVisible(false); LabelHelp.setVisible(true);} if (FlagAbout == 1) {LabelAbout.setVisible(false); LabelAbout.setVisible(true);}}}
+			if (LabelAnimado == 1) {if (FlagMostrarLabel == 1) LabelStatus.repaint(); if (FlagHelp == 1) LabelHelp.repaint(); if (FlagAbout == 1) LabelAbout.repaint();}
 
 			if (FlagTime == 1)
 				{
