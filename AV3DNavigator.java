@@ -213,6 +213,7 @@ public class AV3DNavigator extends JComponent
 	public String AtribuicaoString;
 	public String INI = new String("");
 	public int FlagMostrarLabel = 1;
+	public int FlagSwitchLabel = 0;
 	public int ValorInteiro;
 	public int ValorInteiro1;
 	public int ValorInteiro2;
@@ -1853,6 +1854,8 @@ public class AV3DNavigator extends JComponent
 		GridBagConstraintsLabelStatusLabelURL.weighty = TamanhoEspacoLabelURL;
 		LabelStatusLabelURLPanel.add(LabelURL, GridBagConstraintsLabelStatusLabelURL);
 		FrameEspaco.getContentPane().add(LabelStatusLabelURLPanel, BorderLayout.SOUTH);
+		FrameEspaco.pack();
+		FrameEspaco.setVisible(true);
 
 		// Criando frame de progresso de renderização.
 
@@ -1908,6 +1911,8 @@ public class AV3DNavigator extends JComponent
 			FrameLendoEspaco.setVisible(true);
 
 			Espaco = LerEspaco(ArquivoEspaco, Debug);
+
+			try {Thread.sleep(50);} catch(InterruptedException e) {}
 
 			FrameLendoEspaco.setVisible(false);
 
@@ -2532,18 +2537,20 @@ public class AV3DNavigator extends JComponent
 									FrameEspaco.setSize(new Dimension(Tamanho, Tamanho + TamanhoEspacoLabelURL));
 									}
 
-								FrameEspaco.revalidate(); FrameEspaco.repaint(); FrameEspaco.pack();
+								FrameEspaco.pack();
 								}
 
 							break;
 
 						case KeyEvent.VK_F3:
+							FlagSwitchLabel = 1;
+
 							if (FlagMostrarLabel == 0)
 								{
+								FrameEspaco.getContentPane().removeAll();
 								Comp.setPreferredSize(new Dimension(TamanhoPlanoX, TamanhoPlanoY));
 								Comp.setSize(new Dimension(TamanhoPlanoX, TamanhoPlanoY));
-
-								FrameEspaco.getContentPane().remove(LabelURL);
+								FrameEspaco.getContentPane().add(Comp, BorderLayout.PAGE_START);
 								LabelStatusLabelURLPanel = new JPanel(new GridBagLayout());
 								GridBagConstraints GridBagConstraintsLabelStatusLabelURL = new GridBagConstraints();
 								GridBagConstraintsLabelStatusLabelURL.gridx = 0;
@@ -2571,27 +2578,32 @@ public class AV3DNavigator extends JComponent
 								}
 							else
 								{
+								FrameEspaco.getContentPane().removeAll();
 								Comp.setPreferredSize(new Dimension(TamanhoPlanoX, TamanhoPlanoY));
 								Comp.setSize(new Dimension(TamanhoPlanoX, TamanhoPlanoY));
-
-								LabelStatusLabelURLPanel.removeAll();
-								FrameEspaco.getContentPane().remove(LabelStatusLabelURLPanel);
-								FrameEspaco.getContentPane().add(LabelURL, BorderLayout.PAGE_END);
-								LabelURL.setVisible(true);
-								LabelStatusLabelURLPanel.setVisible(false);
-								LabelStatusLabelURLPanel.revalidate();
-								LabelStatusLabelURLPanel.repaint();
-
+								FrameEspaco.getContentPane().add(Comp, BorderLayout.PAGE_START);
+								LabelStatusLabelURLPanel = new JPanel(new GridBagLayout());
+								GridBagConstraints GridBagConstraintsLabelStatusLabelURL = new GridBagConstraints();
+								GridBagConstraintsLabelStatusLabelURL.gridx = 0;
+								GridBagConstraintsLabelStatusLabelURL.gridy = 0;
+								GridBagConstraintsLabelStatusLabelURL.fill = GridBagConstraints.BOTH;
+								GridBagConstraintsLabelStatusLabelURL.weightx = TamanhoPlanoX;
+								GridBagConstraintsLabelStatusLabelURL.weighty = TamanhoEspacoLabelURL;
+								LabelStatusLabelURLPanel.add(LabelURL, GridBagConstraintsLabelStatusLabelURL);
+								FrameEspaco.getContentPane().add(LabelStatusLabelURLPanel, BorderLayout.SOUTH);
+								FrameEspaco.setVisible(true);
+								FrameEspaco.revalidate();
+								FrameEspaco.repaint();
 								FrameEspaco.setPreferredSize(new Dimension(TamanhoPlanoX, TamanhoPlanoY + TamanhoEspacoLabelURL));
-								FrameEspaco.setMinimumSize(new Dimension(MinTamanhoPlanoX, MinTamanhoPlanoY + TamanhoEspacoLabelURL));
+								FrameEspaco.setMinimumSize(new Dimension(MinTamanhoPlanoX, TamanhoPlanoY + TamanhoEspacoLabelURL));
 								FrameEspaco.setSize(new Dimension(TamanhoPlanoX, TamanhoPlanoY + TamanhoEspacoLabelURL));
 
 								FlagMostrarLabel = 0;
 								}
 
-							FrameEspaco.revalidate(); FrameEspaco.repaint(); FrameEspaco.pack();
+							FrameEspaco.pack();
 
-							try {Thread.sleep(50);} catch(InterruptedException e) {}
+							FlagSwitchLabel = 1;
 
 							NoRedrawFlag = 1;
 
@@ -4053,9 +4065,6 @@ public class AV3DNavigator extends JComponent
 			public void keyTyped(KeyEvent ke){}
 			});
 
-		FrameEspaco.pack();
-		FrameEspaco.setVisible(true);
-
 		while(Sair == 0)
 			{
 			Point reference = FrameEspaco.getLocationOnScreen();
@@ -4263,21 +4272,22 @@ public class AV3DNavigator extends JComponent
 				FlagAlteracaoStatus = 1;
 				}
 
-			if (FrameEspacoYBak != FrameEspaco.getHeight())
-				{
-				FrameEspacoYBak = FrameEspaco.getHeight();
+			if (FlagSwitchLabel == 0)
+				if (FrameEspacoYBak != FrameEspaco.getHeight())
+					{
+					FrameEspacoYBak = FrameEspaco.getHeight();
 
-				if (FlagMostrarLabel == 1)
-					TamanhoPlanoY = FrameEspacoYBak - TamanhoEspacoLabelStatus - TamanhoEspacoLabelURL;
-				else
-					TamanhoPlanoY = FrameEspacoYBak  - TamanhoEspacoLabelURL;
+					if (FlagMostrarLabel == 1)
+						TamanhoPlanoY = FrameEspacoYBak - TamanhoEspacoLabelStatus - TamanhoEspacoLabelURL;
+					else
+						TamanhoPlanoY = FrameEspacoYBak - TamanhoEspacoLabelURL;
 
-				Comp.setPreferredSize(new Dimension(TamanhoPlanoX, TamanhoPlanoY));
-				Comp.setSize(new Dimension(TamanhoPlanoX, TamanhoPlanoY));
+					Comp.setPreferredSize(new Dimension(TamanhoPlanoX, TamanhoPlanoY));
+					Comp.setSize(new Dimension(TamanhoPlanoX, TamanhoPlanoY));
 
-				NoRedrawFlag = 0;
-				FlagAlteracaoStatus = 1;
-				}
+					NoRedrawFlag = 0;
+					FlagAlteracaoStatus = 1;
+					}
 
 			if (FlagAlteracaoStatus == 1)
 				{
@@ -4434,7 +4444,7 @@ public class AV3DNavigator extends JComponent
 				FlagAlteracaoStatus = 0; NoRedrawFlag = 0;
 				}
  
-			if (FlagMostrarLabel == 1) if (LabelAnimado == 1) {LabelStatus.setVisible(false); LabelStatus.setVisible(true); if (FlagHelp == 1) {LabelHelp.setVisible(false); LabelHelp.setVisible(true);} if (FlagAbout == 1) {LabelAbout.setVisible(false); LabelAbout.setVisible(true);}}
+			if (LabelAnimado == 1) {if (FlagMostrarLabel == 1) {LabelStatus.setVisible(false); LabelStatus.setVisible(true); if (FlagHelp == 1) {LabelHelp.setVisible(false); LabelHelp.setVisible(true);} if (FlagAbout == 1) {LabelAbout.setVisible(false); LabelAbout.setVisible(true);}}}
 
 			if (FlagTime == 1)
 				{
