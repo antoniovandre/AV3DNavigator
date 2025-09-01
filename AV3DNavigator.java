@@ -11,7 +11,7 @@
  * 
  * Licença de uso: Creative Commons Attribution Non-Commercial License V2.0.
  * 
- * Última atualização: 31-08-2025. Não considerando alterações em variáveis globais.
+ * Última atualização: 01-09-2025. Não considerando alterações em variáveis globais.
  */
 
 import java.lang.IllegalThreadStateException;
@@ -4310,7 +4310,14 @@ public class AV3DNavigator extends JComponent
 
 				// Tricks scope.
 
-				if (TrickRot == 1) if ((Rotacao != RotacaoBak) || (RotacaoRotHor != RotacaoRotHorBak) || (RotacaoRotVert != RotacaoRotVertBak)) if ((Math.abs(Math.sin(Rot)) < TricksFactor / 2) || (Math.abs(Math.cos(Rot)) < TricksFactor / 2)) Rot += (Math.cos(Phi) >= 0 ? 1 : -1) * TricksFactor / 10 * DeslocamentoAngularStatic;
+				if (TrickRot == 1)
+					{
+					if (Rotacao != RotacaoBak) if ((Math.abs(Math.sin(Rot)) < TricksFactor / 2) || (Math.abs(Math.cos(Rot)) < TricksFactor / 2)) Rot += (Math.cos(Phi) >= 0 ? 1 : -1) * TricksFactor / 10 * DeslocamentoAngularStatic;
+
+					if (RotacaoRotHor != RotacaoRotHorBak) if ((Math.abs(Math.sin(RotRotHor)) < TricksFactor / 2) || (Math.abs(Math.cos(RotRotHor)) < TricksFactor / 2)) Rot += (Math.cos(PhiRotHor) >= 0 ? 1 : -1) * TricksFactor / 10 * DeslocamentoAngularStatic;
+
+					if (RotacaoRotVert != RotacaoRotVertBak) if ((Math.abs(Math.sin(RotRotVert)) < TricksFactor / 2) || (Math.abs(Math.cos(RotRotVert)) < TricksFactor / 2)) Rot += (Math.cos(PhiRotVert) >= 0 ? 1 : -1) * TricksFactor / 10 * DeslocamentoAngularStatic;
+					}
 
 				RotacaoBak = Rotacao;
 				RotacaoRotHor = RotacaoRotHorBak;
