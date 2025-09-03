@@ -4360,6 +4360,9 @@ public class AV3DNavigator extends JComponent
 				{
 				Teta = Teta % (2 * Math.PI);
 				Phi = Phi % (2 * Math.PI);
+				RotacaoTeta = RotacaoTeta % (2 * Math.PI);
+				RotacaoPhi = RotacaoPhi % (2 * Math.PI);
+				Rotacao = Rotacao % (2 * Math.PI);
 				Rot = Rot % (2 * Math.PI);
 				Tetat = Tetat % (2 * Math.PI);
 				Phit = Phit % (2 * Math.PI);
