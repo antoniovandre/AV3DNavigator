@@ -11,7 +11,7 @@
  * 
  * Licença de uso: Creative Commons Attribution Non-Commercial License V2.0.
  * 
- * Última atualização: 02-09-2025. Não considerando alterações em variáveis globais.
+ * Última atualização: 03-09-2025. Não considerando alterações em variáveis globais.
  */
 
 import java.lang.IllegalThreadStateException;
@@ -440,8 +440,10 @@ public class AV3DNavigator extends JComponent
 	public JFrame FrameRendering;
 	public JFrame FrameLendoEspaco;
 	GradientLabel LabelStatus;
+	GradientLabel LabelURL;
 	public GradientLabel LabelRendering;
 	public GradientLabel LabelLendoEspaco;
+	GridBagConstraints GridBagConstraintsLabelStatusLabelURL;
 	public int ContadorRendering;
 	public int TotalRenderingL;
 	public int TotalRenderingT;
@@ -1893,13 +1895,13 @@ public class AV3DNavigator extends JComponent
 		LabelStatus = new GradientLabel("", new Color(CorJanelaR, CorJanelaG, CorJanelaB), new Color(CorJanelaGradienteR, CorJanelaGradienteG, CorJanelaGradienteB), new Color(CorFonteJanelaR, CorFonteJanelaG, CorFonteJanelaB), 1);
 		LabelStatus.setBorder(new EmptyBorder(5, 5, 5, 5));
 		LabelStatus.setFont(new Font("DialogInput", Font.BOLD | Font.ITALIC, TamanhoFonteLabelStatus));
-		GradientLabel LabelURL = new GradientLabel("<html>" + URL + "</html>", Color.WHITE, Color.BLACK, Color.BLUE, 0);
+		LabelURL = new GradientLabel("<html>" + URL + "</html>", Color.WHITE, Color.BLACK, Color.BLUE, 0);
 		LabelURL.setBorder(new EmptyBorder(5, 5, 5, 5));
 		LabelURL.setFont(new Font("Monospaced", Font.BOLD | Font.ITALIC, TamanhoFonteLabelURL));
 		LabelStatus.setPreferredSize(new Dimension(TamanhoPlanoX, TamanhoEspacoLabelStatus));
 		LabelStatus.setSize(new Dimension(TamanhoPlanoX, TamanhoEspacoLabelStatus));
 		LabelStatusLabelURLPanel = new JPanel(new GridBagLayout());
-		GridBagConstraints GridBagConstraintsLabelStatusLabelURL = new GridBagConstraints();
+		GridBagConstraintsLabelStatusLabelURL = new GridBagConstraints();
 		GridBagConstraintsLabelStatusLabelURL.gridx = 0;
 		GridBagConstraintsLabelStatusLabelURL.gridy = 0;
 		GridBagConstraintsLabelStatusLabelURL.fill = GridBagConstraints.BOTH;
@@ -1971,7 +1973,7 @@ public class AV3DNavigator extends JComponent
 
 			Espaco = LerEspaco(ArquivoEspaco, Debug);
 
-			try {Thread.sleep(50);} catch(InterruptedException e) {}
+			try {Thread.sleep(100);} catch(InterruptedException e) {}
 
 			FrameLendoEspaco.setVisible(false);
 
@@ -2103,6 +2105,7 @@ public class AV3DNavigator extends JComponent
 						FlagRotRotPhiNeg = 0;
 						FlagRotCircPos = 0;
 						FlagRotCircNeg = 0;
+						VelocidadeRotacaoAutomatica = 1;
 						xt = x;
 						yt = y;
 						zt = z;
@@ -2174,13 +2177,13 @@ public class AV3DNavigator extends JComponent
 						LabelStatus = new GradientLabel("", new Color(CorJanelaR, CorJanelaG, CorJanelaB), new Color(CorJanelaGradienteR, CorJanelaGradienteG, CorJanelaGradienteB), new Color(CorFonteJanelaR, CorFonteJanelaG, CorFonteJanelaB), 1);
 						LabelStatus.setBorder(new EmptyBorder(5, 5, 5, 5));
 						LabelStatus.setFont(new Font("DialogInput", Font.BOLD | Font.ITALIC, TamanhoFonteLabelStatus));
-						GradientLabel LabelURL = new GradientLabel("<html>" + URL + "</html>", Color.WHITE, Color.BLACK, Color.BLUE, 0);
+						LabelURL = new GradientLabel("<html>" + URL + "</html>", Color.WHITE, Color.BLACK, Color.BLUE, 0);
 						LabelURL.setBorder(new EmptyBorder(5, 5, 5, 5));
 						LabelURL.setFont(new Font("Monospaced", Font.BOLD | Font.ITALIC, TamanhoFonteLabelURL));
 						LabelStatus.setPreferredSize(new Dimension(TamanhoPlanoX, TamanhoEspacoLabelStatus));
 						LabelStatus.setSize(new Dimension(TamanhoPlanoX, TamanhoEspacoLabelStatus));
 						LabelStatusLabelURLPanel = new JPanel(new GridBagLayout());
-						GridBagConstraints GridBagConstraintsLabelStatusLabelURL = new GridBagConstraints();
+						GridBagConstraintsLabelStatusLabelURL = new GridBagConstraints();
 						GridBagConstraintsLabelStatusLabelURL.gridx = 0;
 						GridBagConstraintsLabelStatusLabelURL.gridy = 0;
 						GridBagConstraintsLabelStatusLabelURL.fill = GridBagConstraints.BOTH;
@@ -2418,6 +2421,1186 @@ public class AV3DNavigator extends JComponent
 
 						break;
 
+					case KeyEvent.VK_F3:
+						FlagSwitchLabel = 1;
+
+						if (FlagMostrarLabel == 0)
+							{
+							FrameEspaco.getContentPane().removeAll();
+							Comp.setPreferredSize(new Dimension(TamanhoPlanoX, TamanhoPlanoY));
+							Comp.setSize(new Dimension(TamanhoPlanoX, TamanhoPlanoY));
+							FrameEspaco.getContentPane().add(Comp, BorderLayout.PAGE_START);
+							LabelStatusLabelURLPanel = new JPanel(new GridBagLayout());
+							GridBagConstraintsLabelStatusLabelURL = new GridBagConstraints();
+							GridBagConstraintsLabelStatusLabelURL.gridx = 0;
+							GridBagConstraintsLabelStatusLabelURL.gridy = 0;
+							GridBagConstraintsLabelStatusLabelURL.fill = GridBagConstraints.BOTH;
+							GridBagConstraintsLabelStatusLabelURL.weightx = TamanhoPlanoX;
+							GridBagConstraintsLabelStatusLabelURL.weighty = TamanhoEspacoLabelStatus;
+							LabelStatusLabelURLPanel.add(LabelStatus, GridBagConstraintsLabelStatusLabelURL);
+							GridBagConstraintsLabelStatusLabelURL.gridx = 0;
+							GridBagConstraintsLabelStatusLabelURL.gridy = 1;
+							GridBagConstraintsLabelStatusLabelURL.fill = GridBagConstraints.BOTH;
+							GridBagConstraintsLabelStatusLabelURL.weightx = TamanhoPlanoX;
+							GridBagConstraintsLabelStatusLabelURL.weighty = TamanhoEspacoLabelURL;
+							LabelStatusLabelURLPanel.add(LabelURL, GridBagConstraintsLabelStatusLabelURL);
+							FrameEspaco.getContentPane().add(LabelStatusLabelURLPanel, BorderLayout.SOUTH);
+							LabelStatusLabelURLPanel.setVisible(true);
+							LabelStatusLabelURLPanel.revalidate();
+							LabelStatusLabelURLPanel.repaint();
+
+							FrameEspaco.setPreferredSize(new Dimension(TamanhoPlanoX, TamanhoPlanoY + TamanhoEspacoLabelStatus + TamanhoEspacoLabelURL));
+							FrameEspaco.setMinimumSize(new Dimension(MinTamanhoPlanoX, MinTamanhoPlanoYMaisLabels));
+							FrameEspaco.setSize(new Dimension(TamanhoPlanoX, TamanhoPlanoY + TamanhoEspacoLabelStatus + TamanhoEspacoLabelURL));
+
+							FlagMostrarLabel = 1;
+							}
+						else
+							{
+							FrameEspaco.getContentPane().removeAll();
+							Comp.setPreferredSize(new Dimension(TamanhoPlanoX, TamanhoPlanoY));
+							Comp.setSize(new Dimension(TamanhoPlanoX, TamanhoPlanoY));
+							FrameEspaco.getContentPane().add(Comp, BorderLayout.PAGE_START);
+							LabelStatusLabelURLPanel = new JPanel(new GridBagLayout());
+							GridBagConstraintsLabelStatusLabelURL = new GridBagConstraints();
+							GridBagConstraintsLabelStatusLabelURL.gridx = 0;
+							GridBagConstraintsLabelStatusLabelURL.gridy = 0;
+							GridBagConstraintsLabelStatusLabelURL.fill = GridBagConstraints.BOTH;
+							GridBagConstraintsLabelStatusLabelURL.weightx = TamanhoPlanoX;
+							GridBagConstraintsLabelStatusLabelURL.weighty = TamanhoEspacoLabelURL;
+							LabelStatusLabelURLPanel.add(LabelURL, GridBagConstraintsLabelStatusLabelURL);
+							FrameEspaco.getContentPane().add(LabelStatusLabelURLPanel, BorderLayout.SOUTH);
+							FrameEspaco.setVisible(true);
+							FrameEspaco.revalidate();
+							FrameEspaco.repaint();
+							FrameEspaco.setPreferredSize(new Dimension(TamanhoPlanoX, TamanhoPlanoY + TamanhoEspacoLabelURL));
+							FrameEspaco.setMinimumSize(new Dimension(MinTamanhoPlanoX, TamanhoPlanoY + TamanhoEspacoLabelURL));
+							FrameEspaco.setSize(new Dimension(TamanhoPlanoX, TamanhoPlanoY + TamanhoEspacoLabelURL));
+
+							FlagMostrarLabel = 0;
+							}
+
+						FrameEspaco.pack();
+
+						FlagSwitchLabel = 1;
+
+						NoRedrawFlag = 1;
+
+						break;
+
+					case KeyEvent.VK_F12:
+						DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd-MM-yyyy HH-mm-ss");
+						LocalDateTime now = LocalDateTime.now();
+						BufferedImage ImagemFrame = new BufferedImage(TamanhoPlanoX, TamanhoPlanoY + FrameEspaco.getInsets().top, BufferedImage.TYPE_INT_RGB);
+						Graphics2D g2d = ImagemFrame.createGraphics();
+						FrameEspaco.print(g2d);
+
+						g2d.setFont(new Font("SansSerif", Font.ITALIC, TamanhoFonteLabelPrint));
+
+						if (FlagPrintInit == 0)
+							{
+							Random geradorPrint = new Random();
+
+							String [] CoresMatrix = StringCores.split(";");
+							int FlagCores = 0;
+							long TentativasCores = 0;
+
+							labelDo: do
+								{
+								int iPrintR = geradorPrint.nextInt(256);
+								int iPrintG = geradorPrint.nextInt(256);
+								int iPrintB = geradorPrint.nextInt(256);
+
+								labelFor: for (i = 0; i < CoresMatrix.length; i++)
+									{
+									String [] RGB = CoresMatrix[i].split(",");
+
+									if ((iPrintR == Integer.parseInt(RGB[0])) && (iPrintG == Integer.parseInt(RGB[1])) && (iPrintB == Integer.parseInt(RGB[2])))
+										{
+										TentativasCores++;
+										FlagCores = 1;
+										continue labelDo;
+										}
+									else
+										{
+										g2d.setColor(new Color(iPrintR, iPrintG, iPrintB));
+										FlagCores = 0;
+										break labelFor;
+										}
+									}
+								} while ((FlagCores == 1) && (TentativasCores < MaxTentativasCores));
+
+							if (TentativasCores == MaxTentativasCores)
+								g2d.setColor(Color.WHITE);
+							}
+						else
+							g2d.setColor(new Color(PrintR, PrintG, PrintB));
+
+						if (FlagMostrarLabel == 1)
+							g2d.drawString(URL, 5 + FrameEspaco.getInsets().left, TamanhoPlanoY + FrameEspaco.getInsets().top - 5);
+						else
+							{
+							String[] AtribuicaoStringArrP = AtribuicaoString.split("\\|");
+
+							if (AtribuicaoStringArrP.length == 2)
+								{
+								if (AntonioVandre.NumeroNaturalPositivo(AtribuicaoStringArrP[0].replaceAll(" ", "")))
+									{
+									String[] AtribuicaoStringArr = AtribuicaoStringArrP[1].split(";");
+
+									for (i = 0; i < AtribuicaoStringArr.length; i++)
+										g2d.drawString(AtribuicaoStringArr[i], TamanhoPlanoX - FrameEspaco.getInsets().right - Integer.parseInt(AtribuicaoStringArrP[0].replaceAll(" ", "")), TamanhoPlanoY + FrameEspaco.getInsets().top - 5 - ((AtribuicaoStringArr.length - 1) * 20) + i * 20);
+									}
+								}
+							}
+
+						g2d.dispose();
+						BufferedImage ImagemFramePrint = ImagemFrame.getSubimage(FrameEspaco.getInsets().left, FrameEspaco.getInsets().top, TamanhoPlanoX - FrameEspaco.getInsets().left - FrameEspaco.getInsets().right, TamanhoPlanoY);
+						try {ImageIO.write(ImagemFramePrint, "png", new File("AV3DNavigator - Screenshot - " + dtf.format(now) + ".png"));} catch(IOException e) {}
+
+						NoRedrawFlag = 1;
+
+						break;
+
+					case KeyEvent.VK_F2:
+						JFileChooser fileChooser = new JFileChooser();
+						fileChooser.setCurrentDirectory(new File(System.getProperty("user.dir")));
+						int result = fileChooser.showOpenDialog(FrameEspaco);
+						if (result == JFileChooser.APPROVE_OPTION)
+							{
+							File selectedFile = fileChooser.getSelectedFile();
+
+							Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+
+							if (FrameEspaco.getY() < 0)
+								FrameLendoEspaco.setLocation(FrameEspaco.getX(), FrameEspaco.getY() + FrameEspaco.getHeight() + 2);
+							else
+								{
+								if (FrameEspaco.getX() + FrameEspaco.getWidth() + 2 + TamanhoLendoEspacoX > screenSize.getWidth())
+									FrameRendering.setLocation(FrameEspaco.getX() - TamanhoLendoEspacoX - 2, FrameEspaco.getY());
+								else
+									FrameLendoEspaco.setLocation(FrameEspaco.getX() + FrameEspaco.getWidth() + 2, FrameEspaco.getY());
+								}
+
+							FrameLendoEspaco.setVisible(true);
+
+							String EspacoT = LerEspaco (selectedFile.getAbsolutePath(), Debug);
+
+							FrameLendoEspaco.setVisible(false);
+
+							if (EspacoT.equals("Erro"))
+								{
+								JFrame FrameErroEspacoInvalido = new JFrame("AV3DNavigator - Espaço inválido");
+								FrameErroEspacoInvalido.setPreferredSize(new Dimension(TamanhoEspacoInvalidoX, TamanhoEspacoInvalidoY));
+								FrameErroEspacoInvalido.setSize(new Dimension(TamanhoEspacoInvalidoX, TamanhoEspacoInvalidoY));
+								GradientLabel LabelErroEspacoInvalido = new GradientLabel(MensagemErroEspacoInvalido, new Color(CorJanelaR, CorJanelaG, CorJanelaB), new Color(CorJanelaGradienteR, CorJanelaGradienteG, CorJanelaGradienteB), new Color(CorFonteJanelaR, CorFonteJanelaG, CorFonteJanelaB), 0);
+								LabelErroEspacoInvalido.setBorder(new EmptyBorder(5, 5, 5, 5));
+								LabelErroEspacoInvalido.setFont(new Font("DialogInput", Font.BOLD | Font.ITALIC, TamanhoFonteLabelErroEspacoInvalido));
+								FrameErroEspacoInvalido.add(LabelErroEspacoInvalido);
+								FrameErroEspacoInvalido.pack();
+								FrameErroEspacoInvalido.setVisible(true);
+
+								FrameErroEspacoInvalido.addKeyListener(new KeyListener()
+									{
+									public void keyPressed(KeyEvent keErroEspacoInvalido)
+										{
+										int keyCodeHelp = keErroEspacoInvalido.getKeyCode();
+
+										if (keyCodeHelp == KeyEvent.VK_ESCAPE)
+											FrameErroEspacoInvalido.dispose();
+										}
+
+									public void keyReleased(KeyEvent keErroEspacoInvalido){}
+									public void keyTyped(KeyEvent keErroEspacoInvalido){}
+									});
+								}
+							else
+								{
+								if (EspacoT.equals(Espaco))
+									NoRedrawFlag = 1;
+								else
+									Espaco = EspacoT;
+								}
+							}
+						else if (result == JFileChooser.CANCEL_OPTION) NoRedrawFlag = 1;
+
+						break;
+
+					case KeyEvent.VK_F10:
+						if (StretchFlag == 0) StretchFlag = 1; else StretchFlag = 0;
+
+						break;
+
+					case KeyEvent.VK_F11:
+						if (StretchFlag == 1)
+							{
+							int Tamanho = Math.min(TamanhoPlanoX, TamanhoPlanoY);
+
+							if (FlagMostrarLabel == 1)
+								{
+								FrameEspaco.setPreferredSize(new Dimension(Tamanho, Tamanho + TamanhoEspacoLabelStatus + TamanhoEspacoLabelURL));
+								FrameEspaco.setSize(new Dimension(Tamanho, Tamanho + TamanhoEspacoLabelStatus + TamanhoEspacoLabelURL));
+								}
+							else
+								{
+								FrameEspaco.setPreferredSize(new Dimension(Tamanho, Tamanho + TamanhoEspacoLabelURL));
+								FrameEspaco.setSize(new Dimension(Tamanho, Tamanho + TamanhoEspacoLabelURL));
+								}
+
+							FrameEspaco.pack();
+							}
+
+						break;
+
+					case KeyEvent.VK_END:
+						TamanhoFonteLegendas++;
+
+						break;
+
+					case KeyEvent.VK_DELETE:
+						if (TamanhoFonteLegendas > 1) TamanhoFonteLegendas--;
+
+						break;
+
+					case KeyEvent.VK_EQUALS:
+						ShiftVerticalLegendas++;
+
+						break;
+
+					case KeyEvent.VK_MINUS:
+						if (ShiftVerticalLegendas > 20) ShiftVerticalLegendas--;
+
+						break;
+
+					case KeyEvent.VK_NUMPAD2:
+						if (ResolucaoTriangulos < AntonioVandre.MaximoValorInteiro) ResolucaoTriangulos++;
+
+						break;
+
+					case KeyEvent.VK_NUMPAD1:
+						if (ResolucaoTriangulos > 2) ResolucaoTriangulos--;
+
+						break;
+
+					case KeyEvent.VK_F6:
+						if (ke.isControlDown()) {if (ke.isShiftDown()) {RaioSRotCirc -= DeslocamentoLinearStatic;} else {RaioSRotCirc += DeslocamentoLinearStatic;}} else {if (ke.isShiftDown()) {RaioPRotCirc -= DeslocamentoLinearStatic;} else {RaioPRotCirc += DeslocamentoLinearStatic;}}
+
+						break;
+
+					case KeyEvent.VK_L:
+						if (ke.isShiftDown())
+							{FlagCoordRot = 0; FlagCoordRotHor = 0; FlagCoordRotVert = 0; FlagCoordRotCirc = 0; FlagCoordRotRotHor = 0; FlagCoordRotRotVert = 0; CameraId = -1; if (! (Math.abs(RaioPhi + DeslocamentoLinearStatic) >= AntonioVandre.MaximoValorReal)) {RaioPhi += DeslocamentoLinearStatic;} else VariavelLimiteAtingido();}
+						else
+							{FlagCoordRot = 0; FlagCoordRotHor = 0; FlagCoordRotVert = 0; FlagCoordRotCirc = 0; FlagCoordRotRotHor = 0; FlagCoordRotRotVert = 0; CameraId = -1; if (! (Math.abs(RaioTeta + DeslocamentoLinearStatic) >= AntonioVandre.MaximoValorReal)) {RaioTeta += DeslocamentoLinearStatic;} else VariavelLimiteAtingido();}
+
+						NoRedrawFlag = 1;
+
+						break;
+
+					case KeyEvent.VK_PERIOD:
+						if (ke.isShiftDown())
+							{FlagCoordRot = 0; FlagCoordRotHor = 0; FlagCoordRotVert = 0; FlagCoordRotCirc = 0; FlagCoordRotRotHor = 0; FlagCoordRotRotVert = 0; CameraId = -1; if (! (Math.abs(RaioPhi - DeslocamentoLinearStatic) >= AntonioVandre.MaximoValorReal)) {RaioPhi -= DeslocamentoLinearStatic;} else VariavelLimiteAtingido();}
+						else
+							{FlagCoordRot = 0; FlagCoordRotHor = 0; FlagCoordRotVert = 0; FlagCoordRotCirc = 0; FlagCoordRotRotHor = 0; FlagCoordRotRotVert = 0; CameraId = -1; if (! (Math.abs(RaioTeta - DeslocamentoLinearStatic) >= AntonioVandre.MaximoValorReal)) {RaioTeta -= DeslocamentoLinearStatic;} else VariavelLimiteAtingido();}
+
+						NoRedrawFlag = 1;
+
+						break;
+
+					case KeyEvent.VK_OPEN_BRACKET:
+						FlagCoordRot = 0; FlagCoordRotHor = 0; FlagCoordRotVert = 0; FlagCoordRotCirc = 0; FlagCoordRotRotHor = 0; FlagCoordRotRotVert = 0; CameraId = -1; if (! (Math.abs(RaioRot + DeslocamentoLinearStatic) >= AntonioVandre.MaximoValorReal)) {RaioRot += DeslocamentoLinearStatic; NoRedrawFlag = 1;} else VariavelLimiteAtingido();
+
+						break;
+
+					case KeyEvent.VK_CLOSE_BRACKET:
+						FlagCoordRot = 0; FlagCoordRotHor = 0; FlagCoordRotVert = 0; FlagCoordRotCirc = 0; FlagCoordRotRotHor = 0; FlagCoordRotRotVert = 0; CameraId = -1; if (! (Math.abs(RaioRot - DeslocamentoLinearStatic) >= AntonioVandre.MaximoValorReal)) {RaioRot -= DeslocamentoLinearStatic; NoRedrawFlag = 1;} else VariavelLimiteAtingido();
+
+						break;
+
+					case KeyEvent.VK_Q:
+						FlagCoordRot = 0; FlagCoordRotHor = 0; FlagCoordRotVert = 0; FlagCoordRotCirc = 0; FlagCoordRotRotHor = 0; FlagCoordRotRotVert = 0; CameraId = -1; if (DistanciaTela >= 1) DistanciaTela -= 1;
+
+						break;
+
+					case KeyEvent.VK_W:
+						FlagCoordRot = 0; FlagCoordRotHor = 0; FlagCoordRotVert = 0; FlagCoordRotCirc = 0; FlagCoordRotRotHor = 0; FlagCoordRotRotVert = 0; CameraId = -1; if (! (DistanciaTela + 1 >= AntonioVandre.MaximoValorReal)) DistanciaTela += 1; else VariavelLimiteAtingido();
+
+						break;
+
+					case KeyEvent.VK_E:
+						FlagCoordRot = 0; FlagCoordRotHor = 0; FlagCoordRotVert = 0; FlagCoordRotCirc = 0; FlagCoordRotRotHor = 0; FlagCoordRotRotVert = 0; CameraId = -1; if (FatorAnguloVisao > 1) FatorAnguloVisao -= 1;
+
+						break;
+
+					case KeyEvent.VK_R:
+						FlagCoordRot = 0; FlagCoordRotHor = 0; FlagCoordRotVert = 0; FlagCoordRotCirc = 0; FlagCoordRotRotHor = 0; FlagCoordRotRotVert = 0; CameraId = -1; if (! (FatorAnguloVisao + 1 >= AntonioVandre.MaximoValorReal)) FatorAnguloVisao += 1; else VariavelLimiteAtingido();
+
+						break;
+
+					case KeyEvent.VK_T:
+						if (ke.isShiftDown())
+							{
+							if (CorLinhaGreen > 0) CorLinhaGreen -= 1;
+							}
+						else if (ke.isControlDown())
+							{
+							if (CorLinhaBlue > 0) CorLinhaBlue -= 1;
+							}
+						else
+							{
+							if (CorLinhaRed > 0) CorLinhaRed -= 1;
+							}
+
+						break;
+
+					case KeyEvent.VK_Y:
+						if (ke.isShiftDown())
+							{
+							if (CorLinhaGreen < 255) CorLinhaGreen += 1;
+							}
+						else if (ke.isControlDown())
+							{
+							if (CorLinhaBlue < 255) CorLinhaBlue += 1;
+							}
+						else
+							{
+							if (CorLinhaRed < 255) CorLinhaRed += 1;
+							}
+
+						break;
+
+					case KeyEvent.VK_U:
+						if (ke.isShiftDown())
+							{
+							if (CorBackgroundGreen > 0) CorBackgroundGreen -= 1;
+							}
+						else if (ke.isControlDown())
+							{
+							if (CorBackgroundBlue > 0) CorBackgroundBlue -= 1;
+							}
+						else
+							{
+							if (CorBackgroundRed > 0) CorBackgroundRed -= 1;
+							}
+
+						break;
+
+					case KeyEvent.VK_I:
+						if (ke.isShiftDown())
+							{
+							if (CorBackgroundGreen < 255) CorBackgroundGreen += 1;
+							}
+						else if (ke.isControlDown())
+							{
+							if (CorBackgroundBlue < 255) CorBackgroundBlue += 1;
+							}
+						else
+							{
+							if (CorBackgroundRed < 255) CorBackgroundRed += 1;
+							}
+
+						break;
+
+					case KeyEvent.VK_O:
+						if (ke.isShiftDown())
+							{
+							if (CorTrianguloShapeGreen > 0) CorTrianguloShapeGreen -= 1;
+							}
+						else if (ke.isControlDown())
+							{
+							if (CorTrianguloShapeBlue > 0) CorTrianguloShapeBlue -= 1;
+							}
+						else
+							{
+							if (CorTrianguloShapeRed > 0) CorTrianguloShapeRed -= 1;
+							}
+
+						break;
+
+					case KeyEvent.VK_P:
+						if (ke.isShiftDown())
+							{
+							if (CorTrianguloShapeGreen < 255) CorTrianguloShapeGreen += 1;
+							}
+						else if (ke.isControlDown())
+							{
+							if (CorTrianguloShapeBlue < 255) CorTrianguloShapeBlue += 1;
+							}
+						else
+							{
+							if (CorTrianguloShapeRed < 255) CorTrianguloShapeRed += 1;
+							}
+
+						break;
+
+					case KeyEvent.VK_INSERT:
+						if (ke.isShiftDown())
+							{
+							if (CorLegendaGreen > 0) CorLegendaGreen -= 1;
+							}
+						else if (ke.isControlDown())
+							{
+							if (CorLegendaBlue > 0) CorLegendaBlue -= 1;
+							}
+						else
+							{
+							if (CorLegendaRed > 0) CorLegendaRed -= 1;
+							}
+
+						break;
+
+					case KeyEvent.VK_HOME:
+						if (ke.isShiftDown())
+							{
+							if (CorLegendaGreen < 255) CorLegendaGreen += 1;
+							}
+						else if (ke.isControlDown())
+							{
+							if (CorLegendaBlue < 255) CorLegendaBlue += 1;
+							}
+						else
+							{
+							if (CorLegendaRed < 255) CorLegendaRed += 1;
+							}
+
+						break;
+
+					case KeyEvent.VK_NUMPAD0:
+						if (ApfloatFlag == 0)
+							{
+							if (! (Debug.equals("Debug"))) try
+								{
+								(new Thread () {
+									public void run ()
+										{
+										try
+											{
+											URL ExecUrl = new URI("https://github.com/antoniovandre/AV3DNavigatorStats/releases/download/AV3DNavigatorStats/AV3DNavigatorApfloatCount").toURL();
+											BufferedReader in = new BufferedReader(new InputStreamReader(ExecUrl.openStream()));
+											String inputLine;
+											while ((inputLine = in.readLine()) != null);
+											in.close();
+											} catch (IOException | URISyntaxException e) {}
+										}
+									}).start();} catch (IllegalThreadStateException e) {}
+
+							ApfloatFlag = 1;
+							}
+						else
+							ApfloatFlag = 0;
+
+						TriangulosString = "";
+
+						break;
+
+					case KeyEvent.VK_F4:
+						if (TrianguloPoligono == 0) TrianguloPoligono = 1; else TrianguloPoligono = 0;
+
+						break;
+
+					case KeyEvent.VK_F5:
+						if (ke.isControlDown())
+							{
+							if (ke.isShiftDown())
+								{if (TricksFactor > 0.1) TricksFactor -= 0.1;}
+							else
+								{if (TricksFactor < 1) TricksFactor += 0.1;}
+							}
+						else
+							{
+							if (ke.isShiftDown())
+								{if (TrickRot == 0) TrickRot = 1; else TrickRot = 0;}
+							else
+								{if (TrickSpeed == 0) TrickSpeed = 1; else TrickSpeed = 0;}
+							}
+
+						break;
+
+					case KeyEvent.VK_NUMPAD6:
+						FlagCoordRot = 0; FlagCoordRotHor = 0; FlagCoordRotVert = 0; FlagCoordRotCirc = 0; FlagCoordRotRotHor = 0; FlagCoordRotRotVert = 0; CameraId = -1;
+
+						if (ke.isControlDown())
+							{
+							if (ke.isShiftDown())
+								RaioRotVert -= 0.1;
+							else
+								RaioRotVert += 0.1;
+							}
+						else
+							{
+							if (ke.isShiftDown())
+								RaioRotHor -= 0.1;
+							else
+								RaioRotHor += 0.1;
+							}
+
+						break;
+
+					case KeyEvent.VK_NUMPAD9:
+						if (Remainder2PI == 0) Remainder2PI = 1; else Remainder2PI = 0;
+
+						break;
+
+					case KeyEvent.VK_0:
+						if ((ke.isControlDown()) && (ke.isShiftDown()))
+							{
+							if (Math.abs(Parametro0Step - 0.1) >= AntonioVandre.MaximoValorReal)
+								VariavelLimiteAtingido();
+							else
+								Parametro0Step -= 0.1;
+							}
+						else if (ke.isControlDown())
+							{
+							if (Math.abs(Parametro0Step + 0.1) >= AntonioVandre.MaximoValorReal)
+								VariavelLimiteAtingido();
+							else
+								Parametro0Step += 0.1;
+							}
+						else if (ke.isShiftDown())
+							{
+							if (Math.abs(Parametro0 - Parametro0Step) >= AntonioVandre.MaximoValorReal)
+								VariavelLimiteAtingido();
+							else
+								Parametro0 -= Parametro0Step;
+							}
+						else
+							{
+							if (Math.abs(Parametro0 + Parametro0Step) >= AntonioVandre.MaximoValorReal)
+								VariavelLimiteAtingido();
+							else
+								Parametro0 += Parametro0Step;
+							}
+
+						break;
+
+					case KeyEvent.VK_1:
+						if ((ke.isControlDown()) && (ke.isShiftDown()))
+							{
+							if (Math.abs(Parametro1Step - 0.1) >= AntonioVandre.MaximoValorReal)
+								VariavelLimiteAtingido();
+							else
+								Parametro1Step -= 0.1;
+							}
+						else if (ke.isControlDown())
+							{
+							if (Math.abs(Parametro1Step + 0.1) >= AntonioVandre.MaximoValorReal)
+								VariavelLimiteAtingido();
+							else
+								Parametro1Step += 0.1;
+							}
+						else if (ke.isShiftDown())
+							{
+							if (Math.abs(Parametro1 - Parametro1Step) >= AntonioVandre.MaximoValorReal)
+								VariavelLimiteAtingido();
+							else
+								Parametro1 -= Parametro1Step;
+							}
+						else
+							{
+							if (Math.abs(Parametro1 + Parametro1Step) >= AntonioVandre.MaximoValorReal)
+								VariavelLimiteAtingido();
+							else
+								Parametro1 += Parametro1Step;
+							}
+
+						break;
+
+					case KeyEvent.VK_2:
+						if ((ke.isControlDown()) && (ke.isShiftDown()))
+							{
+							if (Math.abs(Parametro2Step - 0.1) >= AntonioVandre.MaximoValorReal)
+								VariavelLimiteAtingido();
+							else
+								Parametro2Step -= 0.1;
+							}
+						else if (ke.isControlDown())
+							{
+							if (Math.abs(Parametro2Step + 0.1) >= AntonioVandre.MaximoValorReal)
+								VariavelLimiteAtingido();
+							else
+								Parametro2Step += 0.1;
+							}
+						else if (ke.isShiftDown())
+							{
+							if (Math.abs(Parametro2 - Parametro2Step) >= AntonioVandre.MaximoValorReal)
+								VariavelLimiteAtingido();
+							else
+								Parametro2 -= Parametro2Step;
+							}
+						else
+							{
+							if (Math.abs(Parametro2 + Parametro2Step) >= AntonioVandre.MaximoValorReal)
+								VariavelLimiteAtingido();
+							else
+								Parametro2 += Parametro2Step;
+							}
+
+						break;
+
+					case KeyEvent.VK_3:
+						if ((ke.isControlDown()) && (ke.isShiftDown()))
+							{
+							if (Math.abs(Parametro3Step - 0.1) >= AntonioVandre.MaximoValorReal)
+								VariavelLimiteAtingido();
+							else
+								Parametro3Step -= 0.1;
+							}
+						else if (ke.isControlDown())
+							{
+							if (Math.abs(Parametro3Step + 0.1) >= AntonioVandre.MaximoValorReal)
+								VariavelLimiteAtingido();
+							else
+								Parametro3Step += 0.1;
+							}
+						else if (ke.isShiftDown())
+							{
+							if (Math.abs(Parametro3 - Parametro3Step) >= AntonioVandre.MaximoValorReal)
+								VariavelLimiteAtingido();
+							else
+								Parametro3 -= Parametro3Step;
+							}
+						else
+							{
+							if (Math.abs(Parametro3 + Parametro3Step) >= AntonioVandre.MaximoValorReal)
+								VariavelLimiteAtingido();
+							else
+								Parametro3 += Parametro3Step;
+							}
+
+						break;
+
+					case KeyEvent.VK_4:
+						if ((ke.isControlDown()) && (ke.isShiftDown()))
+							{
+							if (Math.abs(Parametro4Step - 0.1) >= AntonioVandre.MaximoValorReal)
+								VariavelLimiteAtingido();
+							else
+								Parametro4Step -= 0.1;
+							}
+						else if (ke.isControlDown())
+							{
+							if (Math.abs(Parametro4Step + 0.1) >= AntonioVandre.MaximoValorReal)
+								VariavelLimiteAtingido();
+							else
+								Parametro4Step += 0.1;
+							}
+						else if (ke.isShiftDown())
+							{
+							if (Math.abs(Parametro4 - Parametro4Step) >= AntonioVandre.MaximoValorReal)
+								VariavelLimiteAtingido();
+							else
+								Parametro4 -= Parametro4Step;
+							}
+						else
+							{
+							if (Math.abs(Parametro4 + Parametro4Step) >= AntonioVandre.MaximoValorReal)
+								VariavelLimiteAtingido();
+							else
+								Parametro4 += Parametro4Step;
+							}
+
+						break;
+
+					case KeyEvent.VK_5:
+						if ((ke.isControlDown()) && (ke.isShiftDown()))
+							{
+							if (Math.abs(Parametro5Step - 0.1) >= AntonioVandre.MaximoValorReal)
+								VariavelLimiteAtingido();
+							else
+								Parametro5Step -= 0.1;
+							}
+						else if (ke.isControlDown())
+							{
+							if (Math.abs(Parametro5Step + 0.1) >= AntonioVandre.MaximoValorReal)
+								VariavelLimiteAtingido();
+							else
+								Parametro5Step += 0.1;
+							}
+						else if (ke.isShiftDown())
+							{
+							if (Math.abs(Parametro5 - Parametro5Step) >= AntonioVandre.MaximoValorReal)
+								VariavelLimiteAtingido();
+							else
+								Parametro5 -= Parametro5Step;
+							}
+						else
+							{
+							if (Math.abs(Parametro5 + Parametro5Step) >= AntonioVandre.MaximoValorReal)
+								VariavelLimiteAtingido();
+							else
+								Parametro5 += Parametro5Step;
+							}
+
+						break;
+
+					case KeyEvent.VK_6:
+						if ((ke.isControlDown()) && (ke.isShiftDown()))
+							{
+							if (Math.abs(Parametro6Step - 0.1) >= AntonioVandre.MaximoValorReal)
+								VariavelLimiteAtingido();
+							else
+								Parametro6Step -= 0.1;
+							}
+						else if (ke.isControlDown())
+							{
+							if (Math.abs(Parametro6Step + 0.1) >= AntonioVandre.MaximoValorReal)
+								VariavelLimiteAtingido();
+							else
+								Parametro6Step += 0.1;
+							}
+						else if (ke.isShiftDown())
+							{
+							if (Math.abs(Parametro6 - Parametro6Step) >= AntonioVandre.MaximoValorReal)
+								VariavelLimiteAtingido();
+							else
+								Parametro6 -= Parametro6Step;
+							}
+						else
+							{
+							if (Math.abs(Parametro6 + Parametro6Step) >= AntonioVandre.MaximoValorReal)
+								VariavelLimiteAtingido();
+							else
+								Parametro6 += Parametro6Step;
+							}
+
+						break;
+
+					case KeyEvent.VK_7:
+						if ((ke.isControlDown()) && (ke.isShiftDown()))
+							{
+							if (Math.abs(Parametro7Step - 0.1) >= AntonioVandre.MaximoValorReal)
+								VariavelLimiteAtingido();
+							else
+								Parametro7Step -= 0.1;
+							}
+						else if (ke.isControlDown())
+							{
+							if (Math.abs(Parametro7Step + 0.1) >= AntonioVandre.MaximoValorReal)
+								VariavelLimiteAtingido();
+							else
+								Parametro7Step += 0.1;
+							}
+						else if (ke.isShiftDown())
+							{
+							if (Math.abs(Parametro7 - Parametro7Step) >= AntonioVandre.MaximoValorReal)
+								VariavelLimiteAtingido();
+							else
+								Parametro0 -= Parametro7Step;
+							}
+						else
+							{
+							if (Math.abs(Parametro7 + Parametro7Step) >= AntonioVandre.MaximoValorReal)
+								VariavelLimiteAtingido();
+							else
+								Parametro7 += Parametro7Step;
+							}
+
+						break;
+
+					case KeyEvent.VK_8:
+						if ((ke.isControlDown()) && (ke.isShiftDown()))
+							{
+							if (Math.abs(Parametro8Step - 0.1) >= AntonioVandre.MaximoValorReal)
+								VariavelLimiteAtingido();
+							else
+								Parametro8Step -= 0.1;
+							}
+						else if (ke.isControlDown())
+							{
+							if (Math.abs(Parametro8Step + 0.1) >= AntonioVandre.MaximoValorReal)
+								VariavelLimiteAtingido();
+							else
+								Parametro8Step += 0.1;
+							}
+						else if (ke.isShiftDown())
+							{
+							if (Math.abs(Parametro8 - Parametro8Step) >= AntonioVandre.MaximoValorReal)
+								VariavelLimiteAtingido();
+							else
+								Parametro8 -= Parametro8Step;
+							}
+						else
+							{
+							if (Math.abs(Parametro8 + Parametro8Step) >= AntonioVandre.MaximoValorReal)
+								VariavelLimiteAtingido();
+							else
+								Parametro8 += Parametro8Step;
+							}
+
+						break;
+
+					case KeyEvent.VK_9:
+						if ((ke.isControlDown()) && (ke.isShiftDown()))
+							{
+							if (Math.abs(Parametro9Step - 0.1) >= AntonioVandre.MaximoValorReal)
+								VariavelLimiteAtingido();
+							else
+								Parametro9Step -= 0.1;
+							}
+						else if (ke.isControlDown())
+							{
+							if (Math.abs(Parametro9Step + 0.1) >= AntonioVandre.MaximoValorReal)
+								VariavelLimiteAtingido();
+							else
+								Parametro9Step += 0.1;
+							}
+						else if (ke.isShiftDown())
+							{
+							if (Math.abs(Parametro9 - Parametro9Step) >= AntonioVandre.MaximoValorReal)
+								VariavelLimiteAtingido();
+							else
+								Parametro9 -= Parametro9Step;
+							}
+						else
+							{
+							if (Math.abs(Parametro9 + Parametro9Step) >= AntonioVandre.MaximoValorReal)
+								VariavelLimiteAtingido();
+							else
+								Parametro9 += Parametro9Step;
+							}
+
+						break;
+
+					case KeyEvent.VK_BACK_SPACE:
+						if (LabelAnimado == 0) LabelAnimado = 1; else LabelAnimado = 0; NoRedrawFlag = 1;
+
+						break;
+
+					case KeyEvent.VK_ENTER:
+						if (ke.isControlDown())
+							{
+							FlagCoordRot = 0; FlagCoordRotHor = 0; FlagCoordRotVert = 0;
+
+							file = new File("AV3DNCamIds.txt");
+
+							if (ke.isShiftDown())
+								{if (CameraId > 0) CameraId--;}
+							else CameraId++;
+
+							try
+								{
+								BufferedReader br = new BufferedReader(new FileReader(file));
+
+								String Linha;
+
+								i = 0;
+
+								do
+									{
+									Linha = br.readLine();
+
+									if (Linha == null)
+										{
+										CameraId = i - 1;
+
+										if (CameraId > -1)
+											{br = new BufferedReader(new FileReader(file)); i = 0; continue;}
+										else
+											break;
+										}
+									else if ((! (Linha.replaceAll(" ", "").equals(""))) && (Linha.replaceAll(" ", "").charAt(0) != '#'))
+										{
+										String LinhaArr [] = null;
+
+										if (Linha.contains("DIVISOR"))
+											{
+											LinhaArr = Linha.split("DIVISOR");
+
+											if (LinhaArr.length == 6)
+												{
+												double xcam = (new Expression(LinhaArr[0].replaceAll(" ", ""))).calculate();
+
+												double ycam = (new Expression("(" + LinhaArr[1].replaceAll(" ", "") + ") * (-1)")).calculate();
+
+												double zcam = (new Expression("(" + LinhaArr[2].replaceAll(" ", "") + ") * (-1)")).calculate();
+
+												double Tetacam = (new Expression(LinhaArr[3].replaceAll(" ", ""))).calculate();
+
+												double Phicam = (new Expression(LinhaArr[4].replaceAll(" ", ""))).calculate();
+
+												double Rotcam = (new Expression(LinhaArr[5].replaceAll(" ", ""))).calculate();
+
+												if ((AntonioVandre.NumeroReal(String.valueOf(xcam))) && (AntonioVandre.NumeroReal(String.valueOf(ycam))) && (AntonioVandre.NumeroReal(String.valueOf(zcam))) && (AntonioVandre.NumeroReal(String.valueOf(Tetacam))) && (AntonioVandre.NumeroReal(String.valueOf(Phicam))) && (AntonioVandre.NumeroReal(String.valueOf(Rotcam))))
+													if (CameraId == i++)
+														{
+														x = xcam;
+														y = ycam;
+														z = zcam;
+														Teta = Tetacam;
+														Phi = Phicam;
+														Rot = Rotcam;
+										
+														xt = x; yt = y; zt = z; Tetat = Teta; Phit = Phi; Rott = Rot; ContadorFrames = FramesDeslocamento;
+
+														break;
+														}
+												}
+											}
+										else
+											{
+											LinhaArr = Linha.split(",");
+
+											if (LinhaArr.length == 6) if ((AntonioVandre.NumeroReal(LinhaArr[0].replaceAll(" ", ""))) && (AntonioVandre.NumeroReal(LinhaArr[1].replaceAll(" ", ""))) && (AntonioVandre.NumeroReal(LinhaArr[2].replaceAll(" ", ""))) && (AntonioVandre.NumeroReal(LinhaArr[3].replaceAll(" ", ""))) && (AntonioVandre.NumeroReal(LinhaArr[4].replaceAll(" ", ""))) && (AntonioVandre.NumeroReal(LinhaArr[5].replaceAll(" ", ""))))
+												if (CameraId == i++)
+													{
+													x = Double.parseDouble(LinhaArr[0].replaceAll(" ", ""));
+
+													y = -Double.parseDouble(LinhaArr[1].replaceAll(" ", ""));
+
+													z = -Double.parseDouble(LinhaArr[2].replaceAll(" ", ""));
+
+													Teta = Double.parseDouble(LinhaArr[3].replaceAll(" ", ""));
+
+													Phi = Double.parseDouble(LinhaArr[4].replaceAll(" ", ""));
+
+													Rot = Double.parseDouble(LinhaArr[5].replaceAll(" ", ""));
+
+													xt = x; yt = y; zt = z; Tetat = Teta; Phit = Phi; Rott = Rot; ContadorFrames = FramesDeslocamento;
+
+													break;
+													}
+											}
+										}
+									} while (true);
+								} catch (IOException e) {}
+							}
+						else if (ke.isShiftDown())
+							{if (FlagTime == 0) FlagTime = 1; else FlagTime = 0;}
+						else
+							{
+							file = new File("AV3DNParFile0.txt");
+
+							try
+								{
+								BufferedReader br = new BufferedReader(new FileReader(file));
+
+								do
+									{
+									String Content = br.readLine();
+
+									if (Content != null) if ((! (Content.replaceAll(" ", "").equals(""))) && (Content.replaceAll(" ", "").charAt(0) != '#'))
+										{
+										if (AntonioVandre.NumeroReal(String.valueOf((new Expression(Content)).calculate())))
+											{
+											ParametroFile0 = (new Expression(Content)).calculate();
+											break;
+											}
+										else
+											ParametroFile0 = 0;
+										}
+									} while (true);
+								} catch (IOException e) {ParametroFile0 = 0;}
+
+							file = new File("AV3DNParFile1.txt");
+
+							try
+								{
+								BufferedReader br = new BufferedReader(new FileReader(file));
+
+								do
+									{
+									String Content = br.readLine();
+
+									if (Content != null) if ((! (Content.replaceAll(" ", "").equals(""))) && (Content.replaceAll(" ", "").charAt(0) != '#'))
+										{
+										if (AntonioVandre.NumeroReal(String.valueOf((new Expression(Content)).calculate())))
+											{
+											ParametroFile1 = (new Expression(Content)).calculate();
+											break;
+											}
+										else
+											ParametroFile1 = 0;
+										}
+									} while (true);
+								} catch (IOException e) {ParametroFile1 = 0;}
+
+							file = new File("AV3DNParFile2.txt");
+
+							try
+								{
+								BufferedReader br = new BufferedReader(new FileReader(file));
+
+								do
+									{
+									String Content = br.readLine();
+
+									if (Content != null) if ((! (Content.replaceAll(" ", "").equals(""))) && (Content.replaceAll(" ", "").charAt(0) != '#'))
+										{
+										if (AntonioVandre.NumeroReal(String.valueOf((new Expression(Content)).calculate())))
+											{
+											ParametroFile2 = (new Expression(Content)).calculate();
+											break;
+											}
+										else
+											ParametroFile2 = 0;
+										}
+									} while (true);
+								} catch (IOException e) {ParametroFile2 = 0;}
+
+							file = new File("AV3DNParFile3.txt");
+
+							try
+								{
+								BufferedReader br = new BufferedReader(new FileReader(file));
+
+								do
+									{
+									String Content = br.readLine();
+
+									if (Content != null) if ((! (Content.replaceAll(" ", "").equals(""))) && (Content.replaceAll(" ", "").charAt(0) != '#'))
+										{
+										if (AntonioVandre.NumeroReal(String.valueOf((new Expression(Content)).calculate())))
+											{
+											ParametroFile3 = (new Expression(Content)).calculate();
+											break;
+											}
+										else
+											ParametroFile3 = 0;
+										}
+									} while (true);
+								} catch (IOException e) {ParametroFile3 = 0;}
+
+							file = new File("AV3DNParFile4.txt");
+
+							try
+								{
+								BufferedReader br = new BufferedReader(new FileReader(file));
+
+								do
+									{
+									String Content = br.readLine();
+
+									if (Content != null) if ((! (Content.replaceAll(" ", "").equals(""))) && (Content.replaceAll(" ", "").charAt(0) != '#'))
+										{
+										if (AntonioVandre.NumeroReal(String.valueOf((new Expression(Content)).calculate())))
+											{
+											ParametroFile4 = (new Expression(Content)).calculate();
+											break;
+											}
+										else
+											ParametroFile4 = 0;
+										}
+									} while (true);
+								} catch (IOException e) {ParametroFile4 = 0;}
+
+							file = new File("AV3DNParFile5.txt");
+
+							try
+								{
+								BufferedReader br = new BufferedReader(new FileReader(file));
+
+								do
+									{
+									String Content = br.readLine();
+
+									if (Content != null) if ((! (Content.replaceAll(" ", "").equals(""))) && (Content.replaceAll(" ", "").charAt(0) != '#'))
+										{
+										if (AntonioVandre.NumeroReal(String.valueOf((new Expression(Content)).calculate())))
+											{
+											ParametroFile5 = (new Expression(Content)).calculate();
+											break;
+											}
+										else
+											ParametroFile5 = 0;
+										}
+									} while (true);
+								} catch (IOException e) {ParametroFile5 = 0;}
+
+							file = new File("AV3DNParFile6.txt");
+
+							try
+								{
+								BufferedReader br = new BufferedReader(new FileReader(file));
+
+								do
+									{
+									String Content = br.readLine();
+
+									if (Content != null) if ((! (Content.replaceAll(" ", "").equals(""))) && (Content.replaceAll(" ", "").charAt(0) != '#'))
+										{
+										if (AntonioVandre.NumeroReal(String.valueOf((new Expression(Content)).calculate())))
+											{
+											ParametroFile6 = (new Expression(Content)).calculate();
+											break;
+											}
+										else
+											ParametroFile6 = 0;
+										}
+									} while (true);
+								} catch (IOException e) {ParametroFile6 = 0;}
+
+							file = new File("AV3DNParFile7.txt");
+
+							try
+								{
+								BufferedReader br = new BufferedReader(new FileReader(file));
+
+								do
+									{
+									String Content = br.readLine();
+
+									if (Content != null) if ((! (Content.replaceAll(" ", "").equals(""))) && (Content.replaceAll(" ", "").charAt(0) != '#'))
+										{
+										if (AntonioVandre.NumeroReal(String.valueOf((new Expression(Content)).calculate())))
+											{
+											ParametroFile7 = (new Expression(Content)).calculate();
+											break;
+											}
+										else
+											ParametroFile7 = 0;
+										}
+									} while (true);
+								} catch (IOException e) {ParametroFile7 = 0;}
+
+							file = new File("AV3DNParFile8.txt");
+
+							try
+								{
+								BufferedReader br = new BufferedReader(new FileReader(file));
+
+								do
+									{
+									String Content = br.readLine();
+
+									if (Content != null) if ((! (Content.replaceAll(" ", "").equals(""))) && (Content.replaceAll(" ", "").charAt(0) != '#'))
+										{
+										if (AntonioVandre.NumeroReal(String.valueOf((new Expression(Content)).calculate())))
+											{
+											ParametroFile8 = (new Expression(Content)).calculate();
+											break;
+											}
+										else
+											ParametroFile8 = 0;
+										}
+									} while (true);
+								} catch (IOException e) {ParametroFile8 = 0;}
+
+							file = new File("AV3DNParFile9.txt");
+
+							try
+								{
+								BufferedReader br = new BufferedReader(new FileReader(file));
+
+								do
+									{
+									String Content = br.readLine();
+
+									if (Content != null) if ((! (Content.replaceAll(" ", "").equals(""))) && (Content.replaceAll(" ", "").charAt(0) != '#'))
+										{
+										if (AntonioVandre.NumeroReal(String.valueOf((new Expression(Content)).calculate())))
+											{
+											ParametroFile9 = (new Expression(Content)).calculate();
+											break;
+											}
+										else
+											ParametroFile9 = 0;
+										}
+									} while (true);
+								} catch (IOException e) {ParametroFile9 = 0;}
+							}
+
+						break;
+
 					default:
 						break;
 					}
@@ -2434,268 +3617,6 @@ public class AV3DNavigator extends JComponent
 								else
 									{if (CameraView == 0) CameraView = 1; else CameraView = 0;}
 								}
-
-							break;
-
-							
-						case KeyEvent.VK_F12:
-							DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd-MM-yyyy HH-mm-ss");
-							LocalDateTime now = LocalDateTime.now();
-							BufferedImage ImagemFrame = new BufferedImage(TamanhoPlanoX, TamanhoPlanoY + FrameEspaco.getInsets().top, BufferedImage.TYPE_INT_RGB);
-							Graphics2D g2d = ImagemFrame.createGraphics();
-							FrameEspaco.print(g2d);
-
-							g2d.setFont(new Font("SansSerif", Font.ITALIC, TamanhoFonteLabelPrint));
-
-							if (FlagPrintInit == 0)
-								{
-								Random geradorPrint = new Random();
-
-								String [] CoresMatrix = StringCores.split(";");
-								int FlagCores = 0;
-								long TentativasCores = 0;
-
-								labelDo: do
-									{
-									int iPrintR = geradorPrint.nextInt(256);
-									int iPrintG = geradorPrint.nextInt(256);
-									int iPrintB = geradorPrint.nextInt(256);
-
-									labelFor: for (i = 0; i < CoresMatrix.length; i++)
-										{
-										String [] RGB = CoresMatrix[i].split(",");
-
-										if ((iPrintR == Integer.parseInt(RGB[0])) && (iPrintG == Integer.parseInt(RGB[1])) && (iPrintB == Integer.parseInt(RGB[2])))
-											{
-											TentativasCores++;
-											FlagCores = 1;
-											continue labelDo;
-											}
-										else
-											{
-											g2d.setColor(new Color(iPrintR, iPrintG, iPrintB));
-											FlagCores = 0;
-											break labelFor;
-											}
-										}
-									} while ((FlagCores == 1) && (TentativasCores < MaxTentativasCores));
-
-								if (TentativasCores == MaxTentativasCores)
-									g2d.setColor(Color.WHITE);
-								}
-							else
-								g2d.setColor(new Color(PrintR, PrintG, PrintB));
-
-							if (FlagMostrarLabel == 1)
-								g2d.drawString(URL, 5 + FrameEspaco.getInsets().left, TamanhoPlanoY + FrameEspaco.getInsets().top - 5);
-							else
-								{
-								String[] AtribuicaoStringArrP = AtribuicaoString.split("\\|");
-
-								if (AtribuicaoStringArrP.length == 2)
-									{
-									if (AntonioVandre.NumeroNaturalPositivo(AtribuicaoStringArrP[0].replaceAll(" ", "")))
-										{
-										String[] AtribuicaoStringArr = AtribuicaoStringArrP[1].split(";");
-
-										for (i = 0; i < AtribuicaoStringArr.length; i++)
-											g2d.drawString(AtribuicaoStringArr[i], TamanhoPlanoX - FrameEspaco.getInsets().right - Integer.parseInt(AtribuicaoStringArrP[0].replaceAll(" ", "")), TamanhoPlanoY + FrameEspaco.getInsets().top - 5 - ((AtribuicaoStringArr.length - 1) * 20) + i * 20);
-										}
-									}
-								}
-
-							g2d.dispose();
-							BufferedImage ImagemFramePrint = ImagemFrame.getSubimage(FrameEspaco.getInsets().left, FrameEspaco.getInsets().top, TamanhoPlanoX - FrameEspaco.getInsets().left - FrameEspaco.getInsets().right, TamanhoPlanoY);
-							try {ImageIO.write(ImagemFramePrint, "png", new File("AV3DNavigator - Screenshot - " + dtf.format(now) + ".png"));} catch(IOException e) {}
-
-							NoRedrawFlag = 1;
-
-							break;
-
-						case KeyEvent.VK_F2:
-							JFileChooser fileChooser = new JFileChooser();
-							fileChooser.setCurrentDirectory(new File(System.getProperty("user.dir")));
-							int result = fileChooser.showOpenDialog(FrameEspaco);
-							if (result == JFileChooser.APPROVE_OPTION)
-								{
-								File selectedFile = fileChooser.getSelectedFile();
-
-								Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-
-								if (FrameEspaco.getY() < 0)
-									FrameLendoEspaco.setLocation(FrameEspaco.getX(), FrameEspaco.getY() + FrameEspaco.getHeight() + 2);
-								else
-									{
-									if (FrameEspaco.getX() + FrameEspaco.getWidth() + 2 + TamanhoLendoEspacoX > screenSize.getWidth())
-										FrameRendering.setLocation(FrameEspaco.getX() - TamanhoLendoEspacoX - 2, FrameEspaco.getY());
-									else
-										FrameLendoEspaco.setLocation(FrameEspaco.getX() + FrameEspaco.getWidth() + 2, FrameEspaco.getY());
-									}
-
-								FrameLendoEspaco.setVisible(true);
-
-								String EspacoT = LerEspaco (selectedFile.getAbsolutePath(), Debug);
-
-								FrameLendoEspaco.setVisible(false);
-
-								if (EspacoT.equals("Erro"))
-									{
-									JFrame FrameErroEspacoInvalido = new JFrame("AV3DNavigator - Espaço inválido");
-									FrameErroEspacoInvalido.setPreferredSize(new Dimension(TamanhoEspacoInvalidoX, TamanhoEspacoInvalidoY));
-									FrameErroEspacoInvalido.setSize(new Dimension(TamanhoEspacoInvalidoX, TamanhoEspacoInvalidoY));
-									GradientLabel LabelErroEspacoInvalido = new GradientLabel(MensagemErroEspacoInvalido, new Color(CorJanelaR, CorJanelaG, CorJanelaB), new Color(CorJanelaGradienteR, CorJanelaGradienteG, CorJanelaGradienteB), new Color(CorFonteJanelaR, CorFonteJanelaG, CorFonteJanelaB), 0);
-									LabelErroEspacoInvalido.setBorder(new EmptyBorder(5, 5, 5, 5));
-									LabelErroEspacoInvalido.setFont(new Font("DialogInput", Font.BOLD | Font.ITALIC, TamanhoFonteLabelErroEspacoInvalido));
-									FrameErroEspacoInvalido.add(LabelErroEspacoInvalido);
-									FrameErroEspacoInvalido.pack();
-									FrameErroEspacoInvalido.setVisible(true);
-
-									FrameErroEspacoInvalido.addKeyListener(new KeyListener()
-										{
-										public void keyPressed(KeyEvent keErroEspacoInvalido)
-											{
-											int keyCodeHelp = keErroEspacoInvalido.getKeyCode();
-
-											if (keyCodeHelp == KeyEvent.VK_ESCAPE)
-												FrameErroEspacoInvalido.dispose();
-											}
-
-										public void keyReleased(KeyEvent keErroEspacoInvalido){}
-										public void keyTyped(KeyEvent keErroEspacoInvalido){}
-										});
-									}
-								else
-									{
-									if (EspacoT.equals(Espaco))
-										NoRedrawFlag = 1;
-									else
-										Espaco = EspacoT;
-									}
-								}
-							else if (result == JFileChooser.CANCEL_OPTION) NoRedrawFlag = 1;
-
-							break;
-
-						case KeyEvent.VK_F10:
-							if (StretchFlag == 0) StretchFlag = 1; else StretchFlag = 0;
-
-							break;
-
-						case KeyEvent.VK_F11:
-							if (StretchFlag == 1)
-								{
-								int Tamanho = Math.min(TamanhoPlanoX, TamanhoPlanoY);
-
-								if (FlagMostrarLabel == 1)
-									{
-									FrameEspaco.setPreferredSize(new Dimension(Tamanho, Tamanho + TamanhoEspacoLabelStatus + TamanhoEspacoLabelURL));
-									FrameEspaco.setSize(new Dimension(Tamanho, Tamanho + TamanhoEspacoLabelStatus + TamanhoEspacoLabelURL));
-									}
-								else
-									{
-									FrameEspaco.setPreferredSize(new Dimension(Tamanho, Tamanho + TamanhoEspacoLabelURL));
-									FrameEspaco.setSize(new Dimension(Tamanho, Tamanho + TamanhoEspacoLabelURL));
-									}
-
-								FrameEspaco.pack();
-								}
-
-							break;
-
-						case KeyEvent.VK_F3:
-							FlagSwitchLabel = 1;
-
-							if (FlagMostrarLabel == 0)
-								{
-								FrameEspaco.getContentPane().removeAll();
-								Comp.setPreferredSize(new Dimension(TamanhoPlanoX, TamanhoPlanoY));
-								Comp.setSize(new Dimension(TamanhoPlanoX, TamanhoPlanoY));
-								FrameEspaco.getContentPane().add(Comp, BorderLayout.PAGE_START);
-								LabelStatusLabelURLPanel = new JPanel(new GridBagLayout());
-								GridBagConstraints GridBagConstraintsLabelStatusLabelURL = new GridBagConstraints();
-								GridBagConstraintsLabelStatusLabelURL.gridx = 0;
-								GridBagConstraintsLabelStatusLabelURL.gridy = 0;
-								GridBagConstraintsLabelStatusLabelURL.fill = GridBagConstraints.BOTH;
-								GridBagConstraintsLabelStatusLabelURL.weightx = TamanhoPlanoX;
-								GridBagConstraintsLabelStatusLabelURL.weighty = TamanhoEspacoLabelStatus;
-								LabelStatusLabelURLPanel.add(LabelStatus, GridBagConstraintsLabelStatusLabelURL);
-								GridBagConstraintsLabelStatusLabelURL.gridx = 0;
-								GridBagConstraintsLabelStatusLabelURL.gridy = 1;
-								GridBagConstraintsLabelStatusLabelURL.fill = GridBagConstraints.BOTH;
-								GridBagConstraintsLabelStatusLabelURL.weightx = TamanhoPlanoX;
-								GridBagConstraintsLabelStatusLabelURL.weighty = TamanhoEspacoLabelURL;
-								LabelStatusLabelURLPanel.add(LabelURL, GridBagConstraintsLabelStatusLabelURL);
-								FrameEspaco.getContentPane().add(LabelStatusLabelURLPanel, BorderLayout.SOUTH);
-								LabelStatusLabelURLPanel.setVisible(true);
-								LabelStatusLabelURLPanel.revalidate();
-								LabelStatusLabelURLPanel.repaint();
-
-								FrameEspaco.setPreferredSize(new Dimension(TamanhoPlanoX, TamanhoPlanoY + TamanhoEspacoLabelStatus + TamanhoEspacoLabelURL));
-								FrameEspaco.setMinimumSize(new Dimension(MinTamanhoPlanoX, MinTamanhoPlanoYMaisLabels));
-								FrameEspaco.setSize(new Dimension(TamanhoPlanoX, TamanhoPlanoY + TamanhoEspacoLabelStatus + TamanhoEspacoLabelURL));
-
-								FlagMostrarLabel = 1;
-								}
-							else
-								{
-								FrameEspaco.getContentPane().removeAll();
-								Comp.setPreferredSize(new Dimension(TamanhoPlanoX, TamanhoPlanoY));
-								Comp.setSize(new Dimension(TamanhoPlanoX, TamanhoPlanoY));
-								FrameEspaco.getContentPane().add(Comp, BorderLayout.PAGE_START);
-								LabelStatusLabelURLPanel = new JPanel(new GridBagLayout());
-								GridBagConstraints GridBagConstraintsLabelStatusLabelURL = new GridBagConstraints();
-								GridBagConstraintsLabelStatusLabelURL.gridx = 0;
-								GridBagConstraintsLabelStatusLabelURL.gridy = 0;
-								GridBagConstraintsLabelStatusLabelURL.fill = GridBagConstraints.BOTH;
-								GridBagConstraintsLabelStatusLabelURL.weightx = TamanhoPlanoX;
-								GridBagConstraintsLabelStatusLabelURL.weighty = TamanhoEspacoLabelURL;
-								LabelStatusLabelURLPanel.add(LabelURL, GridBagConstraintsLabelStatusLabelURL);
-								FrameEspaco.getContentPane().add(LabelStatusLabelURLPanel, BorderLayout.SOUTH);
-								FrameEspaco.setVisible(true);
-								FrameEspaco.revalidate();
-								FrameEspaco.repaint();
-								FrameEspaco.setPreferredSize(new Dimension(TamanhoPlanoX, TamanhoPlanoY + TamanhoEspacoLabelURL));
-								FrameEspaco.setMinimumSize(new Dimension(MinTamanhoPlanoX, TamanhoPlanoY + TamanhoEspacoLabelURL));
-								FrameEspaco.setSize(new Dimension(TamanhoPlanoX, TamanhoPlanoY + TamanhoEspacoLabelURL));
-
-								FlagMostrarLabel = 0;
-								}
-
-							FrameEspaco.pack();
-
-							FlagSwitchLabel = 1;
-
-							NoRedrawFlag = 1;
-
-							break;
-
-						case KeyEvent.VK_END:
-							TamanhoFonteLegendas++;
-
-							break;
-
-						case KeyEvent.VK_DELETE:
-							if (TamanhoFonteLegendas > 1) TamanhoFonteLegendas--;
-
-							break;
-
-						case KeyEvent.VK_EQUALS:
-							ShiftVerticalLegendas++;
-
-							break;
-
-						case KeyEvent.VK_MINUS:
-							if (ShiftVerticalLegendas > 20) ShiftVerticalLegendas--;
-
-							break;
-
-						case KeyEvent.VK_NUMPAD2:
-							if (ResolucaoTriangulos < AntonioVandre.MaximoValorInteiro) ResolucaoTriangulos++;
-
-							break;
-
-						case KeyEvent.VK_NUMPAD1:
-							if (ResolucaoTriangulos > 2) ResolucaoTriangulos--;
 
 							break;
 
@@ -2939,11 +3860,6 @@ public class AV3DNavigator extends JComponent
 
 							break;
 
-						case KeyEvent.VK_F6:
-							if (ke.isControlDown()) {if (ke.isShiftDown()) {RaioSRotCirc -= DeslocamentoLinearStatic;} else {RaioSRotCirc += DeslocamentoLinearStatic;}} else {if (ke.isShiftDown()) {RaioPRotCirc -= DeslocamentoLinearStatic;} else {RaioPRotCirc += DeslocamentoLinearStatic;}}
-
-							break;
-
 						case KeyEvent.VK_F7:
 							if (! (ke.isControlDown())) {if (ke.isShiftDown()) RotCircNeg(); else RotCircPos();}
 
@@ -2956,235 +3872,6 @@ public class AV3DNavigator extends JComponent
 
 						case KeyEvent.VK_COMMA:
 							if (! (ke.isControlDown())) {if (ke.isShiftDown()) RotRotPhiNeg(); else RotRotTetaNeg();}
-
-							break;
-
-						case KeyEvent.VK_L:
-							if (ke.isShiftDown())
-								{FlagCoordRot = 0; FlagCoordRotHor = 0; FlagCoordRotVert = 0; FlagCoordRotCirc = 0; FlagCoordRotRotHor = 0; FlagCoordRotRotVert = 0; CameraId = -1; if (! (Math.abs(RaioPhi + DeslocamentoLinearStatic) >= AntonioVandre.MaximoValorReal)) {RaioPhi += DeslocamentoLinearStatic;} else VariavelLimiteAtingido();}
-							else
-								{FlagCoordRot = 0; FlagCoordRotHor = 0; FlagCoordRotVert = 0; FlagCoordRotCirc = 0; FlagCoordRotRotHor = 0; FlagCoordRotRotVert = 0; CameraId = -1; if (! (Math.abs(RaioTeta + DeslocamentoLinearStatic) >= AntonioVandre.MaximoValorReal)) {RaioTeta += DeslocamentoLinearStatic;} else VariavelLimiteAtingido();}
-
-							NoRedrawFlag = 1;
-
-							break;
-
-						case KeyEvent.VK_PERIOD:
-							if (ke.isShiftDown())
-								{FlagCoordRot = 0; FlagCoordRotHor = 0; FlagCoordRotVert = 0; FlagCoordRotCirc = 0; FlagCoordRotRotHor = 0; FlagCoordRotRotVert = 0; CameraId = -1; if (! (Math.abs(RaioPhi - DeslocamentoLinearStatic) >= AntonioVandre.MaximoValorReal)) {RaioPhi -= DeslocamentoLinearStatic;} else VariavelLimiteAtingido();}
-							else
-								{FlagCoordRot = 0; FlagCoordRotHor = 0; FlagCoordRotVert = 0; FlagCoordRotCirc = 0; FlagCoordRotRotHor = 0; FlagCoordRotRotVert = 0; CameraId = -1; if (! (Math.abs(RaioTeta - DeslocamentoLinearStatic) >= AntonioVandre.MaximoValorReal)) {RaioTeta -= DeslocamentoLinearStatic;} else VariavelLimiteAtingido();}
-
-							NoRedrawFlag = 1;
-
-							break;
-
-						case KeyEvent.VK_OPEN_BRACKET:
-							FlagCoordRot = 0; FlagCoordRotHor = 0; FlagCoordRotVert = 0; FlagCoordRotCirc = 0; FlagCoordRotRotHor = 0; FlagCoordRotRotVert = 0; CameraId = -1; if (! (Math.abs(RaioRot + DeslocamentoLinearStatic) >= AntonioVandre.MaximoValorReal)) {RaioRot += DeslocamentoLinearStatic; NoRedrawFlag = 1;} else VariavelLimiteAtingido();
-
-							break;
-
-						case KeyEvent.VK_CLOSE_BRACKET:
-							FlagCoordRot = 0; FlagCoordRotHor = 0; FlagCoordRotVert = 0; FlagCoordRotCirc = 0; FlagCoordRotRotHor = 0; FlagCoordRotRotVert = 0; CameraId = -1; if (! (Math.abs(RaioRot - DeslocamentoLinearStatic) >= AntonioVandre.MaximoValorReal)) {RaioRot -= DeslocamentoLinearStatic; NoRedrawFlag = 1;} else VariavelLimiteAtingido();
-
-							break;
-
-						case KeyEvent.VK_Q:
-							FlagCoordRot = 0; FlagCoordRotHor = 0; FlagCoordRotVert = 0; FlagCoordRotCirc = 0; FlagCoordRotRotHor = 0; FlagCoordRotRotVert = 0; CameraId = -1; if (DistanciaTela >= 1) DistanciaTela -= 1;
-
-							break;
-
-						case KeyEvent.VK_W:
-							FlagCoordRot = 0; FlagCoordRotHor = 0; FlagCoordRotVert = 0; FlagCoordRotCirc = 0; FlagCoordRotRotHor = 0; FlagCoordRotRotVert = 0; CameraId = -1; if (! (DistanciaTela + 1 >= AntonioVandre.MaximoValorReal)) DistanciaTela += 1; else VariavelLimiteAtingido();
-
-							break;
-
-						case KeyEvent.VK_E:
-							FlagCoordRot = 0; FlagCoordRotHor = 0; FlagCoordRotVert = 0; FlagCoordRotCirc = 0; FlagCoordRotRotHor = 0; FlagCoordRotRotVert = 0; CameraId = -1; if (FatorAnguloVisao > 1) FatorAnguloVisao -= 1;
-
-							break;
-
-						case KeyEvent.VK_R:
-							FlagCoordRot = 0; FlagCoordRotHor = 0; FlagCoordRotVert = 0; FlagCoordRotCirc = 0; FlagCoordRotRotHor = 0; FlagCoordRotRotVert = 0; CameraId = -1; if (! (FatorAnguloVisao + 1 >= AntonioVandre.MaximoValorReal)) FatorAnguloVisao += 1; else VariavelLimiteAtingido();
-
-							break;
-
-						case KeyEvent.VK_T:
-							if (ke.isShiftDown())
-								{
-								if (CorLinhaGreen > 0) CorLinhaGreen -= 1;
-								}
-							else if (ke.isControlDown())
-								{
-								if (CorLinhaBlue > 0) CorLinhaBlue -= 1;
-								}
-							else
-								{
-								if (CorLinhaRed > 0) CorLinhaRed -= 1;
-								}
-
-							break;
-
-						case KeyEvent.VK_Y:
-							if (ke.isShiftDown())
-								{
-								if (CorLinhaGreen < 255) CorLinhaGreen += 1;
-								}
-							else if (ke.isControlDown())
-								{
-								if (CorLinhaBlue < 255) CorLinhaBlue += 1;
-								}
-							else
-								{
-								if (CorLinhaRed < 255) CorLinhaRed += 1;
-								}
-
-							break;
-
-						case KeyEvent.VK_U:
-							if (ke.isShiftDown())
-								{
-								if (CorBackgroundGreen > 0) CorBackgroundGreen -= 1;
-								}
-							else if (ke.isControlDown())
-								{
-								if (CorBackgroundBlue > 0) CorBackgroundBlue -= 1;
-								}
-							else
-								{
-								if (CorBackgroundRed > 0) CorBackgroundRed -= 1;
-								}
-
-							break;
-
-						case KeyEvent.VK_I:
-							if (ke.isShiftDown())
-								{
-								if (CorBackgroundGreen < 255) CorBackgroundGreen += 1;
-								}
-							else if (ke.isControlDown())
-								{
-								if (CorBackgroundBlue < 255) CorBackgroundBlue += 1;
-								}
-							else
-								{
-								if (CorBackgroundRed < 255) CorBackgroundRed += 1;
-								}
-
-							break;
-
-						case KeyEvent.VK_O:
-							if (ke.isShiftDown())
-								{
-								if (CorTrianguloShapeGreen > 0) CorTrianguloShapeGreen -= 1;
-								}
-							else if (ke.isControlDown())
-								{
-								if (CorTrianguloShapeBlue > 0) CorTrianguloShapeBlue -= 1;
-								}
-							else
-								{
-								if (CorTrianguloShapeRed > 0) CorTrianguloShapeRed -= 1;
-								}
-
-							break;
-
-						case KeyEvent.VK_P:
-							if (ke.isShiftDown())
-								{
-								if (CorTrianguloShapeGreen < 255) CorTrianguloShapeGreen += 1;
-								}
-							else if (ke.isControlDown())
-								{
-								if (CorTrianguloShapeBlue < 255) CorTrianguloShapeBlue += 1;
-								}
-							else
-								{
-								if (CorTrianguloShapeRed < 255) CorTrianguloShapeRed += 1;
-								}
-
-							break;
-
-						case KeyEvent.VK_INSERT:
-							if (ke.isShiftDown())
-								{
-								if (CorLegendaGreen > 0) CorLegendaGreen -= 1;
-								}
-							else if (ke.isControlDown())
-								{
-								if (CorLegendaBlue > 0) CorLegendaBlue -= 1;
-								}
-							else
-								{
-								if (CorLegendaRed > 0) CorLegendaRed -= 1;
-								}
-
-							break;
-
-						case KeyEvent.VK_HOME:
-							if (ke.isShiftDown())
-								{
-								if (CorLegendaGreen < 255) CorLegendaGreen += 1;
-								}
-							else if (ke.isControlDown())
-								{
-								if (CorLegendaBlue < 255) CorLegendaBlue += 1;
-								}
-							else
-								{
-								if (CorLegendaRed < 255) CorLegendaRed += 1;
-								}
-
-							break;
-
-						case KeyEvent.VK_NUMPAD0:
-							if (ApfloatFlag == 0)
-								{
-								if (! (Debug.equals("Debug"))) try
-									{
-									(new Thread () {
-										public void run ()
-											{
-											try
-												{
-												URL ExecUrl = new URI("https://github.com/antoniovandre/AV3DNavigatorStats/releases/download/AV3DNavigatorStats/AV3DNavigatorApfloatCount").toURL();
-												BufferedReader in = new BufferedReader(new InputStreamReader(ExecUrl.openStream()));
-												String inputLine;
-												while ((inputLine = in.readLine()) != null);
-												in.close();
-												} catch (IOException | URISyntaxException e) {}
-											}
-										}).start();} catch (IllegalThreadStateException e) {}
-
-								ApfloatFlag = 1;
-								}
-							else
-								ApfloatFlag = 0;
-
-							TriangulosString = "";
-
-							break;
-
-						case KeyEvent.VK_F4:
-							if (TrianguloPoligono == 0) TrianguloPoligono = 1; else TrianguloPoligono = 0;
-
-							break;
-
-						case KeyEvent.VK_F5:
-							if (ke.isControlDown())
-								{
-								if (ke.isShiftDown())
-									{if (TricksFactor > 0.1) TricksFactor -= 0.1;}
-								else
-									{if (TricksFactor < 1) TricksFactor += 0.1;}
-								}
-							else
-								{
-								if (ke.isShiftDown())
-									{if (TrickRot == 0) TrickRot = 1; else TrickRot = 0;}
-								else
-									{if (TrickSpeed == 0) TrickSpeed = 1; else TrickSpeed = 0;}
-								}
 
 							break;
 
@@ -3390,26 +4077,6 @@ public class AV3DNavigator extends JComponent
 
 							break;
 
-						case KeyEvent.VK_NUMPAD6:
-							FlagCoordRot = 0; FlagCoordRotHor = 0; FlagCoordRotVert = 0; FlagCoordRotCirc = 0; FlagCoordRotRotHor = 0; FlagCoordRotRotVert = 0; CameraId = -1;
-
-							if (ke.isControlDown())
-								{
-								if (ke.isShiftDown())
-									RaioRotVert -= 0.1;
-								else
-									RaioRotVert += 0.1;
-								}
-							else
-								{
-								if (ke.isShiftDown())
-									RaioRotHor -= 0.1;
-								else
-									RaioRotHor += 0.1;
-								}
-
-							break;
-
 						case KeyEvent.VK_NUMPAD7:
 							if (ke.isShiftDown())
 								{
@@ -3451,671 +4118,6 @@ public class AV3DNavigator extends JComponent
 								}
 
 							ContadorFrames = 0;
-
-							break;
-
-						case KeyEvent.VK_NUMPAD9:
-							if (Remainder2PI == 0) Remainder2PI = 1; else Remainder2PI = 0;
-
-							break;
-
-						case KeyEvent.VK_0:
-							if ((ke.isControlDown()) && (ke.isShiftDown()))
-								{
-								if (Math.abs(Parametro0Step - 0.1) >= AntonioVandre.MaximoValorReal)
-									VariavelLimiteAtingido();
-								else
-									Parametro0Step -= 0.1;
-								}
-							else if (ke.isControlDown())
-								{
-								if (Math.abs(Parametro0Step + 0.1) >= AntonioVandre.MaximoValorReal)
-									VariavelLimiteAtingido();
-								else
-									Parametro0Step += 0.1;
-								}
-							else if (ke.isShiftDown())
-								{
-								if (Math.abs(Parametro0 - Parametro0Step) >= AntonioVandre.MaximoValorReal)
-									VariavelLimiteAtingido();
-								else
-									Parametro0 -= Parametro0Step;
-								}
-							else
-								{
-								if (Math.abs(Parametro0 + Parametro0Step) >= AntonioVandre.MaximoValorReal)
-									VariavelLimiteAtingido();
-								else
-									Parametro0 += Parametro0Step;
-								}
-
-							break;
-
-						case KeyEvent.VK_1:
-							if ((ke.isControlDown()) && (ke.isShiftDown()))
-								{
-								if (Math.abs(Parametro1Step - 0.1) >= AntonioVandre.MaximoValorReal)
-									VariavelLimiteAtingido();
-								else
-									Parametro1Step -= 0.1;
-								}
-							else if (ke.isControlDown())
-								{
-								if (Math.abs(Parametro1Step + 0.1) >= AntonioVandre.MaximoValorReal)
-									VariavelLimiteAtingido();
-								else
-									Parametro1Step += 0.1;
-								}
-							else if (ke.isShiftDown())
-								{
-								if (Math.abs(Parametro1 - Parametro1Step) >= AntonioVandre.MaximoValorReal)
-									VariavelLimiteAtingido();
-								else
-									Parametro1 -= Parametro1Step;
-								}
-							else
-								{
-								if (Math.abs(Parametro1 + Parametro1Step) >= AntonioVandre.MaximoValorReal)
-									VariavelLimiteAtingido();
-								else
-									Parametro1 += Parametro1Step;
-								}
-
-							break;
-
-						case KeyEvent.VK_2:
-							if ((ke.isControlDown()) && (ke.isShiftDown()))
-								{
-								if (Math.abs(Parametro2Step - 0.1) >= AntonioVandre.MaximoValorReal)
-									VariavelLimiteAtingido();
-								else
-									Parametro2Step -= 0.1;
-								}
-							else if (ke.isControlDown())
-								{
-								if (Math.abs(Parametro2Step + 0.1) >= AntonioVandre.MaximoValorReal)
-									VariavelLimiteAtingido();
-								else
-									Parametro2Step += 0.1;
-								}
-							else if (ke.isShiftDown())
-								{
-								if (Math.abs(Parametro2 - Parametro2Step) >= AntonioVandre.MaximoValorReal)
-									VariavelLimiteAtingido();
-								else
-									Parametro2 -= Parametro2Step;
-								}
-							else
-								{
-								if (Math.abs(Parametro2 + Parametro2Step) >= AntonioVandre.MaximoValorReal)
-									VariavelLimiteAtingido();
-								else
-									Parametro2 += Parametro2Step;
-								}
-
-							break;
-
-						case KeyEvent.VK_3:
-							if ((ke.isControlDown()) && (ke.isShiftDown()))
-								{
-								if (Math.abs(Parametro3Step - 0.1) >= AntonioVandre.MaximoValorReal)
-									VariavelLimiteAtingido();
-								else
-									Parametro3Step -= 0.1;
-								}
-							else if (ke.isControlDown())
-								{
-								if (Math.abs(Parametro3Step + 0.1) >= AntonioVandre.MaximoValorReal)
-									VariavelLimiteAtingido();
-								else
-									Parametro3Step += 0.1;
-								}
-							else if (ke.isShiftDown())
-								{
-								if (Math.abs(Parametro3 - Parametro3Step) >= AntonioVandre.MaximoValorReal)
-									VariavelLimiteAtingido();
-								else
-									Parametro3 -= Parametro3Step;
-								}
-							else
-								{
-								if (Math.abs(Parametro3 + Parametro3Step) >= AntonioVandre.MaximoValorReal)
-									VariavelLimiteAtingido();
-								else
-									Parametro3 += Parametro3Step;
-								}
-
-							break;
-
-						case KeyEvent.VK_4:
-							if ((ke.isControlDown()) && (ke.isShiftDown()))
-								{
-								if (Math.abs(Parametro4Step - 0.1) >= AntonioVandre.MaximoValorReal)
-									VariavelLimiteAtingido();
-								else
-									Parametro4Step -= 0.1;
-								}
-							else if (ke.isControlDown())
-								{
-								if (Math.abs(Parametro4Step + 0.1) >= AntonioVandre.MaximoValorReal)
-									VariavelLimiteAtingido();
-								else
-									Parametro4Step += 0.1;
-								}
-							else if (ke.isShiftDown())
-								{
-								if (Math.abs(Parametro4 - Parametro4Step) >= AntonioVandre.MaximoValorReal)
-									VariavelLimiteAtingido();
-								else
-									Parametro4 -= Parametro4Step;
-								}
-							else
-								{
-								if (Math.abs(Parametro4 + Parametro4Step) >= AntonioVandre.MaximoValorReal)
-									VariavelLimiteAtingido();
-								else
-									Parametro4 += Parametro4Step;
-								}
-
-							break;
-
-						case KeyEvent.VK_5:
-							if ((ke.isControlDown()) && (ke.isShiftDown()))
-								{
-								if (Math.abs(Parametro5Step - 0.1) >= AntonioVandre.MaximoValorReal)
-									VariavelLimiteAtingido();
-								else
-									Parametro5Step -= 0.1;
-								}
-							else if (ke.isControlDown())
-								{
-								if (Math.abs(Parametro5Step + 0.1) >= AntonioVandre.MaximoValorReal)
-									VariavelLimiteAtingido();
-								else
-									Parametro5Step += 0.1;
-								}
-							else if (ke.isShiftDown())
-								{
-								if (Math.abs(Parametro5 - Parametro5Step) >= AntonioVandre.MaximoValorReal)
-									VariavelLimiteAtingido();
-								else
-									Parametro5 -= Parametro5Step;
-								}
-							else
-								{
-								if (Math.abs(Parametro5 + Parametro5Step) >= AntonioVandre.MaximoValorReal)
-									VariavelLimiteAtingido();
-								else
-									Parametro5 += Parametro5Step;
-								}
-
-							break;
-
-						case KeyEvent.VK_6:
-							if ((ke.isControlDown()) && (ke.isShiftDown()))
-								{
-								if (Math.abs(Parametro6Step - 0.1) >= AntonioVandre.MaximoValorReal)
-									VariavelLimiteAtingido();
-								else
-									Parametro6Step -= 0.1;
-								}
-							else if (ke.isControlDown())
-								{
-								if (Math.abs(Parametro6Step + 0.1) >= AntonioVandre.MaximoValorReal)
-									VariavelLimiteAtingido();
-								else
-									Parametro6Step += 0.1;
-								}
-							else if (ke.isShiftDown())
-								{
-								if (Math.abs(Parametro6 - Parametro6Step) >= AntonioVandre.MaximoValorReal)
-									VariavelLimiteAtingido();
-								else
-									Parametro6 -= Parametro6Step;
-								}
-							else
-								{
-								if (Math.abs(Parametro6 + Parametro6Step) >= AntonioVandre.MaximoValorReal)
-									VariavelLimiteAtingido();
-								else
-									Parametro6 += Parametro6Step;
-								}
-
-							break;
-
-						case KeyEvent.VK_7:
-							if ((ke.isControlDown()) && (ke.isShiftDown()))
-								{
-								if (Math.abs(Parametro7Step - 0.1) >= AntonioVandre.MaximoValorReal)
-									VariavelLimiteAtingido();
-								else
-									Parametro7Step -= 0.1;
-								}
-							else if (ke.isControlDown())
-								{
-								if (Math.abs(Parametro7Step + 0.1) >= AntonioVandre.MaximoValorReal)
-									VariavelLimiteAtingido();
-								else
-									Parametro7Step += 0.1;
-								}
-							else if (ke.isShiftDown())
-								{
-								if (Math.abs(Parametro7 - Parametro7Step) >= AntonioVandre.MaximoValorReal)
-									VariavelLimiteAtingido();
-								else
-									Parametro0 -= Parametro7Step;
-								}
-							else
-								{
-								if (Math.abs(Parametro7 + Parametro7Step) >= AntonioVandre.MaximoValorReal)
-									VariavelLimiteAtingido();
-								else
-									Parametro7 += Parametro7Step;
-								}
-
-							break;
-
-						case KeyEvent.VK_8:
-							if ((ke.isControlDown()) && (ke.isShiftDown()))
-								{
-								if (Math.abs(Parametro8Step - 0.1) >= AntonioVandre.MaximoValorReal)
-									VariavelLimiteAtingido();
-								else
-									Parametro8Step -= 0.1;
-								}
-							else if (ke.isControlDown())
-								{
-								if (Math.abs(Parametro8Step + 0.1) >= AntonioVandre.MaximoValorReal)
-									VariavelLimiteAtingido();
-								else
-									Parametro8Step += 0.1;
-								}
-							else if (ke.isShiftDown())
-								{
-								if (Math.abs(Parametro8 - Parametro8Step) >= AntonioVandre.MaximoValorReal)
-									VariavelLimiteAtingido();
-								else
-									Parametro8 -= Parametro8Step;
-								}
-							else
-								{
-								if (Math.abs(Parametro8 + Parametro8Step) >= AntonioVandre.MaximoValorReal)
-									VariavelLimiteAtingido();
-								else
-									Parametro8 += Parametro8Step;
-								}
-
-							break;
-
-						case KeyEvent.VK_9:
-							if ((ke.isControlDown()) && (ke.isShiftDown()))
-								{
-								if (Math.abs(Parametro9Step - 0.1) >= AntonioVandre.MaximoValorReal)
-									VariavelLimiteAtingido();
-								else
-									Parametro9Step -= 0.1;
-								}
-							else if (ke.isControlDown())
-								{
-								if (Math.abs(Parametro9Step + 0.1) >= AntonioVandre.MaximoValorReal)
-									VariavelLimiteAtingido();
-								else
-									Parametro9Step += 0.1;
-								}
-							else if (ke.isShiftDown())
-								{
-								if (Math.abs(Parametro9 - Parametro9Step) >= AntonioVandre.MaximoValorReal)
-									VariavelLimiteAtingido();
-								else
-									Parametro9 -= Parametro9Step;
-								}
-							else
-								{
-								if (Math.abs(Parametro9 + Parametro9Step) >= AntonioVandre.MaximoValorReal)
-									VariavelLimiteAtingido();
-								else
-									Parametro9 += Parametro9Step;
-								}
-
-							break;
-
-						case KeyEvent.VK_BACK_SPACE:
-							if (LabelAnimado == 0) LabelAnimado = 1; else LabelAnimado = 0; NoRedrawFlag = 1;
-
-							break;
-
-						case KeyEvent.VK_ENTER:
-							if (ke.isControlDown())
-								{
-								FlagCoordRot = 0; FlagCoordRotHor = 0; FlagCoordRotVert = 0;
-
-								file = new File("AV3DNCamIds.txt");
-
-								if (ke.isShiftDown())
-									{if (CameraId > 0) CameraId--;}
-								else CameraId++;
-
-								try
-									{
-									BufferedReader br = new BufferedReader(new FileReader(file));
-
-									String Linha;
-
-									i = 0;
-
-									do
-										{
-										Linha = br.readLine();
-
-										if (Linha == null)
-											{
-											CameraId = i - 1;
-
-											if (CameraId > -1)
-												{br = new BufferedReader(new FileReader(file)); i = 0; continue;}
-											else
-												break;
-											}
-										else if ((! (Linha.replaceAll(" ", "").equals(""))) && (Linha.replaceAll(" ", "").charAt(0) != '#'))
-											{
-											String LinhaArr [] = null;
-
-											if (Linha.contains("DIVISOR"))
-												{
-												LinhaArr = Linha.split("DIVISOR");
-
-												if (LinhaArr.length == 6)
-													{
-													double xcam = (new Expression(LinhaArr[0].replaceAll(" ", ""))).calculate();
-
-													double ycam = (new Expression("(" + LinhaArr[1].replaceAll(" ", "") + ") * (-1)")).calculate();
-
-													double zcam = (new Expression("(" + LinhaArr[2].replaceAll(" ", "") + ") * (-1)")).calculate();
-
-													double Tetacam = (new Expression(LinhaArr[3].replaceAll(" ", ""))).calculate();
-
-													double Phicam = (new Expression(LinhaArr[4].replaceAll(" ", ""))).calculate();
-
-													double Rotcam = (new Expression(LinhaArr[5].replaceAll(" ", ""))).calculate();
-
-													if ((AntonioVandre.NumeroReal(String.valueOf(xcam))) && (AntonioVandre.NumeroReal(String.valueOf(ycam))) && (AntonioVandre.NumeroReal(String.valueOf(zcam))) && (AntonioVandre.NumeroReal(String.valueOf(Tetacam))) && (AntonioVandre.NumeroReal(String.valueOf(Phicam))) && (AntonioVandre.NumeroReal(String.valueOf(Rotcam))))
-														if (CameraId == i++)
-															{
-															x = xcam;
-															y = ycam;
-															z = zcam;
-															Teta = Tetacam;
-															Phi = Phicam;
-															Rot = Rotcam;
-											
-															xt = x; yt = y; zt = z; Tetat = Teta; Phit = Phi; Rott = Rot; ContadorFrames = FramesDeslocamento;
-
-															break;
-															}
-													}
-												}
-											else
-												{
-												LinhaArr = Linha.split(",");
-
-												if (LinhaArr.length == 6) if ((AntonioVandre.NumeroReal(LinhaArr[0].replaceAll(" ", ""))) && (AntonioVandre.NumeroReal(LinhaArr[1].replaceAll(" ", ""))) && (AntonioVandre.NumeroReal(LinhaArr[2].replaceAll(" ", ""))) && (AntonioVandre.NumeroReal(LinhaArr[3].replaceAll(" ", ""))) && (AntonioVandre.NumeroReal(LinhaArr[4].replaceAll(" ", ""))) && (AntonioVandre.NumeroReal(LinhaArr[5].replaceAll(" ", ""))))
-													if (CameraId == i++)
-														{
-														x = Double.parseDouble(LinhaArr[0].replaceAll(" ", ""));
-
-														y = -Double.parseDouble(LinhaArr[1].replaceAll(" ", ""));
-
-														z = -Double.parseDouble(LinhaArr[2].replaceAll(" ", ""));
-
-														Teta = Double.parseDouble(LinhaArr[3].replaceAll(" ", ""));
-
-														Phi = Double.parseDouble(LinhaArr[4].replaceAll(" ", ""));
-
-														Rot = Double.parseDouble(LinhaArr[5].replaceAll(" ", ""));
-
-														xt = x; yt = y; zt = z; Tetat = Teta; Phit = Phi; Rott = Rot; ContadorFrames = FramesDeslocamento;
-
-														break;
-														}
-												}
-											}
-										} while (true);
-									} catch (IOException e) {}
-								}
-							else if (ke.isShiftDown())
-								{if (FlagTime == 0) FlagTime = 1; else FlagTime = 0;}
-							else
-								{
-								file = new File("AV3DNParFile0.txt");
-
-								try
-									{
-									BufferedReader br = new BufferedReader(new FileReader(file));
-
-									do
-										{
-										String Content = br.readLine();
-
-										if (Content != null) if ((! (Content.replaceAll(" ", "").equals(""))) && (Content.replaceAll(" ", "").charAt(0) != '#'))
-											{
-											if (AntonioVandre.NumeroReal(String.valueOf((new Expression(Content)).calculate())))
-												{
-												ParametroFile0 = (new Expression(Content)).calculate();
-												break;
-												}
-											else
-												ParametroFile0 = 0;
-											}
-										} while (true);
-									} catch (IOException e) {ParametroFile0 = 0;}
-
-								file = new File("AV3DNParFile1.txt");
-
-								try
-									{
-									BufferedReader br = new BufferedReader(new FileReader(file));
-
-									do
-										{
-										String Content = br.readLine();
-
-										if (Content != null) if ((! (Content.replaceAll(" ", "").equals(""))) && (Content.replaceAll(" ", "").charAt(0) != '#'))
-											{
-											if (AntonioVandre.NumeroReal(String.valueOf((new Expression(Content)).calculate())))
-												{
-												ParametroFile1 = (new Expression(Content)).calculate();
-												break;
-												}
-											else
-												ParametroFile1 = 0;
-											}
-										} while (true);
-									} catch (IOException e) {ParametroFile1 = 0;}
-
-								file = new File("AV3DNParFile2.txt");
-
-								try
-									{
-									BufferedReader br = new BufferedReader(new FileReader(file));
-
-									do
-										{
-										String Content = br.readLine();
-
-										if (Content != null) if ((! (Content.replaceAll(" ", "").equals(""))) && (Content.replaceAll(" ", "").charAt(0) != '#'))
-											{
-											if (AntonioVandre.NumeroReal(String.valueOf((new Expression(Content)).calculate())))
-												{
-												ParametroFile2 = (new Expression(Content)).calculate();
-												break;
-												}
-											else
-												ParametroFile2 = 0;
-											}
-										} while (true);
-									} catch (IOException e) {ParametroFile2 = 0;}
-
-								file = new File("AV3DNParFile3.txt");
-
-								try
-									{
-									BufferedReader br = new BufferedReader(new FileReader(file));
-
-									do
-										{
-										String Content = br.readLine();
-
-										if (Content != null) if ((! (Content.replaceAll(" ", "").equals(""))) && (Content.replaceAll(" ", "").charAt(0) != '#'))
-											{
-											if (AntonioVandre.NumeroReal(String.valueOf((new Expression(Content)).calculate())))
-												{
-												ParametroFile3 = (new Expression(Content)).calculate();
-												break;
-												}
-											else
-												ParametroFile3 = 0;
-											}
-										} while (true);
-									} catch (IOException e) {ParametroFile3 = 0;}
-
-								file = new File("AV3DNParFile4.txt");
-
-								try
-									{
-									BufferedReader br = new BufferedReader(new FileReader(file));
-
-									do
-										{
-										String Content = br.readLine();
-
-										if (Content != null) if ((! (Content.replaceAll(" ", "").equals(""))) && (Content.replaceAll(" ", "").charAt(0) != '#'))
-											{
-											if (AntonioVandre.NumeroReal(String.valueOf((new Expression(Content)).calculate())))
-												{
-												ParametroFile4 = (new Expression(Content)).calculate();
-												break;
-												}
-											else
-												ParametroFile4 = 0;
-											}
-										} while (true);
-									} catch (IOException e) {ParametroFile4 = 0;}
-
-								file = new File("AV3DNParFile5.txt");
-
-								try
-									{
-									BufferedReader br = new BufferedReader(new FileReader(file));
-
-									do
-										{
-										String Content = br.readLine();
-
-										if (Content != null) if ((! (Content.replaceAll(" ", "").equals(""))) && (Content.replaceAll(" ", "").charAt(0) != '#'))
-											{
-											if (AntonioVandre.NumeroReal(String.valueOf((new Expression(Content)).calculate())))
-												{
-												ParametroFile5 = (new Expression(Content)).calculate();
-												break;
-												}
-											else
-												ParametroFile5 = 0;
-											}
-										} while (true);
-									} catch (IOException e) {ParametroFile5 = 0;}
-
-								file = new File("AV3DNParFile6.txt");
-
-								try
-									{
-									BufferedReader br = new BufferedReader(new FileReader(file));
-
-									do
-										{
-										String Content = br.readLine();
-
-										if (Content != null) if ((! (Content.replaceAll(" ", "").equals(""))) && (Content.replaceAll(" ", "").charAt(0) != '#'))
-											{
-											if (AntonioVandre.NumeroReal(String.valueOf((new Expression(Content)).calculate())))
-												{
-												ParametroFile6 = (new Expression(Content)).calculate();
-												break;
-												}
-											else
-												ParametroFile6 = 0;
-											}
-										} while (true);
-									} catch (IOException e) {ParametroFile6 = 0;}
-
-								file = new File("AV3DNParFile7.txt");
-
-								try
-									{
-									BufferedReader br = new BufferedReader(new FileReader(file));
-
-									do
-										{
-										String Content = br.readLine();
-
-										if (Content != null) if ((! (Content.replaceAll(" ", "").equals(""))) && (Content.replaceAll(" ", "").charAt(0) != '#'))
-											{
-											if (AntonioVandre.NumeroReal(String.valueOf((new Expression(Content)).calculate())))
-												{
-												ParametroFile7 = (new Expression(Content)).calculate();
-												break;
-												}
-											else
-												ParametroFile7 = 0;
-											}
-										} while (true);
-									} catch (IOException e) {ParametroFile7 = 0;}
-
-								file = new File("AV3DNParFile8.txt");
-
-								try
-									{
-									BufferedReader br = new BufferedReader(new FileReader(file));
-
-									do
-										{
-										String Content = br.readLine();
-
-										if (Content != null) if ((! (Content.replaceAll(" ", "").equals(""))) && (Content.replaceAll(" ", "").charAt(0) != '#'))
-											{
-											if (AntonioVandre.NumeroReal(String.valueOf((new Expression(Content)).calculate())))
-												{
-												ParametroFile8 = (new Expression(Content)).calculate();
-												break;
-												}
-											else
-												ParametroFile8 = 0;
-											}
-										} while (true);
-									} catch (IOException e) {ParametroFile8 = 0;}
-
-								file = new File("AV3DNParFile9.txt");
-
-								try
-									{
-									BufferedReader br = new BufferedReader(new FileReader(file));
-
-									do
-										{
-										String Content = br.readLine();
-
-										if (Content != null) if ((! (Content.replaceAll(" ", "").equals(""))) && (Content.replaceAll(" ", "").charAt(0) != '#'))
-											{
-											if (AntonioVandre.NumeroReal(String.valueOf((new Expression(Content)).calculate())))
-												{
-												ParametroFile9 = (new Expression(Content)).calculate();
-												break;
-												}
-											else
-												ParametroFile9 = 0;
-											}
-										} while (true);
-									} catch (IOException e) {ParametroFile9 = 0;}
-								}
 
 							break;
 
@@ -5659,6 +5661,7 @@ public class AV3DNavigator extends JComponent
 		FlagRotRotPhiNeg = 0;
 		FlagRotCircPos = 0;
 		FlagRotCircNeg = 0;
+		VelocidadeRotacaoAutomatica = 1;
 		xt = x;
 		yt = y;
 		zt = z;
