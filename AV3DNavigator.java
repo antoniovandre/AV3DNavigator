@@ -288,6 +288,7 @@ public class AV3DNavigator extends JComponent
 	public String Espaco;
 	public String EspacoLinhasBak;
 	public int FlagAlteracaoStatus = 1;
+	public int DinamicKey = 0;
 	public int MaxTentativasCores = Integer.MAX_VALUE;
 	public long CameraId = -1;
 	public int SleepTime = 7; // Default: valor inicial: 7.
@@ -2222,7 +2223,7 @@ public class AV3DNavigator extends JComponent
 						FrameRendering.pack();
 						FrameRendering.setVisible(false);
 
-						ContadorFrames = 0;
+						DinamicKey = 1;
 
 						break;
 
@@ -2588,6 +2589,8 @@ public class AV3DNavigator extends JComponent
 
 							String EspacoT = LerEspaco (selectedFile.getAbsolutePath(), Debug);
 
+							try {Thread.sleep(100);} catch(InterruptedException e) {}
+
 							FrameLendoEspaco.setVisible(false);
 
 							if (EspacoT.equals("Erro"))
@@ -2626,14 +2629,14 @@ public class AV3DNavigator extends JComponent
 							}
 						else if (result == JFileChooser.CANCEL_OPTION) NoRedrawFlag = 1;
 
-						ContadorFrames = 0;
+						DinamicKey = 1;
 
 						break;
 
 					case KeyEvent.VK_F10:
 						if (StretchFlag == 0) StretchFlag = 1; else StretchFlag = 0;
 
-						ContadorFrames = 0;
+						DinamicKey = 1;
 
 						break;
 
@@ -2656,49 +2659,49 @@ public class AV3DNavigator extends JComponent
 							FrameEspaco.pack();
 							}
 
-						ContadorFrames = 0;
+						DinamicKey = 1;
 
 						break;
 
 					case KeyEvent.VK_END:
 						TamanhoFonteLegendas++;
 
-						ContadorFrames = 0;
+						DinamicKey = 1;
 
 						break;
 
 					case KeyEvent.VK_DELETE:
 						if (TamanhoFonteLegendas > 1) TamanhoFonteLegendas--;
 
-						ContadorFrames = 0;
+						DinamicKey = 1;
 
 						break;
 
 					case KeyEvent.VK_EQUALS:
 						ShiftVerticalLegendas++;
 
-						ContadorFrames = 0;
+						DinamicKey = 1;
 
 						break;
 
 					case KeyEvent.VK_MINUS:
 						if (ShiftVerticalLegendas > 20) ShiftVerticalLegendas--;
 
-						ContadorFrames = 0;
+						DinamicKey = 1;
 
 						break;
 
 					case KeyEvent.VK_NUMPAD2:
 						if (ResolucaoTriangulos < AntonioVandre.MaximoValorInteiro) ResolucaoTriangulos++;
 
-						ContadorFrames = 0;
+						DinamicKey = 1;
 
 						break;
 
 					case KeyEvent.VK_NUMPAD1:
 						if (ResolucaoTriangulos > 2) ResolucaoTriangulos--;
 
-						ContadorFrames = 0;
+						DinamicKey = 1;
 
 						break;
 
@@ -2740,28 +2743,28 @@ public class AV3DNavigator extends JComponent
 					case KeyEvent.VK_Q:
 						FlagCoordRot = 0; FlagCoordRotHor = 0; FlagCoordRotVert = 0; FlagCoordRotCirc = 0; FlagCoordRotRotHor = 0; FlagCoordRotRotVert = 0; CameraId = -1; if (DistanciaTela >= 1) DistanciaTela -= 1;
 
-						ContadorFrames = 0;
+						DinamicKey = 1;
 
 						break;
 
 					case KeyEvent.VK_W:
 						FlagCoordRot = 0; FlagCoordRotHor = 0; FlagCoordRotVert = 0; FlagCoordRotCirc = 0; FlagCoordRotRotHor = 0; FlagCoordRotRotVert = 0; CameraId = -1; if (! (DistanciaTela + 1 >= AntonioVandre.MaximoValorReal)) DistanciaTela += 1; else VariavelLimiteAtingido();
 
-						ContadorFrames = 0;
+						DinamicKey = 1;
 
 						break;
 
 					case KeyEvent.VK_E:
 						FlagCoordRot = 0; FlagCoordRotHor = 0; FlagCoordRotVert = 0; FlagCoordRotCirc = 0; FlagCoordRotRotHor = 0; FlagCoordRotRotVert = 0; CameraId = -1; if (FatorAnguloVisao > 1) FatorAnguloVisao -= 1;
 
-						ContadorFrames = 0;
+						DinamicKey = 1;
 
 						break;
 
 					case KeyEvent.VK_R:
 						FlagCoordRot = 0; FlagCoordRotHor = 0; FlagCoordRotVert = 0; FlagCoordRotCirc = 0; FlagCoordRotRotHor = 0; FlagCoordRotRotVert = 0; CameraId = -1; if (! (FatorAnguloVisao + 1 >= AntonioVandre.MaximoValorReal)) FatorAnguloVisao += 1; else VariavelLimiteAtingido();
 
-						ContadorFrames = 0;
+						DinamicKey = 1;
 
 						break;
 
@@ -2779,7 +2782,7 @@ public class AV3DNavigator extends JComponent
 							if (CorLinhaRed > 0) CorLinhaRed -= 1;
 							}
 
-						ContadorFrames = 0;
+						DinamicKey = 1;
 
 						break;
 
@@ -2797,7 +2800,7 @@ public class AV3DNavigator extends JComponent
 							if (CorLinhaRed < 255) CorLinhaRed += 1;
 							}
 
-						ContadorFrames = 0;
+						DinamicKey = 1;
 
 						break;
 
@@ -2815,7 +2818,7 @@ public class AV3DNavigator extends JComponent
 							if (CorBackgroundRed > 0) CorBackgroundRed -= 1;
 							}
 
-						ContadorFrames = 0;
+						DinamicKey = 1;
 
 						break;
 
@@ -2833,7 +2836,7 @@ public class AV3DNavigator extends JComponent
 							if (CorBackgroundRed < 255) CorBackgroundRed += 1;
 							}
 
-						ContadorFrames = 0;
+						DinamicKey = 1;
 
 						break;
 
@@ -2851,7 +2854,7 @@ public class AV3DNavigator extends JComponent
 							if (CorTrianguloShapeRed > 0) CorTrianguloShapeRed -= 1;
 							}
 
-						ContadorFrames = 0;
+						DinamicKey = 1;
 
 						break;
 
@@ -2869,7 +2872,7 @@ public class AV3DNavigator extends JComponent
 							if (CorTrianguloShapeRed < 255) CorTrianguloShapeRed += 1;
 							}
 
-						ContadorFrames = 0;
+						DinamicKey = 1;
 
 						break;
 
@@ -2887,7 +2890,7 @@ public class AV3DNavigator extends JComponent
 							if (CorLegendaRed > 0) CorLegendaRed -= 1;
 							}
 
-						ContadorFrames = 0;
+						DinamicKey = 1;
 
 						break;
 
@@ -2905,7 +2908,7 @@ public class AV3DNavigator extends JComponent
 							if (CorLegendaRed < 255) CorLegendaRed += 1;
 							}
 
-						ContadorFrames = 0;
+						DinamicKey = 1;
 
 						break;
 
@@ -2935,14 +2938,14 @@ public class AV3DNavigator extends JComponent
 
 						TriangulosString = "";
 
-						ContadorFrames = 0;
+						DinamicKey = 1;
 
 						break;
 
 					case KeyEvent.VK_F4:
 						if (TrianguloPoligono == 0) TrianguloPoligono = 1; else TrianguloPoligono = 0;
 
-						ContadorFrames = 0;
+						DinamicKey = 1;
 
 						break;
 
@@ -3019,7 +3022,7 @@ public class AV3DNavigator extends JComponent
 								Parametro0 += Parametro0Step;
 							}
 
-						ContadorFrames = 0;
+						DinamicKey = 1;
 
 						break;
 
@@ -3053,7 +3056,7 @@ public class AV3DNavigator extends JComponent
 								Parametro1 += Parametro1Step;
 							}
 
-						ContadorFrames = 0;
+						DinamicKey = 1;
 
 						break;
 
@@ -3087,7 +3090,7 @@ public class AV3DNavigator extends JComponent
 								Parametro2 += Parametro2Step;
 							}
 
-						ContadorFrames = 0;
+						DinamicKey = 1;
 
 						break;
 
@@ -3121,7 +3124,7 @@ public class AV3DNavigator extends JComponent
 								Parametro3 += Parametro3Step;
 							}
 
-						ContadorFrames = 0;
+						DinamicKey = 1;
 
 						break;
 
@@ -3155,7 +3158,7 @@ public class AV3DNavigator extends JComponent
 								Parametro4 += Parametro4Step;
 							}
 
-						ContadorFrames = 0;
+						DinamicKey = 1;
 
 						break;
 
@@ -3189,7 +3192,7 @@ public class AV3DNavigator extends JComponent
 								Parametro5 += Parametro5Step;
 							}
 
-						ContadorFrames = 0;
+						DinamicKey = 1;
 
 						break;
 
@@ -3223,7 +3226,7 @@ public class AV3DNavigator extends JComponent
 								Parametro6 += Parametro6Step;
 							}
 
-						ContadorFrames = 0;
+						DinamicKey = 1;
 
 						break;
 
@@ -3257,7 +3260,7 @@ public class AV3DNavigator extends JComponent
 								Parametro7 += Parametro7Step;
 							}
 
-						ContadorFrames = 0;
+						DinamicKey = 1;
 
 						break;
 
@@ -3291,7 +3294,7 @@ public class AV3DNavigator extends JComponent
 								Parametro8 += Parametro8Step;
 							}
 
-						ContadorFrames = 0;
+						DinamicKey = 1;
 
 						break;
 
@@ -3325,7 +3328,7 @@ public class AV3DNavigator extends JComponent
 								Parametro9 += Parametro9Step;
 							}
 
-						ContadorFrames = 0;
+						DinamicKey = 1;
 
 						break;
 
@@ -3667,7 +3670,7 @@ public class AV3DNavigator extends JComponent
 								} catch (IOException e) {ParametroFile9 = 0;}
 							}
 
-						ContadorFrames = 0;
+						DinamicKey = 1;
 
 						break;
 
@@ -4527,6 +4530,8 @@ public class AV3DNavigator extends JComponent
 
 					if (FlagRotCircNeg == 1)
 						{RotCircNeg(); FlagAlteracaoStatus = 1;}
+
+					if (DinamicKey == 1) DesenharEspaco(Comp);
 					}
 
 				if (StretchFlag == 1)
@@ -4601,7 +4606,7 @@ public class AV3DNavigator extends JComponent
 
 				if (NoRedrawFlag == 0) DesenharEspaco(Comp);
 
-				FlagAlteracaoStatus = 0; NoRedrawFlag = 0;
+				FlagAlteracaoStatus = 0; NoRedrawFlag = 0; DinamicKey = 0;
 				}
  
 			if (LabelAnimado == 1) {if (FlagMostrarLabel == 1) LabelStatus.repaint(); if (FlagHelp == 1) LabelHelp.repaint(); if (FlagAbout == 1) LabelAbout.repaint();}
