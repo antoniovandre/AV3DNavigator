@@ -11,7 +11,7 @@
  * 
  * Licença de uso: Creative Commons Attribution Non-Commercial License V2.0.
  * 
- * Última atualização: 03-09-2025. Não considerando alterações em variáveis globais.
+ * Última atualização: 05-09-2025. Não considerando alterações em variáveis globais.
  */
 
 import java.lang.IllegalThreadStateException;
@@ -2482,7 +2482,7 @@ public class AV3DNavigator extends JComponent
 
 						FrameEspaco.pack();
 
-						FlagSwitchLabel = 1;
+						FlagSwitchLabel = 0;
 
 						NoRedrawFlag = 1;
 
@@ -2623,6 +2623,8 @@ public class AV3DNavigator extends JComponent
 								}
 							}
 						else if (result == JFileChooser.CANCEL_OPTION) NoRedrawFlag = 1;
+
+						ContadorFrames = 0;
 
 						break;
 
