@@ -11,7 +11,7 @@
  * 
  * Licença de uso: Creative Commons Attribution Non-Commercial License V2.0.
  * 
- * Última atualização: 05-09-2025. Não considerando alterações em variáveis globais.
+ * Última atualização: 06-09-2025. Não considerando alterações em variáveis globais.
  */
 
 import java.lang.IllegalThreadStateException;
@@ -2624,12 +2624,13 @@ public class AV3DNavigator extends JComponent
 								if (EspacoT.equals(Espaco))
 									NoRedrawFlag = 1;
 								else
+									{
 									Espaco = EspacoT;
+									DinamicKey = 1;
+									}
 								}
 							}
 						else if (result == JFileChooser.CANCEL_OPTION) NoRedrawFlag = 1;
-
-						DinamicKey = 1;
 
 						break;
 
@@ -3674,6 +3675,48 @@ public class AV3DNavigator extends JComponent
 
 						break;
 
+					case KeyEvent.VK_NUMPAD4:
+						file = new File("AV3DNCamIds.txt");
+
+						String LinhasCam = "";
+
+						try
+							{
+							BufferedReader br = new BufferedReader(new FileReader(file));
+
+							String Linha;
+
+							do
+								{
+								Linha = br.readLine();
+
+								if (Linha != null)
+									LinhasCam = LinhasCam + Linha + "\n"; 
+								} while (Linha != null);
+							} catch (IOException e) {}
+
+						if (CamPersOnce == 0)
+							{
+							CamPersCont = LinhasCam;
+							CamPersOnce = 1;
+							}
+
+						try
+							{
+							BufferedWriter writer = new BufferedWriter(new FileWriter(file));
+
+							if (ke.isShiftDown())
+								writer.write(CamPersCont);
+							else
+								writer.write(LinhasCam + String.valueOf(x) + ", " + String.valueOf(-y) + ", " + String.valueOf(-z) + ", " + String.valueOf(Teta) + ", " + String.valueOf(Phi) + ", " + String.valueOf(Rot) + "\n");
+
+							writer.close();
+							} catch (IOException e) {}
+
+						NoRedrawFlag = 1;
+
+						break;
+
 					default:
 						break;
 					}
@@ -3750,48 +3793,6 @@ public class AV3DNavigator extends JComponent
 										}
 									} catch (IOException e) {}
 								}
-
-							break;
-
-						case KeyEvent.VK_NUMPAD4:
-							file = new File("AV3DNCamIds.txt");
-
-							String LinhasCam = "";
-
-							try
-								{
-								BufferedReader br = new BufferedReader(new FileReader(file));
-
-								String Linha;
-
-								do
-									{
-									Linha = br.readLine();
-
-									if (Linha != null)
-										LinhasCam = LinhasCam + Linha + "\n"; 
-									} while (Linha != null);
-								} catch (IOException e) {}
-
-							if (CamPersOnce == 0)
-								{
-								CamPersCont = LinhasCam;
-								CamPersOnce = 1;
-								}
-
-							try
-								{
-								BufferedWriter writer = new BufferedWriter(new FileWriter(file));
-
-								if (ke.isShiftDown())
-									writer.write(CamPersCont);
-								else
-									writer.write(LinhasCam + String.valueOf(x) + ", " + String.valueOf(-y) + ", " + String.valueOf(-z) + ", " + String.valueOf(Teta) + ", " + String.valueOf(Phi) + ", " + String.valueOf(Rot) + "\n");
-
-								writer.close();
-								} catch (IOException e) {}
-
-							NoRedrawFlag = 1;
 
 							break;
 
@@ -4499,6 +4500,8 @@ public class AV3DNavigator extends JComponent
 				try {Thread.sleep(TrickSpeed == 1 ? Math.max((int) (SleepTime * Math.abs(Math.cos(Phi))), 1) : SleepTime);} catch(InterruptedException e) {}
 
 
+				if (DinamicKey == 1) {DesenharEspaco(Comp); NoRedrawFlag = 1;}
+
 				if (ContadorFrames == FramesDeslocamento)
 					{
 					if (FlagRotTetaPos == 1)
@@ -4530,8 +4533,6 @@ public class AV3DNavigator extends JComponent
 
 					if (FlagRotCircNeg == 1)
 						{RotCircNeg(); FlagAlteracaoStatus = 1;}
-
-					if (DinamicKey == 1) DesenharEspaco(Comp);
 					}
 
 				if (StretchFlag == 1)
