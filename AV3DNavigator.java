@@ -2577,6 +2577,8 @@ public class AV3DNavigator extends JComponent
 
 							FrameLendoEspaco.setVisible(true);
 
+							FlagRotTetaPos = 0; FlagRotTetaNeg = 0; FlagRotPhiPos = 0; FlagRotPhiNeg = 0; FlagRotRotTetaPos = 0; FlagRotRotTetaNeg = 0; FlagRotRotPhiPos = 0; FlagRotRotPhiNeg = 0; FlagRotCircPos = 0; FlagRotCircNeg = 0;
+
 							String EspacoT = LerEspaco (selectedFile.getAbsolutePath(), Debug);
 
 							try {Thread.sleep(100);} catch(InterruptedException e) {}
