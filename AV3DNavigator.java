@@ -2194,56 +2194,6 @@ public class AV3DNavigator extends JComponent
 
 						ReadINI();
 
-						// Atualizando frame principal.
-
-						LabelStatus = new GradientLabel("", new Color(CorJanelaR, CorJanelaG, CorJanelaB), new Color(CorJanelaGradienteR, CorJanelaGradienteG, CorJanelaGradienteB), new Color(CorFonteJanelaR, CorFonteJanelaG, CorFonteJanelaB), 1);
-						LabelStatus.setBorder(new EmptyBorder(5, 5, 5, 5));
-						LabelStatus.setFont(new Font("DialogInput", Font.BOLD | Font.ITALIC, TamanhoFonteLabelStatus));
-						LabelURL = new GradientLabel("<html>" + URL + "</html>", Color.WHITE, Color.BLACK, Color.BLUE, 0);
-						LabelURL.setBorder(new EmptyBorder(5, 5, 5, 5));
-						LabelURL.setFont(new Font("Monospaced", Font.BOLD | Font.ITALIC, TamanhoFonteLabelURL));
-						LabelStatus.setPreferredSize(new Dimension(TamanhoPlanoX, TamanhoEspacoLabelStatus));
-						LabelStatus.setSize(new Dimension(TamanhoPlanoX, TamanhoEspacoLabelStatus));
-						LabelStatusLabelURLPanel = new JPanel(new GridBagLayout());
-						GridBagConstraintsLabelStatusLabelURL = new GridBagConstraints();
-						GridBagConstraintsLabelStatusLabelURL.gridx = 0;
-						GridBagConstraintsLabelStatusLabelURL.gridy = 0;
-						GridBagConstraintsLabelStatusLabelURL.fill = GridBagConstraints.BOTH;
-						GridBagConstraintsLabelStatusLabelURL.weightx = TamanhoPlanoX;
-						GridBagConstraintsLabelStatusLabelURL.weighty = TamanhoEspacoLabelStatus;
-						LabelStatusLabelURLPanel.add(LabelStatus, GridBagConstraintsLabelStatusLabelURL);
-						GridBagConstraintsLabelStatusLabelURL.gridx = 0;
-						GridBagConstraintsLabelStatusLabelURL.gridy = 1;
-						GridBagConstraintsLabelStatusLabelURL.fill = GridBagConstraints.BOTH;
-						GridBagConstraintsLabelStatusLabelURL.weightx = TamanhoPlanoX;
-						GridBagConstraintsLabelStatusLabelURL.weighty = TamanhoEspacoLabelURL;
-						LabelStatusLabelURLPanel.add(LabelURL, GridBagConstraintsLabelStatusLabelURL);
-						FrameEspaco.getContentPane().add(LabelStatusLabelURLPanel, BorderLayout.SOUTH);
-
-						// Atualizando frame rendering.
-
-						CompRendering.CorJanelaR = CorJanelaR;
-						CompRendering.CorJanelaG = CorJanelaG;
-						CompRendering.CorJanelaB = CorJanelaB;
-
-						FrameRendering.dispose();
-						FrameRendering = new JFrame("Renderizando...");
-
-						TamanhoRenderingY = Math.max(TamanhoRenderingY, 2 * RadiusRenderingCircle + 4 + FrameRendering.getInsets().top);
-
-						FrameRendering.setPreferredSize(new Dimension(TamanhoRenderingX + 2 * RadiusRenderingCircle + 4, TamanhoRenderingY));
-						FrameRendering.setSize(new Dimension(TamanhoRenderingX + 2 * RadiusRenderingCircle + 4, TamanhoRenderingY));
-						FrameRendering.setResizable(false);
-						CompRendering.setPreferredSize(new Dimension(2 * RadiusRenderingCircle + 4, TamanhoRenderingY));
-						CompRendering.setSize(new Dimension(2 * RadiusRenderingCircle + 4, TamanhoRenderingY));
-						FrameRendering.getContentPane().add(CompRendering, BorderLayout.LINE_START);
-						LabelRendering = new GradientLabel("Renderizando... 0 %", new Color(CorJanelaR, CorJanelaG, CorJanelaB), new Color(CorJanelaGradienteR, CorJanelaGradienteG, CorJanelaGradienteB), new Color(CorFonteJanelaR, CorFonteJanelaG, CorFonteJanelaB), 0);
-						LabelRendering.setBorder(new EmptyBorder(5, 5, 5, 5));
-						LabelRendering.setFont(new Font("DialogInput", Font.BOLD | Font.ITALIC, TamanhoFonteRendering));
-						FrameRendering.add(LabelRendering);
-						FrameRendering.pack();
-						FrameRendering.setVisible(false);
-
 						DinamicKey = 1;
 
 						break;
