@@ -2075,7 +2075,10 @@ public class AV3DNavigator extends JComponent
 					}
 				}
 			else
+				{
 				MouseSensi -= 0.1 * e.getWheelRotation();
+				FlagAlteracaoStatus = 1;
+				}
 			});
 
 		FrameEspaco.addKeyListener(new KeyListener()
