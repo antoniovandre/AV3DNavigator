@@ -19,7 +19,6 @@ int main (int argc, char * argv[])
 	long double raiominutos = 3;
 	long double raiohoras = 2;
 	long double espessura = 1;
-	int i;
 
 	printf("@");
 
