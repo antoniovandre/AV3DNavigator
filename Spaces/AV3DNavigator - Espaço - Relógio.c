@@ -5,7 +5,7 @@ Av3DNavigator: "https://github.com/antoniovandre/AV3DNavigator".
 
 Arquivo gerador do "AV3DNavigator - Espaço - Relógio.txt".
 
-Última atualização: -15-08-2024. Não considerando alterações em variáveis globais.
+Última atualização: 19-09-2025. Não considerando alterações em variáveis globais.
 */
 
 #include <stdio.h>
@@ -26,27 +26,27 @@ int main (int argc, char * argv[])
 
 	for (i = 0; i < resolucao; i++)
 		{
-		printf("0divisor%Lf%s%Lf) + %Lf)divisor%Lf%s%Lf) + %Lf)DIVISOR0divisor%Lf%s%Lf) - %Lf)divisor%Lf%s%Lf) - %Lf)DIVISOR", espessura / 2, " * cos((AV3DNPTS * ", (long double) M_PI / 30, (long double) M_PI_2, espessura / 2, " * sin((AV3DNPTS * ", (long double) M_PI / 30, (long double) M_PI_2, espessura / 2, " * cos((AV3DNPTS * ", (long double) M_PI / 30, (long double) M_PI_2, espessura / 2, " * sin((AV3DNPTS * ", (long double) M_PI / 30, (long double) M_PI_2);
+		printf("9divisor%Lf%s)divisor%Lf%s)DIVISOR9divisor%Lf%s)divisor%Lf%s)DIVISOR", espessura / 2, " * cos((pi/2 + AV3DNPTS * pi/30) + pi/2", espessura / 2, " * sin((pi/2 + AV3DNPTS * pi/30) + pi/2", espessura / 2, " * cos((pi/2 + AV3DNPTS * pi/30) - pi/2", espessura / 2, " * sin((pi/2 + AV3DNPTS * pi/30) - pi/2");
 
 		fflush(stdout);
 
-		printf("0divisor%Lf%s%Lf)divisor%Lf%s%Lf)color255divisor0divisor0|", raiosegundos, " * cos(AV3DNPTS * ", (long double) M_PI / 30, raiosegundos, " * sin(AV3DNPTS * ", (long double) M_PI / 30);
+		printf("9divisor%Lf%s)divisor%Lf%s)color255divisor0divisor0|", raiosegundos, " * cos(pi/2 + AV3DNPTS * pi/30", raiosegundos, " * sin(pi/2 + AV3DNPTS * pi/30");
 
 		fflush(stdout);
 
-		printf("-0.5divisor%Lf%s%Lf) + %Lf)divisor%Lf%s%Lf) + %Lf)DIVISOR-0.5divisor%Lf%s%Lf) - %Lf)divisor%Lf%s%Lf) - %Lf)DIVISOR", espessura / 2, " * cos((AV3DNPTM * ", (long double) M_PI / 30, (long double) M_PI_2, espessura / 2, " * sin((AV3DNPTM * ", (long double) M_PI / 30, (long double) M_PI_2, espessura / 2, " * cos((AV3DNPTM * ", (long double) M_PI / 30, (long double) M_PI_2, espessura / 2, " * sin((AV3DNPTM * ", (long double) M_PI / 30, (long double) M_PI_2);
+		printf("8divisor%Lf%s)divisor%Lf%s)DIVISOR8divisor%Lf%s)divisor%Lf%s)DIVISOR", espessura / 2, " * cos((pi/2 + AV3DNPTM * pi/30) + pi/2", espessura / 2, " * sin((pi/2 + AV3DNPTM * pi/30 + AV3DNPTS * pi/1800) + pi/2", espessura / 2, " * cos((pi/2 + AV3DNPTM * pi/30 + AV3DNPTS * pi/1800) - pi/2", espessura / 2, " * sin((pi/2 + AV3DNPTM * pi/30 + AV3DNPTS * pi/1800) - pi/2");
 
 		fflush(stdout);
 
-		printf("-0.5divisor%Lf%s%Lf)divisor%Lf%s%Lf)color0divisor255divisor0|", raiominutos, " * cos(AV3DNPTM * ", (long double) M_PI / 30, raiominutos, " * sin(AV3DNPTM * ", (long double) M_PI / 30);
+		printf("8divisor%Lf%s)divisor%Lf%s)color0divisor255divisor0|", raiominutos, " * cos(pi/2 + AV3DNPTM * pi/30 + AV3DNPTS * pi/1800", raiominutos, " * sin(pi/2 + AV3DNPTM * pi/30 + AV3DNPTS * pi/1800");
 
 		fflush(stdout);
 
-		printf("-1divisor%Lf%s%Lf) + %Lf)divisor%Lf%s%Lf) + %Lf)DIVISOR-1divisor%Lf%s%Lf) - %Lf)divisor%Lf%s%Lf) - %Lf)DIVISOR", espessura / 2, " * cos((AV3DNPTH * ", (long double) M_PI / 30, (long double) M_PI_2, espessura / 2, " * sin((AV3DNPTH * ", (long double) M_PI / 30, (long double) M_PI_2, espessura / 2, " * cos((AV3DNPTH * ", (long double) M_PI / 30, (long double) M_PI_2, espessura / 2, " * sin((AV3DNPTH * ", (long double) M_PI / 30, (long double) M_PI_2);
+		printf("7divisor%Lf%s)divisor%Lf%s)DIVISOR7divisor%Lf%s)divisor%Lf%s)DIVISOR", espessura / 2, " * cos((pi/2 + AV3DNPTH * pi/6 + AV3DNPTM * pi/360) + pi/2", espessura / 2, " * sin((pi/2 + AV3DNPTH * pi/6 + AV3DNPTM * pi/360) + pi/2", espessura / 2, " * cos((pi/2 + AV3DNPTH * pi/6) - pi/2", espessura / 2, " * sin((pi/2 + AV3DNPTH * pi/6 + AV3DNPTM * pi/360) - pi/2");
 
 		fflush(stdout);
 
-		printf("-1divisor%Lf%s%Lf)divisor%Lf%s%Lf)color255divisor255divisor0|", raiohoras, " * cos(AV3DNPTH * ", (long double) M_PI / 30, raiominutos, " * sin(AV3DNPTH * ", (long double) M_PI / 30);
+		printf("7divisor%Lf%s)divisor%Lf%s)color255divisor255divisor0|", raiohoras, " * cos(pi/2 + AV3DNPTH * pi/6 + AV3DNPTM * pi/360", raiohoras, " * sin(pi/2 + AV3DNPTH * pi/6 + AV3DNPTM * pi/360");
 
 		fflush(stdout);
 		}
