@@ -26,7 +26,7 @@ int main (int argc, char * argv[])
 
 	for (i = 0; i < resolucao; i++)
 		{
-		printf("9divisor%Lf%s)divisor%Lf%s)DIVISOR9divisor%Lf%s)divisor%Lf%s)DIVISOR", espessura / 2, " * cos((pi/2 + AV3DNPTS * pi/30) + pi/2", espessura / 2, " * sin((pi/2 + AV3DNPTS * pi/30) + pi/2", espessura / 2, " * cos((pi/2 + AV3DNPTS * pi/30) - pi/2", espessura / 2, " * sin((pi/2 + AV3DNPTS * pi/30) - pi/2");
+		printf("9divisor%Lf%s)divisor%Lf%s)DIVISOR9divisor%Lf%s)divisor%Lf%s)DIVISOR", espessura / 2, " * cos(pi + AV3DNPTS * pi/30", espessura / 2, " * sin(pi + AV3DNPTS * pi/30", espessura / 2, " * cos(AV3DNPTS * pi/30", espessura / 2, " * sin(AV3DNPTS * pi/30");
 
 		fflush(stdout);
 
@@ -34,7 +34,7 @@ int main (int argc, char * argv[])
 
 		fflush(stdout);
 
-		printf("8divisor%Lf%s)divisor%Lf%s)DIVISOR8divisor%Lf%s)divisor%Lf%s)DIVISOR", espessura / 2, " * cos((pi/2 + AV3DNPTM * pi/30) + pi/2", espessura / 2, " * sin((pi/2 + AV3DNPTM * pi/30 + AV3DNPTS * pi/1800) + pi/2", espessura / 2, " * cos((pi/2 + AV3DNPTM * pi/30 + AV3DNPTS * pi/1800) - pi/2", espessura / 2, " * sin((pi/2 + AV3DNPTM * pi/30 + AV3DNPTS * pi/1800) - pi/2");
+		printf("8divisor%Lf%s)divisor%Lf%s)DIVISOR8divisor%Lf%s)divisor%Lf%s)DIVISOR", espessura / 2, " * cos(pi + AV3DNPTM * pi/30", espessura / 2, " * sin(pi + AV3DNPTM * pi/30 + AV3DNPTS * pi/1800", espessura / 2, " * cos(AV3DNPTM * pi/30 + AV3DNPTS * pi/1800", espessura / 2, " * sin(AV3DNPTM * pi/30 + AV3DNPTS * pi/1800");
 
 		fflush(stdout);
 
@@ -42,7 +42,7 @@ int main (int argc, char * argv[])
 
 		fflush(stdout);
 
-		printf("7divisor%Lf%s)divisor%Lf%s)DIVISOR7divisor%Lf%s)divisor%Lf%s)DIVISOR", espessura / 2, " * cos((pi/2 + AV3DNPTH * pi/6 + AV3DNPTM * pi/360) + pi/2", espessura / 2, " * sin((pi/2 + AV3DNPTH * pi/6 + AV3DNPTM * pi/360) + pi/2", espessura / 2, " * cos((pi/2 + AV3DNPTH * pi/6) - pi/2", espessura / 2, " * sin((pi/2 + AV3DNPTH * pi/6 + AV3DNPTM * pi/360) - pi/2");
+		printf("7divisor%Lf%s)divisor%Lf%s)DIVISOR7divisor%Lf%s)divisor%Lf%s)DIVISOR", espessura / 2, " * cos(pi + AV3DNPTH * pi/6 + AV3DNPTM * pi/360", espessura / 2, " * sin(pi + AV3DNPTH * pi/6 + AV3DNPTM * pi/360", espessura / 2, " * cos(AV3DNPTH * pi/6", espessura / 2, " * sin(AV3DNPTH * pi/6 + AV3DNPTM * pi/360");
 
 		fflush(stdout);
 
