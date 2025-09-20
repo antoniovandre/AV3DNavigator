@@ -5,10 +5,11 @@ Av3DNavigator: "https://github.com/antoniovandre/AV3DNavigator".
 
 Arquivo gerador do "AV3DNavigator - Espaço - Relógio.txt".
 
-Última atualização: 19-09-2025. Não considerando alterações em variáveis globais.
+Última atualização: 20-09-2025. Não considerando alterações em variáveis globais.
 */
 
 #include <stdio.h>
+#include <math.h>
 
 int main (int argc, char * argv[])
 	{
@@ -16,6 +17,27 @@ int main (int argc, char * argv[])
 	long double raiominutos = 3;
 	long double raiohoras = 2;
 	long double espessura = 1;
+	long double raiomax = 0;
+	int i;
+
+	if (raiosegundos > raiomax) raiomax = raiosegundos;
+	if (raiominutos > raiomax) raiomax = raiominutos;
+	if (raiohoras > raiomax) raiomax = raiohoras;
+
+	for (i = 0; i < 12; i++)
+		{
+		printf("8divisor%Lf * cos(%Lf)divisor%Lf * sin(%Lf)DIVISOR", (long double) (raiomax + 0.3), (long double) (i * M_PI / 6), (long double) (raiomax + 0.3), (long double) (i * M_PI / 6));
+
+		fflush(stdout);
+
+		printf("8divisor%Lf * cos(%Lf)divisor%Lf * sin(%Lf)color0divisor255divisor0", (long double) (raiomax + 0.3), (long double) ((i + 1) * M_PI / 6), (long double) (raiomax + 0.3), (long double) ((i + 1) * M_PI / 6));
+
+		fflush(stdout);
+
+		if (i < 11) printf("|");
+
+		fflush(stdout);
+		}
 
 	printf("@");
 
