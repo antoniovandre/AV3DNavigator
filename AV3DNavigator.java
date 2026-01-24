@@ -11,7 +11,7 @@
  * 
  * Licença de uso: Creative Commons Attribution Non-Commercial License V2.0.
  * 
- * Última atualização: 22-01-2026. Não considerando alterações em variáveis globais.
+ * Última atualização: 24-01-2026. Não considerando alterações em variáveis globais.
  */
 
 import java.lang.IllegalThreadStateException;
@@ -4829,7 +4829,7 @@ public class AV3DNavigator extends JComponent
 
 					ProdutoEscalard = xd * Math.cos(Tetat) * Math.cos(Phit) - yd * Math.sin(Tetat) * Math.cos(Phit) - zd * Math.sin(Phit);
 
-					if ((Math.abs(Math.acos(ProdutoEscalaro / Math.sqrt(xo * xo + yo * yo + zo * zo) / DistanciaTela)) < AnguloVisao + MargemAnguloVisao) && ((Math.abs(Math.acos(ProdutoEscalard / Math.sqrt(xd * xd + yd * yd + zd * zd) / DistanciaTela)) < AnguloVisao + MargemAnguloVisao)))
+					if ((Math.abs(Math.acos(ProdutoEscalaro / Math.sqrt(xo * xo + yo * yo + zo * zo))) < AnguloVisao + MargemAnguloVisao) && ((Math.abs(Math.acos(ProdutoEscalard / Math.sqrt(xd * xd + yd * yd + zd * zd))) < AnguloVisao + MargemAnguloVisao)))
 						{
 						if (TotalLinhas + 1 < Integer.MAX_VALUE)
 							TotalLinhas++;
@@ -4946,7 +4946,7 @@ public class AV3DNavigator extends JComponent
 
 					try
 						{
-						if ((ApfloatMath.abs(ApfloatMath.acos(ProdutoEscalaroa.divide(ApfloatMath.sqrt(xoa.multiply(xoa).add(yoa.multiply(yoa)).add(zoa.multiply(zoa)))).divide(new Apfloat(DistanciaTela, PrecisaoApfloat)))).doubleValue() < AnguloVisao + MargemAnguloVisao) && (ApfloatMath.abs(ApfloatMath.acos(ProdutoEscalarda.divide(ApfloatMath.sqrt(xda.multiply(xda).add(yda.multiply(yoa)).add(zda.multiply(zoa)))).divide(new Apfloat(DistanciaTela, PrecisaoApfloat)))).doubleValue() < AnguloVisao + MargemAnguloVisao))
+						if ((ApfloatMath.abs(ApfloatMath.acos(ProdutoEscalaroa.divide(ApfloatMath.sqrt(xoa.multiply(xoa).add(yoa.multiply(yoa)).add(zoa.multiply(zoa)))))).doubleValue() < AnguloVisao + MargemAnguloVisao) && (ApfloatMath.abs(ApfloatMath.acos(ProdutoEscalarda.divide(ApfloatMath.sqrt(xda.multiply(xda).add(yda.multiply(yoa)).add(zda.multiply(zoa)))))).doubleValue() < AnguloVisao + MargemAnguloVisao))
 							{
 							if (TotalLinhas + 1 < Integer.MAX_VALUE)
 								TotalLinhas++;
@@ -5081,7 +5081,7 @@ public class AV3DNavigator extends JComponent
 
 						ProdutoEscalar = xp * Math.cos(Tetat) * Math.cos(Phit) - yp * Math.sin(Tetat) * Math.cos(Phit) - zp * Math.sin(Phit);
 
-						if ((Math.abs(Math.acos(ProdutoEscalar / Math.sqrt(xp * xp + yp * yp + zp * zp) / DistanciaTela)) < AnguloVisao + MargemAnguloVisao))
+						if ((Math.abs(Math.acos(ProdutoEscalar / Math.sqrt(xp * xp + yp * yp + zp * zp))) < AnguloVisao + MargemAnguloVisao))
 							{
 							ContadorPontos++;
 
@@ -5135,7 +5135,7 @@ public class AV3DNavigator extends JComponent
 
 						try
 							{
-							if (ApfloatMath.abs(ApfloatMath.acos(ProdutoEscalara.divide(ApfloatMath.sqrt(xpa.multiply(xpa).add(ypa.multiply(ypa)).add(zpa.multiply(ApfloatMath.sin(new Apfloat(Tetat, PrecisaoApfloat))).multiply(zpa)))).divide(new Apfloat(DistanciaTela, PrecisaoApfloat)))).doubleValue() < AnguloVisao + MargemAnguloVisao)
+							if (ApfloatMath.abs(ApfloatMath.acos(ProdutoEscalara.divide(ApfloatMath.sqrt(xpa.multiply(xpa).add(ypa.multiply(ypa)).add(zpa.multiply(ApfloatMath.sin(new Apfloat(Tetat, PrecisaoApfloat))).multiply(zpa)))))).doubleValue() < AnguloVisao + MargemAnguloVisao)
 								{
 								ContadorPontos++;
 
