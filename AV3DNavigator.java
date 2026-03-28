@@ -11,7 +11,7 @@
  * 
  * Licença de uso: Creative Commons Attribution Non-Commercial License V2.0.
  * 
- * Última atualização: 26-01-2026. Não considerando alterações em variáveis globais.
+ * Última atualização: 28-03-2026. Não considerando alterações em variáveis globais.
  */
 
 import java.lang.IllegalThreadStateException;
@@ -592,9 +592,9 @@ public class AV3DNavigator extends JComponent
 		int x3;
 		int y3;
 		Color color;
-		double zbuffer;
+		double pintor;
 
-		public TrianguloType(int x1, int y1, int x2, int y2, int x3, int y3, Color color, double zbuffer)
+		public TrianguloType(int x1, int y1, int x2, int y2, int x3, int y3, Color color, double pintor)
 			{
 			this.x1 = x1;
 			this.y1 = y1;
@@ -603,7 +603,7 @@ public class AV3DNavigator extends JComponent
 			this.x3 = x3;
 			this.y3 = y3;
 			this.color = color;
-			this.zbuffer = zbuffer;
+			this.pintor = pintor;
 			}			   
 		}
 
@@ -662,9 +662,9 @@ public class AV3DNavigator extends JComponent
 		if (n == Integer.MAX_VALUE) repaint();
 		}
 
-	public void addTriangulosShape(int x1, int y1, int x2, int y2, int x3, int y3, Color color, double zbuffer, int n)
+	public void addTriangulosShape(int x1, int y1, int x2, int y2, int x3, int y3, Color color, double pintor, int n)
 		{
-		TriangulosShape.add(new TrianguloType(x1, y1, x2, y2, x3, y3, color, zbuffer));
+		TriangulosShape.add(new TrianguloType(x1, y1, x2, y2, x3, y3, color, pintor));
 
 		// Último repaint para desenhar.
 
@@ -702,7 +702,7 @@ public class AV3DNavigator extends JComponent
 
 				for (i = 0; i < TamTriangulosShape; i++)
 					for (j = i + 1; j < TamTriangulosShape; j++)
-						if (TriangulosShape.get(j).zbuffer > TriangulosShape.get(i).zbuffer)
+						if (TriangulosShape.get(j).pintor > TriangulosShape.get(i).pintor)
 							{
 							TrianguloType TrianguloTemp = TriangulosShape.get(j);
 							TriangulosShape.set(j, TriangulosShape.get(i));
@@ -713,7 +713,7 @@ public class AV3DNavigator extends JComponent
 				Collections.sort(TriangulosShape, new Comparator<TrianguloType>()
 					{
 					public int compare(TrianguloType o1, TrianguloType o2)
-						{return ((int) (o2.zbuffer) - (int) (o1.zbuffer));}
+						{return ((int) (o2.pintor) - (int) (o1.pintor));}
 					});
 
 				Tpaint = Linhas.size();
