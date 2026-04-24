@@ -9177,9 +9177,10 @@ char * antoniovandre_eval (char * str, int precisao)
 				{
 				flag5 = NUMEROZERO;
 
-				for (k = NUMEROZERO; k < t; k++)
-					if (str4t [i] == antoniovandre_numeros [k])
-						{flag5 = NUMEROUM; break;}
+				if (str4 [i] != OPERADORSUBTRACAO)
+					for (k = NUMEROZERO; k < t; k++)
+						if (str4 [i] == antoniovandre_numeros [k])
+							{flag5 = NUMEROUM; break;}
 
 				if (flag5 == NUMEROZERO) break;
 				}
