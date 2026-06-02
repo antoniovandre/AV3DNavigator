@@ -7,7 +7,7 @@ Arquivo gerador de um espaço do AV3DNavigator superfície tridimensional por co
 
 Argumentos: 1: primeiramente a string título e, após barra vertical "|", strings separadas por barra vertical "|" com campos separados por ponto e vírgula ";", composta da função em "VARIAVELDESUBSTITUICAO3" e "VARIAVELDESUBSTITUICAO4" para "θ", função em "VARIAVELDESUBSTITUICAO3" e "VARIAVELDESUBSTITUICAO4" para "φ", função em "VARIAVELDESUBSTITUICAO3" e "VARIAVELDESUBSTITUICAO4" para "ρ", o menor valor atribuído a "VARIAVELDESUBSTITUICAO3", o maior valor atribuído a "VARIAVELDESUBSTITUICAO3", o menor valor atribuído a "VARIAVELDESUBSTITUICAO4", o maior valor atribuído a "V", e a cor RGB com os menores para vermelho, verde e azul separados por vírgula ",". 2: "grid" apenas para grid ou "fill" para polígonos preenchidos. 3: a resolução.
 
-Última atualização: 04-04-2025. Sem considerar alterações em variáveis globais.
+Última atualização: 02-06-2026. Sem considerar alterações em variáveis globais.
 */
 
 #include "antoniovandre_eval/antoniovandre.c"
@@ -88,9 +88,21 @@ int main (int argc, char * argv[])
 
 	int precisao = antoniovandre_precisao_real ();
 
-	char variavel1 = (char) ((int) strtold (antoniovandre_eval("system variaveldesubstituicao3", precisao), & err));
+	temp = (char *) malloc (MAXTAMANHOCAMPO);
 
-	char variavel2 = (char) ((int) strtold (antoniovandre_eval("system variaveldesubstituicao4", precisao), & err));
+	antoniovandre_copiarstring (temp, STRINGVAZIA);
+
+	antoniovandre_copiarstring (temp, "system variaveldesubstituicao3");
+
+	char variavel1 = (char) ((int) strtold (antoniovandre_eval(temp, precisao), & err));
+
+	temp = (char *) malloc (MAXTAMANHOCAMPO);
+
+	antoniovandre_copiarstring (temp, STRINGVAZIA);
+
+	antoniovandre_copiarstring (temp, "system variaveldesubstituicao4");
+
+	char variavel2 = (char) ((int) strtold (antoniovandre_eval(temp, precisao), & err));
 
 	for (i = NUMEROZERO; i < MAXTAMANHOCAMPO; i++) {mainstring[i] = '\0'; fillstring[i] = '\0'; resstring[i] = '\0'; mensagemerro[i] = '\0';}
 

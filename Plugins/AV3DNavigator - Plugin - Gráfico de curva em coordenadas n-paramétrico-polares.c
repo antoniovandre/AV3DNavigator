@@ -7,7 +7,7 @@ Arquivo gerador de um espaço do AV3DNavigator gráfico de curva em coordenadas 
 
 Argumentos: 1: primeiramente a string título e, após barra vertical "|", strings separadas por barra vertical "|" com campos separados por ponto e vírgula ";", composta dos pares de funções θ em "VARIAVELDESUBSTITUICAO3" e funções ρ em "VARIAVELDESUBSTITUICAO3" separadas por vírgula ",", o menor valor atribuído a "VARIAVELDESUBSTITUICAO3", o maior valor atribuído a "VARIAVELDESUBSTITUICAO3", os pontos de exclusões no intervalo separados por vírgula, e a cor RGB com os menores para vermelho, verde e azul separados por vírgula ",". 2: a resolução.
 
-Última atualização: 04-04-2025. Sem considerar alterações em variáveis globais.
+Última atualização: 02-06-2026. Sem considerar alterações em variáveis globais.
 */
 
 #include "antoniovandre_eval/antoniovandre.c"
@@ -65,7 +65,13 @@ int main (int argc, char * argv[])
 
 	int precisao = antoniovandre_precisao_real ();
 
-	char variavel = (char) ((int) strtold (antoniovandre_eval("system variaveldesubstituicao3", precisao), & err));
+	temp = (char *) malloc (MAXTAMANHOCAMPO);
+
+	antoniovandre_copiarstring (temp, STRINGVAZIA);
+
+	antoniovandre_copiarstring (temp, "system variaveldesubstituicao3");
+
+	char variavel = (char) ((int) strtold (antoniovandre_eval(temp, precisao), & err));
 
 	for (i = NUMEROZERO; i < MAXTAMANHOCAMPO; i++) mensagemerro[i] = '\0';
 
