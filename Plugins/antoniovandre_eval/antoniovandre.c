@@ -87,12 +87,12 @@ typedef long double TIPONUMEROREAL;
 
 typedef struct {TIPONUMEROREAL real; TIPONUMEROREAL img;} NUMEROCOMPLEXO; // Estrutura número complexo.
 
-#define ARQUIVO_MATHSOBRE "/home/antoniovandre/software_sources/C/Math/antoniovandre_sobre.txt"
+#define ARQUIVO_MATHSOBRE "antoniovandre_eval/Math/antoniovandre_sobre.txt"
 
-#define ARQUIVO_MATH_ESTATISTICAS "/home/antoniovandre/software_sources/C/Math/antoniovandre_math_estatisticas.txt"
+#define ARQUIVO_MATH_ESTATISTICAS "antoniovandre_eval/Math/antoniovandre_math_estatisticas.txt"
 #define ESCREVER_ESTATISTICAS VERDADE
 
-#define ARQUIVO_PRECISAO_REAL "/home/antoniovandre/software_sources/C/Math/antoniovandre_precisao_real.txt"
+#define ARQUIVO_PRECISAO_REAL "antoniovandre_eval/Math/antoniovandre_precisao_real.txt"
 
 // Definições internas.
 
