@@ -18,7 +18,7 @@ Argumentos: 1: primeiramente a string título e, após barra vertical "|", strin
 #define MAXTAMANHOCAMPO 1024
 
 #define EVALSOFTWARE "antoniovandre_eval"
-#define EVALSOFTWARETAIL " 0 2>> /dev/null \| tr -d ' ' \| tr -d '\n'"
+#define EVALSOFTWARETAIL " 0 2>> /dev/null | tr -d ' ' | tr -d '\n'"
 
 int main (int argc, char * argv[])
 	{

@@ -18,7 +18,7 @@ Argumentos: 1: primeiramente a string título e, após barra vertical "|", strin
 #define MAXTAMANHOCAMPO 1024
 
 #define EVALSOFTWARE "antoniovandre_eval"
-#define EVALSOFTWARETAIL " 0 2>> /dev/null \| tr -d ' ' \| tr -d '\n'"
+#define EVALSOFTWARETAIL " 0 2>> /dev/null | tr -d ' ' | tr -d '\n'"
 
 int main (int argc, char * argv[])
 	{
@@ -62,6 +62,7 @@ int main (int argc, char * argv[])
 	char mensagemerro [MAXTAMANHOCAMPO];
 	char tempstr [MAXTAMANHOCAMPO];
 	char * temp;
+	char * temp2;
 
 	int precisao = antoniovandre_precisao_real ();
 
@@ -189,7 +190,13 @@ int main (int argc, char * argv[])
 
 		menor[argi][l] = '\0';
 
-		temp = antoniovandre_eval(menor[argi], precisao);
+		temp2 = (char *) malloc (MAXTAMANHOCAMPO);
+
+		antoniovandre_copiarstring (temp2, STRINGVAZIA);
+
+		antoniovandre_copiarstring (temp2, menor[argi]);
+
+		temp = antoniovandre_eval(temp2, precisao);
 		menores[argi] = strtod(temp, &err);
 
 		if ((! strcmp(menor[argi], "")) || (err == temp)) {printf(mensagemerro); free(temp); return NUMEROUM;}
@@ -206,7 +213,13 @@ int main (int argc, char * argv[])
 
 		maior[argi][m] = '\0';
 
-		temp = antoniovandre_eval(maior[argi], precisao);
+		temp2 = (char *) malloc (MAXTAMANHOCAMPO);
+
+		antoniovandre_copiarstring (temp2, STRINGVAZIA);
+
+		antoniovandre_copiarstring (temp2, maior[argi]);
+
+		temp = antoniovandre_eval(temp2, precisao);
 		maiores[argi] = strtod(temp, &err);
 
 		if ((! strcmp(maior[argi], "")) || (err == temp)) {printf(mensagemerro); free(temp); return NUMEROUM;}
