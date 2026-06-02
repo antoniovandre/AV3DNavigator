@@ -7,7 +7,7 @@ Arquivo gerador de um espaço do AV3DNavigator gráfico de função.
 
 Argumentos: 1: primeiramente a string título e, após barra vertical "|", strings separadas por barra vertical "|" com campos separados por ponto e vírgula ";", composta da função em "Y", o menor valor atribuído a "Y", o maior valor atribuído a "Y", os pontos de exclusões no intervalo separados por vírgula, e a cor RGB com os menores para vermelho, verde e azul separados por vírgula ",". 2: a resolução.
 
-Última atualização: 06-08-2024. Sem considerar alterações em variáveis globais.
+Última atualização: 02-06-2026. Sem considerar alterações em variáveis globais.
 */
 
 #include "antoniovandre_eval/antoniovandre.c"
@@ -18,7 +18,7 @@ Argumentos: 1: primeiramente a string título e, após barra vertical "|", strin
 #define MAXTAMANHOCAMPO 1024
 
 #define EVALSOFTWARE "antoniovandre_eval"
-#define EVALSOFTWARETAIL " 0 2>> /dev/null \| tr -d ' ' \| tr -d '\n'"
+#define EVALSOFTWARETAIL " 0 2>> /dev/null | tr -d ' ' | tr -d '\n'"
 
 int main (int argc, char * argv[])
 	{
